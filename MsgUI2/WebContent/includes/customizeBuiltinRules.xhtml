@@ -1,0 +1,90 @@
+<!DOCTYPE html [
+    <!ENTITY nbsp "&#160;"> 
+]>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:messages styleClass="errors" layout="list" rendered="#{debug.showMessages}"/>
+<h:outputFormat value="#{msgs.customizeBuiltinRules}" styleClass="gridHeader">
+   <f:param value=""/>
+</h:outputFormat>
+<h:dataTable id="data_table" value="#{builtinRule.all}" var="rule" 
+   styleClass="jsfDataTable" 
+   headerClass="dataTableHeader" columnClasses="oddColumns, evenColumns">
+   
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.ruleNameHeader}"/>
+      </f:facet>
+   	  <h:outputText value="#{rule.ruleName}" title="#{rule.ruleName}_ruleName"/>
+   </h:column>
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.ruleActionsHeader}"/>
+      </f:facet>
+      <div class="cellHeight">
+      <h:commandLink title="#{rule.ruleName}_viewActions">
+        <ui:param name="hasMsgActions" value="#{builtinRule.hasMsgActions(rule.ruleName)}" />
+      	<h:outputText value="Create" title="Click to Creat Actions"
+      		rendered="#{not hasMsgActions}"/>
+      	<h:outputText value="Edit" title="Click to Edit Actions"
+      		rendered="#{hasMsgActions}"/>
+      	<f:param name="ruleName" value="#{rule.ruleName}"/>
+      	<f:ajax listener="#{builtinRule.viewMsgActionsListener}" render="@form" />
+      </h:commandLink>
+      </div>
+   </h:column>
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.isSubRuleHeader}"/>
+      </f:facet>
+      <h:outputText value="#{rule.subrule}" title="#{rule.ruleName}_subrule"/>
+   </h:column>
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.ruleTypeHeader}"/>
+      </f:facet>
+      <h:outputText value="#{rule.ruleType}" title="#{rule.ruleName}_ruleType"/>
+   </h:column>
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.startTimeHeader}"/>
+      </f:facet>
+      <h:outputText value="#{rule.startTime}" title="#{rule.ruleName}_startTime">
+      	<f:convertDateTime pattern="MM/dd/yyyy HH:mm"/>
+      </h:outputText>
+   </h:column>
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.mailTypeHeader}"/>
+      </f:facet>
+      <h:outputText value="#{rule.mailType}" title="#{rule.ruleName}_mailType"/>
+   </h:column>
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.statusIdHeader}"/>
+      </f:facet>
+      <h:outputText value="#{rule.statusIdDesc}" title="#{rule.ruleName}_statusId"/>
+   </h:column>
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.ruleCategoryHeader}"/>
+      </f:facet>
+      <h:outputText value="#{rule.ruleCategoryDesc}" title="#{rule.ruleName}_category"/>
+   </h:column>
+</h:dataTable>
+<f:verbatim><p/></f:verbatim>
+<h:panelGrid columns="2" styleClass="commandBar"
+	columnClasses="alignLeft70, alignRight30">
+	<h:panelGroup>
+		<h:commandButton value="#{msgs.refreshFromDB}" title="Refresh from database" >
+			<f:ajax event="click" listener="#{builtinRule.refreshListener}" render="data_table" />
+		</h:commandButton>
+	</h:panelGroup>
+	<h:panelGroup>
+		<f:verbatim>&nbsp;</f:verbatim>
+	</h:panelGroup>
+</h:panelGrid>
+</html>

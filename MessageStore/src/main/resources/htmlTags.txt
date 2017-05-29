@@ -1,0 +1,103 @@
+<!-- ••• -->
+<!DOCTYPE ...>
+<A ...>
+<ADDRESS>
+<APP ...>
+<APPLET ...>
+<AREA ...>
+<B>
+<BASE ...>
+<BASEFONT ...>
+<BGSOUND ...>
+<BIG>
+<BLINK>
+<BLOCKQUOTE ...>
+<BODY ...>
+<BR ...>
+<BUTTON ...>
+<CAPTION ...>
+<CENTER ...>
+<CITE>
+<CODE>
+<COL ...>
+<COMMENT>
+<DD>
+<DEL>
+<DFN>
+<DIR ...>
+<DIV ...>
+<DL ...>
+<DT>
+<EM>
+<EMBED ...>
+<FIELDSET>
+<FONT ...>
+<FORM ...>
+<FRAME ...>
+<FRAMESET ...>
+<H1 ...>
+<H2 ...>
+<H3 ...>
+<H4 ...>
+<H5 ...>
+<H6 ...>
+<HEAD>
+<HR ...>
+<HTML>
+<HTMLPLUS ...>
+<HYPE>
+<I>
+<IFRAME ...>
+<IMG ...>
+<INPUT ...>
+<INS>
+<ISINDEX ...>
+<KBD>
+<LABEL ...>
+<LEGEND ...>
+<LI ...>
+<LINK ...>
+<LISTING>
+<MAP ...>
+<MARQUEE ...>
+<MENU ...>
+<META ...>
+<MULTICOL ...>
+<NOBR>
+<NOEMBED>
+<NOFRAMES>
+<NOSCRIPT>
+<OL ...>
+<OPTION ...>
+<P ...>
+<PARAM ...>
+<PLAINTEXT>
+<PRE ...>
+<S>
+<SAMP>
+<SCRIPT ...>
+<SELECT ...>
+<SMALL>
+<SOUND ...>
+<SPACER ...>
+<SPAN ...>
+<STRIKE>
+<STRONG>
+<STYLE ...>
+<SUB>
+<SUP> 
+<TABLE ...>
+<TBODY ...>
+<TD ...>
+<TEXTAREA ...>
+<TFOOT ...>
+<TH ...>
+<THEAD ...>
+<TITLE>	 
+<TR ...>
+<TT>
+<U>
+<UL ...>
+<VAR>
+<WBR>
+<XMP>

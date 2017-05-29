@@ -1,0 +1,7 @@
+# JBoss 7.1 jndi.properties
+java.naming.factory.initial=org.jboss.naming.remote.client.InitialContextFactory
+java.naming.factory.url.pkgs=org.jboss.ejb.client.naming
+java.naming.provider.url=remote://localhost:4447
+# !!! change me
+java.naming.security.principal=appuser
+java.naming.security.credentials=apppswd

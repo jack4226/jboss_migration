@@ -1,0 +1,129 @@
+Return-Path: <>
+To: JWang@nc.rr.com
+From: Mail Administrator <Postmaster@mail.rr.com>
+Reply-To: <Postmaster@mail.rr.com>
+Subject: Mail System Error - Returned Mail
+Date: Fri, 27 Jun 2008 01:08:09 +0000
+Message-ID: <20080627010809.YDGJ2063.cdptpa-omta02.mail.rr.com@cdptpa-omta02>
+MIME-Version: 1.0
+Content-Type: multipart/report;
+		report-type=delivery-status;
+		Boundary="===========================_ _= 541687(2063)1214528889"
+
+
+--===========================_ _= 541687(2063)1214528889
+Content-Type: text/plain
+
+This Message was undeliverable due to the following reason:
+
+Your message was not delivered because the destination computer refused
+to accept it (the error message is reproduced below).  This type of error
+is usually due to a mis-configured account or mail delivery system on the
+destination computer; however, it could be caused by your message since
+some mail systems refuse messages with invalid header information, or if
+they are too large.
+
+Your message was rejected by a.mx.mail.yahoo.com for the following reason:
+
+     delivery error: dd This user doesn't have a yahoo.com account (unknown.useraddress@yahoo.com) [0] - mta522.mail.mud.yahoo.com
+
+The following recipients did not receive this message:
+
+     <unknown.useraddress@yahoo.com>
+
+The following websites may contain more information to assist you:
+
+http://help.rr.com/HMSLogic/rrmail.aspx
+
+http://security.rr.com/help.htm
+
+http://security.rr.com/contact.htm
+
+Please do not reply to this message, as it will go to an unread
+mailbox
+
+--===========================_ _= 541687(2063)1214528889
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; cdptpa-omta02.mail.rr.com
+Arrival-Date: Fri, 27 Jun 2008 01:08:08 +0000
+Received-From-MTA: dns; c2d4500 (24.163.69.51)
+
+Final-Recipient: RFC822; <unknown.useraddress@yahoo.com>
+Action: failed
+Status: 5.3.0
+Remote-MTA: dns; a.mx.mail.yahoo.com (209.191.118.103)
+Diagnostic-Code: smtp; 554 delivery error: dd This user doesn't have a yahoo.com account (unknown.useraddress@yahoo.com) [0] - mta522.mail.mud.yahoo.com
+
+--===========================_ _= 541687(2063)1214528889
+Content-Type: message/rfc822
+
+Received: from c2d4500 ([24.163.69.51]) by cdptpa-omta02.mail.rr.com
+          with ESMTP
+          id <20080627010808.YDGG2063.cdptpa-omta02.mail.rr.com@c2d4500>
+          for <unknown.useraddress@yahoo.com>;
+          Fri, 27 Jun 2008 01:08:08 +0000
+Return-Path: <bounce-10.00012396.0-unknown.useraddress=yahoo.com@jackwng.dyndns.org>
+Date: Thu, 26 Jun 2008 21:07:51 -0400 (EDT)
+From: JWang@nc.rr.com
+To: unknown.useraddress@yahoo.com
+Message-ID: <24996546.61214528872171.JavaMail.jwang@c2d4500>
+Subject: Re:Re:Re:test to itself
+MIME-Version: 1.0
+Content-Type: TEXT/HTML; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+X-Email_Id: 10.00010301.0
+X-Msg_Id: 136
+X-MsgRef_Id: 132
+X-Rule_Name: SEND_MAIL
+X-Use_Secure_Smtp: No
+X-Save_Raw_Stream: Yes
+X-Embed_Email_Id: Yes
+X-Override_Test_Addr: No
+X-Priority: 2 (Normal)
+X-Mailer: MailSender
+Content-Disposition: inline
+
+
+
+
+System Email Id: 10.00010301.0
+
+--- Jack Wang <df153@aim.com> wrote:
+
+> From: Jack Wang <df153@aim.com>
+> To: JWang@nc.rr.com
+> Date: Thu Jun 26 21:05:22 EDT 2008
+> Subject: Re:Re:test to itself
+
+---------------------------------
+
+
+
+System Email Id: 10.00010698.0
+
+--- Jack Wang <df153@aim.com> wrote:
+
+> From: Jack Wang <df153@aim.com>
+> To: df153@aim.com
+> Date: Thu Jun 26 20:58:01 EDT 2008
+> Subject: Re:test to itself
+
+---------------------------------
+
+
+
+System Email Id: 10.00011225.0
+
+--- df153@aim.com wrote:
+
+> From: df153@aim.com
+> To: df153@aim.com
+> Date: Thu Jun 26 19:26:03 EDT 2008
+> Subject: test to itself
+
+---------------------------------
+<font face="Arial, Helvetica, sans-serif">test message.<br>
+</font><div id='u8CAA5FB222C7060-12A4-1EBC' class='aol_ad_footer'><FONT style="color: black; font: normal 10pt ARIAL, SAN-SERIF;"><HR style="MARGIN-TOP: 10px"><A title="http://toolbar.aol.com/moviefone/download.html?ncid=aolcmp00050000000011" href="http://toolbar.aol.com/moviefone/download.html?ncid=aolcmp00050000000011" target="_blank">Get the Moviefone Toolbar</A>. Showtimes, theaters, movie news, & more!</FONT> </div>
+
+--===========================_ _= 541687(2063)1214528889--

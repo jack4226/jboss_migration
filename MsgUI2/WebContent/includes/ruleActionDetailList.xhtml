@@ -1,0 +1,92 @@
+<!DOCTYPE html [
+    <!ENTITY nbsp "&#160;"> 
+]>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:messages styleClass="errors" layout="list" rendered="#{debug.showMessages}"/>
+<h:outputFormat value="#{msgs.maintainActionDetails}" styleClass="gridHeader">
+   <f:param value=""/>
+</h:outputFormat>
+<h:dataTable id="data_table" value="#{ruleAction.all}" var="actiondetail" 
+   styleClass="jsfDataTable" headerClass="dataTableHeader" binding="#{table}"
+   rowClasses="oddRows, evenRows">
+   
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.deleteColumnHeader}"/>
+      </f:facet>
+      <h:selectBooleanCheckbox value="#{actiondetail.markedForDeletion}" title="#{table.rowIndex}_checkBox"
+         disabled="#{not actiondetail.editable}">
+         <f:ajax event="click" render="@form" />
+      </h:selectBooleanCheckbox>
+   </h:column>
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.actionIdHeader}"/>
+      </f:facet>
+      <h:commandLink title="#{table.rowIndex}_viewDetail">
+      	<h:outputText value="#{actiondetail.actionId}" title="Click to Edit"/>
+      	<f:param name="actionDetailId" value="#{actiondetail.actionId}"/>
+      	<f:ajax listener="#{ruleAction.viewMsgActionDetailListener}" render="@form" />
+      </h:commandLink>
+   </h:column>
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.descriptionHeader}"/>
+      </f:facet>
+      <div class="cellHeight">
+      <h:outputText value="#{actiondetail.description}" title="#{table.rowIndex}_description"/>
+      </div>
+   </h:column>
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.processBeanIdHeader}"/>
+      </f:facet>
+      <div class="cellHeight">
+      <h:outputText value="#{actiondetail.serviceName}" title="#{table.rowIndex}_serviceName"/>
+      </div>
+   </h:column>
+   <![CDATA[h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.processClassNameHeader}"/>
+      </f:facet>
+      <h:outputText value="#{actiondetail.processClassName}"/>
+   </h:column]]>
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.dataTypeHeader}"/>
+      </f:facet>
+      <h:outputText value="#{actiondetail.ruleDataType.dataType}" title="#{table.rowIndex}_dataType"/>
+   </h:column>
+</h:dataTable>
+<f:verbatim><p/></f:verbatim>
+<h:panelGrid columns="2" styleClass="commandBar"
+	columnClasses="alignLeft70, alignRight30">
+	<h:panelGroup>
+		<h:commandButton value="#{msgs.deleteButtonText}" title="Delete selected rows"
+			disabled="#{not ruleAction.anyActionDetailsMarkedForDeletion}"
+			onclick="javascript:return confirmDelete();" >
+			<f:ajax event="click" listener="#{ruleAction.deleteMsgActionDetailsListener}" render="@form"/>
+		</h:commandButton>
+		<f:verbatim>&nbsp;</f:verbatim>
+		<h:commandButton value="#{msgs.refreshFromDB}" title="Refresh from database" >
+			<f:ajax event="click" listener="#{ruleAction.refreshListener}" render="data_table" />
+		</h:commandButton>
+		<f:verbatim>&nbsp;</f:verbatim>
+		<h:commandButton value="#{msgs.copyToNewButtonText}" title="Create a new row from selected"
+			disabled="#{not ruleAction.anyActionDetailsMarkedForDeletion}">
+			<f:ajax listener="#{ruleAction.copyMsgActionDetailListener}" render="@form" />
+		</h:commandButton>
+		<f:verbatim>&nbsp;</f:verbatim>
+		<h:commandButton value="#{msgs.addNewButtonText}" title="Add a new row" >
+			<f:ajax listener="#{ruleAction.addMsgActionDetailListener}" render="@form" />
+		</h:commandButton>
+	</h:panelGroup>
+	<h:panelGroup>
+		<f:verbatim>&nbsp;</f:verbatim>
+	</h:panelGroup>
+</h:panelGrid>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html [
+    <!ENTITY nbsp "&#160;"> 
+]>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:panelGrid id="panel_grid_1" columns="1" styleClass="gettingStartedContent">
+	<h:messages styleClass="errors" layout="list" rendered="#{debug.showMessages}"/>
+	<h:outputFormat value="#{msgs.ruleActionDetailEditLabel}" styleClass="gridHeader">
+	   <f:param value="#{ruleAction.actionDetail.actionId}"/>
+	</h:outputFormat>
+	<h:panelGrid columns="3" styleClass="editPaneHeader" 
+		columnClasses="promptColumn, inputColumn, messageColumn">
+		<h:outputText value="#{msgs.actionIdPrompt}"/>
+		<h:inputText id="actionid" value="#{ruleAction.actionDetail.actionId}"
+			required="true" binding="#{ruleAction.actionIdInput}"
+			disabled="#{ruleAction.editMode}"
+			validator="#{ruleAction.validatePrimaryKey}" 
+			label="#{msgs.actionIdPrompt}" maxlength="16" size="16">
+			<f:validateLength minimum="1" maximum="16"/>
+		</h:inputText>
+		<h:message for="actionid" styleClass="errorMessage"/>
+		
+		<h:outputText value="#{msgs.descriptionPrompt}"/>
+		<h:inputText id="description" value="#{ruleAction.actionDetail.description}"
+			label="#{msgs.descriptionPrompt}" maxlength="100" size="50">
+			<f:validateLength maximum="100"/>
+			<f:converter converterId="NullableStringConverter"/>
+		</h:inputText>
+		<h:message for="description" styleClass="errorMessage"/>
+		
+		<h:outputText value="#{msgs.processBeanIdPrompt}"/>
+		<h:inputText id="beanid" value="#{ruleAction.actionDetail.serviceName}"
+			required="true"
+			label="#{msgs.processBeanIdPrompt}" maxlength="50" size="50">
+		</h:inputText>
+		<h:message for="beanid" styleClass="errorMessage"/>
+		
+		<h:outputText value="#{msgs.processClassNamePrompt}"/>
+		<h:inputText id="classname" value="#{ruleAction.actionDetail.className}"
+			label="#{msgs.processClassNamePrompt}" maxlength="100" size="50">
+			<f:validateLength maximum="100"/>
+			<f:converter converterId="NullableStringConverter"/>
+		</h:inputText>
+		<h:message for="classname" styleClass="errorMessage"/>
+		
+		<h:outputText value="#{msgs.dataTypePrompt}"/>
+		<h:selectOneMenu id="datatype" value="#{ruleAction.actionDetail.ruleDataType.dataType}"
+			label="#{msgs.dataTypePrompt}">
+			<f:ajax render="@this" />
+			<f:selectItems value="#{dynacodes.msgDataTypeItems}"/>
+			<f:converter converterId="NullableStringConverter"/>
+		</h:selectOneMenu>
+		<h:message for="datatype" styleClass="errorMessage"/>
+	</h:panelGrid>
+	<h:outputText value="#{msgs[ruleAction.testResult]}"
+		rendered="#{ruleAction.testResult != null}"
+		styleClass="errorMessage" id="testResult" />
+	<f:verbatim><p/></f:verbatim>
+	<h:panelGrid columns="2" styleClass="commandBar"
+		columnClasses="alignLeft70, alignRight30">
+		<h:panelGroup>
+			<h:commandButton value="#{msgs.testButtonText}" title="Test Action Detail Bean" >
+				<f:ajax execute="@form" listener="#{ruleAction.testActionDetailListener}" render="@form"/>
+			</h:commandButton>
+			<f:verbatim>&nbsp;</f:verbatim>
+			<h:commandButton value="#{msgs.submitButtonText}" title="Submit changes"
+				onclick="javascript:return confirmSubmit();">
+				<f:ajax execute="@form" listener="#{ruleAction.saveMsgActionDetailListener}" render="@form"/>
+			</h:commandButton>
+			<f:verbatim>&nbsp;</f:verbatim>
+			<h:commandButton type="reset" value="#{msgs.resetButtonText}" title="Reset" />
+			<f:verbatim>&nbsp;</f:verbatim>
+			<h:commandButton value="#{msgs.backButtonText}" title="Go Back" immediate="true">
+				<f:ajax listener="#{ruleAction.cancelEditListener}" render="@form"/>
+			</h:commandButton>
+		</h:panelGroup>
+		<h:panelGroup>
+			<f:verbatim>&nbsp;</f:verbatim>
+		</h:panelGroup>
+	</h:panelGrid>
+</h:panelGrid>
+</html>

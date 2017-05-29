@@ -1,0 +1,280 @@
+[2016-06-07 16:38:47,344] [INFO,org.springframework.context.support.ClassPathXmlApplicationContext:510] Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@5696c927: startup date [Tue Jun 07 16:38:47 EDT 2016]; root of context hierarchy
+[2016-06-07 16:38:47,379] [INFO,org.springframework.beans.factory.xml.XmlBeanDefinitionReader:317] Loading XML bean definitions from URL [file:/D:/pkgs_as71/git/jboss_migration/MessageStore/target/classes/spring-jpa-config.xml]
+[2016-06-07 16:38:47,692] [INFO,org.springframework.beans.factory.config.PropertyPlaceholderConfigurer:172] Loading properties file from class path resource [META-INF/msgstore.mysql.properties]
+[2016-06-07 16:38:47,707] [INFO,org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor:153] JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+[2016-06-07 16:38:47,770] [INFO,org.springframework.jdbc.datasource.DriverManagerDataSource:133] Loaded JDBC driver: com.mysql.jdbc.Driver
+[2016-06-07 16:38:47,910] [INFO,org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean:339] Building JPA container EntityManagerFactory for persistence unit 'MessageDB'
+[2016-06-07 16:38:48,817] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.0.0^h^Other undefined status
+[2016-06-07 16:38:48,820] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.1.0^h^Other address status
+[2016-06-07 16:38:48,820] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.1.1^h^Bad destination mailbox address
+[2016-06-07 16:38:48,820] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.1.2^h^Bad destination system address
+[2016-06-07 16:38:48,820] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.1.3^h^Bad destination mailbox address syntax
+[2016-06-07 16:38:48,820] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.1.4^h^Destination mailbox address ambiguous
+[2016-06-07 16:38:48,820] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.1.5^h^Destination mailbox address invalid (source: Microsoft)
+[2016-06-07 16:38:48,820] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.1.6^h^Mailbox has moved
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.1.7^h^Bad sender's mailbox address syntax
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.1.8^h^Bad sender's system address
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.2.0^h^Other or undefined mailbox status
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.2.1^h^Mailbox disabled, not accepting messages
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.2.2^f^Mailbox full
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.2.3^l^Message length exceeds administrative limit.
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.2.4^h^Mailing list expansion problem
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.3.0^h^Other or undefined mail system status
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.3.1^s^Mail system full
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.3.2^h^System not accepting network messages
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.3.3^h^System not capable of selected features
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.3.4^l^Message too big for system
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.3.5^h^System incorrectly configured
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.4.0^h^Other or undefined network or routing status
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.4.1^h^No answer from host
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.4.2^h^Bad connection
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.4.3^h^Routing server failure
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.4.4^h^Unable to route
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.4.5^h^Network congestion
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.4.6^h^Routing loop detected
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.4.7^h^Delivery time expired
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.4.8^h^Loop detected, check recipient policy. (Source: Microsoft)
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.5.0^h^Other or undefined protocol status
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.5.1^h^Invalid command
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.5.2^h^Syntax error
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.5.3^h^Too many recipients
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.5.4^h^Invalid command arguments
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.5.5^h^Wrong protocol version
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.6.0^b^Other or undefined media error
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.6.1^b^Media not supported
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.6.2^h^Conversion required and prohibited
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.6.3^h^Conversion required but not supported
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.6.4^h^Conversion with loss performed
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.6.5^h^Conversion failed
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.7.0^h^Other or undefined security status
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.7.1^b^Delivery not authorized, message refused
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.7.2^h^Mailing list expansion prohibited
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.7.3^h^Security conversion required but not possible
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.7.4^h^Security features not supported
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.7.5^b^Cryptographic failure
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.7.6^b^Cryptographic algorithm not supported
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 5.7.7^b^Message integrity failure
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 4.0.0^s^Other undefined status
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 4.1.0^s^Other address status
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 4.1.4^s^Destination mailbox address ambiguous
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 4.1.5^s^Destination mailbox address valid
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 4.1.7^s^Bad sender's mailbox address syntax
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 4.1.8^s^Bad sender's system address
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 4.2.0^s^Other or undefined mailbox status
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 4.2.1^s^Mailbox disabled, not accepting messages
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 4.2.2^f^Mailbox full
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 4.2.4^s^Mailing list expansion problem
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 4.3.0^s^Other or undefined mail system status
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 4.3.1^s^Mail system full
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 4.3.2^s^System not accepting network messages
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 4.3.3^s^System not capable of selected features
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 4.3.5^s^System incorrectly configured
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 4.4.0^s^Other or undefined network or routing status
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 4.4.1^s^No answer from host
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 4.4.2^s^Bad connection
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 4.4.3^s^Routing server failure
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 4.4.4^s^Unable to route
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 4.4.5^s^Network congestion
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 4.4.6^s^Routing loop detected
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 4.4.7^s^Delivery time expired
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 4.5.0^s^Other or undefined protocol status
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 4.5.3^s^Too many recipients
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 4.5.5^s^Wrong protocol version
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 4.6.0^s^Other or undefined media error
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 4.6.2^s^Conversion required and prohibited
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 4.6.3^s^Conversion required but not supported
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 4.6.4^s^Conversion with loss performed
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 4.6.5^s^Conversion failed
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 4.7.0^s^Other or undefined security status
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 4.7.5^s^Cryptographic failure
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 4.7.6^s^Cryptographic algorithm not supported
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): 4.7.7^s^Message integrity failure
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .0.0^s^Other undefined status
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .1.0^s^Other address status
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .1.1^h^Bad destination mailbox address
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .1.2^h^Bad destination system address
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .1.3^h^Bad destination mailbox address syntax
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .1.4^h^Destination mailbox address ambiguous
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .1.5^k^Destination mailbox address valid
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .1.6^h^Mailbox has moved
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .1.7^s^Bad sender's mailbox address syntax
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .1.8^s^Bad sender's system address
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .2.0^s^Other or undefined mailbox status
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .2.1^h^Mailbox disabled, not accepting messages
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .2.2^f^Mailbox full
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .2.3^l^Message length exceeds administrative limit.
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .2.4^s^Mailing list expansion problem
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .3.0^s^Other or undefined mail system status
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .3.1^s^Mail system full
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .3.2^s^System not accepting network messages
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .3.3^s^System not capable of selected features
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .3.4^l^Message too big for system
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .3.5^s^System incorrectly configured
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .4.0^s^Other or undefined network or routing status
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .4.1^s^No answer from host
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .4.2^s^Bad connection
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .4.3^s^Routing server failure
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .4.4^s^Unable to route
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .4.5^s^Network congestion
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .4.6^s^Routing loop detected
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .4.7^s^Delivery time expired
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .5.0^s^Other or undefined protocol status
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .5.1^h^Invalid command
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .5.2^h^Syntax error
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .5.3^s^Too many recipients
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .5.4^h^Invalid command arguments
+[2016-06-07 16:38:48,821] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .5.5^s^Wrong protocol version
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .6.0^s^Other or undefined media error
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .6.1^s^Media not supported
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .6.2^s^Conversion required and prohibited
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .6.3^s^Conversion required but not supported
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .6.4^s^Conversion with loss performed
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .6.5^s^Conversion failed
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .7.0^s^Other or undefined security status
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .7.1^b^Delivery not authorized, message refused
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .7.2^h^Mailing list expansion prohibited
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .7.3^h^Security conversion required but not possible
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .7.4^h^Security features not supported
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .7.5^s^Cryptographic failure
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .7.6^s^Cryptographic algorithm not supported
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:310] loadRfc1893StatusCode(): .7.7^s^Message integrity failure
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:353] loadRfc2821StatusCode(): 211^k^System status, or system help reply
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:353] loadRfc2821StatusCode(): 214^k^Help message
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:353] loadRfc2821StatusCode(): 220^k^<domain> Service ready
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:353] loadRfc2821StatusCode(): 221^k^<domain> Service closing transmission channel
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:353] loadRfc2821StatusCode(): 250^k^Requested mail action okay, completed
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:353] loadRfc2821StatusCode(): 251^k^User not local; will forward to <forward-path>
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:353] loadRfc2821StatusCode(): 252^k^Cannot VRFY user, but will accept message and attempt delivery
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:353] loadRfc2821StatusCode(): 354^k^Start mail input; end with <CRLF>.<CRLF>
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:353] loadRfc2821StatusCode(): 421^s^<domain> Service not available, closing transmission channel {\bnot\s+available}
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:353] loadRfc2821StatusCode(): 450^s^Requested mail action not taken: mailbox unavailable {\baction\s+not\s+taken}
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:353] loadRfc2821StatusCode(): 451^s^Requested action aborted: local error in processing {\baction\s+aborted}
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:353] loadRfc2821StatusCode(): 452^s^Requested action not taken: insufficient system storage {\baction\s+not\s+taken}
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:353] loadRfc2821StatusCode(): 500^h^Syntax error, command unrecognized {\berror}
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:353] loadRfc2821StatusCode(): 501^h^Syntax error in parameters or arguments {\berror}
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:353] loadRfc2821StatusCode(): 502^h^Command not implemented {\bnot\s+implemented}
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:353] loadRfc2821StatusCode(): 503^h^Bad sequence of commands {\bBad\s+sequence}
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:353] loadRfc2821StatusCode(): 504^h^Command parameter not implemented {\bnot\s+implemented}
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:353] loadRfc2821StatusCode(): 550^h^Requested action not taken: mailbox unavailable {\baction\s+not\s+taken}
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:353] loadRfc2821StatusCode(): 551^h^User not local; please try <forward-path> {\bnot\s+local}
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:353] loadRfc2821StatusCode(): 552^f^Requested mail action aborted: exceeded storage allocation {\baction\s+aborted}
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:353] loadRfc2821StatusCode(): 553^h^Requested action not taken: mailbox name not allowed {\baction\s+not\s+taken}
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:353] loadRfc2821StatusCode(): 554^h^Transaction failed {\b(?:failed|delivery error)}
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:353] loadRfc2821StatusCode(): 422^f^{\b(?:mailbox|account)\b.{0,100}(?:storage|full|limit|quota)} mailbox full.
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:353] loadRfc2821StatusCode(): 4xx^s^{\btemporary\s.{0,100}(?:failure|error)}, used to match undefined codes starting with 4
+[2016-06-07 16:38:48,837] [DEBUG,jpa.service.msgin.RfcCodeScan:353] loadRfc2821StatusCode(): 5xx^h^{\bpermanent\s.{0,100}(?:failure|error)}, used to match undefined codes starting with 5
+[2016-06-07 16:38:48,852] [INFO,org.springframework.aop.framework.CglibAopProxy:264] Unable to proxy method [private final java.util.Map jpa.service.rule.RuleLoaderBo.loadAddressPatterns()] because it is final: All calls to this method via a proxy will NOT be routed to the target instance.
+[2016-06-07 16:38:48,852] [DEBUG,jpa.service.msgout.MailSenderBase:84] Entering constructor...
+[2016-06-07 16:38:49,055] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:367] Creating new transaction with name [jpa.service.common.SubscriberDataService.getBySubscriberId]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly,+javax.persistence.NoResultException
+[2016-06-07 16:38:49,446] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:371] Opened new EntityManager [org.eclipse.persistence.internal.jpa.EntityManagerImpl@f237ae7] for JPA transaction
+[2016-06-07 16:38:49,462] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:403] Exposing JPA transaction as JDBC transaction [org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect$EclipseLinkConnectionHandle@60ab895f]
+[2016-06-07 16:38:49,602] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:755] Initiating transaction commit
+[2016-06-07 16:38:49,602] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:512] Committing JPA transaction on EntityManager [org.eclipse.persistence.internal.jpa.EntityManagerImpl@f237ae7]
+[2016-06-07 16:38:49,602] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:600] Closing JPA EntityManager [org.eclipse.persistence.internal.jpa.EntityManagerImpl@f237ae7] after transaction
+[2016-06-07 16:38:49,602] [DEBUG,org.springframework.orm.jpa.EntityManagerFactoryUtils:432] Closing JPA EntityManager
+[2016-06-07 16:38:49,618] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:367] Creating new transaction with name [jpa.service.common.SubscriberDataService.getAll]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly,+javax.persistence.NoResultException
+[2016-06-07 16:38:49,618] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:371] Opened new EntityManager [org.eclipse.persistence.internal.jpa.EntityManagerImpl@b56d8a7] for JPA transaction
+[2016-06-07 16:38:49,618] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:403] Exposing JPA transaction as JDBC transaction [org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect$EclipseLinkConnectionHandle@13f36d75]
+[2016-06-07 16:38:49,633] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:755] Initiating transaction commit
+[2016-06-07 16:38:49,633] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:512] Committing JPA transaction on EntityManager [org.eclipse.persistence.internal.jpa.EntityManagerImpl@b56d8a7]
+[2016-06-07 16:38:49,649] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:600] Closing JPA EntityManager [org.eclipse.persistence.internal.jpa.EntityManagerImpl@b56d8a7] after transaction
+[2016-06-07 16:38:49,649] [DEBUG,org.springframework.orm.jpa.EntityManagerFactoryUtils:432] Closing JPA EntityManager
+[2016-06-07 16:38:49,649] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:367] Creating new transaction with name [jpa.service.common.SubscriberDataService.getBySubscriberId]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly,+javax.persistence.NoResultException
+[2016-06-07 16:38:49,649] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:371] Opened new EntityManager [org.eclipse.persistence.internal.jpa.EntityManagerImpl@34fc315d] for JPA transaction
+[2016-06-07 16:38:49,649] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:403] Exposing JPA transaction as JDBC transaction [org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect$EclipseLinkConnectionHandle@34f48d1]
+[2016-06-07 16:38:49,649] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:755] Initiating transaction commit
+[2016-06-07 16:38:49,649] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:512] Committing JPA transaction on EntityManager [org.eclipse.persistence.internal.jpa.EntityManagerImpl@34fc315d]
+[2016-06-07 16:38:49,649] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:600] Closing JPA EntityManager [org.eclipse.persistence.internal.jpa.EntityManagerImpl@34fc315d] after transaction
+[2016-06-07 16:38:49,649] [DEBUG,org.springframework.orm.jpa.EntityManagerFactoryUtils:432] Closing JPA EntityManager
+[2016-06-07 16:38:49,649] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:367] Creating new transaction with name [jpa.service.common.EmailAddressService.findSertAddress]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,+javax.persistence.NoResultException
+[2016-06-07 16:38:49,649] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:371] Opened new EntityManager [org.eclipse.persistence.internal.jpa.EntityManagerImpl@301d84f6] for JPA transaction
+[2016-06-07 16:38:49,649] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:403] Exposing JPA transaction as JDBC transaction [org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect$EclipseLinkConnectionHandle@6f80cf5]
+[2016-06-07 16:38:49,649] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:334] Found thread-bound EntityManager [org.eclipse.persistence.internal.jpa.EntityManagerImpl@301d84f6] for JPA transaction
+[2016-06-07 16:38:49,649] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:472] Participating in existing transaction
+[2016-06-07 16:38:49,665] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:755] Initiating transaction commit
+[2016-06-07 16:38:49,665] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:512] Committing JPA transaction on EntityManager [org.eclipse.persistence.internal.jpa.EntityManagerImpl@301d84f6]
+[2016-06-07 16:38:49,665] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:600] Closing JPA EntityManager [org.eclipse.persistence.internal.jpa.EntityManagerImpl@301d84f6] after transaction
+[2016-06-07 16:38:49,665] [DEBUG,org.springframework.orm.jpa.EntityManagerFactoryUtils:432] Closing JPA EntityManager
+[2016-06-07 16:38:49,665] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:367] Creating new transaction with name [jpa.service.common.SubscriberDataService.getByEmailAddress]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly,+javax.persistence.NoResultException
+[2016-06-07 16:38:49,665] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:371] Opened new EntityManager [org.eclipse.persistence.internal.jpa.EntityManagerImpl@5939f047] for JPA transaction
+[2016-06-07 16:38:49,665] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:403] Exposing JPA transaction as JDBC transaction [org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect$EclipseLinkConnectionHandle@17332039]
+[2016-06-07 16:38:49,696] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:755] Initiating transaction commit
+[2016-06-07 16:38:49,696] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:512] Committing JPA transaction on EntityManager [org.eclipse.persistence.internal.jpa.EntityManagerImpl@5939f047]
+[2016-06-07 16:38:49,696] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:600] Closing JPA EntityManager [org.eclipse.persistence.internal.jpa.EntityManagerImpl@5939f047] after transaction
+[2016-06-07 16:38:49,696] [DEBUG,org.springframework.orm.jpa.EntityManagerFactoryUtils:432] Closing JPA EntityManager
+[2016-06-07 16:38:49,696] [INFO,com.es.ejb.subscriber.SubscriberTest:77] 
+ 
+      SubscriberData.alias=null
+      SubscriberData.birthDate=1980-02-01 00:00:00.000
+      SubscriberData.cityName=Dublin
+      SubscriberData.class=jpa.model.SubscriberData
+      SubscriberData.country=US
+      SubscriberData.dayPhone=614-234-5678
+      SubscriberData.emailAddr=
+      SubscriberData.endDate=2016-06-10 00:00:00.000
+      SubscriberData.eveningPhone=614-789-6543
+      SubscriberData.firstName=Joe
+      SubscriberData.lastName=Smith
+      SubscriberData.memoText=E-Sphere Pilot subscriber
+      SubscriberData.middleName=null
+      SubscriberData.mobileCarrier=T-Mobile USA
+      SubscriberData.mobilePhone=614-264-4056
+      SubscriberData.msgDetail=Dear Joe,
+      SubscriberData.msgFooter=Have a nice day.
+      SubscriberData.msgHeader=Joe's Message Header
+      SubscriberData.msgOptional=null
+      SubscriberData.origSubrId=null
+      SubscriberData.passwordChangeTime=null
+      SubscriberData.postalCode=43071
+      SubscriberData.profession=Software Consultant
+      SubscriberData.provinceName=null
+      SubscriberData.rowId=1
+      SubscriberData.securityAnswer=Rambo
+      SubscriberData.securityQuestion=What is your favorite movie?
+      SubscriberData.senderData=
+      SubscriberData.ssnNumber=123-45-6789
+      SubscriberData.startDate=2004-06-10 00:00:00.000
+      SubscriberData.stateCode=OH
+      SubscriberData.statusId=A
+      SubscriberData.statusIdDesc=Active
+      SubscriberData.streetAddress=123 Main St.
+      SubscriberData.streetAddress2=null
+      SubscriberData.subscriberId=test
+      SubscriberData.subscriberName=Smith, Joe
+      SubscriberData.taxId=null
+      SubscriberData.timeZone=America/New_York
+      SubscriberData.updtTime=2016-06-05 15:30:30.000, Nanos: 0
+      SubscriberData.updtUserId=MsgMaint
+      SubscriberData.userPassword=null
+      SubscriberData.zipCode4=null
+      SubscriberData.zipCode5=43071
+      SubscriberData.isEditable=true
+      SubscriberData.isMarkedForDeletion=false
+      SubscriberData.isMarkedForEdition=false
+[2016-06-07 16:38:49,712] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:367] Creating new transaction with name [jpa.service.common.SubscriberDataService.getAll]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly,+javax.persistence.NoResultException
+[2016-06-07 16:38:49,712] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:371] Opened new EntityManager [org.eclipse.persistence.internal.jpa.EntityManagerImpl@415262a0] for JPA transaction
+[2016-06-07 16:38:49,712] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:403] Exposing JPA transaction as JDBC transaction [org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect$EclipseLinkConnectionHandle@19c1f6f4]
+[2016-06-07 16:38:49,712] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:755] Initiating transaction commit
+[2016-06-07 16:38:49,712] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:512] Committing JPA transaction on EntityManager [org.eclipse.persistence.internal.jpa.EntityManagerImpl@415262a0]
+[2016-06-07 16:38:49,712] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:600] Closing JPA EntityManager [org.eclipse.persistence.internal.jpa.EntityManagerImpl@415262a0] after transaction
+[2016-06-07 16:38:49,712] [DEBUG,org.springframework.orm.jpa.EntityManagerFactoryUtils:432] Closing JPA EntityManager
+[2016-06-07 16:38:49,712] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:367] Creating new transaction with name [jpa.service.common.SubscriptionService.subscribe]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,+javax.persistence.NoResultException
+[2016-06-07 16:38:49,712] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:371] Opened new EntityManager [org.eclipse.persistence.internal.jpa.EntityManagerImpl@190bf8e4] for JPA transaction
+[2016-06-07 16:38:49,712] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:403] Exposing JPA transaction as JDBC transaction [org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect$EclipseLinkConnectionHandle@7a8b7e11]
+[2016-06-07 16:38:49,712] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:334] Found thread-bound EntityManager [org.eclipse.persistence.internal.jpa.EntityManagerImpl@190bf8e4] for JPA transaction
+[2016-06-07 16:38:49,712] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:472] Participating in existing transaction
+[2016-06-07 16:38:49,712] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:334] Found thread-bound EntityManager [org.eclipse.persistence.internal.jpa.EntityManagerImpl@190bf8e4] for JPA transaction
+[2016-06-07 16:38:49,712] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:472] Participating in existing transaction
+[2016-06-07 16:38:49,712] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:334] Found thread-bound EntityManager [org.eclipse.persistence.internal.jpa.EntityManagerImpl@190bf8e4] for JPA transaction
+[2016-06-07 16:38:49,712] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:472] Participating in existing transaction
+[2016-06-07 16:38:49,727] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:847] Initiating transaction rollback
+[2016-06-07 16:38:49,727] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:538] Rolling back JPA transaction on EntityManager [org.eclipse.persistence.internal.jpa.EntityManagerImpl@190bf8e4]
+[2016-06-07 16:38:49,727] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:600] Closing JPA EntityManager [org.eclipse.persistence.internal.jpa.EntityManagerImpl@190bf8e4] after transaction
+[2016-06-07 16:38:49,727] [DEBUG,org.springframework.orm.jpa.EntityManagerFactoryUtils:432] Closing JPA EntityManager
+[2016-06-07 16:38:49,737] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:367] Creating new transaction with name [jpa.service.common.SubscriberDataService.getAll]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly,+javax.persistence.NoResultException
+[2016-06-07 16:38:49,737] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:371] Opened new EntityManager [org.eclipse.persistence.internal.jpa.EntityManagerImpl@6d7bb5cc] for JPA transaction
+[2016-06-07 16:38:49,737] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:403] Exposing JPA transaction as JDBC transaction [org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect$EclipseLinkConnectionHandle@756200d1]
+[2016-06-07 16:38:49,737] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:755] Initiating transaction commit
+[2016-06-07 16:38:49,737] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:512] Committing JPA transaction on EntityManager [org.eclipse.persistence.internal.jpa.EntityManagerImpl@6d7bb5cc]
+[2016-06-07 16:38:49,737] [DEBUG,org.springframework.orm.jpa.JpaTransactionManager:600] Closing JPA EntityManager [org.eclipse.persistence.internal.jpa.EntityManagerImpl@6d7bb5cc] after transaction
+[2016-06-07 16:38:49,737] [DEBUG,org.springframework.orm.jpa.EntityManagerFactoryUtils:432] Closing JPA EntityManager

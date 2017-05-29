@@ -1,0 +1,69 @@
+Date: Sat, 5 Jul 2008 12:36:25 -0400 (EDT)
+From: postmaster@localhost
+To: MessageBeanBuilder@hp-a6109n
+Message-ID: <13988807.01215275785609.JavaMail.jwang@hp-a6109n>
+In-Reply-To: <18434638.01215275783046.JavaMail.jwang@hp-a6109n>
+Subject: Re:MessageBeanBuilder running on 192.168.1.12 caught Unchecked
+ Exception
+MIME-Version: 1.0
+Content-Type: multipart/report; 
+	boundary="----=_Part_0_25891872.1215275785218"; 
+	report-type=delivery-status
+
+------=_Part_0_25891872.1215275785218
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+
+Hi. This is the James mail server at hp-a6109n.
+I'm afraid I wasn't able to deliver your message to the following addresses.
+This is a permanent error; I've given up. Sorry it didn't work out.  Below
+I include the list of recipients and the reason why I was unable to deliver
+your message.
+
+Failed recipient(s):
+support@emailsphere.com
+
+Error message:
+501 Syntax error in parameters or arguments
+
+
+------=_Part_0_25891872.1215275785218
+Content-Type: message/delivery-status; name=status.dat
+Content-Transfer-Encoding: 7bit
+Content-Description: Delivery Status Notification
+Content-Disposition: attachment; filename=status.dat
+
+Reporting-MTA: dns; hp-a6109n
+Received-From-MTA: dns; localhost
+
+Final-Recipient: rfc822; support@emailsphere.com
+Action: failed
+Status: 5.0.0
+Diagnostic-Code: smtp; 501 Syntax error in parameters or arguments
+Last-Attempt-Date: Sat, 5 Jul 2008 12:36:23 -0400 (EDT)
+
+------=_Part_0_25891872.1215275785218
+Content-Type: message/rfc822; 
+	name="MessageBeanBuilder running on 192.168.1.12 caught Unchecked
+ Exception"
+Content-Disposition: Attachment; 
+	filename="MessageBeanBuilder running on 192.168.1.12 caught
+ Unchecked Exception"
+
+Received: from localhost ([127.0.0.1])
+          by hp-a6109n (JAMES SMTP Server 2.3.1) with SMTP ID 75
+          for <support@emailsphere.com>;
+          Sat, 5 Jul 2008 12:36:23 -0400 (EDT)
+Date: Sat, 5 Jul 2008 12:36:23 -0400 (EDT)
+From: MessageBeanBuilder@hp-a6109n
+To: support@emailsphere.com
+Message-ID: <18434638.01215275783046.JavaMail.jwang@hp-a6109n>
+Subject: MessageBeanBuilder running on 192.168.1.12 caught Unchecked
+ Exception
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+
+java.lang.ClassCastException: javax.mail.internet.MimeMultipart
+
+------=_Part_0_25891872.1215275785218--

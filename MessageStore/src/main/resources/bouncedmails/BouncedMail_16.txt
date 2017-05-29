@@ -1,0 +1,92 @@
+Return-Path: <>
+Received: from rly-md07.mx.aol.com (rly-md07.mail.aol.com [172.20.29.145]) by air-md07.mail.aol.com (v121.5) with ESMTP id MAILINMD073-913486d5a8f15c; Thu, 03 Jul 2008 19:02:47 -0400
+Received: from imo-d05.mx.aol.com (imo-d05.mail.aol.com [172.18.150.229]) by rly-md07.mx.aol.com (v121.5) with ESMTP id MAILRELAYINMD073-913486d5a8f15c; Thu, 03 Jul 2008 19:02:39 -0400
+Received: from localhost (localhost)
+	by imo-d05.mx.aol.com (8.14.1/8.14.1) id m63N2bE9010701;
+	Thu, 3 Jul 2008 19:02:39 -0400 (EDT)
+Date: Thu, 3 Jul 2008 19:02:39 -0400 (EDT)
+From: Mail Delivery Subsystem <MAILER-DAEMON@aol.com>
+Message-Id: <200807032302.m63N2bE9010701@imo-d05.mx.aol.com>
+To: df153@aim.com
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="m63N2bE9010701.1215126159/imo-d05.mx.aol.com"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+X-AOL-IP: 172.18.150.229
+X-AOL-SCOLL-AUTHENTICATION: listenair ; SPF_helo : n
+X-AOL-SCOLL-AUTHENTICATION: listenair ; SPF_822_from : +
+X-Mailer: Unknown (No Version)
+
+--m63N2bE9010701.1215126159/imo-d05.mx.aol.com
+
+The original message was received at Thu, 3 Jul 2008 19:02:32 -0400 (EDT)
+from root@localhost
+
+
+*** ATTENTION ***
+
+Your e-mail is being returned to you because there was a problem with its
+delivery.  The address which was undeliverable is listed in the section
+labeled: "----- The following addresses had permanent fatal errors -----".
+
+The reason your mail is being returned to you is listed in the section
+labeled: "----- Transcript of Session Follows -----".
+
+The line beginning with "<<<" describes the specific reason your e-mail could
+not be delivered.  The next line contains a second error message which is a
+general translation for other e-mail servers.
+
+Please direct further questions regarding this message to the e-mail
+administrator or Postmaster at that destination.
+
+--AOL Postmaster
+
+
+
+   ----- The following addresses had permanent fatal errors -----
+<unknown.user02.badaddr@hotmail.com>
+    (reason: 550 Requested action not taken: mailbox unavailable)
+
+   ----- Transcript of session follows -----
+... while talking to mx1.hotmail.com.:
+>>> DATA
+<<< 550 Requested action not taken: mailbox unavailable
+550 5.1.1 <unknown.user02.badaddr@hotmail.com>... User unknown
+<<< 503 Need Rcpt command.
+
+--m63N2bE9010701.1215126159/imo-d05.mx.aol.com
+Reporting-MTA: dns; imo-d05.mx.aol.com
+Arrival-Date: Thu, 3 Jul 2008 19:02:32 -0400 (EDT)
+
+Final-Recipient: RFC822; unknown.user02.badaddr@hotmail.com
+Action: failed
+Status: 5.1.1
+Remote-MTA: DNS; mx1.hotmail.com
+Diagnostic-Code: SMTP; 550 Requested action not taken: mailbox unavailable
+Last-Attempt-Date: Thu, 3 Jul 2008 19:02:39 -0400 (EDT)
+
+--m63N2bE9010701.1215126159/imo-d05.mx.aol.com
+Content-Type: text/rfc822-headers
+
+Received: from df153@aim.com
+    by imo-d05.mx.aol.com (mail_out_v38_r9.4.) id i.bc6.28146437 (37185)
+     for <unknown.user02.badaddr@hotmail.com>; Thu, 3 Jul 2008 19:02:32 -0400 (EDT)
+Return-Path: <df153@aim.com>
+Received: from webmail-db05 (webmail-db05.webmail.aol.com [205.188.105.70]) by cia-ma05.mx.aol.com (v121.5) with ESMTP id MAILCIAMA056-9141486d5a8812; Thu, 03 Jul 2008 19:02:32 -0400
+To: unknown.user02.badaddr@hotmail.com
+Subject: test from aim to hotmail
+Date: Thu, 03 Jul 2008 19:02:32 -0400
+X-MB-Message-Source: WebUI
+X-AOL-IP: 24.163.69.51
+X-MB-Message-Type: User
+MIME-Version: 1.0
+From: df153@aim.com
+Content-Type: multipart/alternative; 
+ boundary="--------MB_8CAAB7802835736_11B4_173F_webmail-db05.sysops.aol.com"
+X-Mailer: AIM WebMail 37563-STANDARD
+Received: from 24.163.69.51 by webmail-db05.sysops.aol.com (205.188.105.70) with HTTP (WebMailUI); Thu, 03 Jul 2008 19:02:32 -0400
+Message-Id: <8CAAB780280F4DF-11B4-B89@webmail-db05.sysops.aol.com>
+X-Spam-Flag:NO
+
+--m63N2bE9010701.1215126159/imo-d05.mx.aol.com--

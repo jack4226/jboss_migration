@@ -1,0 +1,665 @@
+body {
+	background: #eee;
+}
+
+.errors {
+	font-style: italic;
+	color: red;
+}
+
+.errorMessage {
+	color: red;
+}
+
+.emphasis {
+	font-style: italic;
+	font-size: 1.3em;
+}
+
+.enabledColors {
+	font-size: 1.5em;
+	font-style: italic;
+	color: Blue;
+	background: Yellow;
+}
+
+.disabledColors {
+	font-size: 0.8em;
+	font-style: italic;
+	color: Yellow;
+	background: Blue;
+}
+
+.evenRows {
+	background: White; /* PowderBlue; */
+}
+
+.oddRows {
+	background: WhiteSmoke; /* MediumTurquoise; */
+}
+
+.columnHeader {
+	font-weight: bold;
+}
+
+.columnFooter {
+	font-size: 0.75em;
+}
+
+.allColumns {
+	text-align: center;
+}
+
+.headers {
+	text-align: center;
+}
+
+.names {
+	border: thin solid black;
+}
+
+.namesHeader {
+	text-align: center;
+	font-style: italic;
+	color: Snow;
+	background: Teal;
+}
+
+.last {
+	height: 25px;
+	text-align: center;
+	background: MediumTurquoise;
+}
+
+.first {
+	text-align: left;
+	background: PowderBlue;
+}
+
+.caption {
+	font-size: 0.9em;
+	font-style: italic;
+}
+
+.prompts {
+	color: red;
+}
+
+.imageBorder {
+	border: thin solid black;
+}
+
+.columns {
+	vertical-align: top;
+}
+
+.delete {
+	text-align: center;
+	color: Black;
+	background: Red;
+}
+
+.links {
+   width: 100px;
+   vertical-align: top;
+   text-align: left;
+}
+.linksColumn {
+   vertical-align: top;
+   text-align: left;
+   padding: 4px;
+}
+
+.firstName {
+	width: 6em;
+	text-align: left;
+	color: Black;
+	background: MediumTurquoise;
+}
+
+.cityName {
+	width: 9em;
+	text-align: center;
+	color: Black;
+	background: PowderBlue;
+}
+
+.stateCode {
+	width: 3em;
+	text-align: center;
+	color: Black;
+	background: MediumTurquoise;
+}
+
+.zipCode {
+	width: 6em;
+	text-align: center;
+	background: PowderBlue;
+}
+
+.pageLink {
+	font-size: 0.75em;
+}
+
+.editableControl {
+	text-align: Left;
+}
+
+.controlPanel {
+	text-align: left;
+}
+
+.page {
+	text-align: left;
+}
+
+.bulbImage {
+	border-width: 0px;
+}
+
+.value {
+	font-style: italic;
+}
+
+.controlLeft {
+	width: 45px;
+	vertical-align: top;
+	text-align: left;
+}
+
+.controlMiddle {
+	width: 50px;
+	vertical-align: top;
+	text-align: left;
+}
+
+.controlRight {
+	width: 40px;
+	vertical-align: top;
+	text-align: left;
+}
+
+.pageLinks {
+	border: thin solid Black;
+	background: PowderBlue;
+}
+
+.instructions {
+	font-style: italic;
+	font-size: 1.2em;
+}
+
+.imageButton {
+	margin: 10px;
+	border-left: thin solid darkGray;
+	border-bottom: thin solid darkGray;
+	border-top: thin solid lightGray;
+	border-right: thin solid lightGray;
+}
+
+.presidentPageTitle {
+	vertical-align: top;
+	text-align: middle;
+	font-style: italic;
+	font-size: 2em;
+}
+
+.presidentDiscussion {
+	vertical-align: top;
+	text-align: left;
+	font-size: 1em;
+}
+
+.backLink {
+	font-style: italic;
+}
+
+.phaseFormColumns {
+	vertical-align: top;
+	font-style: italic;
+	font-size: 1.1em;
+}
+
+/* 
+ * define styles for tabbed pane
+ */
+.tabbedPaneHeader {
+	vertical-align: top;
+	text-align: left;
+	padding: 2px 2px 0px 2px;
+	color: blue;
+	/*background: yellow;*/
+	border-collapse: collapse;
+}
+
+.tabbedPaneHeader table,
+.tabbedPaneHeader td,
+.tabbedPaneHeader th {
+	/*border-bottom: 1px solid #E0E0E0;*/
+	/*border-left: 0px;*/
+	/*border-right: 0px;*/
+	padding: 4px 0px 2px 0px;
+	/*margin: 0px;*/
+}
+
+.tabbedPaneHeader A {
+	text-decoration: none; /*no underline*/
+	font-weight: bold;
+}
+
+.tabbedPaneHeader A:VISITED {
+	color: blue;
+}
+
+.tabbedPaneHeader A:HOVER {
+	color: teal;
+}
+
+.tabbedPaneText {
+	font-size: 1.0em;
+	font-style: normal;
+	padding: 3px;
+	background: #D3D3D3; /*LightGray*/
+	/*border: none;*/
+	border-top: 1px solid #fff;
+	border-left: 1px solid #fff;
+	border-right: 1px solid #aaa;
+}
+
+.tabbedPaneTextSelected {
+	font-size: 1.0em;
+	font-style: normal;
+	padding: 3px;
+	background: PowderBlue;
+	/*border: none;*/
+	border-top: 1px solid #fff;
+	border-left: 1px solid #fff;
+	border-right: 1px solid #aaa;
+}
+
+.tabbedPane {
+	vertical-align: top;
+	text-align: left;
+	padding: 10px;
+	margin: 10px;
+	border-collapse: collapse;
+	width: 860px;
+}
+.tabbedPane th, .tabbedPane td {
+	padding: 0px 2px 0px 2px;
+}
+.tabbedPane A {
+	text-decoration: none; /*no underline*/
+	font-weight: bold;
+}
+
+.tabbedPane A:VISITED {
+	color: blue;
+}
+
+.tabbedPane A:HOVER {
+	color: teal;
+}
+
+.displayPanel {
+	vertical-align: top;
+	text-align: left;
+	padding-top: 0px;
+	padding-left: 3px;
+}
+
+.tabbedPaneContent {
+	width: 100%;
+	height: 100%;
+	font-style: italic;
+	vertical-align: top;
+	text-align: left;
+	font-size: 1.2m;
+	padding: 4px;
+}
+
+.presidentDiscussionColumn {
+	vertical-align: top;
+	text-align: left;
+}
+
+.tabbedPaneBody {
+	background: PowderBlue;
+	padding-top: 4mm;
+}
+
+/*
+ * define styles for library - subview and tiles
+ */
+.library {
+   vertical-align: top;
+   width: 100%;
+   height: 100%;
+}
+.libraryHeader {
+   width: 100%;
+   text-align: left;
+   vertical-align: top;
+   background-color: #ddd;
+   font-weight: lighter;
+   border: thin solid #777;
+}
+.bookHeader {
+   width: 100%;
+   text-align: center;
+   background-color: #eee;
+   padding: 0 px;
+   border: thick solid #ddd;
+}
+.bookTitle {
+   text-align: center;
+   font-style: italic;
+   font-size: 1.3em;
+   font-family: Helvetica;
+}
+.book {
+   vertical-align: top;
+   width: 100%;
+   height: 100%;
+}
+.chapterColumn {
+   vertical-align: top;
+   text-align: left;
+   width: *;
+}
+
+.headerRow {
+   width: 100%;
+   text-align: center;
+   background-color: #eee;
+   border: thin solid CornflowerBlue;
+}
+
+
+/*
+ * define stayles for tabbedpane component
+ */
+/* .tabbedPane {
+   vertical-align: top;
+   border: thin solid Blue;
+} */
+.tab {
+   padding: 3px;
+   border: thin solid CornflowerBlue;
+   color: Blue;
+}
+.selectedTab {
+   padding: 3px;
+   border: thin solid CornflowerBlue;
+   color: Blue;
+   background: PowderBlue;
+}
+
+/*
+ * define styles for GettingStarted
+ */
+.headerMenuContent {
+   vertical-align: top;
+   width: 980px; /* 100%; */
+   height: auto;
+   border: thin solid LightGray;
+}
+.gettingStartedHeader {
+   width: 100%;
+   text-align: center;
+   padding: 4px;
+   border: thin solid SnowWhite;
+   background-color: #C8D6EA;
+}
+.menuColumn {
+   vertical-align: top;
+   width: 20%;
+   border: thin solid White;
+   background-color: WhiteSmoke; /*#ECF1F8;*/
+}
+.contentColumn {
+   vertical-align: top;
+   text-align: left;
+   width: 80%;
+   background-color: White;
+}
+.gettingStartedTitle {
+   text-align: center;
+   font-style: normal;
+   font-size: 2em;
+   font-family: sans-serif Helvetica;
+   color: #008b8b; /* DarkBlue; */
+}
+.gettingStartedContent {
+   width: 100%;
+   text-align: left;
+   font-style: normal;
+   font-size: 1em;
+   font-family: sans-serif Helvetica;
+   padding: 4px;
+}
+.gettingStartedMenu {
+   width: 200px;
+   vertical-align: top;
+   text-align: left;
+}
+.gettingStartedMenuColumn {
+   vertical-align: top;
+   text-align: left;
+   padding: 4px;
+}
+.gettingStartedMenuColumn A:HOVER {
+	color: teal;
+}
+.menuLinkLables {
+	font-weight: bold;
+	font-size: 1.2em;
+	color: #00008b; /* DarkBlue */
+}
+.menuLinks {
+	text-decoration: none; /*no underline*/
+	font-weight: bold;
+}
+.menuLinkText {
+	text-decoration: none; /*no underline*/
+	font-weight: bold;
+	padding: 3px;
+	color: blue;
+}
+.menuLinkTextSelected {
+	text-decoration: none; /*no underline*/
+	font-weight: bold;
+	padding: 3px;
+	color: red;
+}
+.fullWidth {
+   width: 100%;
+}
+
+/*
+ * define styles for Customer pages
+ */
+.jsfDataTable {
+	border: thin solid LightGray;
+	width: 100%;
+}
+.jsfDataTable A {
+	color: Blue;
+}
+.dataTableHeader {
+	text-align: center;
+	font-style: italic;
+	color: DarkBlue;
+	background: LightBlue;
+	padding: 2px;
+}
+.dataTableFooter {
+	font-size: 0.9em;
+	font-family: monospace;
+	text-align: center;
+	background: Lavender; /* #E6E6FA; */
+	padding: 2px;
+}
+.oddColumns {
+	height: 25px;
+	text-align: center;
+	background: Snow;
+	padding: 2px;
+}
+.evenColumns {
+	text-align: left;
+	background: AliceBlue;
+	padding: 2px;
+}
+.editPaneHeader {
+	border: thin solid LightGray;
+	width: 100%; /* auto; */
+	padding: 2px 2px 2px 2px;
+}
+.promptColumn {
+	text-align: left;
+	background: LightBlue; /* #ADD8E6 */
+	padding: 2px;
+	border: thin solid WhiteSmoke;
+	width: 35%;
+}
+.inputColumn {
+	text-align: left;
+	background: White;
+	padding: 2px;
+	border: thin solid WhiteSmoke;
+	width: 35%;
+}
+.messageColumn {
+	text-align: left;
+	background: White;
+	padding: 2px;
+	border: thin solid WhiteSmoke;
+	width: 30%;
+}
+.labelColumn {
+	text-align: right;
+	background: LightBlue; /* #ADD8E6 */
+	padding: 2px;
+	border: thin solid WhiteSmoke;
+	width: 35%;
+}
+.textColumn {
+	text-align: left;
+	background: White;
+	padding: 2px;
+	border: thin solid WhiteSmoke;
+	width: 65%;
+}
+
+.smtpHeaders {
+	border: thin solid LightGray;
+	width: 100%;
+	padding: 5px;
+}
+.smtpLabelColumn {
+	text-align: left;
+	background: LightBlue; /* #ADD8E6 */
+	padding: 2px;
+	border: thin solid White;
+	width: 20%;
+}
+.smtpTextColumn {
+	text-align: left;
+	background: White;
+	padding: 2px;
+	border: thin solid White;
+	width: 80%;
+}
+.smtpBody {
+	background: White;
+	border: thin solid SnowWhite;
+	width: 100%;
+	padding: 5px;
+}
+.commandBar {
+	background: #8CB0D9; /*#6699CC;*/
+	border: thin solid SnowWhite;
+	width: 100%;
+	padding: 5px;
+}
+.commandBar A {
+	color: Blue;
+}
+
+.alignLeft {
+	position: relative;
+	align: left;
+	text-align: left;
+	width: 70%;
+	font-size: 0.8em;
+}
+.alignRight {
+	position: relative;
+	align: right;
+	text-align: right;
+	width: 30%;
+	font-size: 0.8em;
+	font-weight: bold;
+}
+.alignLeft50 {
+	position: relative;
+	align: left;
+	text-align: left;
+	width: 50%;
+	font-size: 0.9em;
+}
+.alignRight50 {
+	position: relative;
+	align: right;
+	text-align: right;
+	width: 50%;
+	font-size: 0.9em;
+}
+.alignLeftAll {
+	position: relative;
+	align: left;
+	text-align: left;
+	width: 100%;
+	font-size: 1.0em;
+}
+
+/*
+ * define width of columns using percent
+ */
+.twoPercent {
+	width: 2%;
+}
+.threePercent {
+	width: 3%;
+}
+.fivePercent {
+	width: 5%;
+}
+.tenPercent {
+	width: 10%;
+}
+.twentyPercent {
+	width: 20%;
+}
+.thirtyPercent {
+	width: 30%;
+}
+.fourtyPercent {
+	width: 40%;
+}
+.fiftyPercent {
+	width: 50%;
+}
+.sixtyPercent {
+	width: 60%;
+}
+.seventyPercent {
+	width: 70%;
+}
+.eightyPercent {
+	width: 80%;
+}
+.ninetyPercent {
+	width: 90%;
+}

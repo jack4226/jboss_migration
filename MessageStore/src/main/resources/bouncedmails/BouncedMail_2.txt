@@ -1,0 +1,122 @@
+Return-Path: <>
+To: JWang@nc.rr.com
+From: Mail Administrator <Postmaster@mail.rr.com>
+Reply-To: <Postmaster@mail.rr.com>
+Subject: Mail System Error - Returned Mail
+Date: Fri, 27 Jun 2008 01:07:23 +0000
+Message-ID: <20080627010723.YVA4229.cdptpa-omta06.mail.rr.com@cdptpa-omta06>
+MIME-Version: 1.0
+Content-Type: multipart/report;
+		report-type=delivery-status;
+		Boundary="===========================_ _= 6848449(4229)1214528843"
+
+
+--===========================_ _= 6848449(4229)1214528843
+Content-Type: text/plain
+
+This Message was undeliverable due to the following reason:
+
+Each of the following recipients was rejected by a remote mail server.
+The reasons given by the server are included to help you determine why
+each recipient was rejected.
+
+    Recipient: <unknown.useraddress@aim.com>
+    Reason:    MAILBOX NOT FOUND
+
+
+The following websites may contain more information to assist you:
+
+http://help.rr.com/HMSLogic/rrmail.aspx
+
+http://security.rr.com/help.htm
+
+http://security.rr.com/contact.htm
+
+Please do not reply to this message, as it will go to an unread
+mailbox
+
+--===========================_ _= 6848449(4229)1214528843
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; cdptpa-omta06.mail.rr.com
+Arrival-Date: Fri, 27 Jun 2008 01:07:22 +0000
+Received-From-MTA: dns; c2d4500 (24.163.69.51)
+
+Final-Recipient: RFC822; <unknown.useraddress@aim.com>
+Action: failed
+Status: 5.1.1
+Remote-MTA: dns; mailin-03.mx.aol.com (64.12.138.153)
+Diagnostic-Code: smtp; 550 MAILBOX NOT FOUND
+
+--===========================_ _= 6848449(4229)1214528843
+Content-Type: message/rfc822
+
+Received: from c2d4500 ([24.163.69.51]) by cdptpa-omta06.mail.rr.com
+          with ESMTP
+          id <20080627010722.YUV4229.cdptpa-omta06.mail.rr.com@c2d4500>
+          for <unknown.useraddress@aim.com>;
+          Fri, 27 Jun 2008 01:07:22 +0000
+Return-Path: <bounce-10.00012567.0-unknown.useraddress=aim.com@jackwng.dyndns.org>
+Date: Thu, 26 Jun 2008 21:07:06 -0400 (EDT)
+From: JWang@nc.rr.com
+To: unknown.useraddress@aim.com
+Message-ID: <7483322.41214528826421.JavaMail.jwang@c2d4500>
+Subject: Re:test to itself
+MIME-Version: 1.0
+Content-Type: TEXT/HTML; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+X-Email_Id: 10.00012567.0
+X-Msg_Id: 133
+X-MsgRef_Id: 132
+X-Rule_Name: SEND_MAIL
+X-Use_Secure_Smtp: No
+X-Save_Raw_Stream: Yes
+X-Embed_Email_Id: Yes
+X-Override_Test_Addr: No
+X-Priority: 2 (Normal)
+X-Mailer: MailSender
+Content-Disposition: inline
+
+
+
+
+System Email Id: 10.00012567.0
+
+--- Jack Wang <df153@aim.com> wrote:
+
+> From: Jack Wang <df153@aim.com>
+> To: JWang@nc.rr.com
+> Date: Thu Jun 26 21:05:22 EDT 2008
+> Subject: Re:Re:test to itself
+
+---------------------------------
+
+
+
+System Email Id: 10.00010698.0
+
+--- Jack Wang <df153@aim.com> wrote:
+
+> From: Jack Wang <df153@aim.com>
+> To: df153@aim.com
+> Date: Thu Jun 26 20:58:01 EDT 2008
+> Subject: Re:test to itself
+
+---------------------------------
+
+
+
+System Email Id: 10.00011225.0
+
+--- df153@aim.com wrote:
+
+> From: df153@aim.com
+> To: df153@aim.com
+> Date: Thu Jun 26 19:26:03 EDT 2008
+> Subject: test to itself
+
+---------------------------------
+<font face="Arial, Helvetica, sans-serif">test message.<br>
+</font><div id='u8CAA5FB222C7060-12A4-1EBC' class='aol_ad_footer'><FONT style="color: black; font: normal 10pt ARIAL, SAN-SERIF;"><HR style="MARGIN-TOP: 10px"><A title="http://toolbar.aol.com/moviefone/download.html?ncid=aolcmp00050000000011" href="http://toolbar.aol.com/moviefone/download.html?ncid=aolcmp00050000000011" target="_blank">Get the Moviefone Toolbar</A>. Showtimes, theaters, movie news, & more!</FONT> </div>
+
+--===========================_ _= 6848449(4229)1214528843--

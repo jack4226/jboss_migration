@@ -1,0 +1,179 @@
+<!DOCTYPE html [
+    <!ENTITY nbsp "&#160;"> 
+]>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:messages styleClass="errors" layout="list" id="messages" rendered="#{debug.showMessages}"/>
+<h:outputFormat value="#{msgs.manageEmailAddresses}" styleClass="gridHeader">
+   <f:param value=""/>
+</h:outputFormat>
+
+<h:dataTable id="data_table" value="#{emailAddress.emailAddrs}" var="list" 
+	rows="#{emailAddress.pagingVo.pageSize}" binding="#{table}"
+   styleClass="jsfDataTable" rowClasses="oddRows, evenRows"
+   headerClass="dataTableHeader" footerClass="dataTableFooter"
+   columnClasses="twoPercent,fourtyPercent,fivePercent,fivePercent,tenPercent,twentyPercent,
+   	tenPercent,fivePercent,fivePercent,fivePercent">   
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value=""/>
+      </f:facet>
+      <h:selectBooleanCheckbox id="eal_chkbox" value="#{list.markedForDeletion}" title="#{table.rowIndex}_checkBox"
+         disabled="#{not list.editable}" immediate="true">
+         <f:ajax event="click" render="@form" />
+      </h:selectBooleanCheckbox>
+   </h:column>
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.emailAddrHeader}"/>
+      </f:facet>
+      <div class="cellHeight">
+      <h:commandLink id="eal_viewcmd" title="#{table.rowIndex}_viewDetail">
+      	<h:outputText value="#{list.address}" title="Click to Edit"/>
+      	<f:param name="emailaddr" value="#{list.address}"/>
+      	<f:ajax event="click" listener="#{emailAddress.viewEmailAddrListener}" render="@form" />
+      </h:commandLink>
+      </div>
+   </h:column>
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.bounceCountHeader}"/>
+      </f:facet>
+      <h:outputText id="eal_bncnt" value="#{list.bounceCount}" style="text-align: center;" title="#{table.rowIndex}_bounceCount"/>
+   </h:column>
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.acceptHtmlHeader}"/>
+      </f:facet>
+		<h:outputText id="eal_ishtml" value="#{list.acceptHtml?'Yes':'No'}" title="#{table.rowIndex}_acceptHtml"/>
+   </h:column>
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.lastReceivedTimeHeader}"/>
+      </f:facet>
+      <div class="cellHeight">
+	  <h:outputText id="eal_rcpttm" value="#{list.lastRcptTime}" title="#{table.rowIndex}_lastRcptTime">
+	  	<f:convertDateTime pattern="yyyy-MM-dd HH:mm"/>
+	  </h:outputText>
+	  </div>
+   </h:column>
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.subscriberNameHeader}"/>
+      </f:facet>
+      <div class="cellHeight">
+	  <h:outputText id="eal_sbrnm" value="#{list.subscriberData==null?'':list.subscriberData.subscriberName}"
+	  		title="#{table.rowIndex}_sbsrName"/>
+	  </div>
+   </h:column>
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.statusIdHeader}"/>
+      </f:facet>
+		<h:outputText id="eal_stdesc" value="#{list.statusIdDesc}" title="#{table.rowIndex}_statusId"/>
+   </h:column>
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.sentCountHeader}"/>
+      </f:facet>
+		<h:outputText id="eal_sndcnt" value="#{list.sentCount}" title="#{table.rowIndex}_sentCount"/>
+   </h:column>
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.openCountHeader}"/>
+      </f:facet>
+		<h:outputText id="eal_opncnt" value="#{list.openCount}" title="#{table.rowIndex}_openCount"/>
+   </h:column>
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.clickCountHeader}"/>
+      </f:facet>
+		<h:outputText id="eal_clkcnt" value="#{list.clickCount}" title="#{table.rowIndex}_clickCount"/>
+   </h:column>
+   
+	<f:facet name="footer">
+    <h:panelGroup id="eal_navpanel">
+	<h:panelGrid id="eal_navgrid1" columns="2" styleClass="fullWidth"
+		columnClasses="alignLeft50, alignRight50">
+		<h:panelGroup id="eal_navpanel2_1">
+			<h:inputText id="searchString" value="#{emailAddress.searchString}" size="40" maxlength="100"/>
+			<f:verbatim>&nbsp;</f:verbatim>
+			<h:commandButton value="#{msgs.searchByEmailButtonText}" title="Search">
+				<f:ajax execute="searchString" listener="#{emailAddress.searchByAddress}" render="@form"/>
+			</h:commandButton>
+			<f:verbatim>&nbsp;</f:verbatim>
+			<h:commandButton value="#{msgs.resetButtonText}" title="Reset">
+				<f:ajax listener="#{emailAddress.resetSearchListener}" render="@form"/>
+			</h:commandButton>
+		</h:panelGroup>
+		<h:panelGroup id="eal_navpanel2_2">
+          	<h:outputText value="#{emailAddress.pagingVo.pageNumber * emailAddress.pagingVo.pageSize + 1}"
+          		style="font-weight: bold;" title="First Row Number"/>
+          	<h:outputText value=" - "/>
+			<h:outputText value="#{emailAddress.lastPageRow}" title="Last Row Number"
+				style="font-weight: bold;" />
+			<h:outputText value=" of " style="font-weight: bold;"/>
+			<h:outputText value="#{emailAddress.rowCount}" title="Row Count"
+          		style="font-weight: bold;"/>
+          	<f:verbatim>&nbsp;&nbsp;</f:verbatim>
+            <h:commandLink value="#{msgs.firstLinkText}" title="Page First"
+                disabled="#{emailAddress.pagingVo.pageNumber == 0}" >
+                <f:ajax execute="@this" listener="#{emailAddress.pageFirst}" render="@form"/>
+            </h:commandLink>
+            <f:verbatim>&nbsp;|&nbsp;</f:verbatim>
+            <h:commandLink value="#{msgs.prevLinkText}" title="Page Previous"
+                disabled="#{emailAddress.pagingVo.pageNumber == 0}" >
+                <f:ajax execute="@this" listener="#{emailAddress.pagePrevious}" render="@form"/>
+            </h:commandLink>
+            <f:verbatim>&nbsp;|&nbsp;</f:verbatim>
+            <c:set var="page_number" value="${emailAddress.pagingVo.pageNumber + 1}"/>
+            <c:set var="page_size" value="${emailAddress.pagingVo.pageSize}"/>
+            <c:if test="${page_number * page_size lt emailAddress.rowCount}">
+                <h:commandLink value="#{msgs.nextLinkText}" title="Page Next" disabled="false">
+                	<f:ajax execute="@this" listener="#{emailAddress.pageNext}" render="@form"/>
+            	</h:commandLink>
+            	<f:verbatim>&nbsp;|&nbsp;</f:verbatim>
+            	<h:commandLink value="#{msgs.lastLinkText}" title="Page Last" disabled="false" >
+	                <f:ajax execute="@this" listener="#{emailAddress.pageLast}" render="@form"/>
+	            </h:commandLink>
+            </c:if>
+            <c:if test="${page_number * page_size ge emailAddress.rowCount}">
+                <h:commandLink value="#{msgs.nextLinkText}" title="Page Next" disabled="true" />
+            	<f:verbatim>&nbsp;|&nbsp;</f:verbatim>
+            	<h:commandLink value="#{msgs.lastLinkText}" title="Page Last" disabled="true" />
+            </c:if>
+        </h:panelGroup>
+    </h:panelGrid>
+    </h:panelGroup>
+	</f:facet>
+</h:dataTable>
+<h:outputText value="#{emailAddress.actionFailure}" id="actionFailure" 
+	rendered="#{emailAddress.actionFailure != null}" styleClass="errorMessage"/>
+<f:verbatim><p/></f:verbatim>
+<h:panelGrid id="eal_navgrid2" columns="2" styleClass="commandBar"
+	columnClasses="alignLeft70, alignRight30">
+	<h:panelGroup id="eal_navpanel3">
+		<h:commandButton value="#{msgs.deleteButtonText}" title="Delete selected rows"
+			disabled="#{not emailAddress.anyEmailAddrsMarkedForDeletion}"
+			onclick="javascript:return confirmDelete();" >
+			<f:ajax listener="#{emailAddress.deleteEmailAddrs}" render="@form"/>
+		</h:commandButton>
+		<f:verbatim>&nbsp;</f:verbatim>
+		<h:commandButton value="#{msgs.addNewButtonText}" title="Add a new row">
+			<f:ajax event="click" listener="#{emailAddress.addEmailAddrListener}" render="@form" />
+		</h:commandButton>
+		<f:verbatim>&nbsp;</f:verbatim>
+		<h:commandButton value="#{msgs.refreshLinkText}" title="Refresh from database" >
+			<f:ajax event="click" listener="#{emailAddress.refreshPage}" render="data_table" />
+		</h:commandButton>
+		<f:verbatim>&nbsp;</f:verbatim>
+		<h:commandButton value="#{msgs.backButtonText}" onclick="window.history.back();"/>
+	</h:panelGroup>
+	<h:panelGroup  id="eal_navpanel4">
+		<f:verbatim>&nbsp;</f:verbatim>
+	</h:panelGroup>
+</h:panelGrid>
+</html>

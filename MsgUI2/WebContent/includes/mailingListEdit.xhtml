@@ -1,0 +1,113 @@
+<!DOCTYPE html [
+    <!ENTITY nbsp "&#160;"> 
+]>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:panelGrid id="panel_grid_1" columns="1" styleClass="gettingStartedContent">
+	<h:messages styleClass="errors" layout="list" rendered="#{debug.showMessages}"/>
+	<h:outputFormat value="#{msgs.mailingListEditLabel}" styleClass="gridHeader">
+	   <f:param value="#{mailingList.mailingList.listId}"/>
+	</h:outputFormat>
+	<h:panelGrid columns="3" styleClass="editPaneHeader" 
+		columnClasses="promptColumn, inputColumn, messageColumn">
+		<h:outputText value="#{msgs.listIdPrompt}"/>
+		<h:inputText id="listid" value="#{mailingList.mailingList.listId}"
+			required="true" binding="#{mailingList.listIdInput}" 
+			label="#{msgs.listIdPrompt}" maxlength="8" size="10"
+			disabled="#{mailingList.mailingList.builtin}"
+			validator="#{mailingList.validatePrimaryKey}">
+			<f:validateLength minimum="1" maximum="8"/>
+		</h:inputText>
+		<h:message for="listid" styleClass="errorMessage"/>
+		
+		<h:outputText value="#{msgs.displayNamePrompt}"/>
+		<h:inputText id="dispname" value="#{mailingList.mailingList.displayName}"
+			required="false" label="#{msgs.displayNamePrompt}" maxlength="50" size="50">
+		</h:inputText>
+		<h:message for="dispname" styleClass="errorMessage"/>
+		
+		<h:outputText value="#{msgs.accountUserNamePrompt}"/>
+		<h:inputText id="acctuser" value="#{mailingList.mailingList.acctUserName}"
+			required="true" label="#{msgs.accountUserNamePrompt}" size="50" maxlength="100"
+			validator="#{mailingList.validateAccountUserName}">
+			<f:validateLength minimum="1" maximum="100"/>
+		</h:inputText>
+		<h:message for="acctuser" styleClass="errorMessage"/>
+		
+		<h:outputText value="#{msgs.descriptionPrompt}"/>
+		<h:inputText id="desc" value="#{mailingList.mailingList.description}"
+			label="#{msgs.descriptionPrompt}" maxlength="255" size="50">
+		</h:inputText>
+		<h:message for="desc" styleClass="errorMessage"/>
+		
+		<h:outputText value="#{msgs.statusIdPrompt}"/>
+		<h:selectOneMenu id="statusid" value="#{mailingList.mailingList.statusId}"
+			required="true" label="#{msgs.statusIdPrompt}">
+			<f:selectItems value="#{codes.mailboxStatusIdItems}"/>
+		</h:selectOneMenu>
+		<h:message for="statusid" styleClass="errorMessage"/>
+		
+		<h:outputText value="#{msgs.senderIdPrompt}"/>
+		<h:selectOneMenu id="clientid" value="#{mailingList.mailingList.senderData.senderId}"
+			required="true" label="#{msgs.senderIdPrompt}">
+			<f:selectItems value="#{dynacodes.senderIdItems}"/>
+		</h:selectOneMenu>
+		<h:message for="clientid" styleClass="errorMessage"/>
+		
+		<h:outputText value="#{msgs.listMasterEmailPrompt}"/>
+		<h:inputText id="mstraddr" value="#{mailingList.mailingList.listMasterEmailAddr}"
+			label="#{msgs.listMasterEmailPrompt}" size="50" maxlength="255"
+			validator="#{mailingList.validateEmailAddress}">
+			<f:converter converterId="NullableStringConverter"/>
+		</h:inputText>
+		<h:message for="mstraddr" styleClass="errorMessage"/>
+		
+		<h:outputText value="#{msgs.createTimePrompt}"/>
+		<h:outputText id="createtime" value="#{mailingList.mailingList.createTime}">
+		</h:outputText>
+		<h:message for="createtime" styleClass="errorMessage"/>
+	</h:panelGrid>
+	<h:outputText value="#{msgs[mailingList.testResult]}"
+		rendered="#{mailingList.testResult != null}" styleClass="errorMessage"
+		id="testResult" />
+	<f:verbatim><p/></f:verbatim>
+	<h:panelGrid columns="2" styleClass="commandBar"
+		columnClasses="alignLeft70, alignRight30">
+		<h:panelGroup>
+			<h:commandButton value="#{msgs.submitButtonText}" title="Submit changes"
+				onclick="javascript:return confirmSubmit();">
+				<f:ajax execute="@form" listener="#{mailingList.saveMailingListListener}" render="@form"/>
+			</h:commandButton>
+			<f:verbatim>&nbsp;</f:verbatim>
+			<h:commandButton type="reset" value="#{msgs.resetButtonText}" title="Reset" />
+			<f:verbatim>&nbsp;</f:verbatim>
+			<h:commandButton value="#{msgs.backButtonText}" title="Go Back" immediate="true">
+				<f:ajax listener="#{mailingList.cancelEditListener}" render="@form"/>
+			</h:commandButton>
+		</h:panelGroup>
+		<h:panelGroup>
+			<f:verbatim>&nbsp;</f:verbatim>
+		</h:panelGroup>
+	</h:panelGrid>
+	<f:verbatim><p/></f:verbatim>
+	<!-- always disable the next panel regardless the value of "editMode" -->
+	<ui:param name="renderNextPanel" value="false"/>
+	<h:panelGrid columns="1" styleClass="editPaneHeader"
+		rendered="#{mailingList.editMode and renderNextPanel}">
+		<f:verbatim>&nbsp;</f:verbatim>
+		<h:outputText value="#{msgs.uploadEmailAddrsToList}" 
+			style="color: blue; font-size: 1.4em;"/>
+		<f:verbatim>&nbsp;<p/></f:verbatim>
+		<h:outputText value="#{msgs.uploadFileToListLabel}"
+			style="color: black; font-size: 1.1em;"/>
+		<f:verbatim>&nbsp;<p/></f:verbatim>
+		<h:commandButton value="#{msgs.uploadFileButtonText}"
+			title="Upload files with Email Address list"
+			action="#{mailingList.uploadFiles}"/>
+		<f:verbatim>&nbsp;</f:verbatim>
+	</h:panelGrid>
+</h:panelGrid>
+</html>

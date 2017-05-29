@@ -1,0 +1,373 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>jpa.test</groupId>
+  <artifactId>message-store</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<spring.version>4.3.8.RELEASE</spring.version> <!-- 4.1.7.RELEASE last release supports AopUtils.isCglibProxyClass() -->
+	<aspectjweaver.version>1.8.9</aspectjweaver.version>
+	<cglib.version>3.2.4</cglib.version>
+	<hibernate.version>5.2.10.Final</hibernate.version>
+	<eclipselink.version>2.6.4</eclipselink.version>
+	<derby.version>10.12.1.1</derby.version>
+	<mysql.connector.version>5.1.39</mysql.connector.version> <!-- 5.1.39, 6.0.4 has time zone issue -->
+	<postgresql.jdbc.version>9.4.1211</postgresql.jdbc.version> <!-- 9.4.1211.jre7 -->
+	<javax.persistence.version>2.1.1</javax.persistence.version>
+	<validation-api.version>1.1.0.Final</validation-api.version>
+	<transaction-api.version>1.2</transaction-api.version>
+	<commons.dbcp.version>1.4</commons.dbcp.version>
+	<commons.pool.version>1.6</commons.pool.version>
+	<commons.lang.version>3.5</commons.lang.version>
+	<commons.io.version>2.5</commons.io.version>
+	<commons.beanutils.version>1.9.3</commons.beanutils.version>
+    <java.version>1.8</java.version>
+    <!-- javax.mail.version>1.4.7</javax.mail.version -->
+    <com.sun.mail.version>1.5.6</com.sun.mail.version>
+    <log4j.version>1.2.17</log4j.version>
+    <slf4j.version>1.7.21</slf4j.version>
+    <junit.version>4.12</junit.version>
+    <htmlparser.version>2.1</htmlparser.version>
+    <faces-api.version>2.2</faces-api.version>
+    <spring-data-commons.version>1.13.3.RELEASE</spring-data-commons.version>
+    <spring-data-jpa.version>1.11.3.RELEASE</spring-data-jpa.version>
+    <activemq-version>5.11.4</activemq-version> <!-- 5.11.x last version supports: java.lang.NoSuchMethodError: org.apache.activemq.ActiveMQPrefetchPolicy.getInputStreamPrefetch() -->
+  </properties>
+<!-- 
+	<repositories>
+		<repository>
+			<id>oss.sonatype.org</id>
+			<name>OSS Sonatype Staging</name>
+			<url>https://oss.sonatype.org/content/groups/staging</url>
+		</repository>
+	</repositories>
+-->
+  <dependencies>
+	<!-- Spring -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-core</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-aspects</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-orm</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-oxm</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-jdbc</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-jms</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-tx</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-instrument</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-test</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<!-- dependency>
+		<groupId>org.aspectj</groupId>
+		<artifactId>aspectjweaver</artifactId>
+		<version>${aspectjweaver.version}</version>
+	</dependency -->
+	<dependency>
+		<groupId>cglib</groupId>
+		<artifactId>cglib</artifactId>
+		<version>${cglib.version}</version>
+	</dependency>
+
+	<!-- Spring Data -->
+    <!-- dependency>
+    	<groupId>org.springframework.data</groupId>
+    	<artifactId>spring-data-commons</artifactId>
+    	<version>${spring-data-commons.version}</version>
+    </dependency -->
+    <dependency>
+    	<groupId>org.springframework.data</groupId>
+    	<artifactId>spring-data-jpa</artifactId>
+    	<version>${spring-data-jpa.version}</version>
+    </dependency>
+
+	<!-- Hibernate -->
+	<dependency>
+		<groupId>org.hibernate</groupId>
+		<artifactId>hibernate-core</artifactId>
+		<version>${hibernate.version}</version>
+		<exclusions>
+			<exclusion>
+				<groupId>javax.enterprise</groupId>
+				<artifactId>cdi-api</artifactId>
+			</exclusion>
+			<exclusion>
+				<groupId>org.apache.geronimo.specs</groupId>
+				<artifactId>geronimo-jta_1.1_spec</artifactId>
+			</exclusion>
+			<exclusion>
+				<groupId>org.hibernate.javax.persistence</groupId>
+				<artifactId>hibernate-jpa-2.1-api</artifactId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+	<dependency>
+		<groupId>org.hibernate</groupId>
+		<artifactId>hibernate-entitymanager</artifactId>
+		<version>${hibernate.version}</version>
+		<exclusions>
+			<exclusion>
+				<groupId>org.apache.geronimo.specs</groupId>
+				<artifactId>geronimo-jta_1.1_spec</artifactId>
+			</exclusion>
+			<exclusion>
+				<groupId>org.hibernate.javax.persistence</groupId>
+				<artifactId>hibernate-jpa-2.1-api</artifactId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+
+	<dependency>
+	    <groupId>org.eclipse.persistence</groupId>
+	    <artifactId>javax.persistence</artifactId>
+	    <version>${javax.persistence.version}</version>
+	</dependency>
+
+	<dependency>
+	    <groupId>javax.transaction</groupId>
+	    <artifactId>javax.transaction-api</artifactId>
+	    <version>${transaction-api.version}</version>
+	    <scope>provided</scope>
+	</dependency>
+	
+	<dependency>
+	    <groupId>javax.validation</groupId>
+	    <artifactId>validation-api</artifactId>
+	    <version>${validation-api.version}</version>
+	    <scope>provided</scope>
+	</dependency>
+
+	<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>eclipselink</artifactId>
+			<version>${eclipselink.version}</version>
+			<!-- scope>provided</scope -->
+			<exclusions>
+				<exclusion>
+					<groupId>org.eclipse.persistence</groupId>
+					<artifactId>commonj.sdo</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.eclipse.persistence</groupId>
+					<artifactId>javax.persistence</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.validation</groupId>
+					<artifactId>validation-api</artifactId>
+				</exclusion>
+			</exclusions>
+	</dependency>
+
+	<!-- JSF -->
+	<dependency>
+		<groupId>javax.faces</groupId>
+		<artifactId>javax.faces-api</artifactId>
+		<version>${faces-api.version}</version>
+		<scope>provided</scope>
+	</dependency>
+<!-- 
+	<dependency>
+		<groupId>com.sun.faces</groupId>
+		<artifactId>jsf-api</artifactId>
+		<version>2.2.3</version>
+		<scope>provided</scope>
+	</dependency>
+
+	<dependency>
+		<groupId>com.sun.faces</groupId>
+		<artifactId>jsf-impl</artifactId>
+		<version>2.2.3</version>
+		<scope>provided</scope>
+	</dependency>
+-->
+	
+	<!-- Apache Commons -->
+	<dependency>
+		<groupId>commons-beanutils</groupId>
+		<artifactId>commons-beanutils</artifactId>
+		<version>${commons.beanutils.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.commons</groupId>
+		<artifactId>commons-lang3</artifactId>
+		<version>${commons.lang.version}</version>
+	</dependency>
+
+	<dependency>
+		<groupId>commons-io</groupId>
+		<artifactId>commons-io</artifactId>
+		<version>${commons.io.version}</version>
+	</dependency>
+
+	<dependency>
+		<groupId>commons-dbcp</groupId>
+		<artifactId>commons-dbcp</artifactId>
+		<version>${commons.dbcp.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>commons-pool</groupId>
+		<artifactId>commons-pool</artifactId>
+		<version>${commons.pool.version}</version>
+	</dependency>
+
+	<!-- Data Source Connectors -->
+	<dependency>
+		<groupId>org.apache.derby</groupId>
+		<artifactId>derby</artifactId>
+		<version>${derby.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.apache.derby</groupId>
+	    <artifactId>derbyclient</artifactId>
+	    <version>${derby.version}</version>
+	    <scope>runtime</scope>
+	</dependency>
+   
+	<dependency>
+		<groupId>mysql</groupId>
+		<artifactId>mysql-connector-java</artifactId>
+		<version>${mysql.connector.version}</version>
+		<scope>runtime</scope>
+	</dependency>
+
+	<dependency>
+	    <groupId>org.postgresql</groupId>
+	    <artifactId>postgresql</artifactId>
+	    <version>${postgresql.jdbc.version}</version>
+	    <scope>runtime</scope>
+	</dependency>
+
+	<!-- Logging API -->
+	<dependency>
+		<groupId>log4j</groupId>
+		<artifactId>log4j</artifactId>
+		<version>${log4j.version}</version>
+	</dependency>
+	
+    <dependency>
+    	<groupId>org.slf4j</groupId>
+    	<artifactId>slf4j-log4j12</artifactId>
+    	<version>${slf4j.version}</version>
+    	<scope>provided</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+    </dependency>
+    
+    <!-- UTF CharSet -->
+    <dependency>
+    	<groupId>net.freeutils</groupId>
+    	<artifactId>jcharset</artifactId>
+    	<version>2.0</version>
+    </dependency>
+    <dependency>
+    	<groupId>com.beetstra.jutf7</groupId>
+    	<artifactId>jutf7</artifactId>
+    	<version>1.0.0</version>
+    </dependency>
+    
+	<!-- Other dependencies -->
+	<!--
+	<dependency>
+		<groupId>javax.mail</groupId>
+		<artifactId>mail</artifactId>
+		<version>${javax.mail.version}</version>
+		<scope>provided</scope>
+	</dependency>
+	-->
+
+	<dependency>
+	    <groupId>com.sun.mail</groupId>
+	    <artifactId>javax.mail</artifactId>
+	    <version>${com.sun.mail.version}</version>
+	    <scope>provided</scope>
+	</dependency>
+
+	<dependency>
+		<groupId>org.htmlparser</groupId>
+  		<artifactId>htmlparser</artifactId>
+  		<version>${htmlparser.version}</version>
+		<exclusions>
+			<exclusion>
+				<groupId>com.sun</groupId>
+				<artifactId>tools</artifactId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.apache.activemq</groupId>
+	    <artifactId>activemq-all</artifactId>
+	    <version>${activemq-version}</version>
+	</dependency>
+	
+  </dependencies>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.5.1</version>
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+          <debug>true</debug>
+          <debuglevel>lines,vars,source</debuglevel>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.0.2</version>
+        <configuration>
+          <archive>
+            <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+          </archive>
+          <excludes>
+          		<exclude>**/jpa/service/test/*</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

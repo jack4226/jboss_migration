@@ -1,0 +1,51 @@
+1) Unzip Noninstall zip file to "mysql" folder
+2) create mydb/data directory
+
+3) place my.ini to mydb folder:
+[mysqld]
+# set basedir to your installation path
+basedir=C:/pkgs_as71/mysql
+# set datadir to the location of your data directory
+datadir=C:/pkgs_as71/mydb/data
+#
+sql-mode="ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+
+
+4) initialize data directory
+> .\bin\mysqld --defaults-file=..\mydb\my.ini --log_syslog=0 --initialize-insecure
+
+5) start server
+> .\bin\mysqld --defaults-file=..\mydb\my.ini --log_syslog=0 --console
+or 
+> .\bin\mysqld --defaults-file=..\mydb\my.ini --log_syslog=0
+
+6) connect to server the first time, cd to bin directory:
+> mysql -u root --skip-password
+> mysql -u email -p emaildb
+
+7) assign a root password:
+> ALTER USER 'root'@'localhost' IDENTIFIED BY 'jackwng01';
+
+8) connect to server with password:
+> mysql -u root -p
+
+9) shut down server
+> .\bin\mysqladmin -u root -p shutdown
+
+10) show databases, sql modes
+> mysqlshow -u root -p
+> show variables like 'sql_mode';
+> show create table message_inbox; -- show constraints
+
+11) create user, in mysql console:
+> CREATE USER 'email'@'localhost' IDENTIFIED BY 'email';
+> GRANT ALL PRIVILEGES ON *.* TO 'email'@'localhost' WITH GRANT OPTION;
+
+> CREATE USER 'email'@'%' IDENTIFIED BY 'email';
+> GRANT ALL PRIVILEGES ON *.* TO 'email'@'%' WITH GRANT OPTION;
+
+12) create and use database, in mysql console:
+> create database emaildb;
+> use emaildb
+> drop database emaildb;
+

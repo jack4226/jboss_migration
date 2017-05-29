@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<faces-config
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd"
+    version="1.2">
+    
+    <!-- define locales -->
+   <application>
+   	<locale-config>
+   		<default-locale>en</default-locale>
+   		<supported-locale>de</supported-locale>
+   	</locale-config>
+   </application>
+
+	<!-- define managed beans -->
+	
+	<!-- Define Application scoped beans -->
+   <managed-bean>
+   	<managed-bean-name>debug</managed-bean-name>
+   	<managed-bean-class>
+   		ltj.msgui.bean.DebugBean
+   	</managed-bean-class>
+   	<managed-bean-scope>application</managed-bean-scope>
+   </managed-bean>
+   
+   <managed-bean>
+   	<managed-bean-name>codes</managed-bean-name>
+   	<managed-bean-class>
+   		ltj.msgui.util.StaticCodes
+   	</managed-bean-class>
+   	<managed-bean-scope>application</managed-bean-scope>
+   </managed-bean>
+   
+   <managed-bean>
+   	<managed-bean-name>dynacodes</managed-bean-name>
+   	<managed-bean-class>
+   		ltj.msgui.util.DynamicCodes
+   	</managed-bean-class>
+   	<managed-bean-scope>application</managed-bean-scope>
+   </managed-bean>
+   <!-- end application scoped beans -->
+   
+   <managed-bean>
+   	<managed-bean-name>user</managed-bean-name>
+   	<managed-bean-class>
+   		ltj.msgui.bean.UserBean
+   	</managed-bean-class>
+   	<managed-bean-scope>session</managed-bean-scope>
+   </managed-bean>
+   
+   <managed-bean>
+   	<managed-bean-name>quiz</managed-bean-name>
+   	<managed-bean-class>
+   		ltj.msgui.bean.QuizBean
+   	</managed-bean-class>
+   	<managed-bean-scope>session</managed-bean-scope>
+   </managed-bean>
+   
+   <managed-bean> 
+      <managed-bean-name>localeChanger</managed-bean-name>
+      <managed-bean-class>ltj.msgui.bean.ChangeLocaleBean</managed-bean-class>
+      <managed-bean-scope>session</managed-bean-scope> 
+   </managed-bean>
+   
+   <managed-bean>
+      <managed-bean-name>form</managed-bean-name>
+      <managed-bean-class>ltj.msgui.bean.RegisterForm</managed-bean-class>
+      <managed-bean-scope>session</managed-bean-scope>
+   </managed-bean>
+
+   <managed-bean>
+      <managed-bean-name>tableData</managed-bean-name>
+      <managed-bean-class>ltj.msgui.bean.TableData</managed-bean-class>
+      <managed-bean-scope>session</managed-bean-scope>
+   </managed-bean>
+
+   <managed-bean> 
+      <managed-bean-name>payment</managed-bean-name>
+      <managed-bean-class>ltj.msgui.bean.PaymentBean</managed-bean-class> 
+      <managed-bean-scope>session</managed-bean-scope> 
+   </managed-bean>
+
+   <managed-bean> 
+      <managed-bean-name>datebb</managed-bean-name>
+      <managed-bean-class>ltj.msgui.bean.DateBackingBean</managed-bean-class> 
+      <managed-bean-scope>session</managed-bean-scope> 
+   </managed-bean>
+
+   <managed-bean> 
+      <managed-bean-name>rushmore</managed-bean-name>
+      <managed-bean-class>ltj.msgui.bean.Rushmore</managed-bean-class> 
+      <managed-bean-scope>session</managed-bean-scope> 
+   </managed-bean>
+
+   <managed-bean> 
+      <managed-bean-name>phaseform</managed-bean-name>
+      <managed-bean-class>ltj.msgui.bean.PhaseTrackerSetterBean</managed-bean-class> 
+      <managed-bean-scope>session</managed-bean-scope> 
+   </managed-bean>
+   
+   <managed-bean>
+      <managed-bean-name>tp</managed-bean-name>
+      <managed-bean-class>ltj.msgui.bean.TabbedPane</managed-bean-class>
+      <managed-bean-scope>session</managed-bean-scope>
+   </managed-bean>
+   
+   <!-- The book -->
+   <managed-bean>
+      <managed-bean-name>book</managed-bean-name>
+      <managed-bean-class>ltj.msgui.bean.Book</managed-bean-class>
+      <managed-bean-scope>none</managed-bean-scope>
+      
+      <managed-property>
+         <property-name>titleKey</property-name>
+         <value>aliceInWonderland</value>
+      </managed-property>
+      
+      <managed-property>
+         <property-name>image</property-name>
+         <value>cheshire.jpg</value>
+      </managed-property>
+      
+      <managed-property>
+         <property-name>numChapters</property-name>
+         <property-class>java.lang.Integer</property-class>
+         <value>12</value>
+      </managed-property>
+   </managed-bean>
+   
+   <managed-bean>
+      <managed-bean-name>numberList</managed-bean-name>
+      <managed-bean-class>java.util.ArrayList</managed-bean-class>
+      <managed-bean-scope>session</managed-bean-scope>
+      <list-entries>
+         <value>1</value>
+         <value>2</value>
+         <value>3</value>
+         <value>4</value>
+         <value>5</value>
+      </list-entries>
+   </managed-bean>
+
+	<!-- define managed beans for Getting Started page -->
+   <managed-bean>
+      <managed-bean-name>gettingStarted</managed-bean-name>
+      <managed-bean-class>ltj.msgui.bean.GettingStarted</managed-bean-class>
+      <managed-bean-scope>session</managed-bean-scope>
+      <managed-property>
+         <property-name>titleKey</property-name>
+         <value>gettingStartedHeaderText</value>
+      </managed-property>
+      <!-- managed-property>
+         <property-name>functionKey</property-name>
+         <value>#{param.functionKey}</value>
+      </managed-property -->
+   </managed-bean>
+   
+   <managed-bean>
+      <managed-bean-name>initdb</managed-bean-name>
+      <managed-bean-class>ltj.msgui.bean.InitializeDatabase</managed-bean-class>
+      <managed-bean-scope>session</managed-bean-scope>
+   </managed-bean>
+   
+   <!-- define managed beans for Customer pages -->
+   <managed-bean>
+      <managed-bean-name>customers</managed-bean-name>
+      <managed-bean-class>ltj.msgui.bean.CustomersBean</managed-bean-class>
+      <managed-bean-scope>session</managed-bean-scope>
+   </managed-bean>
+   
+   <!-- define managed beans for Mailbox pages -->
+   <managed-bean>
+      <managed-bean-name>mailboxes</managed-bean-name>
+      <managed-bean-class>ltj.msgui.bean.MailboxesBean</managed-bean-class>
+      <managed-bean-scope>session</managed-bean-scope>
+   </managed-bean>
+   
+   <!-- define managed beans for Smtp Servers pages -->
+   <managed-bean>
+      <managed-bean-name>smtpsvrs</managed-bean-name>
+      <managed-bean-class>ltj.msgui.bean.SmtpServersBean</managed-bean-class>
+      <managed-bean-scope>session</managed-bean-scope>
+   </managed-bean>
+   
+   <!-- define managed beans for Message Rule pages -->
+   <managed-bean>
+      <managed-bean-name>msgrules</managed-bean-name>
+      <managed-bean-class>ltj.msgui.bean.MsgRulesBean</managed-bean-class>
+      <managed-bean-scope>session</managed-bean-scope>
+   </managed-bean>
+   
+   <managed-bean>
+      <managed-bean-name>builtinrules</managed-bean-name>
+      <managed-bean-class>ltj.msgui.bean.MsgBuiltInRulesBean</managed-bean-class>
+      <managed-bean-scope>session</managed-bean-scope>
+   </managed-bean>
+   
+   <!-- define managed beans for Message Action Class pages -->
+   <managed-bean>
+      <managed-bean-name>actiondetails</managed-bean-name>
+      <managed-bean-class>ltj.msgui.bean.MsgActionDetailsBean</managed-bean-class>
+      <managed-bean-scope>session</managed-bean-scope>
+   </managed-bean>
+
+   <!-- define managed beans for Message Inbox/Outbox Class pages -->
+   <managed-bean>
+      <managed-bean-name>msgfolder</managed-bean-name>
+      <managed-bean-class>ltj.msgui.bean.MsgInboxBean</managed-bean-class>
+      <managed-bean-scope>session</managed-bean-scope>
+   </managed-bean>
+
+   <!-- define managed beans for Simple Mail Tracking Class pages -->
+   <managed-bean>
+      <managed-bean-name>mailtracking</managed-bean-name>
+      <managed-bean-class>ltj.msgui.bean.SimpleMailTrackingMenu</managed-bean-class>
+      <managed-bean-scope>session</managed-bean-scope>
+   </managed-bean>
+
+   
+   <!-- define custom component and renderer for tabbedpane -->
+   <component>
+      <description>A tabbed pane</description>
+      <component-type>ltj.msgui.TabbedPane</component-type>
+      <component-class>ltj.msgui.tabbedpane.UITabbedPane</component-class>
+   </component>
+
+   <render-kit>
+      <renderer>
+         <component-family>javax.faces.Command</component-family>
+         <renderer-type>ltj.msgui.TabbedPane</renderer-type>
+         <renderer-class>ltj.msgui.tabbedpane.TabbedPaneRenderer</renderer-class>
+      </renderer>
+   </render-kit>
+   
+	<!-- define navigation rules -->
+   <navigation-rule>
+		<display-name>
+		login</display-name>
+		<from-view-id>
+		/login.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>
+			login</from-outcome>
+			<to-view-id>
+			/welcome.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>
+		quiz</display-name>
+		<from-view-id>
+		/quiz.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>
+			next</from-outcome>
+			<to-view-id>
+			/quiz.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>
+			welcome</from-outcome>
+			<to-view-id>
+			/welcome.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+   <navigation-rule>
+      <from-view-id>/index.jsp</from-view-id>
+      <navigation-case>
+         <from-outcome>thankYou</from-outcome>
+         <to-view-id>/thankYou.jsp</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+   
+    <navigation-rule>
+      <navigation-case>
+         <from-outcome>showInformation</from-outcome>
+         <to-view-id>/showInformation.jsp</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+   
+   <navigation-rule>
+      <from-view-id>/payment.jsp</from-view-id>
+      <navigation-case>
+         <from-outcome>process</from-outcome>
+         <to-view-id>/paymentresult.jsp</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+
+   <navigation-rule>
+      <from-view-id>/paymentresult.jsp</from-view-id>
+      <navigation-case>
+         <from-outcome>back</from-outcome>
+         <to-view-id>/payment.jsp</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+   
+   <navigation-rule>
+      <navigation-case>
+         <from-outcome>rushmore</from-outcome>
+         <to-view-id>/rushmore.jsp</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+
+   <navigation-rule>
+      <from-view-id>/rushmore.jsp</from-view-id>
+      <navigation-case>
+         <from-outcome>washington</from-outcome>
+         <to-view-id>/washington.jsp</to-view-id>
+      </navigation-case>
+      <navigation-case>
+         <from-outcome>jefferson</from-outcome>
+         <to-view-id>/jefferson.jsp</to-view-id>
+      </navigation-case>
+      <navigation-case>
+         <from-outcome>roosevelt</from-outcome>
+         <to-view-id>/roosevelt.jsp</to-view-id>
+      </navigation-case>
+      <navigation-case>
+         <from-outcome>lincoln</from-outcome>
+         <to-view-id>/lincoln.jsp</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+   
+   <!-- 
+   	use redirect element for pages that users might want to bookmark.
+   	however, with the redirect element, the request scope data is lost.
+    -->
+   <navigation-rule>
+      <from-view-id>/customerList.jsp</from-view-id>
+      <navigation-case>
+         <from-outcome>edit</from-outcome>
+         <to-view-id>/customerEdit.jsp</to-view-id>
+         <redirect/>
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/customerEdit.jsp</from-view-id>
+      <navigation-case>
+         <from-outcome>success</from-outcome>
+         <to-view-id>/customerList.jsp</to-view-id>
+         <redirect/>
+      </navigation-case>
+   </navigation-rule>
+   
+   <!--
+   	Getting Started
+   	-->
+   <navigation-rule>
+      <navigation-case>
+         <from-outcome>initdb</from-outcome>
+         <to-view-id>/gettingStarted.jsp</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+   
+   <!-- Mailboxes -->
+   <navigation-rule>
+      <from-view-id>/gettingStarted.jsp</from-view-id>
+      <navigation-case>
+         <from-outcome>mailbox.edit</from-outcome>
+         <to-view-id>/mailboxEdit.jsp</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+   
+   <navigation-rule>
+      <from-view-id>/mailboxEdit.jsp</from-view-id>
+      <navigation-case>
+         <from-outcome>mailbox.saved</from-outcome>
+         <to-view-id>/gettingStarted.jsp</to-view-id>
+      </navigation-case>
+      <navigation-case>
+         <from-outcome>mailbox.canceled</from-outcome>
+         <to-view-id>/gettingStarted.jsp</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+   
+   <!-- SMTP Servers -->
+   <navigation-rule>
+      <from-view-id>/gettingStarted.jsp</from-view-id>
+      <navigation-case>
+         <from-outcome>smtpserver.edit</from-outcome>
+         <to-view-id>/smtpServerEdit.jsp</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+   
+   <navigation-rule>
+      <from-view-id>/smtpServerEdit.jsp</from-view-id>
+      <navigation-case>
+         <from-outcome>smtpserver.saved</from-outcome>
+         <to-view-id>/gettingStarted.jsp</to-view-id>
+      </navigation-case>
+      <navigation-case>
+         <from-outcome>smtpserver.canceled</from-outcome>
+         <to-view-id>/gettingStarted.jsp</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+   
+   <!-- Build-In Rules -->
+   <navigation-rule>
+      <from-view-id>/gettingStarted.jsp</from-view-id>
+      <navigation-case>
+         <from-outcome>msgrule.msgaction.builtin.edit</from-outcome>
+         <to-view-id>/msgActionBuiltInEdit.jsp</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+   
+   <navigation-rule>
+      <from-view-id>/msgActionBuiltInEdit.jsp</from-view-id>
+      <navigation-case>
+         <from-outcome>msgrule.saved</from-outcome>
+         <to-view-id>/gettingStarted.jsp</to-view-id>
+      </navigation-case>
+      <navigation-case>
+         <from-outcome>msgrule.canceled</from-outcome>
+         <to-view-id>/gettingStarted.jsp</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+   
+   <!-- Custom Rules -->
+   <navigation-rule>
+      <from-view-id>/gettingStarted.jsp</from-view-id>
+      <navigation-case>
+         <from-outcome>msgrule.edit</from-outcome>
+         <to-view-id>/msgRuleEdit.jsp</to-view-id>
+      </navigation-case>
+      <navigation-case>
+         <from-outcome>msgrule.subrule.edit</from-outcome>
+         <to-view-id>/msgSubRuleEdit.jsp</to-view-id>
+      </navigation-case>
+      <navigation-case>
+         <from-outcome>msgrule.msgaction.edit</from-outcome>
+         <to-view-id>/msgActionEdit.jsp</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+   
+   <navigation-rule>
+      <from-view-id>/msgRuleEdit.jsp</from-view-id>
+      <navigation-case>
+         <from-outcome>msgrule.saved</from-outcome>
+         <to-view-id>/gettingStarted.jsp</to-view-id>
+      </navigation-case>
+      <navigation-case>
+         <from-outcome>msgrule.canceled</from-outcome>
+         <to-view-id>/gettingStarted.jsp</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+   
+   <navigation-rule>
+      <from-view-id>/msgSubRuleEdit.jsp</from-view-id>
+      <navigation-case>
+         <from-outcome>msgrule.saved</from-outcome>
+         <to-view-id>/gettingStarted.jsp</to-view-id>
+      </navigation-case>
+      <navigation-case>
+         <from-outcome>msgrule.canceled</from-outcome>
+         <to-view-id>/gettingStarted.jsp</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+   
+   <navigation-rule>
+      <from-view-id>/msgActionEdit.jsp</from-view-id>
+      <navigation-case>
+         <from-outcome>msgrule.saved</from-outcome>
+         <to-view-id>/gettingStarted.jsp</to-view-id>
+      </navigation-case>
+      <navigation-case>
+         <from-outcome>msgrule.canceled</from-outcome>
+         <to-view-id>/gettingStarted.jsp</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+   
+   <!-- Message Action Details -->
+   <navigation-rule>
+      <from-view-id>/gettingStarted.jsp</from-view-id>
+      <navigation-case>
+         <from-outcome>actiondetail.edit</from-outcome>
+         <to-view-id>/msgActionDetailEdit.jsp</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+   
+   <navigation-rule>
+      <from-view-id>/msgActionDetailEdit.jsp</from-view-id>
+      <navigation-case>
+         <from-outcome>actiondetail.saved</from-outcome>
+         <to-view-id>/gettingStarted.jsp</to-view-id>
+      </navigation-case>
+      <navigation-case>
+         <from-outcome>actiondetail.canceled</from-outcome>
+         <to-view-id>/gettingStarted.jsp</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+   
+   <!-- Message Inbox List/Edit -->
+   <navigation-rule>
+      <from-view-id>/msgInboxList.jsp</from-view-id>
+      <navigation-case>
+         <from-outcome>message.edit</from-outcome>
+         <to-view-id>/msgInboxView.jsp</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+   
+   <navigation-rule>
+      <from-view-id>/msgInboxView.jsp</from-view-id>
+      <navigation-case>
+         <from-outcome>message.deleted</from-outcome>
+         <to-view-id>/msgInboxList.jsp</to-view-id>
+      </navigation-case>
+      <navigation-case>
+         <from-outcome>message.canceled</from-outcome>
+         <to-view-id>/msgInboxList.jsp</to-view-id>
+      </navigation-case>
+      <navigation-case>
+         <from-action>#{msgfolder.replyMessage}</from-action>
+         <from-outcome>message.reply</from-outcome>
+         <to-view-id>/msgInboxSend.jsp</to-view-id>
+      </navigation-case>
+      <navigation-case>
+         <from-action>#{msgfolder.forwardMessage}</from-action>
+         <from-outcome>message.forward</from-outcome>
+         <to-view-id>/msgInboxSend.jsp</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+   
+   <navigation-rule>
+      <from-view-id>/msgInboxSend.jsp</from-view-id>
+      <navigation-case>
+         <from-outcome>message.canceled</from-outcome>
+         <to-view-id>/msgInboxView.jsp</to-view-id>
+      </navigation-case>
+      <navigation-case>
+         <from-outcome>message.sent</from-outcome>
+         <to-view-id>/msgInboxList.jsp</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+   
+   <!-- define converters -->
+   <!-- converter id="for_jsf1.1">
+  	<converter-for-class>java.lang.Enum</converter-for-class>
+  	<converter-class>ltj.msgui.converter.EnumTypeConverter</converter-class>
+   </converter -->
+   
+   <converter>
+    <converter-id>ltj.msgui.CreditCard</converter-id>
+  	<converter-class>ltj.msgui.converter.CreditCardConverter</converter-class>
+   </converter>
+   
+   <!-- converter>
+  	<converter-for-class>ltj.msgui.bean.CreditCard</converter-for-class>
+  	<converter-class>ltj.msgui.converter.CreditCardConverter</converter-class>
+   </converter -->
+   
+   <converter>
+    <converter-id>NullableStringConverter</converter-id>
+  	<converter-class>ltj.msgui.converter.NullableStringConverter</converter-class>
+   </converter>
+   
+   <!-- define validators -->
+   <validator> 
+      <validator-id>ltj.msgui.CreditCard</validator-id>
+      <validator-class>ltj.msgui.validator.CreditCardValidator</validator-class> 
+   </validator>
+   
+   <!-- define PhaseTracker listener -->
+   <lifecycle>
+      <phase-listener>ltj.msgui.listener.PhaseTracker</phase-listener>
+   </lifecycle>
+   
+   <!-- define PostRedirectGet listener -->
+   <!-- lifecycle>
+      <phase-listener>ltj.msgui.util.PostRedirectGetListener</phase-listener>
+   </lifecycle -->
+   
+   <!-- define messages resource bundle -->
+   <application>
+      <resource-bundle>
+         <base-name>ltj.msgui.messages</base-name>
+         <var>msgs</var>
+      </resource-bundle>
+   </application>
+
+</faces-config>

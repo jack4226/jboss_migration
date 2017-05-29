@@ -1,0 +1,19 @@
+<!DOCTYPE html [
+    <!ENTITY nbsp "&#160;"> 
+    <!ENTITY copy "&#169;">
+]>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:panelGrid id="gettingStartedFooter" columns="2" styleClass="gettingStartedFooter"
+	columnClasses="gettingStartedFooterHeight, gettingStartedFooterHeight">
+	<h:panelGroup style="text-align: left;">
+		<h:outputText value="&copy; #{msgs.copyrightText}" styleClass="headerLinkText" escape="false"/>
+	</h:panelGroup>
+   	<h:panelGroup style="text-align: right;">
+   		<h:outputText value="#{codes.poweredByHtmlTag}" styleClass="headerLinkText" escape="false"/>
+   	</h:panelGroup>
+</h:panelGrid>
+</html>

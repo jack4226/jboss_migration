@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<faces-config
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd"
+    version="2.1">
+
+    <!-- define locales -->
+	<application>
+		<locale-config>
+			<default-locale>en</default-locale>
+			<supported-locale>de</supported-locale>
+		</locale-config>
+	</application>
+
+   <!-- define messages resource bundle -->
+	<application>
+		<resource-bundle>
+			<base-name>jpa.msgui.messages</base-name>
+			<var>msgs</var>
+		</resource-bundle>
+	</application>
+
+	<lifecycle>
+		<phase-listener>jpa.msgui.listener.PhaseTracker</phase-listener>
+	</lifecycle>
+
+	<!-- define navigation rules -->
+	<navigation-rule>
+		<from-view-id>/login.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>admin</from-outcome>
+			<to-view-id>/main.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>user</from-outcome>
+			<to-view-id>/welcome.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>ruleActionBuiltinEdit.xhtml</display-name>
+		<from-view-id>/ruleActionBuiltinEdit.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/customizeBuiltinRules.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>save</from-outcome>
+			<to-view-id>/customizeBuiltinRules.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>configureCustomRules.xhtml</display-name>
+		<from-view-id>/configureCustomRules.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>edit_logic</from-outcome>
+			<to-view-id>/ruleLogicEdit.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>edit_element</from-outcome>
+			<to-view-id>/ruleElementEdit.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>edit_subrule</from-outcome>
+			<to-view-id>/ruleSubruleEdit.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>edit_action</from-outcome>
+			<to-view-id>/ruleActionEdit.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>ruleLogicEdit.xhtml</display-name>
+		<from-view-id>/ruleLogicEdit.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/configureCustomRules.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>ruleSubruleEdit.xhtml</display-name>
+		<from-view-id>/ruleSubruleEdit.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/configureCustomRules.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>ruleElementEdit.xhtml</display-name>
+		<from-view-id>/ruleElementEdit.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/configureCustomRules.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>ruleActionEdit.xhtml</display-name>
+		<from-view-id>/ruleActionEdit.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/configureCustomRules.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+</faces-config>

@@ -1,0 +1,171 @@
+<!DOCTYPE html [
+    <!ENTITY nbsp "&#160;"> 
+]>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:messages styleClass="errors" layout="list" rendered="#{debug.showMessages}"/>
+<h:outputFormat value="#{msgs.manageSubscriberInformation}" styleClass="gridHeader">
+   <f:param value=""/>
+</h:outputFormat>
+<h:dataTable binding="#{subscriberData.dataTable}" id="data_table"
+   value="#{subscriberData.subscribers}" var="list" 
+   rows="#{subscriberData.pagingVo.pageSize}"
+   styleClass="jsfDataTable" rowClasses="oddRows, evenRows"
+   headerClass="dataTableHeader" footerClass="dataTableFooter"
+   columnClasses="twoPercent,tenPercent,tenPercent,tenPercent,fourtyPercent,tenPercent,tenPercent,tenPercent">
+   
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value=""/>
+      </f:facet>
+      <h:selectBooleanCheckbox value="#{list.markedForDeletion}" title="#{subscriberData.dataTable}_checkBox"
+         disabled="#{not list.editable}">
+         <f:ajax event="click" render="@form" />
+      </h:selectBooleanCheckbox>
+   </h:column>
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.subscriberIdHeader}"/>
+      </f:facet>
+      <h:commandLink title="#{subscriberData.dataTable}_viewDetail">
+      	<h:outputText value="#{list.subscriberId}" title="Click to Edit"/>
+      	<f:param name="subscriberId" value="#{list.subscriberId}"/>
+      	<f:ajax listener="#{subscriberData.viewSubscriberListener}" render="@form"/>
+      </h:commandLink>
+   </h:column>
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.firstNameHeader}"/>
+      </f:facet>
+      <div class="cellHeight">
+      <h:outputText value="#{list.firstName}" title="#{subscriberData.dataTable}_firstName"/>
+      </div>
+   </h:column>
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.lastNameHeader}"/>
+      </f:facet>
+      <div class="cellHeight">
+      <h:outputText value="#{list.lastName}" title="#{subscriberData.dataTable}_lastName"/>
+      </div>
+   </h:column>
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.emailAddrHeader}"/>
+      </f:facet>
+      <div class="cellHeight">
+      <h:outputText value="#{list.emailAddress.address}" title="#{subscriberData.dataTable}_emailAddr"/>
+      </div>
+   </h:column>
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.startDateHeader}"/>
+      </f:facet>
+		<h:outputText value="#{list.startDate}" title="#{subscriberData.dataTable}_startDate">
+			<f:convertDateTime pattern="yyyy-MM-dd" type="date"/>
+		</h:outputText>
+   </h:column>
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.dayPhoneNumberHeader}"/>
+      </f:facet>
+	  <h:outputText value="#{list.dayPhone}" title="#{subscriberData.dataTable}_dayPhone"/>
+   </h:column>
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.birthDateHeader}"/>
+      </f:facet>
+	  <h:outputText value="#{list.birthDate}" title="#{subscriberData.dataTable}_birthDate">
+	  	<f:convertDateTime pattern="yyyy-MM-dd" type="date"/>
+	  </h:outputText>
+   </h:column>
+	<f:facet name="footer">
+    <h:panelGroup>
+	<h:panelGrid columns="2" styleClass="fullWidth"
+		columnClasses="alignLeft50, alignRight50">
+		<h:panelGroup>
+			<h:inputText value="#{subscriberData.searchString}" size="30" id="search_string"
+				maxlength="100" title="Search String"/>
+			<f:verbatim>&nbsp;</f:verbatim>
+			<h:commandButton value="#{msgs.searchByEmailButtonText}"
+				title="Search By Email Address">
+				<f:ajax execute="search_string" listener="#{subscriberData.searchByAddress}" render="@form" />
+			</h:commandButton>
+			<f:verbatim>&nbsp;</f:verbatim>
+			<h:commandButton value="#{msgs.resetButtonText}" title="Reset">
+				<f:ajax event="click" listener="#{subscriberData.resetSearch}" render="@form" />
+			</h:commandButton>
+		</h:panelGroup>
+		<h:panelGroup>
+          	<h:outputText value="#{subscriberData.pagingVo.pageNumber * subscriberData.pagingVo.pageSize + 1}"
+          		style="font-weight: bold;" title="First Row Number" />
+          	<h:outputText value=" - "/>
+			<h:outputText value="#{subscriberData.lastPageRow}" title="Last Row Number"
+				style="font-weight: bold;" />
+			<h:outputText value=" of " style="font-weight: bold;"/>
+			<h:outputText value="#{subscriberData.rowCount}" title="Row Count"
+          		style="font-weight: bold;"/>
+          	<f:verbatim>&nbsp;&nbsp;</f:verbatim>
+            <h:commandLink value="#{msgs.firstLinkText}" title="Page First"
+                disabled="#{subscriberData.pagingVo.pageNumber == 0}">
+                <f:ajax listener="#{subscriberData.pageFirst}" render="@form"/>
+            </h:commandLink>
+            <f:verbatim>&nbsp;|&nbsp;</f:verbatim>
+            <h:commandLink value="#{msgs.prevLinkText}" title="Page Previous"
+                disabled="#{subscriberData.pagingVo.pageNumber == 0}">
+                <f:ajax listener="#{subscriberData.pagePrevious}" render="@form"/>
+            </h:commandLink>
+            <f:verbatim>&nbsp;|&nbsp;</f:verbatim>
+            <c:set var="page_number" value="${subscriberData.pagingVo.pageNumber + 1}"/>
+            <c:set var="page_size" value="${subscriberData.pagingVo.pageSize}"/>
+            <c:set var="row_count" value="${subscriberData.rowCount}"/>
+            <c:if test="${page_number * page_size lt row_count}">
+	            <h:commandLink value="#{msgs.nextLinkText}" title="Page Next" disabled="false">
+	                <f:ajax listener="#{subscriberData.pageNext}" render="@form"/>
+	            </h:commandLink>
+	            <f:verbatim>&nbsp;|&nbsp;</f:verbatim>
+	            <h:commandLink value="#{msgs.lastLinkText}" title="Page Last" disabled="false">
+	                <f:ajax listener="#{subscriberData.pageLast}" render="@form"/>
+	            </h:commandLink>
+            </c:if>
+            <c:if test="${page_number * page_size ge row_count}">
+	            <h:commandLink value="#{msgs.nextLinkText}" title="Page Next" disabled="true"/>
+	            <f:verbatim>&nbsp;|&nbsp;</f:verbatim>
+	            <h:commandLink value="#{msgs.lastLinkText}" title="Page Last" disabled="true"/>
+            </c:if>
+        </h:panelGroup>
+    </h:panelGrid>
+    </h:panelGroup>
+	</f:facet>
+</h:dataTable>
+<f:verbatim><p/></f:verbatim>
+<h:panelGrid columns="2" styleClass="commandBar"
+	columnClasses="alignLeft70, alignRight30">
+	<h:panelGroup>
+		<h:commandButton value="#{msgs.deleteButtonText}" title="Delete selected rows"
+			disabled="#{not subscriberData.subscribersMarkedForDeletion}"
+			onclick="javascript:return confirmDelete();" >
+			<f:ajax event="click" listener="#{subscriberData.deleteSubscribers}" render="@form" />
+		</h:commandButton>
+		<f:verbatim>&nbsp;</f:verbatim>
+		<h:commandButton value="#{msgs.copyToNewButtonText}" title="Copy selected"
+			disabled="#{not subscriberData.subscribersMarkedForDeletion}" >
+			<f:ajax event="click" listener="#{subscriberData.copySubscriberListener}" render="@form" />
+		</h:commandButton>
+		<f:verbatim>&nbsp;</f:verbatim>
+		<h:commandButton value="#{msgs.addNewButtonText}" title="Add a new row">
+			<f:ajax event="click" listener="#{subscriberData.addSubscriberListener}" render="@form" />
+		</h:commandButton>
+		<f:verbatim>&nbsp;</f:verbatim>
+		<h:commandButton value="#{msgs.refreshLinkText}" title="Refresh from database" >
+			<f:ajax event="click" listener="#{subscriberData.refreshPage}" render="data_table" />
+		</h:commandButton>
+	</h:panelGroup>
+	<h:panelGroup>
+		<f:verbatim>&nbsp;</f:verbatim>
+	</h:panelGroup>
+</h:panelGrid>
+</html>

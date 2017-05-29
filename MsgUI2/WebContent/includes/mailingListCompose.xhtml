@@ -1,0 +1,137 @@
+<!DOCTYPE html [
+    <!ENTITY nbsp "&#160;"> 
+]>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:panelGrid columns="1" styleClass="headerMenuContent">
+	<h:panelGroup>
+		<h:messages styleClass="errors" layout="list"
+			rendered="#{debug.showMessages}"/>
+		<h:outputText value="#{mailingListCompose.actionFailure}"
+			rendered="#{mailingListCompose.actionFailure != null}" styleClass="errorMessage"/>
+
+		<h:panelGroup id="sendResult">
+			<h:outputText value="#{msgs[mailingListCompose.sendResult]}&lt;br/&gt;" escape="false"
+				 rendered="#{mailingListCompose.sendResult != null}" styleClass="errorMessage"/>
+		</h:panelGroup>
+
+		<h:outputFormat value="#{msgs.composeForListLink}" styleClass="gridHeader">
+		   <f:param value=""/>
+		</h:outputFormat>
+		<h:panelGrid columns="2" styleClass="commandBar" 
+			columnClasses="alignLeft50, alignRight50">
+			<h:panelGroup>
+				<h:commandButton value="#{msgs.sendButtonText}" title="Send message">
+					<f:ajax execute="@form" listener="#{mailingListCompose.sendMessageListener}" render="sendResult @this"/>
+				</h:commandButton>
+				<f:verbatim>&nbsp;</f:verbatim>
+				<h:commandButton value="#{msgs.backButtonText}" title="Go Back" onclick="window.history.back();"/>
+			</h:panelGroup>
+			<h:panelGroup style="text-align: right;">
+				<f:verbatim>&nbsp;</f:verbatim>
+				<h:selectOneMenu id="template" value="#{mailingListCompose.templateId}"
+					binding="#{mailingListCompose.templateIdInput}">
+					<f:selectItems value="#{dynacodes.emailTemplateIdItems}"/>
+				</h:selectOneMenu>
+				<f:verbatim>&nbsp;</f:verbatim>
+				<h:commandButton value="#{msgs.copyFromTemplateButtonText}" title="Copy from Template" immediate="true">
+					<f:ajax execute="template" immediate="true" listener="#{mailingListCompose.copyFromTemplateListener}" render="@form"/>
+				</h:commandButton>
+			</h:panelGroup>
+		</h:panelGrid>
+		<f:verbatim><p/></f:verbatim>
+		<h:panelGrid columns="3" styleClass="smtpHeaders" 
+			columnClasses="promptColumn, inputColumn, messageColumn">
+			
+			<h:outputText value="#{msgs.mailingListPrompt}" />
+			<h:selectOneMenu value="#{mailingListCompose.listId}"
+				id="listid" label="#{msgs.mailingListPrompt}" required="true">
+				<f:selectItems value="#{dynacodes.mailingListIdItems}"/>
+			</h:selectOneMenu>
+			<h:message for="listid" styleClass="errorMessage"/>
+
+			<h:outputText value="#{msgs.msgSubjectPrompt}" />
+			<h:inputText value="#{mailingListCompose.msgSubject}" 
+				id="subject" label="#{msgs.msgSubjectPrompt}"
+				required="true" maxlength="255" size="100"/>
+			<h:message for="subject" styleClass="errorMessage"/>
+		</h:panelGrid>
+
+		<h:panelGrid columns="1" styleClass="fullWidth">
+			<h:commandButton value="#{msgs.attachFileButtonText}" title="Attach files"
+				immediate="true" action="#{mailingListCompose.attachFiles}"/>
+			<h:dataTable value="#{mailingListCompose.uploads}" var="upload"
+				style="width: auto; border: none;">
+				<h:column>
+					<h:graphicImage value="/images/clip_1.gif" alt="upload" style="border: 0px"
+						title="attachment"/>
+					<h:outputText value="#{upload.fileName}"/>
+					<f:verbatim>&nbsp;&nbsp;</f:verbatim>
+					<h:outputText value="#{msgs.sizePrompt}"/>
+					<h:outputText value="(#{upload.fileSize})"/>
+					<h:commandLink action="#{mailingListCompose.removeUploadFile}"
+						style="color: darkblue; font-size: 1em; font-weight: bold;">
+						<f:param name="seq" value="#{upload.sessionUploadPK.sessionSequence}"/>
+						<f:param name="name" value="#{upload.fileName}"/>
+						<h:outputText value="[#{msgs.removeLinkText}]"/>
+					</h:commandLink>
+				</h:column>
+			</h:dataTable>
+		</h:panelGrid>
+		
+		<h:panelGrid columns="1" styleClass="smtpBody">
+			<h:panelGrid columns="1" styleClass="commandBar">
+				<h:panelGroup style="text-align: left;">
+					<h:outputText value="#{msgs.variableNamePrompt}" styleClass="columnHeader"/>
+					<h:selectOneMenu id="vname" required="true" >
+						<f:selectItems value="#{dynacodes.emailVariableNameItems}"/>
+						<f:selectItems value="#{dynacodes.globalVariableNameItems}"/>
+					</h:selectOneMenu>
+					<f:verbatim>
+					<input type="button" value="Insert Selected Variable"
+						onclick="insertFieldToBody('mlstcomp:vname');"/>
+					</f:verbatim>
+				</h:panelGroup>
+			</h:panelGrid>
+			
+			<h:inputTextarea value="#{mailingListCompose.msgBody}"
+				id="bodytext" rows="20" style="width: 990px;"/>
+			<f:verbatim>
+			<script type="text/javascript">
+			//<!--
+				buttonPath = "images/whizzywigbuttons/";
+				makeWhizzyWig("mlstcomp:edit:bodytext", "all");
+			// -->
+			</script>
+			</f:verbatim>
+			
+			<h:panelGrid columns="2" styleClass="commandBar" 
+				columnClasses="eightyPercent,twentyPercent">
+			<h:panelGroup style="text-align: left;">
+				<h:outputText value="#{msgs.embedEmailIdPrompt}"/>
+				<h:selectOneMenu value="#{mailingListCompose.embedEmailId}">
+					<f:selectItems value="#{codes.yorNItems}"/>
+					<f:selectItem itemLabel="System default" itemValue=" "/>
+				</h:selectOneMenu>
+				<f:verbatim>&nbsp;&nbsp;&nbsp;</f:verbatim>
+				<h:outputText value="#{msgs.deliveryOptionPrompt}"/>
+				<h:selectOneMenu id="dlvropt" value="#{mailingListCompose.deliveryOption}">
+					<f:selectItems value="#{codes.mailingListDeliveryOptionItems}"/>
+				</h:selectOneMenu>
+			</h:panelGroup>
+			<h:panelGroup style="text-align: right;">
+				<h:outputText value="#{msgs.htmlContentPrompt}"/>
+				<h:selectBooleanCheckbox value="#{mailingListCompose.html}"/>
+				<f:verbatim>&nbsp;&nbsp;&nbsp;</f:verbatim>
+				<h:commandButton value="#{msgs.mailingListPreviewLink}" title="Preview Rendered Message">
+					<f:ajax listener="#{mailingListCompose.previewMsgBodyListener}" render="@form"/>
+				</h:commandButton>
+			</h:panelGroup>
+			</h:panelGrid>
+		</h:panelGrid>
+	</h:panelGroup>
+	</h:panelGrid>
+</html>

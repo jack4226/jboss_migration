@@ -1,0 +1,440 @@
+This is the Postfix program at host birch.garlic.com.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to <postmaster>
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+           The Postfix program
+
+<amy@garlic.com> (expanded from <amy@svinet.com>): host
+    garlic.com.southvalley.mail1.psmtp.com[64.18.4.10] said: 550 5.1.1
+    <amy@garlic.com>: Recipient address rejected: User unknown in local
+    recipient table (in reply to RCPT TO command)
+
+
+
+--- EOM ---
+This is the Postfix program at host mail.trifecta.com.
+
+I'm sorry to have to inform you that the message returned
+below could not be delivered to one or more destinations.
+
+For further assistance, please send mail to <postmaster>
+
+If you do so, please include this problem report. You can
+delete your own text from the message returned below.
+
+            The Postfix program
+
+<bradley@precisionmedical.com>: unknown user: "bradley"
+
+
+
+--- EOM ---
+This is the Postfix program at host mx2.bct.org.
+
+I'm sorry to have to inform you that your message could not be
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to <postmaster>
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+            The Postfix program
+
+<aguirre@bctelco.com>: host 69.54.136.150[69.54.136.150] said: 550 5.1.1 User
+    unknown (in reply to RCPT TO command)
+
+
+
+--- EOM ---
+This is the mail system at host media-express.nsk.su.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to <postmaster>
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<bob@infosib.ru>: unknown user: "bob@infosib.ru"
+
+
+
+--- EOM ---
+Failed to deliver to 'allison@thyca.com'
+SMTP module(domain etrn.thyca.com) reports:
+host etrn.thyca.com says:
+550 5.1.1 User unknown
+
+
+
+--- EOM ---
+Failed to deliver to 'iana.krylova@braas.ru'
+SMTP module(domain [195.16.61.188]) reports:
+connection with 195.16.61.188 is broken
+
+
+
+--- EOM ---
+User mailbox exceeds allowed size: australagencia@freenet.com.ar
+
+
+Original message follows.
+
+
+
+--- EOM ---
+Your message to: adrianelan@aol.com
+was blocked by our Spam Firewall. The email you sent with the following subject has NOT BEEN DELIVERED:
+
+Subject: Choosing Online Pharmacy.
+
+
+
+--- EOM ---
+This message was created automatically by mail delivery software.
+
+A message that you sent could not be delivered to one or more of its
+recipients. This is a permanent error. The following address(es) failed:
+
+  a.bruckner@a3.shes.net
+  a.brundisch@a3.shes.net
+  a.buecherl@a3.shes.net
+  a.buesch@a3.shes.net
+  a.bree@a3.shes.net
+
+The following text was generated during the delivery attempts:
+
+
+
+--- EOM ---
+Failed to deliver to 'drathius4evr@tmail.com'
+LOCAL module(account drathius4evr@tmail.com) reports:
+account is full (quota exceeded)
+
+
+
+--- EOM ---
+  --- The following addresses had delivery problems ---
+
+<bryan@critpath.org>   (5.1.1 <bryan@critpath.org>... User unknown)
+
+
+
+--- EOM ---
+The original message was received at Mon, 19 Mar 2007 12:44:53 +0100
+from mail1.prosiebensat1.net [193.28.192.43]
+
+   ----- The following addresses had permanent fatal errors -----
+<downey@prosieben.com>
+    (reason: 550 5.1.1 <downey@prosieben.com>... User unknown)
+
+   ----- Transcript of session follows -----
+... while talking to leipzig-mail.transfer.sevensys.de.:
+>>> DATA
+<<< 550 5.1.1 <downey@prosieben.com>... User unknown
+550 5.1.1 <downey@prosieben.com>... User unknown
+<<< 503 5.0.0 Need RCPT (recipient)
+
+
+
+--- EOM ---
+This message was created automatically by mail delivery software.
+
+A message that you sent could not be delivered to one or more of its
+recipients. This is a permanent error. The following address(es) failed:
+
+  amadei@nkah.hs.ukrtel.net
+    mailbox is full: retry timeout exceeded
+
+------ This is a copy of the message's headers. ------
+
+
+
+--- EOM ---
+This is an automatically generated Delivery Status Notification.
+
+Delivery to the following recipients failed.
+
+       403_rockp@fuswrk.fusion.bt.com
+       403_madueno@fuswrk.fusion.bt.com
+       403.melita_kovacevic@fuswrk.fusion.bt.com
+       403.melanie_mcneely@fuswrk.fusion.bt.com
+       403.l.collins9@fuswrk.fusion.bt.com
+       402ski-ride@fuswrk.fusion.bt.com
+       402sergio.asensi@fuswrk.fusion.bt.com
+       402rwcrlc@fuswrk.fusion.bt.com
+       402mskcpa@fuswrk.fusion.bt.com
+
+
+
+--- EOM ---
+Message from  yahoo.com.
+Unable to deliver message to the following address(es).
+
+<monano@oratio.com>:
+This user doesn't have a oratio.com account (monano@oratio.com) [0]
+
+
+--- Original message follows.
+
+
+
+--- EOM ---
+This message was created automatically by mail delivery software (Exim).
+
+A message that you sent could not be delivered to one or more of its
+recipients. This is a permanent error. The following address(es) failed:
+
+  junkmailfile@earthlink.net
+    SMTP error from remote mailer after RCPT TO:<junkmailfile@earthlink.net>:
+    host mx2.earthlink.net [209.86.93.227]: 550 junkmailfile@earthlink.net...Due to extended inactivity new mail is not currently being accepted for this mailbox.
+
+------ This is a copy of the message, including all the headers. ------
+
+
+
+--- EOM ---
+Message from yahoo.com.
+Unable to deliver message to the following address(es).
+
+<jacobthomas@yahoo.com>:
+Sorry your message to jacobthomas@yahoo.com cannot be delivered. This account has been disabled or discontinued [#103].
+
+<jacomo_kasanova@yahoo.com>:
+Sorry your message to jacomo_kasanova@yahoo.com cannot be delivered. This account has been disabled or discontinued [#102].
+
+--- Original message follows.
+
+
+
+--- EOM ---
+eTrust Secure Content Manager SMTPMAIL could not deliver the e-mail below because at least one of recipients was rejected by the mail server
+Please check the recipients e-mail address before you try again:
+steven@hceng.com
+
+Original message header:
+=======================================
+
+
+
+--- EOM ---
+Your message to: es@blounttn.org
+was blocked by our Spam Firewall. The email you sent with the following subject has NOT BEEN DELIVERED:
+
+Subject: Pills from Canadian pharmacy!
+
+
+
+--- EOM ---
+This is a collection of reports about email delivery
+process concerning a message you originated.
+
+Some explanations/translations for these reports
+can be found at:
+      http://zmailer.org/delivery-report-decoding.html
+
+If you are our customer, further help is available
+at email address: ____ @ ______  (TO BE FILLED IN)
+Reporting-MTA: dns; ams002.ftl.affinity.com
+Return-Path: <jackwng@yahoo.com>
+Arrival-Date: Thu, 15 Mar 2007 02:44:29 -0400
+Local-Spool-ID: S376620AbXCOGo3
+
+
+FAILED:
+  Arrived Recipient:
+      rfc822;cobb@kbe.com
+  Original Recipient:
+      rfc822;cobb@kbe.com
+  Final Recipient:
+      RFC822;cobb@kbe.com
+  Status:
+      5.2.1 (Mailbox quota exceeded)
+  Last Attempt Date:
+      Thu, 15 Mar 2007 02:44:29 -0400
+  Diagnostic Code:
+      550 (Mailbox quota exceeded)
+  Control data:
+      vmail kbe.com cobb@kbe.com 99
+  Diagnostic texts:
+      Mailbox quota exceeded.
+
+
+
+--- EOM ---
+The original message was received at Thu, 15 Mar 2007 05:42:33 +0100
+from [80.67.58.209]
+
+   ----- The following addresses had permanent fatal errors -----
+<bowling@binocle.com>
+    (reason: 550 Denied by policy.)
+
+   ----- Transcript of session follows -----
+... while talking to scan.magic.fr.:
+>>> DATA
+<<< 550 Denied by policy.
+554 5.0.0 Service unavailable
+
+
+
+--- EOM ---
+Hi. This is the qmail-send program at courrier.branchez-vous.net.
+I'm afraid I wasn't able to deliver your message to the following addresses.
+This is a permanent error; I've given up. Sorry it didn't work out.
+
+<bennett@inventionmedia.com>:
+Sorry, no mailbox here by that name. vpopmail (#5.1.1)
+
+--- Below this line is a copy of the message.
+
+
+
+--- EOM ---
+This message was created automatically by mail delivery software (Exim).
+
+A message that you sent could not be delivered to one or more of its
+recipients. This is a permanent error. The following address(es) failed:
+
+  spamcatcher@earthlink.com
+    SMTP error from remote mailer after RCPT TO:<spamcatcher@earthlink.com>:
+    host mx2.earthlink.net [209.86.93.227]: 550 spamcatcher@earthlink.com...User unknown
+
+------ This is a copy of the message, including all the headers. ------
+
+
+
+
+--- EOM ---
+This is the Postfix program at host mail.kst.ch.
+
+I'm sorry to have to inform you that your message could not be
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to <postmaster>
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+            The Postfix program
+
+<andre.moessner@kst.ch>: host 127.0.0.1[127.0.0.1] said: 550 5.7.1 Message
+    content rejected, UBE, id=27733-07 (in reply to end of DATA command)
+
+<andrea.elmer@kst.ch>: host 127.0.0.1[127.0.0.1] said: 550 5.7.1 Message
+    content rejected, UBE, id=27733-07 (in reply to end of DATA command)
+
+<andrea.haidorfer@kst.ch>: host 127.0.0.1[127.0.0.1] said: 550 5.7.1 Message
+    content rejected, UBE, id=27733-07 (in reply to end of DATA command)
+
+
+
+--- EOM ---
+The original message was received at Tue, 13 Mar 2007 12:58:13 -0500 (CDT)
+from aaur187.neoplus.adsl.tpnet.pl [83.6.25.187]
+
+   ----- The following addresses had permanent fatal errors -----
+<spritewillowwisp@penzel.com>
+    (reason: 550 5.7.0 Access Denied)
+
+   ----- Transcript of session follows -----
+... while talking to mail.penzel.com.:
+>>> MAIL From:<jackwng@yahoo.com> SIZE=512
+<<< 550 5.7.0 Access Denied
+554 5.0.0 Service unavailable
+
+
+
+--- EOM ---
+Your message to: sheppard@ntpsoftware.com
+was blocked by our Spam Firewall. The email you sent with the following subject has NOT BEEN DELIVERED:
+
+Subject: Fill up your desire with Viagra Professional.
+
+
+
+--- EOM ---
+Your message
+
+  Subject: %SUBJECT
+
+did not reach the following recipient(s):
+
+silva@marstonpr.com on Tue, 13 Mar 2007 13:17:49 -0400
+    The recipient name is not recognized
+    MSEXCH:IMS:Robert Marston and Associates Inc:MARS:MARS-NY3 0 (000C05A6)
+Unknown Recipient
+
+
+
+--- EOM ---
+This message was created automatically by mail delivery software.
+
+A message that you sent could not be delivered to one or more of its
+recipients. This is a permanent error. The following address(es) failed:
+
+  rnakhmanson@bellsouth.net
+    (generated from roman@nakhmanson.com)
+    retry time not reached for any host after a long failure period
+
+------ This is a copy of the message's headers. ------
+
+
+
+--- EOM ---
+Hi. This is the qmail-send program at mail8.opentransfer.com.
+I'm afraid I wasn't able to deliver your message to the following addresses.
+This is a permanent error; I've given up. Sorry it didn't work out.
+
+<paul@ticketking.net>:
+69.58.128.54 failed after I sent the message.
+Remote host said: 550 No verifiable sender address in message headers. (#40-1)
+
+--- Enclosed are the original headers of the message.
+
+
+
+--- EOM ---
+Hi. This is the qmail-send program at mail19k.g19.rapidsite.net.
+I'm afraid I wasn't able to deliver your message to the following addresses.
+This is a permanent error; I've given up. Sorry it didn't work out.
+
+<johnnymax@aol.com>:
+205.188.159.217 does not like recipient.
+Remote host said: 550 MAILBOX NOT FOUND
+Giving up on 205.188.159.217.
+
+
+
+--- EOM ---
+This message was created automatically by mail delivery software (Exim).
+
+A message that you sent could not be delivered to one or more of its
+recipients. This is a permanent error. The following address(es) failed:
+
+  danaf@pipeline.com
+    SMTP error from remote mailer after RCPT TO:<danaf@pipeline.com>:
+    host mx07.pipeline.com [207.69.200.133]: 550 danaf@pipeline.com...User unknown
+
+------ This is a copy of the message, including all the headers. ------
+
+
+
+--- EOM ---
+Could not deliver message to the following recipient(s):
+
+Failed Recipient: tictoctec@yahoo.com
+Reason: Remote host said: 421 Message from (66.241.236.8) temporarily deferred - 4.16.50. Please refer to http://help.yahoo.com/help/us/mail/defer/defer-06.html
+
+   -- The header and top 20 lines of the message follows --
+
+--- EOM ---

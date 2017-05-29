@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+       http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
+	<!-- context:property-placeholder ignore-resource-not-found="false" 
+		location="classpath:/META-INF/msgstore.${dbtype:psql}.properties"/>
+
+	<context:component-scan base-package="jpa.service, jpa.dao" / -->
+	
+	<!-- context:annotation-config/ -->
+
+	<jpa:repositories base-package="jpa.repository" />
+	
+	<!-- define custom scope bean for thread scope -->
+	<bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+		<property name="scopes">
+		<map>
+			<entry key="thread">
+				<bean class="jpa.spring.util.SpringThreadScope"/>
+			</entry>
+		</map>
+		</property>
+	</bean>
+
+	<!-- Spring JPA transaction manager -->
+	<bean id="transactionManager" name="msgTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
+			p:entityManagerFactory-ref="entityManagerFactory" />
+
+	<!-- Data Sources -->
+	<bean id="msgDataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${dataSource.driverClassName}" />
+		<property name="url" value="${dataSource.url}" />
+		<property name="username" value="${dataSource.username}" />
+		<property name="password" value="${dataSource.password}" />
+	</bean>
+
+	<bean id="msgDataSource_v1" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<!-- Connection Settings -->
+		<property name="driverClassName" value="${dataSource.driverClassName}" />
+		<property name="defaultAutoCommit" value="${dataSource.defaultAutoCommit}" />
+		<property name="url" value="${dataSource.url}" />
+		<property name="username" value="${dataSource.username}" />
+		<property name="password" value="${dataSource.password}" />
+
+		<!-- pool properties -->
+		<property name="initialSize" value="${dataSource.initialSize}" />
+		<property name="maxActive" value="${dataSource.maxActive}" />
+		<property name="maxIdle" value="${dataSource.maxIdle}" />
+		<property name="minIdle" value="${dataSource.minIdle}" />
+		<property name="maxWait" value="${dataSource.maxWait}" />
+		<property name="validationQuery" value="${dataSource.validationQuery}" />
+		<property name="testOnBorrow" value="${dataSource.testOnBorrow}" />
+		<property name="testOnReturn" value="${dataSource.testOnReturn}" />
+		<property name="testWhileIdle" value="${dataSource.testWhileIdle}" />
+		<property name="minEvictableIdleTimeMillis" value="${dataSource.minEvictableIdleTimeMillis}" />
+		<property name="timeBetweenEvictionRunsMillis" value="${dataSource.timeBetweenEvictionRunsMillis}" />
+		<property name="numTestsPerEvictionRun" value="${dataSource.numTestsPerEvictionRun}" />
+		<property name="removeAbandoned" value="${dataSource.removeAbandoned}" />
+		<property name="removeAbandonedTimeout" value="${dataSource.removeAbandonedTimeout}" />
+		<property name="logAbandoned" value="${dataSource.logAbandoned}" />
+	</bean>
+
+	<bean id="initDataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource" lazy-init="true">
+		<property name="driverClassName" value="${dataSource.driverClassName}" />
+		<property name="url" value="${dataSource.init.url}" />
+		<property name="username" value="${dataSource.init.user}" />
+		<property name="password" value="${dataSource.init.pswd}" />
+	</bean>
+	<!-- End of Data Sources -->
+
+	<!-- Spring JPA Entity Manager Factory -->
+	<!-- bean id="entityManager" 
+	    class="org.springframework.orm.jpa.support.SharedEntityManagerBean">
+	    <property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean -->
+
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceXmlLocation" value="classpath*:/META-INF/jpa-persistence.xml" />
+	    <property name="dataSource" ref="msgDataSource" />
+	    <property name="persistenceUnitName" value="MessageDB" />
+	    <property name="jpaDialect" ref="jpaDialect" />
+	    <property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
+	    <property name="loadTimeWeaver">
+	        <bean class="jpa.model.ClassCastClassloaderWeaver" />
+	    </property>
+	</bean>
+
+	<bean id="jpaDialect" class="${spring.jpa.vender.dialect}" />
+	
+	<bean id="jpaVendorAdapter" class="${spring.jpa.vender.adapter}"
+    	p:databasePlatform="${jpa.database.platform}"
+    	p:showSql="true" p:generateDdl="true" />
+
+	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
+	<!-- JpaTemplate has been removed from Spring framework since 4.0
+		bean id="jpaTemplate" class="org.springframework.orm.jpa.JpaTemplate">
+	    <property name="entityManagerFactory" ref="entityManagerFactory"/>
+	</bean -->
+
+	<!-- Transaction Advice -->
+	<tx:advice id="dsTxAdviceEmailAddr" transaction-manager="msgTransactionManager">
+		<tx:attributes>
+			<tx:method name="findSertAddress" no-rollback-for="javax.persistence.NoResultException"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<aop:config proxy-target-class="true">
+		<aop:pointcut id="emailAddrOperation"
+			expression="execution(* jpa.service.common.EmailAddressService.*(..))"/>
+		<aop:advisor advice-ref="dsTxAdviceEmailAddr" pointcut-ref="emailAddrOperation"/>
+	</aop:config>
+	
+	<tx:advice id="dsTxAdvice" transaction-manager="msgTransactionManager">
+		<!-- the transactional semantics... -->
+		<tx:attributes>
+			<!-- all methods starting with 'get' are read-only -->
+			<tx:method name="get*" read-only="true" no-rollback-for="javax.persistence.NoResultException, org.springframework.dao.EmptyResultDataAccessException"/>
+			<!-- other methods use the default transaction settings (see below) -->
+			<tx:method name="*" no-rollback-for="javax.persistence.NoResultException, org.springframework.dao.EmptyResultDataAccessException"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<aop:config proxy-target-class="true">
+		<!-- all Service classes are bound to transaction advice -->
+		<aop:pointcut id="serviceOperation" 
+			expression="execution(* jpa.service..*Service.*(..))"/>
+		<aop:advisor advice-ref="dsTxAdvice" pointcut-ref="serviceOperation"/>
+	</aop:config>
+
+	<aop:config>
+		<aop:pointcut id="taskOperation" 
+			expression="execution(* jpa.service.task..*(..))"/>
+		<aop:advisor advice-ref="dsTxAdvice" pointcut-ref="taskOperation"/>
+	</aop:config>
+	
+	<aop:config proxy-target-class="true">
+		<aop:pointcut id="boOperation" 
+			expression="execution(* jpa.service..*Bo.*(..))"/>
+		<aop:advisor advice-ref="dsTxAdvice" pointcut-ref="boOperation"/>
+	</aop:config>
+	<!-- end of Advice -->
+
+</beans>

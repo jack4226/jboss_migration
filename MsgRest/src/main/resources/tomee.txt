@@ -1,0 +1,13 @@
+Versions working with this app:
+
+plus-1.7.1
+plus-1.7.4
+
+
+1) copy jcharset-2.0 to endorsed folder to resolve invalid encoding (unicode-1-1-utf7) problem.
+2) copy javax.persistence-2.1.1.jar to endorsed folder to resolve following error:
+	java.lang.NoSuchMethodError: javax.persistence.Table.indexes()[Ljavax/persistence/Index;
+
+Server VM Arguments for plus-1.7.4:
+-Dcatalina.base="D:\pkgs_as71\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp1" -Dcatalina.home="D:\pkgs_as71\apache-tomee-plus-1.7.4" -Dwtp.deploy="D:\pkgs_as71\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp1\wtpwebapps" -Djava.endorsed.dirs="D:\pkgs_as71\apache-tomee-plus-1.7.4\endorsed" -Djava.util.logging.config.file="D:\pkgs_as71\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp1\conf\logging.properties" -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -XX:MaxPermSize=256M -XX:+CMSClassUnloadingEnabled -XX:+CMSPermGenSweepingEnabled
+

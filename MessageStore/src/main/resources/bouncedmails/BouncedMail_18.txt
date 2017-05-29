@@ -1,0 +1,42 @@
+Delivered-To: jackwng@gmail.com
+Received: by 10.100.107.13 with SMTP id f13cs177730anc;
+        Thu, 3 Jul 2008 16:28:32 -0700 (PDT)
+Received: by 10.100.136.15 with SMTP id j15mr120704and.11.1215127711582;
+        Thu, 03 Jul 2008 16:28:31 -0700 (PDT)
+Return-Path: <>
+Received: by 10.100.136.15 with SMTP id j15mr177047and.11;
+        Thu, 03 Jul 2008 16:28:31 -0700 (PDT)
+Message-ID: <0016e644cee09b0a29045126f78f@googlemail.com>
+From: Mail Delivery Subsystem <mailer-daemon@googlemail.com>
+To: jackwng@gmail.com
+Subject: Delivery Status Notification (Failure)
+Date: Thu, 03 Jul 2008 16:28:31 -0700 (PDT)
+
+This is an automatically generated Delivery Status Notification
+
+Delivery to the following recipient failed permanently:
+
+     unknown.user02.badaddr@gmail.com
+
+Technical details of permanent failure: 
+UNKNOWN_USER: The email account that you tried to reach does not exist. Please try double-checking the recipient's email address for typos or unnecessary spaces. Learn more at http://mail.google.com/support/bin/answer.py?answer=6596
+
+   ----- Original message -----
+
+Received: by 10.100.136.15 with SMTP id j15mr120703and.11.1215127711554;
+        Thu, 03 Jul 2008 16:28:31 -0700 (PDT)
+Received: by 10.100.107.13 with HTTP; Thu, 3 Jul 2008 16:28:31 -0700 (PDT)
+Message-ID: <d4a008e20807031628y4f07b26aq29673cbda5e23d52@mail.gmail.com>
+Date: Thu, 3 Jul 2008 19:28:31 -0400
+From: "Jack Wang" <jackwng@gmail.com>
+To: unknown.user02.badaddr@gmail.com
+Subject: test from gmail to gmail
+MIME-Version: 1.0
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+should be bounced. ignore.
+
+
+   ----- End of message -----

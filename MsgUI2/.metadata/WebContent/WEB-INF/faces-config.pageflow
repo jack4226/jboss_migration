@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" comment="" id="pf13678507194990" configfile="/MsgUI2/WebContent/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="login" y="65" id="pf13685573340030" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf13685573340031 pf13685573340032" path="/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="main.xhtml" x="108" y="199" id="pf13685573340033" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf13685573340031" path="/main.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="welcome.xhtml" x="204" y="96" id="pf13685573340044" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" inlinks="pf13685573340032" path="/welcome.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="ruleActionBuiltinEdit.xhtml" x="252" y="288" id="pf136872954484910" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf13687306761182 pf13687307452693" path="/ruleActionBuiltinEdit.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="customizeBuiltinRules.xhtml" x="562" y="372" id="pf136872954484911" referenceLink="//@navigationRule.1/@navigationCase.1/@toViewId|" inlinks="pf13687306761182 pf13687307452693" path="/customizeBuiltinRules.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="configureCustomRules.xhtml" x="435" y="34" id="pf13687329264094" referenceLink="//@navigationRule.6/@navigationCase.0/@toViewId|" outlinks="pf13687329264095 pf136873311744111 pf136873311744112 pf136873490824417" inlinks="pf13802062886730 pf13802116983441 pf13802116983442 pf13802117864793" path="/configureCustomRules.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="ruleLogicEdit.xhtml" x="567" y="192" id="pf13687329264098" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf13802062886730" inlinks="pf13687329264095" path="/ruleLogicEdit.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="ruleElementEdit.xhtml" x="300" y="168" id="pf136873311744113" referenceLink="//@navigationRule.5/@fromViewId|" outlinks="pf13802116983442" inlinks="pf136873311744111" path="/ruleElementEdit.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="ruleSubruleEdit.xhtml" x="420" y="192" id="pf136873311744114" referenceLink="//@navigationRule.4/@fromViewId|" outlinks="pf13802116983441" inlinks="pf136873311744112" path="/ruleSubruleEdit.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="ruleActionEdit.xhtml" x="167" id="pf136873490824518" referenceLink="//@navigationRule.6/@fromViewId|" outlinks="pf13802117864793" inlinks="pf136873490824417" path="/ruleActionEdit.xhtml"/>
+  <links id="pf13685573340031" target="pf13685573340033" source="pf13685573340030" outcome="admin" redirect="true"/>
+  <links id="pf13685573340032" target="pf13685573340044" source="pf13685573340030" outcome="user"/>
+  <links id="pf13687306761182" target="pf136872954484911" source="pf136872954484910" outcome="cancel"/>
+  <links id="pf13687307452693" target="pf136872954484911" source="pf136872954484910" outcome="save"/>
+  <links id="pf13687329264095" target="pf13687329264098" source="pf13687329264094" outcome="edit_logic"/>
+  <links id="pf136873311744111" target="pf136873311744113" source="pf13687329264094" outcome="edit_element"/>
+  <links id="pf136873311744112" target="pf136873311744114" source="pf13687329264094" outcome="edit_subrule"/>
+  <links id="pf136873490824417" target="pf136873490824518" source="pf13687329264094" outcome="edit_action"/>
+  <links id="pf13802062886730" target="pf13687329264094" source="pf13687329264098" outcome="cancel"/>
+  <links id="pf13802116983441" target="pf13687329264094" source="pf136873311744114" outcome="cancel"/>
+  <links id="pf13802116983442" target="pf13687329264094" source="pf136873311744113" outcome="cancel"/>
+  <links id="pf13802117864793" target="pf13687329264094" source="pf136873490824518" outcome="cancel"/>
+</pageflow:Pageflow>

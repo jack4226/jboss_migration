@@ -1,0 +1,193 @@
+<!DOCTYPE html [
+    <!ENTITY nbsp "&#160;"> 
+]>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+	<link href="styles.css" rel="stylesheet" type="text/css" />
+	<title><h:outputText value="#{msgs.sendEmailReplyPageTitle}" /></title>
+</h:head>
+<h:body onLoad="setSelRange(document.getElementById('msgsend:bodytext'),0,0);">
+	<div align="center">
+	<h:form id="msgsend">
+	<h:panelGrid columns="1" styleClass="headerMenuContent">
+	<ui:include src="includes/gettingStartedHeader.xhtml"/>
+	<h:panelGroup>
+		<h:messages styleClass="errors" layout="list"
+			rendered="#{debug.showMessages}" />
+		<h:panelGrid columns="2" styleClass="commandBar" 
+			columnClasses="alignLeft70, alignRight30">
+			<h:panelGroup>
+				<h:commandButton value="#{msgs.sendButtonText}" title="Send message"
+					action="#{messageInbox.sendMessage}"/>
+				<f:verbatim>&nbsp;</f:verbatim>
+				<h:commandButton value="#{msgs.cancelButtonText}" title="Cancel"
+					immediate="true" action="#{messageInbox.cancelSend}" />
+			</h:panelGroup>
+			<h:panelGroup style="align: right; text-align: right;">
+				<f:verbatim>&nbsp;</f:verbatim>
+			</h:panelGroup>
+		</h:panelGrid>
+		<f:verbatim>
+			<p />
+		</f:verbatim>
+		<h:panelGrid columns="3" styleClass="smtpHeaders" 
+			columnClasses="promptColumn, inputColumn, messageColumn">
+			
+			<h:outputText value="#{msgs.fromAddressPrompt}" />
+			<h:inputText value="#{messageInbox.replyMessageVo.composeFromAddress}"
+				label="#{msgs.fromAddressPrompt}" required="true" maxlength="255"
+				id="fromaddr" binding="#{messageInbox.fromAddrInput}" 
+				size="100" validator="#{messageInbox.validateFromAddress}">
+			</h:inputText>
+			<h:message for="fromaddr" styleClass="errorMessage"/>
+
+			<h:outputText value="#{msgs.toAddressPrompt}" />
+			<h:inputText value="#{messageInbox.replyMessageVo.composeToAddress}"
+				label="#{msgs.toAddressPrompt}" required="true" maxlength="255"
+				id="toaddr" binding="#{messageInbox.toAddrInput}" 
+				size="100" validator="#{messageInbox.validateToAddress}">
+			</h:inputText>
+			<h:message for="toaddr" styleClass="errorMessage"/>
+
+			<h:outputText value="#{msgs.msgSubjectPrompt}" />
+			<h:inputText value="#{messageInbox.replyMessageVo.msgSubject}" 
+				id="subject" label="#{msgs.msgSubjectPrompt}"
+				required="true" maxlength="255" size="100"/>
+			<h:message for="subject" styleClass="errorMessage"/>
+		</h:panelGrid>
+
+		<h:panelGrid columns="1" styleClass="fullWidth"
+			rendered="#{messageInbox.replyMessageVo!=null and messageInbox.replyMessageVo.reply}">
+			<f:verbatim><br/></f:verbatim>
+			<h:commandButton value="#{msgs.attachFileButtonText}" title="Attach files"
+				action="#{messageInbox.attachFiles}"/>
+			<h:dataTable value="#{messageInbox.uploads}" var="upload"
+				style="width: auto; border: none;">
+				<h:column>
+					<h:graphicImage value="/images/clip_1.gif" alt="attachment" style="border: 0px"
+						title="attachment"/>
+					<h:outputText value="#{upload.fileName}"/>
+					<f:verbatim>&nbsp;&nbsp;</f:verbatim>
+					<h:outputText value="#{msgs.sizePrompt}"/>
+					<h:outputText value="(#{upload.fileSize})"/>
+					<h:commandLink action="#{messageInbox.removeUploadFile}"
+						style="color: darkblue; font-size: 1em; font-weight: bold;">
+						<f:param name="seq" value="#{upload.sessionUploadPK.sessionSequence}"/>
+						<f:param name="name" value="#{upload.fileName}"/>
+						<h:outputText value="[#{msgs.removeLinkText}]"/>
+					</h:commandLink>
+				</h:column>
+			</h:dataTable>
+		</h:panelGrid>
+		
+		<f:verbatim><br/></f:verbatim>
+		<h:panelGrid columns="1" styleClass="smtpBody">
+			<h:inputTextarea value="#{messageInbox.replyMessageVo.msgBody}"
+				id="bodytext" rows="#{messageInbox.replyMessageVo.rows}" style="width: 100%;"/>
+		</h:panelGrid>
+	</h:panelGroup>
+	<ui:include src="includes/gettingStartedFooter.xhtml"/>
+	</h:panelGrid>
+	</h:form>
+	</div>
+</h:body>
+<f:verbatim>
+<script type="text/javascript">
+// <!--
+function confirmDelete() {
+	varText = "<h:outputText value='#{msgs.confirmDeleteText}'/>";
+	return confirm(varText);
+}
+function confirmSubmit() {
+	varText = "<h:outputText value='#{msgs.confirmSubmitText}'/>";
+	return confirm(varText);
+}
+// set cursor position to the beginning of the textarea
+function setSelRange(inputEl, selStart, selEnd) { 
+ if (inputEl.setSelectionRange) {
+  inputEl.focus();
+  inputEl.setSelectionRange(selStart, selEnd); 
+ } else if (inputEl.createTextRange) {
+  var range = inputEl.createTextRange(); 
+  range.collapse(true);
+  range.moveEnd('character', selEnd); 
+  range.moveStart('character', selStart); 
+  range.select();
+ }
+}
+// insert text at the cursor position
+function insertAtCursor(myField, myValue) {
+	//IE support
+	if (document.selection) {
+		myField.focus();
+		sel = document.selection.createRange();
+		sel.text = myValue;
+	}
+	//MOZILLA/NETSCAPE support
+	else if (myField.selectionStart || myField.selectionStart == '0') {
+		var startPos = myField.selectionStart;
+		var endPos = myField.selectionEnd;
+		myField.value = myField.value.substring(0, startPos)
+			+ myValue
+			+ myField.value.substring(endPos, myField.value.length);
+	} else {
+		myField.value += myValue;
+	}
+}
+/*
+I was looking for a solution to the problem that in Firefox 0.9, with wordpress 1.2,
+the view changes to the top of the post entry field and ended up here.
+
+The cursor does not jump, but the scrollbar at the text entry field goes right to the
+top and I have to scroll down to see where I was at.
+
+I'd appreciate a solution.
+
+Answer:
+Use save and reset the scrollTop property of the textarea object.
+*/
+
+/*
+Maybe it's trivial, but I've added a bit to this snippet such that the added text
+becomes highlighted / selected once inserted. :)
+*/
+function insertAtCursor(myField, myValue)
+{
+	//IE support
+	if (document.selection)
+	{
+		myField.focus();
+		sel = document.selection.createRange();
+		sel.text = myValue;
+		sel.moveStart('character', -myValue.length);
+		sel.select();
+	}
+	//MOZILLA/NETSCAPE support
+	else if (myField.selectionStart || myField.selectionStart == '0')
+	{
+		var startPos = myField.selectionStart;
+		var endPos = myField.selectionEnd;
+		myField.value =
+			myField.value.substring(0, startPos)
+			+ myValue
+			+ myField.value.substring(endPos, myField.value.length);
+		myField.selectionStart = startPos;
+		myField.selectionEnd = startPos + myValue.length;
+	}
+	//Anyone else.
+	else
+	{
+		myField.value += myValue;
+	}
+}
+
+// calling the function
+//insertAtCursor(document.formName.fieldName, 'this value');
+// -->
+</script>
+</f:verbatim>
+</html>

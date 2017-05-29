@@ -1,0 +1,50 @@
+<!DOCTYPE html [
+    <!ENTITY nbsp "&#160;"> 
+]>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:messages styleClass="errors" layout="list"
+	rendered="#{debug.showMessages}" />
+
+<h:panelGrid columns="2" styleClass="smtpHeaders" 
+	columnClasses="smtpLabelColumn, smtpTextColumn">
+	
+	<h:outputText value="#{msgs.msgSubjectPrompt}" />
+	<h:outputText value="#{broadcastMsg.broadcastMsg.msgSubject}" />
+
+	<h:outputText value="#{msgs.receivedDatePrompt}" />
+	<h:outputText value="#{broadcastMsg.broadcastMsg.startTime}">
+		<f:convertDateTime dateStyle="default"/>
+	</h:outputText>
+
+	<h:outputText value="#{msgs.siteIdPrompt}" 
+		rendered="#{broadcastMsg.broadcastMsg.mailingList.senderData != null}" />
+	<h:outputText value="#{broadcastMsg.broadcastMsg.mailingList.senderData.senderId}" 
+		rendered="#{broadcastMsg.broadcastMsg.mailingList.senderData != null}" />
+	
+	<h:outputText value="#{msgs.emailTemplatePrompt}" 
+		rendered="#{broadcastMsg.broadcastMsg.emailTemplate != null}" />
+	<h:outputText value="#{broadcastMsg.broadcastMsg.emailTemplate.templateId}" 
+		rendered="#{broadcastMsg.broadcastMsg.emailTemplate != null}" />
+</h:panelGrid>
+
+<f:verbatim><br/></f:verbatim>
+<h:panelGrid columns="1" styleClass="smtpBody">
+	<h:outputText value="#{broadcastMsg.broadcastMsg.msgBody}" escape="false" />
+</h:panelGrid>
+
+<h:panelGrid columns="2"
+	styleClass="commandBar" columnClasses="alignLeft30, alignRight70">
+	<h:panelGroup style="text-align: left;">
+		<h:commandButton value="#{msgs.backButtonText}" title="Go back to List">
+			<f:ajax listener="#{broadcastMsg.cancelEditListener}" render="@form"/>
+		</h:commandButton>
+	</h:panelGroup>
+	<h:panelGroup style="text-align: right;">
+		<f:verbatim>&nbsp;</f:verbatim>
+	</h:panelGroup>
+</h:panelGrid>
+</html>

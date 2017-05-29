@@ -1,0 +1,236 @@
+<!DOCTYPE html [
+    <!ENTITY nbsp "&#160;"> 
+]>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:panelGrid columns="1" styleClass="gettingStartedContent">
+	<h:messages styleClass="errors" layout="list" rendered="#{debug.showMessages}"/>
+	<h:outputFormat value="#{msgs.subscriberEditLabel}" styleClass="gridHeader">
+	   <f:param value="#{subscriberData.subscriber.subscriberId}"/>
+	</h:outputFormat>
+	<h:panelGrid columns="3" styleClass="editPaneHeader" 
+		columnClasses="promptColumn, inputColumn, messageColumn">
+		
+		<h:panelGroup>
+		<h:outputText value="#{msgs.subscriberIdPrompt}"/>
+		<h:outputText value="*" style="color: red;" rendered="#{subscriberData.subscriber.subscriberId != null}"/>
+		</h:panelGroup>
+		<h:inputText id="subscriberid" value="#{subscriberData.subscriber.subscriberId}"
+			required="true" label="#{msgs.subscriberIdPrompt}" 
+			binding="#{subscriberData.subscriberIdInput}" 
+			validator="#{subscriberData.validatePrimaryKey}"
+			maxlength="20" size="20">
+			<f:validateLength minimum="1" maximum="20"/>
+		</h:inputText>
+		<h:message for="subscriberid" styleClass="errorMessage"/>
+		
+		<h:outputText value="#{msgs.siteIdPrompt}"/>
+		<h:selectOneMenu value="#{subscriberData.subscriber.senderData.senderId}"
+			id="senderid" label="#{msgs.siteIdPrompt}">
+			<f:selectItems value="#{dynacodes.senderIdItems}"/>
+		</h:selectOneMenu>
+		<h:message for="senderid" styleClass="errorMessage"/>
+
+		<h:panelGroup>
+		<h:outputText value="#{msgs.firstNamePrompt}"/>
+		<h:outputText value="*" style="color: red;" rendered="#{subscriberData.subscriber.firstName != null}"/>
+		</h:panelGroup>
+		<h:inputText id="firstnm" value="#{subscriberData.subscriber.firstName}"
+			label="#{msgs.firstNamePrompt}"	maxlength="32" size="32">
+			<f:converter converterId="NullableStringConverter"/>
+		</h:inputText>
+		<h:message for="firstnm" styleClass="errorMessage"/>
+		
+		<h:outputText value="#{msgs.middleNamePrompt}"/>
+		<h:inputText id="middlenm" value="#{subscriberData.subscriber.middleName}"
+			label="#{msgs.middleNamePrompt}" maxlength="32" size="32">
+			<f:converter converterId="NullableStringConverter"/>
+		</h:inputText>
+		<h:message for="middlenm" styleClass="errorMessage"/>
+		
+		<h:panelGroup>
+		<h:outputText value="#{msgs.lastNamePrompt}"/>
+		<h:outputText value="*" style="color: red;" rendered="#{subscriberData.subscriber.lastName != null}"/>
+		</h:panelGroup>
+		<h:inputText id="lastnm" value="#{subscriberData.subscriber.lastName}"
+			required="true" label="#{msgs.lastNamePrompt}" 
+			maxlength="32" size="32">
+			<f:validateLength minimum="1" maximum="32"/>
+		</h:inputText>
+		<h:message for="lastnm" styleClass="errorMessage"/>
+		
+		<h:panelGroup>
+		<h:outputText value="#{msgs.emailAddrPrompt}"/>
+		<h:outputText value="*" style="color: red;" rendered="#{subscriberData.subscriber.emailAddress != null}"/>
+		</h:panelGroup>
+		<h:panelGroup>
+		<h:inputText id="emailaddr" value="#{subscriberData.subscriber.emailAddress.address}"
+			binding="#{subscriberData.emailAddrInput}"
+			required="true" validator="#{subscriberData.validateEmailAddress}"
+			label="#{msgs.emailAddrPrompt}" maxlength="255" size="50">
+        	<f:validateLength minimum="1" maximum="255"/>
+		</h:inputText>
+		</h:panelGroup>
+		<h:message for="emailaddr" styleClass="errorMessage"/>
+		
+		<h:outputText value="#{msgs.ssnNumberPrompt}"/>
+		<h:inputText id="ssnnbr" value="#{subscriberData.subscriber.ssnNumber}"
+			label="#{msgs.ssnNumberPrompt}"	maxlength="15" size="11"
+			binding="#{subscriberData.ssnNumberInput}"
+			validator="#{subscriberData.validateSsnNumber}">
+		</h:inputText>
+		<h:message for="ssnnbr" styleClass="errorMessage"/>
+		
+		<h:outputText value="#{msgs.birthDatePrompt}"/>
+		<h:inputText id="birthdt" value="#{subscriberData.subscriber.birthDate}"
+			label="#{msgs.birthDatePrompt}"	maxlength="15" size="11"
+			onclick="displayDatePicker(this.name, false, 'ymd', '-');"
+			binding="#{subscriberData.birthDateInput}"
+			validator="#{subscriberData.validateDate}">
+			<f:convertDateTime pattern="yyyy-MM-dd" type="date"/>
+		</h:inputText>
+		<h:message for="birthdt" styleClass="errorMessage"/>
+		
+		<h:outputText value="#{msgs.streetAddressPrompt}"/>
+		<h:inputText id="staddr" value="#{subscriberData.subscriber.streetAddress}"
+			label="#{msgs.streetAddressPrompt}" maxlength="60" size="40">
+		</h:inputText>
+		<h:message for="staddr" styleClass="errorMessage"/>
+		
+		<h:outputText value="#{msgs.streetAddress2Prompt}"/>
+		<h:inputText id="staddr2" value="#{subscriberData.subscriber.streetAddress2}"
+			label="#{msgs.streetAddress2Prompt}" maxlength="40" size="40">
+		</h:inputText>
+		<h:message for="staddr2" styleClass="errorMessage"/>
+		
+		<h:outputText value="#{msgs.cityNamePrompt}"/>
+		<h:inputText id="citynm" value="#{subscriberData.subscriber.cityName}"
+			label="#{msgs.cityNamePrompt}" maxlength="32" size="32">
+		</h:inputText>
+		<h:message for="citynm" styleClass="errorMessage"/>
+		
+		<h:outputText value="#{msgs.stateCodePrompt}"/>
+		<h:selectOneMenu id="statecd" value="#{subscriberData.subscriber.stateCode}"
+			label="#{msgs.stateCodePrompt}">
+			<f:selectItems value="#{codes.stateCodeWithAbbrItems}"/>
+		</h:selectOneMenu>
+		<h:message for="statecd" styleClass="errorMessage"/>
+		
+		<h:outputText value="#{msgs.zipCodePrompt}"/>
+		<h:panelGroup>
+			<h:inputText id="zipcode5" value="#{subscriberData.subscriber.zipCode5}"
+				label="#{msgs.zipCodePrompt}" maxlength="5" size="5"
+				validator="#{subscriberData.validateZipCode5}">
+			</h:inputText>
+			<h:inputText id="zipcode4" value="#{subscriberData.subscriber.zipCode4}"
+				label="#{msgs.zipCodePrompt}" maxlength="4" size="4"
+				validator="#{subscriberData.validateZipCode4}">
+			</h:inputText>
+		</h:panelGroup>
+		<h:panelGroup>
+			<h:message for="zipcode5" styleClass="errorMessage"/>
+			<h:message for="zipcode4" styleClass="errorMessage"/>
+		</h:panelGroup>
+
+		<h:outputText value="#{msgs.countryPrompt}"/>
+		<h:inputText id="country" value="#{subscriberData.subscriber.country}"
+			label="#{msgs.countryPrompt}" maxlength="50" size="30">
+		</h:inputText>
+		<h:message for="country" styleClass="errorMessage"/>
+
+		<h:outputText value="#{msgs.dayTimePhonePrompt}"/>
+		<h:inputText id="dayphone" value="#{subscriberData.subscriber.dayPhone}"
+			label="#{msgs.dayTimePhonePrompt}" maxlength="18" size="18"
+			binding="#{subscriberData.dayPhoneInput}"
+			validator="#{subscriberData.validatePhoneNumber}">
+	        <f:converter converterId="NullableStringConverter"/>
+		</h:inputText>
+		<h:message for="dayphone" styleClass="errorMessage"/>
+
+		<h:outputText value="#{msgs.eveningTimePhonePrompt}"/>
+		<h:inputText id="evening" value="#{subscriberData.subscriber.eveningPhone}"
+			label="#{msgs.eveningTimePhonePrompt}" maxlength="18" size="18"
+			binding="#{subscriberData.eveningPhoneInput}"
+			validator="#{subscriberData.validatePhoneNumber}">
+	        <f:converter converterId="NullableStringConverter"/>
+		</h:inputText>
+		<h:message for="evening" styleClass="errorMessage"/>
+
+		<h:outputText value="#{msgs.mobilePhonePrompt}"/>
+		<h:inputText id="mobile" value="#{subscriberData.subscriber.mobilePhone}"
+			label="#{msgs.mobilePhonePrompt}" maxlength="18" size="18"
+			binding="#{subscriberData.mobilePhoneInput}"
+			validator="#{subscriberData.validatePhoneNumber}">
+	       <f:converter converterId="NullableStringConverter"/>
+		</h:inputText>
+		<h:message for="mobile" styleClass="errorMessage"/>
+
+		<h:outputText value="#{msgs.mobileCarrierPrompt}"/>
+		<h:selectOneMenu id="faxnbr" value="#{subscriberData.subscriber.mobileCarrier}"
+			required="true" label="#{msgs.mobileCarrierPrompt}">
+			<f:selectItems value="#{codes.mobileCarrierItems}"/>
+		</h:selectOneMenu>
+		<h:message for="faxnbr" styleClass="errorMessage"/>
+
+		<h:outputText value="#{msgs.statusIdPrompt}"/>
+		<h:selectOneMenu id="statusid" value="#{subscriberData.subscriber.statusId}"
+			required="true" label="#{msgs.statusIdPrompt}">
+			<f:selectItems value="#{codes.simpleStatusIdItems}"/>
+		</h:selectOneMenu>
+		<h:message for="statusid" styleClass="errorMessage"/>
+
+		<h:outputText value="#{msgs.securityQuestionPrompt}"/>
+		<h:selectOneMenu id="question" value="#{subscriberData.subscriber.securityQuestion}"
+			label="#{msgs.securityQuestionPrompt}">
+			<f:selectItem itemLabel="" itemValue=""/>
+			<f:selectItems value="#{codes.securityQuestionItems}"/>
+	        <f:converter converterId="NullableStringConverter"/>
+		</h:selectOneMenu>
+		<h:message for="question" styleClass="errorMessage"/>
+
+		<h:outputText value="#{msgs.securityAnswerPrompt}"/>
+		<h:inputText id="answer" value="#{subscriberData.subscriber.securityAnswer}"
+			label="#{msgs.securityAnswerPrompt}" maxlength="26" size="26">
+	        <f:converter converterId="NullableStringConverter"/>
+		</h:inputText>
+		<h:message for="answer" styleClass="errorMessage"/>
+		
+		<h:outputText value="#{msgs.userPasswordPrompt}"/>
+		<h:inputText id="passwd" value="#{subscriberData.subscriber.userPassword}"
+			label="#{msgs.userPasswordPrompt}" maxlength="32" size="32">
+	        <f:converter converterId="NullableStringConverter"/>
+		</h:inputText>
+		<h:message for="passwd" styleClass="errorMessage"/>
+	</h:panelGrid>
+
+	<h:outputText value="#{msgs[subscriberData.testResult]}"
+		rendered="#{subscriberData.testResult != null}" styleClass="errorMessage"
+		id="testResult" />
+	<f:verbatim><p/></f:verbatim>
+	<h:panelGrid columns="2" styleClass="commandBar"
+		columnClasses="alignLeft70, alignRight30">
+		<h:panelGroup>
+			<h:commandButton value="#{msgs.submitButtonText}" title="Submit changes"
+				onclick="javascript:return confirmSubmit();">
+				<f:ajax execute="@form" listener="#{subscriberData.saveSubscriberListener}" render="@form"/>
+			</h:commandButton>
+			<f:verbatim>&nbsp;</f:verbatim>
+			<h:commandButton value="#{msgs.refreshLinkText}" immediate="true" title="Refresh">
+				<f:ajax immediate="true" listener="#{subscriberData.refreshSubscriber}" render="@form"/>
+			</h:commandButton>
+			<f:verbatim>&nbsp;</f:verbatim>
+			<h:commandButton type="reset" value="#{msgs.resetButtonText}" title="Reset" />
+			<f:verbatim>&nbsp;</f:verbatim>
+			<h:commandButton value="#{msgs.backButtonText}" title="Go Back" immediate="true">
+				<f:ajax immediate="true" listener="#{subscriberData.cancelEditListener}" render="@form"/>
+			</h:commandButton>
+		</h:panelGroup>
+		<h:panelGroup>
+			<f:verbatim>&nbsp;</f:verbatim>
+		</h:panelGroup>
+	</h:panelGrid>
+</h:panelGrid>
+</html>

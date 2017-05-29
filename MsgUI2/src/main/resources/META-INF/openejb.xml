@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<openejb>
+	<Resource id="msgdb_pool" type="javax.sql.DataSource">
+	<!-- The global jndi name would be java:openejb/Resource/msgdb_pool -->
+	<!-- the local jndi name would be java:comp/env/msgdb_pool -->
+		<!-- 
+		Determines weather or not this data source should be JTA managed
+		or user managed.  If set to 'true' it will automatically be enrolled
+		in any ongoing transactions.  Calling begin/commit/rollback or setAutoCommit
+		on the datasource or connection will not be allowed. Default value is true. 
+		-->
+		JtaManaged = true
+		JdbcDriver = com.mysql.jdbc.Driver
+		JdbcUrl = jdbc:mysql://localhost:3306/emaildb
+		UserName = email
+		Password = email
+		<!-- 
+		The default auto-commit state of new connection. Default value is true.
+		-->
+		DefaultAutoCommit = false
+		ValidationQuery = select 1 from dual
+	</Resource>
+	
+	<Resource id="activeMQResourceAdapter" type="ActiveMQResourceAdapter">
+		BrokerXmlConfig = broker:(tcp://localhost:61616)?useJmx=false
+		ServerUrl = tcp://localhost:61616
+	</Resource>
+	
+	<Resource id="jmsConnectionFactory" type="javax.jms.ConnectionFactory">
+	<!--  The global jndi name would be openejb:Resource/MyJmsConnectionFactory -->
+        ResourceAdapter = activeMQResourceAdapter
+    </Resource>
+    
+    <Container id="jmsMdbContainer" ctype="MESSAGE">
+        ResourceAdapter = activeMQResourceAdapter
+    </Container>
+    
+    <Resource id="msgQueue" type="javax.jms.Queue"/>
+    <!-- The global jndi name would be openejb:Resource/msgQueue -->
+    <Resource id="msgTopic" type="javax.jms.Topic"/>
+    <!-- The global jndi name would be openejb:Resource/msgTopic -->
+    
+	<Resource id="mailSession" type="javax.mail.Session">
+		mail.smtp.host=localhost
+		mail.smtp.port=25
+		mail.transport.protocol=smtp
+		mail.smtp.auth=false
+	</Resource>
+</openejb>

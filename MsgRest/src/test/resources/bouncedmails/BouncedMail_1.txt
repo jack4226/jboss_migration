@@ -1,0 +1,114 @@
+Delivered-To: support.hotline@jbatch.com
+Received: by 10.100.42.7 with SMTP id p7cs197754anp;
+        Tue, 13 May 2008 15:47:57 -0700 (PDT)
+Received: by 10.115.77.1 with SMTP id e1mr261365wal.208.1210718876574;
+        Tue, 13 May 2008 15:47:56 -0700 (PDT)
+Return-Path: <>
+Received: from MELMX.synnex.com.au (mail1.synnex.com.au [203.43.120.28])
+        by mx.google.com with ESMTP id n22si636936pof.3.2008.05.13.15.47.55;
+        Tue, 13 May 2008 15:47:56 -0700 (PDT)
+Received-SPF: pass (google.com: domain of MELMX.synnex.com.au designates 203.43.120.28 as permitted sender) client-ip=203.43.120.28;
+Authentication-Results: mx.google.com; spf=pass (google.com: domain of MELMX.synnex.com.au designates 203.43.120.28 as permitted sender) smtp.mail=
+From: postmaster@synnex.com.au
+To: jackwng@gmail.com
+Date: Wed, 14 May 2008 08:50:31 +1000
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="9B095B5ADSN=_01C8A4C98D9F364B00185336MELMX.synnex.com"
+X-DSNContext: 335a7efd - 4523 - 00000001 - 80040546
+Message-ID: <qcCFZ5pxJ0008ddf8@MELMX.synnex.com.au>
+Subject: Delivery Status Notification (Failure)
+
+This is a MIME-formatted message.  
+Portions of this message may be unreadable without a MIME-capable mail program.
+
+--9B095B5ADSN=_01C8A4C98D9F364B00185336MELMX.synnex.com
+Content-Type: text/plain; charset=unicode-1-1-utf-7
+
+This is an automatically generated Delivery Status Notification.
+
+Delivery to the following recipients failed.
+
+       jackwnn@synnex.com.au
+
+
+
+
+--9B095B5ADSN=_01C8A4C98D9F364B00185336MELMX.synnex.com
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns;MELMX.synnex.com.au
+Received-From-MTA: dns;asp-6.reflexion.net
+Arrival-Date: Wed, 14 May 2008 08:50:31 +1000
+
+Final-Recipient: rfc822;jackwnn@synnex.com.au
+Action: failed
+Status: 5.1.1
+
+--9B095B5ADSN=_01C8A4C98D9F364B00185336MELMX.synnex.com
+Content-Type: message/rfc822
+
+Received: from asp-6.reflexion.net ([205.237.99.181]) by MELMX.synnex.com.au with Microsoft SMTPSVC(6.0.3790.3959);
+	 Wed, 14 May 2008 08:50:31 +1000
+Received: (qmail 22433 invoked from network); 13 May 2008 22:47:49 -0000
+Received: from unknown (HELO asp-6.reflexion.net) (127.0.0.1)
+  by 0 (rfx-qmail) with SMTP; 13 May 2008 22:47:49 -0000
+Received: by asp-6.reflexion.net
+        (Reflexion email security v5.40.3) with SMTP;
+        Tue, 13 May 2008 18:47:49 -0400 (EDT)
+Received: (qmail 22418 invoked from network); 13 May 2008 22:47:48 -0000
+Received: from unknown (HELO WWW-2D1D2A59B52) (124.228.102.160)
+  by 0 (rfx-qmail) with SMTP; 13 May 2008 22:47:48 -0000
+Received:from $FROM_NAME $FROM_NAME(10.17.18.16) by WWW-2D1D2A59B52 (PowerMTA(TM) v3.2r4) id hfp02o32d12j39 for <jackwnn@synnex.com.au>; Wed, 14 May 2008 06:47:43 +0800 (envelope-from <jackwng@gmail.com>)
+Message-Id: <03907644185382.773588432734.799319-7043@cimail571.msn.com>
+To: <jackwnn@synnex.com.au>
+Subject: May 74% OFF
+From: Viagra ® Official Site <jackwnn@synnex.com.au>
+MIME-Version: 1.0
+Importance: High
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: 8bit
+X-Rfx-Unknown-Address: Address <jackwnn@synnex.com.au> is not protected by Reflexion.
+Return-Path: jackwng@gmail.com
+X-OriginalArrivalTime: 13 May 2008 22:50:31.0508 (UTC) FILETIME=[BF33D940:01C8B54B]
+Date: 14 May 2008 08:50:31 +1000
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+ </head>
+<div>
+<img src="http://uhgupmhuwurvxaegnbayjgtsccignaadmtzrldug%.msadcenter.msn.com/lww.gif?o=1" width="0" height="0">
+<table cellpadding="0" cellspacing="0" width="600" align="center">
+<tr>
+<div style="background:#1766A6;border:3px solid #63AAE2;padding:10px;color:#F2EAEA;font-weight:bold;font-size:18px">
+<table cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td>
+<div style="border:2px solid #F9A800; width:580px;">
+<table width="580" border="0" cellpadding="12" cellspacing="0" bgcolor="#F9A800">
+<tr>
+<td style="color:#FFFFFF;"><div style="font: bold 21px/114% Verdana, Arial, Helvetica, sans-serif;"><center><h3>Dear jackwnn@synnex.com.au</h3><center>Wed, 14 May 2008 06:47:43 +0800. Coupon No. 194<br><center><h2> Online Pharmacy Products! </h2>
+<div align="center"> <A href="http://xmh.seemparty.com" target="_blank"><img src="http://swj.seemparty.com/10.gif" border="0" alt="Click Here!"></a> </div>
+</td
+</tr>
+<tr>
+<td>
+<strong>About this mailing: </strong><br>
+You are receiving this e-mail because you subscribed to MSN Featured Offers. Microsoft respects your privacy. If you do not wish to receive this MSN Featured Offers e-mail, please click the "Unsubscribe" link below. This will not unsubscribe
+you from e-mail communications from third-party advertisers that may appear in MSN Feature Offers. This shall not constitute an offer by MSN. MSN shall not be responsible or liable for the advertisers' content nor any of the goods or service
+advertised. Prices and item availability subject to change without notice.<br><br>
+<center>©2008 Microsoft | <A href="http://aep.seemparty.com" target="_blank">Unsubscribe</a> | <A href="http://gil.seemparty.com" target="_blank">More Newsletters</a> | <A href="http://dqh.seemparty.com" target="_blank">Privacy</a><br><br>
+<center>Microsoft Corporation, One Microsoft Way, Redmond, iy 193
+</td>
+ </div>
+
+          </div>
+    
+    </body>
+</html>
+
+
+
+--9B095B5ADSN=_01C8A4C98D9F364B00185336MELMX.synnex.com--

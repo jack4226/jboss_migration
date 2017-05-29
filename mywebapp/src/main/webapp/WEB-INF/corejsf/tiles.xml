@@ -1,0 +1,35 @@
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+   <definition name="header-menu-content" template="/headerMenuContentLayout.jsp">
+       <put-attribute name="gridClass"           value="headerMenuContent"/>
+       <put-attribute name="headerClass"         value="fullWidth"/>
+       <put-attribute name="menuColumnClass"     value="menuColumn"/>
+       <put-attribute name="contentColumnClass"  value="contentColumn"/>
+   </definition>
+   
+   <definition name="gettingStarted" extends="header-menu-content">
+      <put-attribute name="header"  value="/includes/gettingStartedHeader.jsp"/>
+      <put-attribute name="menu"    value="/includes/gettingStartedMenu.jsp"/>
+      <put-attribute name="content" value="/includes/gettingStartedContent.jsp"/>
+   </definition>
+   
+   <definition name="book" extends="header-menu-content">
+      <put-attribute name="header"  value="/bookHeader.jsp"/>
+      <put-attribute name="menu"    value="/bookMenu.jsp"/>
+      <put-attribute name="content" value="/bookContent.jsp"/>
+   </definition>
+   
+   <definition name="book4Lib" extends="book">
+      <put-attribute name="header"  value="/bookHeader2.jsp"/>
+      <put-attribute name="content" value="/bookContent2.jsp"/>
+   </definition>
+   
+   <definition name="library" template="/libraryLayout.jsp"
+         preparer="ltj.msgui.tiles.LibraryTilePreparer">
+      <put-attribute name="header" value="/bookSelector.jsp"/>
+      <put-attribute name="book" value="book4Lib"/>
+   </definition>
+</tiles-definitions>

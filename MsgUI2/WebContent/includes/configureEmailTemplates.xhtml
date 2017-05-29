@@ -1,0 +1,99 @@
+<!DOCTYPE html [
+    <!ENTITY nbsp "&#160;"> 
+]>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:messages styleClass="errors" layout="list" rendered="#{debug.showMessages}"/>
+<h:outputFormat value="#{msgs.configureEmailTemplates}" styleClass="gridHeader">
+   <f:param value=""/>
+</h:outputFormat>
+<h:dataTable id="data_table" value="#{emailTemplate.all}" var="tmplt" 
+   styleClass="jsfDataTable" binding="#{table}"
+   headerClass="dataTableHeader" columnClasses="oddColumns, evenColumns">
+   
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.deleteColumnHeader}"/>
+      </f:facet>
+      <h:selectBooleanCheckbox value="#{tmplt.markedForDeletion}" immediate="true"
+         disabled="#{(not tmplt.editable) or tmplt.builtin}" title="#{table.rowIndex}_checkBox">
+         <f:ajax event="click" render="@form"/>
+      </h:selectBooleanCheckbox>
+   </h:column>
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.templateIdHeader}"/>
+      </f:facet>
+      <h:commandLink title="#{table.rowIndex}_viewDetail">
+      	<h:outputText value="#{tmplt.templateId}" title="Click to Edit"/>
+      	<f:param name="templateId" value="#{tmplt.templateId}"/>
+      	<f:ajax event="click" listener="#{emailTemplate.viewEmailTemplateListener}" render="@form"/>
+      </h:commandLink>
+   </h:column>
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.defaultListIdHeader}"/>
+      </f:facet>
+      <h:outputText value="#{tmplt.mailingList.listId}" title="#{table.rowIndex}_listId"/>
+   </h:column>
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.subjectHeader}"/>
+      </f:facet>
+      <div class="cellHeight">
+      <h:outputText value="#{tmplt.subject}" title="#{table.rowIndex}_subject"/>
+      </div>
+   </h:column>
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.listTypeHeader}"/>
+      </f:facet>
+      <h:outputText value="#{tmplt.listType}" title="#{table.rowIndex}_listType"/>
+   </h:column>
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.deliveryOptionHeader}"/>
+      </f:facet>
+      <h:outputText value="#{tmplt.deliveryOption}" title="#{table.rowIndex}_deliveryOption"/>
+   </h:column>
+   <h:column>
+      <f:facet name="header">
+         <h:outputText value="#{msgs.schedulesHeader}"/>
+      </f:facet>
+      <h:commandLink title="#{table.rowIndex}_editSchedules">
+      	<h:outputText value="Edit" title="Click to Edit Schedules"/>
+      	<f:param name="templateId" value="#{tmplt.templateId}"/>
+      	<f:ajax listener="#{emailTemplate.editSchedulesListener}" render="@form"/>
+      </h:commandLink>
+   </h:column>
+</h:dataTable>
+<f:verbatim><p/></f:verbatim>
+<h:panelGrid columns="2" styleClass="commandBar" columnClasses="alignLeft70, alignRight30">
+	<h:panelGroup>
+		<h:commandButton value="#{msgs.deleteButtonText}" title="Delete selected rows"
+			disabled="#{not emailTemplate.anyTemplatesMarkedForDeletion}"
+			onclick="javascript:return confirmDelete();" >
+			<f:ajax execute="@form" listener="#{emailTemplate.deleteEmailTemplatesListener}" render="@form"/>
+		</h:commandButton>
+		<f:verbatim>&nbsp;</f:verbatim>
+		<h:commandButton value="#{msgs.refreshFromDB}" title="Refresh from database" >
+			<f:ajax event="click" listener="#{emailTemplate.refreshListener}" render="data_table"/>
+		</h:commandButton>
+		<f:verbatim>&nbsp;</f:verbatim>
+		<h:commandButton value="#{msgs.copyToNewButtonText}" title="Create a new row from selected"
+			disabled="#{not emailTemplate.anyTemplatesMarkedForDeletion}">
+			<f:ajax event="click" listener="#{emailTemplate.copyEmailTemplateListener}" render="@form"/>
+		</h:commandButton>
+		<f:verbatim>&nbsp;</f:verbatim>
+		<h:commandButton value="#{msgs.addNewButtonText}" title="Add a new row">
+			<f:ajax event="click" listener="#{emailTemplate.addEmailTemplateListener}" render="@form"/>
+		</h:commandButton>
+	</h:panelGroup>
+	<h:panelGroup>
+		<f:verbatim>&nbsp;</f:verbatim>
+	</h:panelGroup>
+</h:panelGrid>
+</html>

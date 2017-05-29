@@ -1,0 +1,229 @@
+<!DOCTYPE html [
+    <!ENTITY nbsp "&#160;"> 
+]>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+<link href="styles.css" rel="stylesheet" type="text/css" />
+<title><h:outputText value="#{msgs.manageEmailCorrespondence}" /></title>
+</h:head>
+<h:body><div align="center">
+<h:form id="msgform"  rendered="#{messageInbox.beanMode=='list'}">
+	<h:panelGrid columns="1" styleClass="headerMenuContent" style="border: none; padding: 0px;">
+	<h:panelGrid columns="2" styleClass="headerMenuContent" columnClasses="menuColumn, contentColumn">
+	<f:facet name="header">
+	<f:subview id="header">
+        <ui:include src="includes/gettingStartedHeader.xhtml"/>
+    </f:subview>
+	</f:facet>
+	
+	<h:panelGroup id="mil_pnlgrp1">
+		<ui:include src="/includes/simpleMailTrackingMenu.xhtml"/>
+	</h:panelGroup>
+	
+	<h:panelGroup id="mil_pnlgrp2">
+		<h:messages styleClass="errors" layout="list" rendered="#{debug.showMessages}" />
+		<h:panelGrid id="mil_pnlgrd2_1" columns="2" styleClass="commandBar" 
+			columnClasses="alignLeft70, alignRight30">
+			<h:panelGroup id="mil_pnlgrp2_1">
+				<h:commandButton value="#{msgs.deleteButton}" title="Delete selected messages"
+					onclick="javascript:return confirmDelete();" >
+					<f:ajax listener="#{messageInbox.deleteMessagesListener}" render="msgform:data_table"/>
+				</h:commandButton>
+				<f:verbatim>&nbsp;&nbsp;&nbsp;</f:verbatim>
+				<h:outputText value="#{msgs.markAsPrompt}" style="color: darkblue; font-weight: bold;"/>
+				<f:verbatim>&nbsp;</f:verbatim>
+				<h:commandLink value="#{msgs.markAsReadLink}" title="Mark as read">
+					<f:ajax execute="@this" listener="#{messageInbox.markAsRead}" render="msgform:data_table"/>
+				</h:commandLink>
+				<f:verbatim>&nbsp;&nbsp;</f:verbatim>
+				<h:commandLink value="#{msgs.markAsUnreadLink}" title="Mark as unread">
+					<f:ajax execute="@this" listener="#{messageInbox.markAsUnread}" render="msgform:data_table"/>
+				</h:commandLink>
+				<f:verbatim>&nbsp;&nbsp;</f:verbatim>
+				<h:commandLink value="#{msgs.markAsFlaggedLink}" title="Mark as flagged">
+					<f:ajax execute="@this" listener="#{messageInbox.markAsFlagged}" render="msgform:data_table"/>
+				</h:commandLink>
+				<f:verbatim>&nbsp;&nbsp;</f:verbatim>
+				<h:commandLink value="#{msgs.markAsUnflaggedLink}" title="Mark as unflagged">
+					<f:ajax execute="@this" listener="#{messageInbox.markAsUnflagged}" render="msgform:data_table"/>
+				</h:commandLink>
+			</h:panelGroup>
+			<h:panelGroup id="mil_pnlgrp2_2">
+				<h:commandLink value="#{msgs.refreshLinkText}" title="Refresh from database">
+					<f:ajax listener="#{messageInbox.refreshClickedListener}" render="@form"/>
+				</h:commandLink>
+			</h:panelGroup>
+		</h:panelGrid>
+		<h:dataTable id="data_table" value="#{messageInbox.all}" var="mail"
+			rows="#{messageInbox.pagingVo.pageSize}"
+			styleClass="jsfDataTable" rowClasses="oddRows, evenRows"
+			headerClass="dataTableHeader" footerClass="dataTableFooter"
+			columnClasses="twoPercent, twentyPercent, fiftyPercent, tenPercent, tenPercent, fivePercent, twoPercent">
+
+			<h:column>
+				<f:facet name="header" >
+					<h:selectBooleanCheckbox id="checkAll" value="#{messageInbox.checkAll}"
+						onclick="javascript:changeAllCheckBoxes(this)"/>
+				</f:facet>
+				<h:selectBooleanCheckbox value="#{mail.markedForDeletion}"
+					disabled="#{not mail.editable}" id="lnchkbox">
+					<f:ajax />
+				</h:selectBooleanCheckbox>
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="#{msgs.fromAddressHeader}"/>
+				</f:facet>
+				<div class="cellHeight">
+				<h:graphicImage value="/images/flag.gif" alt="flagged" style="border: 1px"
+					rendered="#{mail.flagged}" title="Message Flagged"/>
+				<h:graphicImage value="/images/replied.gif" alt="replied" style="border: 1px"
+					rendered="#{mail.replyCount gt 0}" title="Message Replied"/>
+				<h:graphicImage value="/images/forwarded.gif" alt="forwarded" style="border: 1px"
+					rendered="#{mail.replyCount le 0 and mail.forwardCount gt 0}" title="Message Forwarded"/>
+				<h:outputText value="#{mail.fromAddress==null?'':messageInbox.getFromDisplayName(mail.fromAddress.rowId)}"
+					style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"/>
+				</div>
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="#{msgs.msgSubjectHeader}"/>
+				</f:facet>
+				<div class="cellHeight">
+				<h:graphicImage value="/images/clip_1.gif" alt="has attachments" style="border: 0px"
+					rendered="#{mail.attachmentCount gt 0}" title="Message has attachment(s)"/>
+				<h:graphicImage value="/images/space.gif" alt="attachment count" style="border: 0px"
+					rendered="#{mail.attachmentCount le 0}" height="1" width="16"/>
+				<h:commandLink >
+					<h:outputText value="#{mail.msgSubject==null?'null':mail.msgSubject}"
+						title="Click to View" style="font-weight: bold;"
+						rendered="#{mail.readCount le 0}"/>
+					<h:outputText value="#{mail.msgSubject==null?'null':mail.msgSubject}"
+						title="Click to View" style="font-weight: normal;"
+						rendered="#{mail.readCount gt 0}"/>
+					<f:param name="msgId" value="#{mail.rowId}" />
+					<f:ajax listener="#{messageInbox.viewMessageListener}" render="@all"/>
+				</h:commandLink>
+				</div>
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="#{msgs.ruleNameHeader}"/>
+				</f:facet>
+				<h:outputText value="#{mail.ruleLogic==null?'':messageInbox.getRuleName(mail.ruleLogic.rowId)}" 
+					style="font-size: 0.8em; color: darkblue;"/>
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="#{msgs.receivedDateHeader}"/>
+				</f:facet>
+				<h:outputText value="#{mail.receivedTime}">
+					<f:convertDateTime pattern="MM/dd_HH:mm"/>
+				</h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="#{msgs.msgSizeHeader}"/>
+				</f:facet>
+				<h:outputText value="#{(mail.msgBodySize + mail.attachmentSize)}" />
+			</h:column>
+			<h:column>
+				<h:graphicImage value="/images/received.gif" alt="received" style="border: 0px"
+					rendered="#{mail.msgDirection.equals('R')}" title="Received"/>
+				<h:graphicImage value="/images/sent.gif" alt="sent" style="border: 0px"
+					rendered="#{!mail.msgDirection.equals('R')}" title="Sent"/>
+			</h:column>
+			
+			<f:facet name="footer">
+            <h:panelGroup id="mil_pnlgrp2_3">
+			<h:panelGrid id="mil_pnlgrd2_2" columns="2" styleClass="fullWidth"
+				columnClasses="alignLeft50, alignRight50">
+				<h:panelGroup>
+				<h:outputText value="#{msgs.footerViewText} "/>
+                <h:commandLink value="#{msgs.allLinkText}">
+                	<f:ajax listener="#{messageInbox.viewAllListener}" render="@form"/>
+                </h:commandLink>
+				<f:verbatim>&nbsp;</f:verbatim>
+                <h:commandLink value="#{msgs.unreadLinkText}">
+                	<f:ajax listener="#{messageInbox.viewUnreadListener}" render="@form"/>
+                </h:commandLink>
+                <f:verbatim>&nbsp;</f:verbatim>
+                <h:commandLink value="#{msgs.readLinkText}">
+                	<f:ajax listener="#{messageInbox.viewReadListener}" render="@form"/>
+                </h:commandLink>
+                <f:verbatim>&nbsp;</f:verbatim>
+                <h:commandLink value="#{msgs.flaggedLinkText}">
+                	<f:ajax listener="#{messageInbox.viewFlaggedListener}" render="@form"/>
+                </h:commandLink>
+				</h:panelGroup>
+				<h:panelGroup>
+            	<h:outputText value="#{messageInbox.pagingVo.pageNumber * messageInbox.pagingVo.pageSize + 1}"
+            		style="font-weight: bold;"/>
+            	<h:outputText value=" - "/>
+				<h:outputText value="#{messageInbox.lastPageRow}" style="font-weight: bold;" />
+				<h:outputText value=" of " style="font-weight: bold;"/>
+            	<h:outputText value="#{messageInbox.rowCount}" style="font-weight: bold;"/>
+            	<f:verbatim>&nbsp;&nbsp;</f:verbatim>
+                <h:commandLink value="#{msgs.firstLinkText}"
+                    disabled="#{messageInbox.pagingVo.pageNumber == 0}" id="pagefrst">
+                    <f:ajax execute="@this" listener="#{messageInbox.pageFirst}" render="@form"/>
+                </h:commandLink>
+                <f:verbatim>&nbsp;|&nbsp;</f:verbatim>
+                <h:commandLink value="#{msgs.prevLinkText}"
+                    disabled="#{messageInbox.pagingVo.pageNumber == 0}" id="pageprev">
+                    <f:ajax execute="@this" listener="#{messageInbox.pagePrevious}" render="@form"/>
+                </h:commandLink>
+                <f:verbatim>&nbsp;|&nbsp;</f:verbatim>
+				<c:set var="page_number" value="${messageInbox.pagingVo.pageNumber + 1}"/>
+            	<c:set var="page_size" value="${messageInbox.pagingVo.pageSize}"/>
+            	<c:set var="row_count" value="${messageInbox.rowCount}"/>
+                <c:if test="${page_number * page_size lt row_count}">
+					<h:commandLink value="#{msgs.nextLinkText}" disabled="false">
+	                    <f:ajax execute="@this" listener="#{messageInbox.pageNext}" render="@form"/>
+	                </h:commandLink>
+	                <f:verbatim>&nbsp;|&nbsp;</f:verbatim>
+	                <h:commandLink value="#{msgs.lastLinkText}" disabled="false">
+	                    <f:ajax execute="@this" listener="#{messageInbox.pageLast}" render="@form"/>
+	                </h:commandLink>
+	            </c:if>
+                <c:if test="${page_number * page_size ge row_count}">
+					<h:commandLink value="#{msgs.nextLinkText}" disabled="true" />
+	                <f:verbatim>&nbsp;|&nbsp;</f:verbatim>
+	                <h:commandLink value="#{msgs.lastLinkText}" disabled="true" />
+	            </c:if>
+                </h:panelGroup>
+                </h:panelGrid>
+            </h:panelGroup>
+			</f:facet>
+		</h:dataTable>
+	</h:panelGroup>
+	</h:panelGrid>
+	<ui:include src="includes/gettingStartedFooter.xhtml"/>
+	</h:panelGrid>
+</h:form>
+
+<f:subview id="detail" rendered="#{messageInbox.beanMode=='edit'}">
+	<ui:include src="msgInboxView.xhtml"/>
+</f:subview>
+
+</div>
+</h:body>
+<f:verbatim>
+<script type="text/javascript">
+//<!--
+function changeAllCheckBoxes(theCheckbox) {
+	var myForm = theCheckbox.form;
+	for (var i = 0; i < myForm.length; i++) {
+     		if(myForm[i].type == 'checkbox' && myForm[i].name.indexOf('lnchkbox') > 0) {
+  			myForm[i].checked = theCheckbox.checked;
+  		}
+  	}
+}
+//-->
+</script>
+</f:verbatim>
+</html>

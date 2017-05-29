@@ -1,0 +1,323 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Title" content="A Simple HTML Example Page - all you need to know to make a basic web page.">
+<meta http-equiv="Description" content="Examples of simple HTML markup tags with explainations">
+<meta name="Author" content="Bonnie Dalzell, MA">
+<meta name="Generator" content="Bonnie Dalzell brain ver 53.3">
+<meta name="Copyright" content="Copyright 2003, Bonnie Dalzell">
+<meta http-equiv="Keywords" content="HTML, basic HTML, webpage ">
+<title> A Simple HTML Example Page </title>
+</head>
+
+<body bgcolor="#ffffff"  text="#000000" link="#ff0000" vlink="#0000ff">
+<h1 align="center">BASIC HTML </h1>
+<h3 align="center"> &copy;2003 Bonnie Dalzell </h3>
+<h3 align="center"> This is now part of an expanded lesson set at:
+<a href="http://www.batw.net/htmllessons/index.html">http://www.batw.net/htmllessons/index.html</a></h3>
+
+<h1 align="center">Example Page for simple HTML tags. <br> Save this as a local page in HTML format
+and open it in a simple text editor such as bbedit or notepad.<br>
+</h1>
+
+<h2> <b> Basics  </b>
+<br>HTML pages have three parts, the <a href="#header">HEADER</a>, the <a href="#body">BODY</a>
+(which contains the part which is readable when
+displayed in your browser) and the <a href="#footer">FOOTER</a>.
+</h2>
+
+
+<p>The HTML commands to the browser are 'marked-up' by being surrounded by
+the &lt; (less than) and the &gt; (greater than) characters.
+</p>
+
+<p>
+When you examine this page in your simple text editor you will see various HTML commands.
+The HTML commands to your browser are called <b>tags</b> or <b> elements</b>.
+Explanations for each one will appear within the area affected by the tag. When viewed in your
+browser the tag will not be visible but the results will be visible.
+Most tags are paired. To close the range of
+influence of a tag you use a negated versions of the tag. Negation is indicated by the right leaning
+slash. Here is the headline 1 tag &lt; H1 &gt;. Here is the negation for the headline 1 tag. &lt;/H1&gt;
+</p>
+
+<h2> <b><a name="header">About the Header</a></b></h2>
+
+<p>
+The header is invisible to the person looking at a page in their browser but it is needed so that
+the browser can successfully read the page. I am not going to teach you all the details of a header in this first lesson.
+</p><p>
+Minimally your page should have the following invariant items in the header:</p>
+<pre>
+&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd"&gt;
+&lt;html&gt; &gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"&gt;
+
+</pre>
+<p> You can cut those lines out and paste them at the top of a web page that you may wish to make.</p>
+<p>
+The following fields should be in the header of your web page if you want it properly indexed by
+internet search engines such as Yahoo! and Google. You will need to fill in the appropriate information in the values
+part of the <b> meta </b> tags. The title is important and should have a descriptive phrase associated with it.
+</p>
+
+<p> The basic form of a meta tag is this:<br>
+&lt;meta name="descriptor" content="value of descriptor"&gt;<br>
+</p>
+<pre>
+&lt;meta http-equiv="Title" content="Page title and descriptive phrase here" &gt;
+&lt;meta http-equiv="Description" content="Description of the page content, no more than 25 words."&gt;
+&lt;meta name="Author" content="Author of the page" &gt;<br>
+&lt;meta name="Generator" content="generating software (for example your brain if you made your page by hand)."&gt;
+&lt;meta name="Copyright" content=" copyright date and copyright owner."&gt;<br>
+&lt;meta http-equiv="Keywords" content="enter a list of comman separated key words here, use no more than 11 "&gt;
+&lt;title&gt; Page Title &lt;/title&gt;
+</pre>
+<p> The header must be closed by a header close tag:<br>
+&lt;/head&gt;
+</p>
+
+<h2> <b><a name ="body">About the Body</a></b></h2>
+<b> The body tag </b>
+<p>
+
+The body is delimited by a pair of body tags, &lt;body&gt; and &lt;/body&gt;.
+The simplest form of the body definition can use these two tags unmodified.
+However if you look at the beginning (opening) body tag for this page you see
+it looks like this:<br>
+
+&lt;body bgcolor="#ffffff"  text="#000000" link="#ff0000" vlink="#0000ff"&gt;
+<br>
+This body tag has arguments, bgcolor, text color, visited link (vlink) color
+and unvisited link (link) color all expressed as a hex numbers.<br>
+Common colors are: <br>
+&nbsp;&nbsp; White = "#ffffff"<br>
+&nbsp;&nbsp; Black = "#000000"<br>
+&nbsp;&nbsp; Red = "#ff0000"<br>
+&nbsp;&nbsp; Blue = "#0000ff"<br>
+&nbsp;&nbsp; Green = "#00ff00"<br>
+&nbsp;&nbsp; Cyan = "#00ffff"<br>
+&nbsp;&nbsp; Magenta = "#ff00ff"<br>
+&nbsp;&nbsp; Yellow = "#ffff00"<br>
+</p>
+
+<p>
+You can also set a background image for the page using the background="path2image/imagename" argument <b>BUT</b>
+this needs to be done very carefully because most backgrounds result in unreadable text.
+ </p><p>
+It is a good idea always to define the background color and text color, even if it is white background with black text because
+different browsers have different default background colors, some are white and some are grey, and if you define one without defining
+the other you may end up with an unreadable page due to your users browser's defaults.
+</p>
+<p>
+The body is terminated with the end body tag &lt;/body&gt;.
+</p>
+
+<h2> <b> Special Characters</b></h2>
+
+<p>
+You may want to display characters on your page that are found in the HTML tags such as the
+less than and greater than characters. HTML has the ability to display non-standard characters by using
+<b>escape</b> commands. &amp;lt; is the escaped representation of the &lt; while &amp;gt; is the escaped representation of the &gt;
+and &amp;copy; is the escaped representation of the copyright symbol seen at the top of the page. Another useful escaped character
+is the <b>hard space</b>&nbsp; &amp;nbsp;. This allows you to overide the browser's actions where multiple spaces are not displayed unless they
+are specificially marked up. As &nbsp;&nbsp;&nbsp;&nbsp; in &nbsp;&nbsp;&nbsp;&nbsp; this &nbsp;&nbsp;&nbsp;&nbsp; example.
+</p><p>
+There are escaped representations for a very large set of special symbols.
+</p>
+
+<h2><b> Other Basic Mark-up tags</b></h2>
+
+<p>
+Paragraphs are deliminated by paragraph tags &lt;p&gt; and  &lt;/p&gt;.
+<br> Emphasis is created with the <b> bold </b> tag set  &lt;b&gt; &lt;/b&gt;
+<br> Italics is created with the <b> italic </b> tag set  &lt;i&gt; &lt;/i&gt;. <i>Sometimes italic text can be very hard to read</i>;
+<br> The letters can be magnified within a line with the <b> big </b> tag set  &lt;big&gt; &lt;/big&gt;
+<big> This is an example</big>.
+<br> The letters can be reduced within a line with the <b> small </b> tag set  &lt;small&gt; &lt;/small&gt;
+<small> This is an example</small>.
+<br> Line breaks can be created by the break tag  &lt;br&gt;. It is <b>not</b> paired up with a break negation tag.
+<br> A horizontal separator can be created with the  &lt;hr&gt; tag. It is <b>not</b> paired up with a negation tag.
+<br><br> Under the newest standard for HTML, the tags should be in <b>lower case </b>.
+<br> <b> Nesting of tags: </b> If multiple tags are used around a body of text the order of nesting of the tags and their negations is important.
+</p>
+
+ <h1><b><i> This is an example with three levels of nesting. The negations need to be in reverse order</i></b></h1>
+
+<h3>&lt;h1&gt;&lt;b&gt;&lt;i&gt; This is an example with three levels of nesting.
+The negations need to be in reverse order&lt;/i&gt;&lt;/b&gt;&lt;/h1&gt;</h3>
+
+<hr width="80%">
+
+
+<h2> <b>Headline sizes</b> </h2>
+
+<p> In this section various headline sizing tags have been used to change the size of the print.<br>
+Headline tags indicate the font size by a number from 1 to 6. For example &lt;H1&gt; would be the
+command to have the browser use its largest font size. What font family and what size will be used is determined by the viewer's choices in
+their browser set up on their computer.</p>
+
+
+<h1>This is headline sized 1 as a default headline sizes get smaller as they are
+designated with large numbers - they go from 1 to 5</h1>
+
+<p>
+Headline tags can take additional instructions called arguments. <br>
+&lt;H1 align="center"&gt; <br>
+is an example. The value of the argument should be lower case and enclosed in double quotes.
+</p>
+<h2 align ="right"> This is headline size 2, aligned to the right.</h2>
+<h3 align="left"> This is headline size 3, aligned to the left</h3>
+
+<h4> This is headline size 4, if alignment is not designated it defaults to the
+left. The "end headline" tag inserts blank space so you cannot use headline size tags
+to get different font sizes on the same line</h4>
+
+<h5 align="center"> This is headline size 5 aligned to the center.</h5>
+
+<h2><b> Font tag</b></h2>
+<p><font size ="4">
+
+The <b>font</b> tag allows you to set attributes of the displayed font within a
+line. The font tag has an opening and a closing component.
+ Unlike the headline tag, the closing font tag does not insert a line break in the line. The font sizes run from 1 to 6 and the sizes are
+the opposite of the headline sizes, 1 is the smallest, 6 is the largest.
+</font></p>
+
+<font size ="1" color="#ff0000"> This is font size 1 in red</font>
+<font size ="2" color="#00ff00"> This is font size 2 in green</font>
+<font size ="3" color="#0000ff"> This is font size 3 in blue</font>
+<font size ="4" color="#ffff00"> This is font size 4 in yellow</font>
+<font size ="5" color="#ff00ff"> This is font size 5 in magenta</font>
+<font size ="6" color="#00ffff"> This is font size 6 in cyan</font>
+
+<p> The basic structure of these font tages is &lt;font size ="6" color="#00ffff"&gt; Text to be displayed &lt;/font&gt;.
+</p>
+
+<h2><b> Lists </b></h2>
+
+<p> <b>List</b> tags allow text to be set up with successive levels of indenting. There are two basic types, <b>unordered</b> lists in which
+the individual elements are designated by a non-text marker and <b>ordered</b> lists in which the individual elements are numbered by the
+browser. First is an example of an unordered list. Unordered lists are started with a list opening tag &lt;ul&gt; and closed with a
+negation of that tag &lt;/ul&gt;.
+<br>
+List elements are surround by the list element tags: &lt;li&gt; and &lt;/li&gt;
+</p>
+
+<ul>
+<li> Links use both opening and closing tage. This list shows the links as working links, the second list displays the code.</li>
+
+<li><a href="simple_page.html"> This is the form of a link </a> to another page
+at the same site.</li>
+
+<li><a href="http://www.batw.net/simple_page.html"> This is the form of a link
+</a> to another page at a distant site.</li>
+
+<li><a href="#end"> This is the form of a link </a> to another part of the same page.</li>
+</ul>
+
+<p>
+This second list example is an ordered list. Its tags are &lt;ol&gt; and &lt;/ol&gt;</p>
+
+<ol>
+<li>&lt;a href="simple_page.html"&gt; This is the form of a link &lt;/a&gt; to another page at the same site.</li>
+
+<li>&lt;a href="http://www.batw.net/simple_page.html"&gt; This is the form of a
+link &lt;/a&gt; to another page at a distant site.</li>
+
+<li>&lt;a href="#end"&gt; This is the form of a link &lt;/a&gt; to another part
+of the same page. You need to place a target at the place you want the browser
+to jump to. The target looks like this: &lt;a name ="target_word"&gt; some text
+&lt;/a&gt;. Several different links can point to the same target.</li>
+
+</ol>
+
+<p> Here is a multiple level UNORDERED list:</p>
+
+<ul><li> Level one item 1</li>
+    <li>
+        <ul><li> Level two item 1</li>
+            <li> Level two item 2</li>
+            <li> Level two item 3</li>
+            <li>
+                <ul><li> Level three item 1</li>
+                    <li> Level three item 2</li>
+                    <li> Level three item 3</li>
+                    <li> Level three item 4</li>
+                    </ul></li>
+            <li> Level two item 4</li>
+            </ul></li>
+    <li> Level one item 2</li>
+    <li> Level one item 3</li>
+</ul>
+
+<br clear="all">
+
+
+<p> Break can also be used to force a line break. The break tag used above clears any commands that might affect the text, such as a large
+image which could force the text to one side. It looks like this: &lt;br clear="all"&gt;</p>
+<p> Below is a working example of a tag that displays an image on the page.
+
+<br> It  is of this form: <br>
+&lt;img src="ButtonLogo_150_150.jpg" align = "middle" height="150" width="150" alt="a sample picture 150 pixels high and 150 pixels wide"&gt;
+
+<br>
+The page loads faster if you include the image height and width in pixels
+in the tag. The alt variable should describe the image, not just name it. The <b> alt </b> variable is used when the browser does not display
+images, for example for a browser used by a blind person.
+</p>
+
+<p>
+<img src="ButtonLogo_150_150.jpg" align = "middle" height="150" width="150" alt="a sample picture 150 pixels high and 150 pixels wide">
+The sample picture, 150 pixles wide and 150 pixels high is displayed to the left.
+
+<br> Here 10 break tags create white space.<br><br><br><br><br><br><br><br><br><br>
+
+By default browsers ignore carriage returns and multiple spaces that are typed into the text and only display formatting that
+is created by the HTML tags.</p>
+
+<pre>
+
+If you want to have the browser display what you have typed
+                      e x a c t l y
+as you typed it you use the preformat tag pair  &lt;pre&gt; and &lt;/pre&gt;.
+
+</pre>
+
+<p>
+However some browsers to not recognize this tag pair. WebTV is an example.
+</p>
+<p>
+<a name="end"> This is a target </a>for a link within a page. It is included here so that you can see the page jump to the target if
+you press the third working link in the unordered list above. The form is &lt;a name="end"&gt; This is a target &lt;/a&gt;.
+Note that the displayed text of the target does not stand out from the paragraph.
+</p>
+<p>
+You can check your page by submitting it to the W3C validation service at
+<a href="http://validator.w3.org/" target="_blank">
+http://validator.w3.org/
+</a>.
+</p>
+<p> You can even check the page from your home computer using the Local File Upload feature.</p>
+
+<p align="center"> Back to <a href="index.html"> home page </a>.</p>
+
+<p align="center">
+      <a href="http://validator.w3.org/check/referer"><img border="0"
+          src="http://www.w3.org/Icons/valid-html401"
+          alt="Valid HTML 4.01!" height="31" width="88"></a>
+    </p>
+
+
+<hr width = "80%">
+<p align ="center">
+Have a question or a suggestion for this page? Email bdalzell at Q&nbsp;I&nbsp;S dot net<br>
+
+<a href ="http://www.batw.net/index.shtml">Home</a> ] [ <a href= "site_design_tips.html"> Some Tips on Site Design</a> Tutorial on constructing a simple web page.
+</p>
+
+<h2>The last line in the page is the <b><a name="footer"> footer</a></b> which looks like this &lt;/html&gt;.</h2>
+</body>
+<!-- this line is the footer --></html>

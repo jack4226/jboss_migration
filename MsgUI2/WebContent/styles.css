@@ -1,0 +1,513 @@
+body {
+	background: #eeeeee;
+}
+
+.errors {
+	font-style: italic;
+	color: red;
+}
+
+.errorMessage {
+	color: red;
+}
+
+.messages {
+	color: DarkBlue;
+}
+
+.evenRows {
+	background: White; /* PowderBlue; */
+}
+
+.oddRows {
+	background: WhiteSmoke; /* MediumTurquoise; */
+}
+
+.columnHeader {
+	font-weight: bold;
+}
+
+.columnFooter {
+	font-size: 0.75em;
+}
+
+.finePrint {
+	font-size: 0.80em;
+}
+
+.footNote {
+	font-size: 0.90em;
+}
+
+.phaseFormColumns {
+	vertical-align: top;
+	font-style: italic;
+	font-size: 1.1em;
+}
+
+.loginHeaderContent {
+	vertical-align: top;
+	width: 800px;
+	height: auto;
+	border: thin solid LightGray;
+}
+
+.loginLabelColumn {
+	text-align: right;
+	background: White;
+	padding: 2px;
+	border: none;
+	width: 35%;
+}
+
+.loginInputColumn {
+	text-align: left;
+	background: White;
+	padding: 2px;
+	border: none;
+	width: 35%;
+}
+
+.loginMessageColumn {
+	text-align: left;
+	background: White;
+	padding: 2px;
+	border: none;
+	width: 30%;
+}
+
+/*
+ * define styles for GettingStarted
+ */
+.headerMenuContent {
+	vertical-align: top;
+	width: 1024px; /* 100%; */
+	height: auto;
+	border: thin solid LightGray;
+}
+
+.gettingStartedHeader {
+	width: 100%;
+	text-align: center;
+	padding: 4px;
+	border: thin solid Snow;
+	background-color: #C8D6EA;
+}
+
+.gettingStartedFooter {
+	width: 100%;
+	padding: 2px;
+	border: thin solid Snow;
+	background-color: #EEF6F2;
+}
+
+.gettingStartedFooter A:HOVER {
+	color: teal;
+}
+
+.gettingStartedFooterHeight {
+	width: 50%;
+}
+
+.headerLinkText {
+	text-decoration: none;
+	font-size: 0.8em;
+	font-weight: bold;
+	color: blue;
+}
+.headerLinkText A:HOVER {
+	color: teal;
+}
+
+.menuColumn {
+	vertical-align: top;
+	width: 20%;
+	border: thin solid White;
+	background-color: WhiteSmoke; /*#ECF1F8;*/
+}
+
+.contentColumn {
+	vertical-align: top;
+	text-align: left;
+	width: 80%;
+	background-color: White;
+}
+
+.gettingStartedTitle {
+	text-align: center;
+	font-style: normal;
+	font-size: 1.8em;
+	font-family: sans-serif Helvetica;
+	color: #008b8b; /* DarkBlue; */
+}
+
+.gettingStartedContent {
+	width: 100%;
+	text-align: left;
+	font-style: normal;
+	font-size: 1em;
+	font-family: sans-serif Helvetica;
+	padding: 4px;
+}
+
+.gettingStartedMenu {
+	width: 200px;
+	vertical-align: top;
+	text-align: left;
+}
+
+.gettingStartedMenuColumn {
+	vertical-align: top;
+	text-align: left;
+	padding: 4px;
+}
+
+.gettingStartedMenuColumn A:HOVER {
+	color: teal;
+}
+
+.mediumSizeTitle {
+	text-align: center;
+	font-style: normal;
+	font-size: 1.2em;
+	font-family: sans-serif Helvetica;
+	color: #0000cc; /* DarkBlue; */
+}
+
+.mediumLargeSizeTitle {
+	text-align: center;
+	font-style: normal;
+	font-size: 1.4em;
+	font-family: sans-serif Helvetica;
+	color: #0000cc; /* DarkBlue; */
+}
+
+.menuLinkLables {
+	font-weight: bold;
+	font-size: 1.2em;
+	color: #00008b; /* DarkBlue */
+}
+
+.menuLinks {
+	text-decoration: none; /*no underline*/
+	font-weight: bold;
+}
+
+.menuLinkText {
+	text-decoration: none; /*no underline*/
+	font-weight: bold;
+	padding: 3px;
+	color: blue;
+}
+
+.menuLinkTextSelected {
+	text-decoration: none; /*no underline*/
+	font-weight: bold;
+	padding: 3px;
+	color: red;
+}
+
+.fullWidth {
+	width: 100%;
+}
+
+.fullWidthWithBorder {
+	width: 100%;
+	padding: 2px;
+	border: thin solid LightGray;
+}
+
+.menuPane {
+	vertical-align: top;
+	width: 100%;
+	background-color: White;
+	border: thin solid LightGray;
+}
+.menuPaneColumn {
+	vertical-align: top;
+	width: 50%;
+	padding-top: 30px;
+	padding-left: 50px;
+	padding-bottom: 30px;
+	padding-right: 10px;
+}
+.menuCell {
+	vertical-align: top;
+	width: 100%;
+	border: none;
+}
+.menuCellColumn {
+	width: 100%;
+	padding-top: 5px;
+	padding-left: 30px;
+	padding-bottom: 5px;
+	padding-right: 10px;
+}
+.menuCellColumn A:HOVER {
+	color: teal;
+}
+.menuGroupTitle {
+	color: steelblue;
+	font-size: 1.4em;
+}
+
+.cellLink {
+	text-decoration: underline;
+	color: blue;
+}
+
+.gridHeader {
+	text-align: left;
+	font-size: 1.2em;
+	color: SteelBlue;
+}
+
+/*
+ * define styles for Customer pages
+ */
+.jsfDataTable {
+	border: thin solid LightGray;
+	width: 100%;
+}
+
+.jsfDataTable A {
+	color: Blue;
+}
+
+.dataTableHeader {
+	text-align: center;
+	font-style: italic;
+	color: DarkBlue;
+	background: LightBlue;
+	padding: 2px;
+}
+
+.dataTableFooter {
+	font-size: 0.9em;
+	font-family: monospace;
+	text-align: center;
+	background: Lavender; /* #E6E6FA; */
+	padding: 2px;
+}
+
+.oddColumns {
+	height: 25px;
+	text-align: center;
+	background: Snow;
+	padding: 2px;
+}
+
+.evenColumns {
+	text-align: left;
+	background: AliceBlue;
+	padding: 2px;
+}
+
+.editPaneHeader {
+	border: thin solid LightGray;
+	width: 100%; /* auto; */
+	padding: 2px 2px 2px 2px;
+}
+
+.promptColumn {
+	text-align: left;
+	background: LightBlue; /* #ADD8E6 */
+	padding: 2px;
+	border: thin solid WhiteSmoke;
+	width: 35%;
+}
+
+.inputColumn {
+	text-align: left;
+	background: White;
+	padding: 2px;
+	border: thin solid WhiteSmoke;
+	width: 35%;
+}
+
+.messageColumn {
+	text-align: left;
+	background: White;
+	padding: 2px;
+	border: thin solid WhiteSmoke;
+	width: 30%;
+}
+
+.labelColumn {
+	text-align: right;
+	background: LightBlue; /* #ADD8E6 */
+	padding: 2px;
+	border: thin solid WhiteSmoke;
+	width: 35%;
+}
+
+.textColumn {
+	text-align: left;
+	background: White;
+	padding: 2px;
+	border: thin solid WhiteSmoke;
+	width: 65%;
+}
+
+.smtpHeaders {
+	border: thin solid LightGray;
+	width: 100%;
+	padding: 5px;
+}
+
+.smtpLabelColumn {
+	text-align: left;
+	background: LightBlue; /* #ADD8E6 */
+	padding: 2px;
+	border: thin solid White;
+	width: 20%;
+}
+
+.smtpTextColumn {
+	text-align: left;
+	background: White;
+	padding: 2px;
+	border: thin solid White;
+	width: 80%;
+}
+
+.smtpBody {
+	background: White;
+	border: thin solid Snow;
+	width: 100%;
+	padding: 5px;
+}
+
+.commandBar {
+	background: #8CB0D9; /*#6699CC;*/
+	border: thin solid Snow;
+	width: 100%;
+	padding: 5px;
+}
+
+.commandBar A {
+	color: Blue;
+}
+
+.cellHeight {
+	height: 20px;
+	overflow: hidden; /* Or whatever you desire */
+}
+
+.alignLeft70 {
+	position: relative;
+	/* align: left; */
+	text-align: left;
+	width: 70%;
+	font-size: 0.8em;
+}
+
+.alignRight30 {
+	position: relative;
+	/* align: right; */
+	text-align: right;
+	width: 30%;
+	font-size: 0.8em;
+	font-weight: bold;
+}
+
+.alignLeft50 {
+	position: relative;
+	/* align: left; */
+	text-align: left;
+	width: 50%;
+	font-size: 0.9em;
+}
+
+.alignRight50 {
+	position: relative;
+	/* align: right; */
+	text-align: right;
+	width: 50%;
+	font-size: 0.9em;
+}
+
+.alignLeft30 {
+	position: relative;
+	/* align: left; */
+	text-align: left;
+	width: 30%;
+	font-size: 0.8em;
+}
+
+.alignRight70 {
+	position: relative;
+	/* align: right; */
+	text-align: right;
+	width: 70%;
+	font-size: 0.8em;
+}
+
+.alignLeftAll {
+	position: relative;
+	/* align: left; */
+	text-align: left;
+	width: 100%;
+	font-size: 1.0em;
+}
+
+.alignCenter {
+	position: relative;
+	/* align: center; */
+	text-align: center;
+}
+
+/*
+ * define width of columns using percent
+ */
+.twoPercent {
+	width: 2%;
+}
+
+.threePercent {
+	width: 3%;
+}
+
+.fivePercent {
+	width: 5%;
+}
+
+.tenPercent {
+	width: 10%;
+}
+
+.fifteenPercent {
+	width: 15%;
+}
+
+.twentyPercent {
+	width: 20%;
+}
+
+.thirtyPercent {
+	width: 30%;
+}
+
+.fourtyPercent {
+	width: 40%;
+}
+
+.fiftyPercent {
+	width: 50%;
+}
+
+.sixtyPercent {
+	width: 60%;
+}
+
+.seventyPercent {
+	width: 70%;
+}
+
+.eightyPercent {
+	width: 80%;
+}
+
+.ninetyPercent {
+	width: 90%;
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+	<link href="styles.css" rel="stylesheet" type="text/css" />
+	<link href="includes/datePicker.css" rel="stylesheet" type="text/css"/>
+	<script type="text/javascript" src="includes/insertAtCursor.js"></script>
+	<script type="text/javascript" src="includes/whizzywig63.js"></script>
+	<script type="text/javascript" src="includes/datePicker.js"></script>
+	<c:if test="#{emailTemplate.beanMode=='list'}">
+		<title><h:outputText value="#{msgs.configureEmailTemplates}" /></title>
+	</c:if>
+	<c:if test="#{emailTemplate.beanMode=='edit' or emailTemplate.beanMode=='insert'}">
+		<title><h:outputText value="#{msgs.editEmailTemplatePageTitle}" /></title>
+	</c:if>
+	<c:if test="#{emailTemplate.beanMode=='schedule'}">
+		<title><h:outputText value="#{msgs.editEmailSchedulesPageTitle}"/></title>
+	</c:if>
+</h:head>
+<noscript><p><b>Javascript must be enabled to use this form.</b></p></noscript>
+
+<h:body>
+<!-- TODO for emailSchedulesEdit.xhtml
+<h:body onLoad="document.getElementById('emailsched:content:starttime').focus();">
+-->
+	<div align="center">
+   <h:form id="emailtmplt">
+      <h:panelGrid columns="1" styleClass="headerMenuContent"
+             columnClasses="contentColumn">
+         <f:facet name="header">
+            <f:subview id="header">
+               <ui:include src="/includes/gettingStartedHeader.xhtml"/>
+            </f:subview>
+         </f:facet>
+		 <f:subview id="list" rendered="#{emailTemplate.beanMode=='list'}">
+         	<ui:include src="/includes/configureEmailTemplates.xhtml"/>
+         </f:subview>
+         <f:subview id="detail" rendered="#{emailTemplate.beanMode=='edit' or emailTemplate.beanMode=='insert'}">
+         	<ui:include src="/includes/emailTemplateEdit.xhtml"/>
+         </f:subview>
+         <f:subview id="schedule" rendered="#{emailTemplate.beanMode=='schedule'}">
+         	<ui:include src="/includes/emailSchedulesEdit.xhtml"/>
+         </f:subview>
+         <f:subview id="footer">
+        	<ui:include src="includes/gettingStartedFooter.xhtml"/>
+         </f:subview>
+      </h:panelGrid>
+   </h:form>
+	</div>
+</h:body>
+</html>

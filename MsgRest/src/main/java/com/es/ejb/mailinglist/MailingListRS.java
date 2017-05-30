@@ -45,7 +45,7 @@ import com.es.ejb.ws.vo.MailingListVo;
 import com.es.jaxrs.common.ErrorResponse;
 import com.es.tomee.util.BeanReflUtil;
 import com.es.tomee.util.JaxrsUtil;
-import com.es.tomee.util.TomeeCtxUtil;
+import jpa.tomee.util.TomeeCtxUtil;
 
 @Path("/msgapi/mailinglist")
 @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})

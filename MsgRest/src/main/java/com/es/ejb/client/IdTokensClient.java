@@ -8,7 +8,7 @@ import javax.naming.NamingException;
 import org.apache.log4j.Logger;
 
 import com.es.ejb.idtokens.IdTokensRemote;
-import com.es.tomee.util.TomeeCtxUtil;
+import jpa.tomee.util.TomeeCtxUtil;
 
 import jpa.util.PrintUtil;
 

@@ -17,7 +17,7 @@ import org.apache.log4j.Logger;
 
 import com.es.ejb.idtokens.IdTokensWs;
 import com.es.ejb.ws.vo.IdTokensVo;
-import com.es.tomee.util.TomeeCtxUtil;
+import jpa.tomee.util.TomeeCtxUtil;
 
 public class IdTokensWsClient {
 	protected final static Logger logger = Logger.getLogger(IdTokensWsClient.class);

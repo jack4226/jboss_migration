@@ -39,7 +39,7 @@ import com.es.ejb.emailaddr.EmailAddrLocal;
 import com.es.ejb.senderdata.SenderDataLocal;
 import com.es.ejb.ws.vo.SubscriberDataVo;
 import com.es.ejb.ws.vo.SubscriptionVo;
-import com.es.tomee.util.TomeeCtxUtil;
+import jpa.tomee.util.TomeeCtxUtil;
 
 /**
  * Session Bean implementation class Subscriber

@@ -29,7 +29,7 @@ import org.xml.sax.SAXException;
 
 import com.es.ejb.ws.vo.MailingListVo;
 import com.es.tomee.util.JaxrsUtil;
-import com.es.tomee.util.TomeeCtxUtil;
+import jpa.tomee.util.TomeeCtxUtil;
 
 import jpa.util.FileUtil;
 import jpa.util.PrintUtil;

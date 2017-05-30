@@ -21,32 +21,32 @@ import jpa.util.ExceptionUtil;
 public class SpringUtil {
 	static final Logger logger = Logger.getLogger(SpringUtil.class);
 	
-	private static AnnotationConfigApplicationContext  appConfCtx = null;
+	private static AnnotationConfigApplicationContext  jmsAndDaoConfCtx = null;
 	
 	private static AbstractApplicationContext daoConfCtx = null;
 	
-	private static AnnotationConfigApplicationContext taskConfCtx = null;
+	private static AnnotationConfigApplicationContext allAppsConfCtx = null;
 	
 	private SpringUtil() { /* static only */ }
 	
-	public synchronized static AbstractApplicationContext getAppContext() {
-		if (appConfCtx == null) {
-			logger.info("getAppContext() - load application and datasource config, Calling class: "
+	public synchronized static AbstractApplicationContext getJmsAppContext() {
+		if (jmsAndDaoConfCtx == null) {
+			logger.info("getJmsAppContext() - load application and datasource config, Calling class: "
 					+ ExceptionUtil.findCallingClass(new Exception()));
-			appConfCtx = new AnnotationConfigApplicationContext();
-			appConfCtx.register(SpringAppConfig.class, SpringJmsConfig.class);
-			appConfCtx.refresh();
-			appConfCtx.registerShutdownHook();
+			jmsAndDaoConfCtx = new AnnotationConfigApplicationContext();
+			jmsAndDaoConfCtx.register(SpringAppConfig.class, SpringJmsConfig.class);
+			jmsAndDaoConfCtx.refresh();
+			jmsAndDaoConfCtx.registerShutdownHook();
 		}
-		return appConfCtx;
+		return jmsAndDaoConfCtx;
 	}
 	
-	public synchronized static AbstractApplicationContext getDaoAppContext() {
-		if (appConfCtx != null) {
-			return appConfCtx;
+	public synchronized static AbstractApplicationContext getAppContext() {
+		if (jmsAndDaoConfCtx != null) {
+			return jmsAndDaoConfCtx;
 		}
 		if (daoConfCtx == null) {
-			logger.info("getDaoAppContext() - load JPA and datasource config only, Calling class: "
+			logger.info("getAppContext() - load JPA and datasource config only, Calling class: "
 					+ ExceptionUtil.findCallingClass(new Exception()));
 			daoConfCtx = new AnnotationConfigApplicationContext(SpringAppConfig.class);
 			daoConfCtx.registerShutdownHook();
@@ -54,30 +54,30 @@ public class SpringUtil {
 		return daoConfCtx;
 	}
 
-	public synchronized static AbstractApplicationContext getTaskAppContext() {
-		if (taskConfCtx == null) {
+	public synchronized static AbstractApplicationContext getAllAppsContext() {
+		if (allAppsConfCtx == null) {
 			logger.info("getTaskAppContext() - load application, datasource, and task config, Calling class: "
 					+ ExceptionUtil.findCallingClass(new Exception()));
-			taskConfCtx = new AnnotationConfigApplicationContext();
-			taskConfCtx.register(SpringAppConfig.class, SpringJmsConfig.class, SpringTaskConfig.class);
-			taskConfCtx.refresh();
-			taskConfCtx.registerShutdownHook();
+			allAppsConfCtx = new AnnotationConfigApplicationContext();
+			allAppsConfCtx.register(SpringAppConfig.class, SpringJmsConfig.class, SpringTaskConfig.class);
+			allAppsConfCtx.refresh();
+			allAppsConfCtx.registerShutdownHook();
 		}
-		return taskConfCtx;
+		return allAppsConfCtx;
 	}
 
 	public static void shutDownConfigContexts() {
-		if (appConfCtx != null) {
-			appConfCtx.stop();
-			appConfCtx.close();
+		if (jmsAndDaoConfCtx != null) {
+			jmsAndDaoConfCtx.stop();
+			jmsAndDaoConfCtx.close();
 		}
 		if (daoConfCtx != null) {
 			daoConfCtx.stop();
 			daoConfCtx.close();
 		}
-		if (taskConfCtx != null) {
-			taskConfCtx.stop();
-			taskConfCtx.close();
+		if (allAppsConfCtx != null) {
+			allAppsConfCtx.stop();
+			allAppsConfCtx.close();
 		}
 	}
 	

@@ -22,7 +22,7 @@ public class DataLoader {
 	
 	public DataLoader() {
 		// to trigger JPA to generate DDL (create tables, etc.)
-		SpringUtil.getDaoAppContext(); //.refresh();
+		SpringUtil.getAppContext(); //.refresh();
 	}
 	
 	public void loadAllTables() {

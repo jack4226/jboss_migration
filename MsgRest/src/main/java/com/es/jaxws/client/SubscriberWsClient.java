@@ -13,7 +13,7 @@ import org.apache.log4j.Logger;
 
 import com.es.ejb.subscriber.SubscriberWs;
 import com.es.ejb.ws.vo.SubscriptionVo;
-import com.es.tomee.util.TomeeCtxUtil;
+import jpa.tomee.util.TomeeCtxUtil;
 
 import jpa.util.PrintUtil;
 

@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 
 import com.es.ejb.emailaddr.EmailAddrWs;
 import com.es.ejb.ws.vo.EmailAddrVo;
-import com.es.tomee.util.TomeeCtxUtil;
+import jpa.tomee.util.TomeeCtxUtil;
 
 import jpa.util.PrintUtil;
 

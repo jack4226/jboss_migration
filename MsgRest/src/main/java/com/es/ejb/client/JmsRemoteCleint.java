@@ -16,7 +16,7 @@ import javax.naming.NamingException;
 
 import org.apache.log4j.Logger;
 
-import com.es.tomee.util.TomeeCtxUtil;
+import jpa.tomee.util.TomeeCtxUtil;
 
 public class JmsRemoteCleint {
 	static Logger logger = Logger.getLogger(JmsRemoteCleint.class);

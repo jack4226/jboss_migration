@@ -38,7 +38,7 @@ import org.apache.log4j.Logger;
 import com.es.ejb.ws.vo.SubscriptionVo;
 import com.es.jaxrs.common.ErrorResponse;
 import com.es.tomee.util.BeanReflUtil;
-import com.es.tomee.util.TomeeCtxUtil;
+import jpa.tomee.util.TomeeCtxUtil;
 
 @Path("/msgapi/subscription")
 @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})

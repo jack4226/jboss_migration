@@ -13,7 +13,7 @@ import jpa.util.PrintUtil;
 import org.apache.log4j.Logger;
 
 import com.es.ejb.mailsender.MailSenderRemote;
-import com.es.tomee.util.TomeeCtxUtil;
+import jpa.tomee.util.TomeeCtxUtil;
 
 public class MailSenderClient {
 	static Logger logger = Logger.getLogger(MailSenderClient.class);

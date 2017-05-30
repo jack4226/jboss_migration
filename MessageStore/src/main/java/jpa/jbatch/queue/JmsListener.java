@@ -99,7 +99,7 @@ public class JmsListener implements MessageListener {
 	}
 	
 	public static void main(String[] args) {
-		DefaultMessageListenerContainer listener = (DefaultMessageListenerContainer) SpringUtil.getAppContext()
+		DefaultMessageListenerContainer listener = (DefaultMessageListenerContainer) SpringUtil.getJmsAppContext()
 				.getBean("jmsListenerContainer");
 		listener.start();
 		try {

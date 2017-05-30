@@ -184,7 +184,7 @@ public class MailReaderTaskExr {
 	static boolean testReadFromOneMailbox = false;
 	
 	public static void main(String[] args) {
-		AbstractApplicationContext factory = SpringUtil.getTaskAppContext();
+		AbstractApplicationContext factory = SpringUtil.getAllAppsContext();
 		
 		if (testSpringTaskExecutor) {
 			MailReaderTaskExr taskExr = factory.getBean(MailReaderTaskExr.class);

@@ -12,7 +12,7 @@ import jpa.util.PrintUtil;
 import org.apache.log4j.Logger;
 
 import com.es.ejb.subscriber.SubscriberRemote;
-import com.es.tomee.util.TomeeCtxUtil;
+import jpa.tomee.util.TomeeCtxUtil;
 
 public class SubscriberClient {
 	static Logger logger = Logger.getLogger(SubscriberClient.class);

@@ -19,7 +19,7 @@ import org.apache.cxf.jaxrs.ext.form.Form;
 import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
-import com.es.tomee.util.TomeeCtxUtil;
+import jpa.tomee.util.TomeeCtxUtil;
 
 import jpa.model.SubscriberData;
 import jpa.model.Subscription;

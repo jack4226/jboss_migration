@@ -11,6 +11,7 @@ import jpa.constant.Constants;
 import jpa.dataloader.DataLoader;
 import jpa.msgui.util.SpringUtil;
 import jpa.service.common.SenderDataService;
+import jpa.util.EnvUtil;
 import jpa.util.JpaUtil;
 import jpa.util.PrintUtil;
 
@@ -41,8 +42,9 @@ public class DerbyInitServlet extends HttpServlet {
     @Override
 	public void init() throws ServletException {
 		ServletContext ctx = getServletContext();
-		logger.info("init() - ServerInfo: " + ctx.getServerInfo() + ", Context Path: "
-				+ ctx.getContextPath());
+		logger.info("init() - ServerInfo: " + ctx.getServerInfo() + ", Context Path: " + ctx.getContextPath());
+		logger.info("Display all threads:");
+		EnvUtil.displayAllThreads();
 		// test
 		logger.info("msgdb_pool DataSource 1: " + PrintUtil.prettyPrint(msgdb_pool));
 		logger.info("msgdb_pool DataSource 2: " + PrintUtil.prettyPrint(myDS));

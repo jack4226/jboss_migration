@@ -8,6 +8,33 @@ plus-1.7.4
 2) copy javax.persistence-2.1.1.jar to endorsed folder to resolve following error:
 	java.lang.NoSuchMethodError: javax.persistence.Table.indexes()[Ljavax/persistence/Index;
 
-Server VM Arguments for plus-1.7.4:
+3) Server VM Arguments for plus-1.7.4:
 -Dcatalina.base="D:\pkgs_as71\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp1" -Dcatalina.home="D:\pkgs_as71\apache-tomee-plus-1.7.4" -Dwtp.deploy="D:\pkgs_as71\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp1\wtpwebapps" -Djava.endorsed.dirs="D:\pkgs_as71\apache-tomee-plus-1.7.4\endorsed" -Djava.util.logging.config.file="D:\pkgs_as71\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp1\conf\logging.properties" -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -XX:MaxPermSize=256M -XX:+CMSClassUnloadingEnabled -XX:+CMSPermGenSweepingEnabled
+
+4) For plus-7.0.x, copy following to tomee.xml to start built-in ActiveMQ
+	<Resource id="activeMQResourceAdapter" type="ActiveMQResourceAdapter">
+		BrokerXmlConfig = broker:(tcp://localhost:61616)?useJmx=false
+		ServerUrl = tcp://localhost:61616
+	</Resource>
+	
+	<Resource id="jmsConnectionFactory" type="javax.jms.ConnectionFactory">
+	<!--  The global jndi name would be openejb:Resource/MyJmsConnectionFactory -->
+        ResourceAdapter = activeMQResourceAdapter
+    </Resource>
+    
+    <Container id="jmsMdbContainer" ctype="MESSAGE">
+        ResourceAdapter = activeMQResourceAdapter
+    </Container>
+    
+    <Resource id="msgQueue" type="javax.jms.Queue"/>
+    <!-- The global jndi name would be openejb:Resource/msgQueue -->
+    <Resource id="msgTopic" type="javax.jms.Topic"/>
+    <!-- The global jndi name would be openejb:Resource/msgTopic -->
+    
+	<Resource id="mailSession" type="javax.mail.Session">
+		mail.smtp.host=localhost
+		mail.smtp.port=25
+		mail.transport.protocol=smtp
+		mail.smtp.auth=false
+	</Resource>
 

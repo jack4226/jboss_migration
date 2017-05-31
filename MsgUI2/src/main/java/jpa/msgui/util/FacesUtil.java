@@ -56,8 +56,7 @@ public class FacesUtil implements java.io.Serializable {
 	 * FacesServlet, the FacesContext.getCurrentInstance() method returns null.
 	 * In this case you need to create the FacesContext yourself.
 	 */
-    public static FacesContext getFacesContext(HttpServletRequest request,
-			HttpServletResponse response) {
+	public static FacesContext getFacesContext(HttpServletRequest request, HttpServletResponse response) {
 		// Get current FacesContext
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		// Check the returns
@@ -117,7 +116,7 @@ public class FacesUtil implements java.io.Serializable {
 		}
 		return null;
 	}
-
+	
 	/**
 	 * get a Face's actionListener attribute. An attribute could be defined in following
 	 * commandLink: <code>
@@ -134,7 +133,10 @@ public class FacesUtil implements java.io.Serializable {
 	 * @return attribute value
 	 */
     public static String getActionAttribute(ActionEvent event, String name) {
-        return (String) event.getComponent().getAttributes().get(name);
+    	if (event != null && event.getComponent() != null) {
+    		return (String) event.getComponent().getAttributes().get(name);
+    	}
+    	return null;
     }
 	
     /**
@@ -151,8 +153,11 @@ public class FacesUtil implements java.io.Serializable {
 	 * @return request parameter value
 	 */
     public static String getRequestParameter(String name) {
-		return (String) FacesContext.getCurrentInstance().getExternalContext()
-				.getRequestParameterMap().get(name);
+    	FacesContext context = FacesContext.getCurrentInstance();
+		if (context != null) {
+			return (String) context.getExternalContext().getRequestParameterMap().get(name);
+		}
+		return null;
 	}
 
 	/**
@@ -162,7 +167,11 @@ public class FacesUtil implements java.io.Serializable {
 	 * @return object value
 	 */
     public static Object getRequestMapValue(String key) {
-        return FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get(key);
+    	FacesContext context = FacesContext.getCurrentInstance();
+		if (context != null) {
+			return context.getExternalContext().getRequestMap().get(key);
+		}
+		return null;
     }
 
     /**
@@ -174,7 +183,10 @@ public class FacesUtil implements java.io.Serializable {
 	 *            object value
 	 */
     public static void setRequestMapValue(String key, Object value) {
-        FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put(key, value);
+    	FacesContext context = FacesContext.getCurrentInstance();
+		if (context != null) {
+			context.getExternalContext().getRequestMap().put(key, value);
+		}
     }
 
     /**
@@ -183,7 +195,13 @@ public class FacesUtil implements java.io.Serializable {
      * @return session object
      */
     public static Object getSessionMapValue(String key) {
-        return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(key);
+    	FacesContext context = FacesContext.getCurrentInstance();
+		if (context != null) {
+    		return context.getExternalContext().getSessionMap().get(key);
+    	}
+    	else {
+    		return null;
+    	}
     }
 
     /**
@@ -192,7 +210,10 @@ public class FacesUtil implements java.io.Serializable {
      * @param value - session value
      */
     public static void setSessionMapValue(String key, Object value) {
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(key, value);
+    	FacesContext context = FacesContext.getCurrentInstance();
+		if (context != null) {
+			context.getExternalContext().getSessionMap().put(key, value);
+		}
     }
 
     /**
@@ -201,7 +222,11 @@ public class FacesUtil implements java.io.Serializable {
      * @return object value
      */
     public static Object getApplicationMapValue(String key) {
-        return FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().get(key);
+    	FacesContext context = FacesContext.getCurrentInstance();
+		if (context != null) {
+			return context.getExternalContext().getApplicationMap().get(key);
+		}
+		return null;
     }
 
     /**
@@ -210,7 +235,10 @@ public class FacesUtil implements java.io.Serializable {
      * @param value - object value
      */
     public static void setApplicationMapValue(String key, Object value) {
-        FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().put(key, value);
+    	FacesContext context = FacesContext.getCurrentInstance();
+		if (context != null) {
+			context.getExternalContext().getApplicationMap().put(key, value);
+		}
     }
     
     /**
@@ -218,13 +246,14 @@ public class FacesUtil implements java.io.Serializable {
      * @return request value
      */ 
     public static HttpServletRequest getHttpServletRequest() {
-    	Object req = FacesContext.getCurrentInstance().getExternalContext().getRequest();
-    	if (req instanceof HttpServletRequest) {
-    		return (HttpServletRequest) req;
-    	}
-    	else {
-    		return null;
-    	}
+    	FacesContext context = FacesContext.getCurrentInstance();
+		if (context != null) {
+	    	Object req = context.getExternalContext().getRequest();
+	    	if (req instanceof HttpServletRequest) {
+	    		return (HttpServletRequest) req;
+	    	}
+		}
+     	return null;
     }
     
     /**
@@ -232,13 +261,14 @@ public class FacesUtil implements java.io.Serializable {
      * @return request value
      */
     public static ServletRequest getServletRequest() {
-    	Object req = FacesContext.getCurrentInstance().getExternalContext().getRequest();
-    	if (req instanceof ServletRequest) {
-    		return (ServletRequest) req;
-    	}
-    	else {
-    		return null;
-    	}
+    	FacesContext context = FacesContext.getCurrentInstance();
+		if (context != null) {
+	    	Object req = context.getExternalContext().getRequest();
+	    	if (req instanceof ServletRequest) {
+	    		return (ServletRequest) req;
+	    	}
+		}
+    	return null;
     }
     
     /**

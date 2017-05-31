@@ -27,6 +27,7 @@ import jpa.data.preload.RuleNameEnum;
 import jpa.model.msg.MessageInbox;
 import jpa.msgui.bean.MessageInboxBean;
 import jpa.msgui.bean.MsgSessionBean;
+import jpa.msgui.bean.PaginationBean;
 import jpa.msgui.bean.SimpleMailTrackingMenu;
 import jpa.msgui.util.ClassCrawler;
 import jpa.msgui.util.StaticCodes;
@@ -123,10 +124,10 @@ public class MessageInboxBeanTest {
 		
 		Mockito.when(sb.getSessionParam("frompage")).thenReturn("main");
 		
-		SimpleMailTrackingMenu mailTracking = Mockito.mock(SimpleMailTrackingMenu.class);
+		SimpleMailTrackingMenu mailTracking = Mockito.spy(new SimpleMailTrackingMenu());
 		PagingVo menuPagingVo = new PagingVo();
 		menuPagingVo.setPageSize(pageSize);
-		Mockito.when(mailTracking.getPagingVo()).thenReturn(menuPagingVo);
+		Mockito.when(((PaginationBean) mailTracking).getPagingVo()).thenReturn(menuPagingVo);
 		Mockito.when(sb.getSessionParam("mailTracking")).thenReturn(mailTracking);
 		
 		Mockito.when(mailTracking.getSearchFieldsVo()).thenReturn(new SearchFieldsVo(menuPagingVo));
@@ -188,10 +189,10 @@ public class MessageInboxBeanTest {
 		
 		Mockito.when(sb.getSessionParam("frompage")).thenReturn("main");
 		
-		SimpleMailTrackingMenu mailTracking = Mockito.mock(SimpleMailTrackingMenu.class);
+		SimpleMailTrackingMenu mailTracking = Mockito.spy(new SimpleMailTrackingMenu());
 		PagingVo menuPagingVo = new PagingVo();
 		menuPagingVo.setPageSize(pageSize);
-		Mockito.when(mailTracking.getPagingVo()).thenReturn(menuPagingVo);
+		Mockito.when(((PaginationBean) mailTracking).getPagingVo()).thenReturn(menuPagingVo);
 		Mockito.when(sb.getSessionParam("mailTracking")).thenReturn(mailTracking);
 		
 		SearchFieldsVo menuSrchVo = new SearchFieldsVo(menuPagingVo);
@@ -210,6 +211,9 @@ public class MessageInboxBeanTest {
 		if (MsgDirectionCode.SENT.equals(msgDir)) {
 			menuSrchVo.setFolderType(FolderEnum.Sent);
 		}
+		
+		menuSrchVo.copyLevel1To(mib.getSearchFieldVo());
+		mib.getPagingVo().setPageAction(PagingVo.PageAction.FIRST);
 		
 		// fetch search result
 		DataModel<MessageInbox> dm1 = mib.getAll();

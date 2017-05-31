@@ -1,14 +1,11 @@
 package jpa.test.bean;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 import javax.faces.event.AjaxBehaviorEvent;
@@ -24,10 +21,12 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.util.SerializationUtils;
 
 import jpa.constant.Constants;
+import jpa.constant.RuleCriteria;
 import jpa.model.EmailAddress;
 import jpa.msgui.bean.EmailAddressBean;
 import jpa.msgui.bean.MsgSessionBean;
 import jpa.msgui.util.ClassCrawler;
+import jpa.msgui.vo.PagingVo;
 import jpa.msgui.vo.PagingVo.PageAction;
 import jpa.service.common.EmailAddressService;
 import jpa.service.maillist.MailingListService;
@@ -167,7 +166,6 @@ public class EmailAddressBeanTest {
 		email_addr.setLastBounceTime(new java.sql.Timestamp(System.currentTimeMillis()));
 		eab.saveEmailAddr();
 		assertNotEquals(bounceCountBefore, eab.getEmailAddr().getBounceCount());
-
 	}
 
 	@Test
@@ -208,25 +206,41 @@ public class EmailAddressBeanTest {
 		// test insert
 		eab.addEmailAddr();
 		EmailAddress email_addr = eab.getEmailAddr();
+		String suffix = StringUtils.leftPad(new Random().nextInt(10000) + "", 4, '0');
+		String userName = "emailaddrbean_" + suffix;
+		String addrToAdd = userName + "@insert.test";
 		if (eab.isEditMode() == false) { // insert
-			email_addr.setAddress("emailaddrbean@insert.test");
+			email_addr.setAddress(addrToAdd);
 			email_addr.setStatusChangeTime(new java.sql.Timestamp(System.currentTimeMillis()));
 			email_addr.setStatusChangeUserId(Constants.DEFAULT_USER_ID);
 		}
 		int bounceCountBefore = email_addr.getBounceCount();
 		email_addr.setBounceCount(bounceCountBefore + 1);
 		email_addr.setLastBounceTime(new java.sql.Timestamp(System.currentTimeMillis()));
-		eab.saveEmailAddr();
+		eab.saveEmailAddr(); // will reset email address list
 		assertNotEquals(bounceCountBefore, eab.getEmailAddr().getBounceCount());
+		assertNotNull(ea_svc.getByAddress(addrToAdd));
 		
 		// test delete
+		eab.getPagingVo().setSearchCriteria(PagingVo.Column.address, new PagingVo.Criteria(RuleCriteria.STARTS_WITH, userName));
+		eab.getEmailAddrs();
 		long rowCountBefore = eab.getPagingVo().getRowCount();
-		for (EmailAddress ea : eaList1) {
-			ea.setMarkedForDeletion(false);
+		@SuppressWarnings("unchecked")
+		List<EmailAddress> eaList2 = (List<EmailAddress>) eab.getEmailAddrs().getWrappedData();
+		boolean addrFound = false;
+		for (EmailAddress ea : eaList2) {
+			if (addrToAdd.equals(ea.getAddress())) {
+				ea.setMarkedForDeletion(true);
+				addrFound = true;
+			}
+			else {
+				ea.setMarkedForDeletion(false);
+			}
 		}
-		email_addr.setMarkedForDeletion(true);
+		assertEquals(true, addrFound);
 		eab.deleteEmailAddrs(null);
 		assertTrue(rowCountBefore > eab.getPagingVo().getRowCount());
+		assertNull(ea_svc.getByAddress(addrToAdd));
 	}
 	
 	static void assertEmailAddressesSame(EmailAddress ea1, EmailAddress ea2) {

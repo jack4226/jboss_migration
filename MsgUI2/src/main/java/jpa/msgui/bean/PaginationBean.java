@@ -13,7 +13,10 @@ public abstract class PaginationBean extends BaseBean {
 	
 	public abstract long getRowCount();
 	
-	public final PagingVo getPagingVo() {
+	/*
+	 * Do NOT add "final" to the method. It broke Mockito test!
+	 */
+	public PagingVo getPagingVo() {
 		return pagingVo;
 	}
 	

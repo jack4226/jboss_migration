@@ -64,18 +64,18 @@ public class DB2DateUtil {
 	 */
 	public static String correctDB2Date(String dateStr) {
 		if (dateStr!=null) {
-			if(validateDate(dateStr,DB2_DASH_DOTS) || validateDate(dateStr,DB2_ALL_DOTS)) {
-				return dateStr.substring(0,10)+" "+dateStr.substring(11,13)
-					+":"+dateStr.substring(14,16)+":"+dateStr.substring(17);
+			if(validateDate(dateStr, DB2_DASH_DOTS) || validateDate(dateStr, DB2_ALL_DOTS)) {
+				return (dateStr.substring(0, 10) + " " + dateStr.substring(11, 13)
+					+ ":" + dateStr.substring(14, 16) + ":" + dateStr.substring(17));
 			}
-			else if (validateDate(dateStr,DB2_3RD_DASH)) {
-				return dateStr.substring(0,10)+" "+dateStr.substring(11);
+			else if (validateDate(dateStr, DB2_3RD_DASH)) {
+				return dateStr.substring(0, 10) + " " + dateStr.substring(11);
 			}
-			else if (validateDate(dateStr,DB2)) {
+			else if (validateDate(dateStr, DB2)) {
 				return dateStr;
 			}
 		}
-		logger.warn("Received a non-standard DB2 Timestamp: "+dateStr);
+		logger.warn("Received a non-standard DB2 Timestamp: " + dateStr);
 		return correctDB2Date2(dateStr);
 	}
 
@@ -90,34 +90,34 @@ public class DB2DateUtil {
 	 * 	"yyyy-MM-dd.hh:mm:ss.SSSSSS"
 	 */
 	private static String correctDB2Date2(String dateStr) {
-		if (dateStr!=null) {
+		if (dateStr != null) {
 			Matcher m = db2Pattern.matcher(dateStr);
-			if (m.find() && m.groupCount()==13) {
+			if (m.find() && m.groupCount() == 13) {
 				StringBuffer sb = new StringBuffer();
-				for (int i=0; i<=m.groupCount(); i++) {
+				for (int i = 0; i <= m.groupCount(); i++) {
 					if (isDebugEnabled) {
 						//logger.debug("[" + i + "]: " + m.group(i));
 					}
-					if (i==1 || i==3) {
+					if (i == 1 || i == 3) {
 						sb.append(m.group(i) + "-");
 					}
-					else if (i==5) {
+					else if (i == 5) {
 						sb.append(m.group(i) + " ");
 					}
-					else if (i==7 || i==9) {
+					else if (i == 7 || i == 9) {
 						sb.append(m.group(i) + ":");
 					}
-					else if (i==11) {
+					else if (i == 11) {
 						sb.append(m.group(i) + ".");
 					}
-					else if (i==13) {
+					else if (i == 13) {
 						sb.append(m.group(i));
 					}
 				}
 				return sb.toString();
 			}
 		}
-		logger.error("Received a non DB2 Timestamp: "+dateStr);
+		logger.error("Received a non DB2 Timestamp: " + dateStr);
 		return dateStr;
 	}
 
@@ -128,10 +128,10 @@ public class DB2DateUtil {
 	 */
 	public static boolean isValidDB2Date(String dateStr) {
 		if (StringUtils.isNotBlank(dateStr)) {
-			if(validateDate(dateStr,DB2) || validateDate(dateStr,DB2_DASH_DOTS)) {
+			if(validateDate(dateStr, DB2) || validateDate(dateStr, DB2_DASH_DOTS)) {
 				return true;
 			}
-			else if (validateDate(dateStr,DB2_3RD_DASH) || validateDate(dateStr,DB2_ALL_DOTS)) {
+			else if (validateDate(dateStr, DB2_3RD_DASH) || validateDate(dateStr, DB2_ALL_DOTS)) {
 				return true;
 			}
 		}
@@ -144,7 +144,7 @@ public class DB2DateUtil {
 	 * @return true if valid
 	 */
 	public static boolean isValidBirthDate(String dateStr) {
-		if (dateStr!=null) {
+		if (dateStr != null) {
 			if (validateBirthDate(dateStr, "yyyy-MM-dd")) {
 				return true;
 			}
@@ -236,7 +236,7 @@ public class DB2DateUtil {
 	 * @throws ParseException if any date parse error
 	 */
 	public static String convertDateString(String dateStr, String fromPattern, String toPattern)
-		throws ParseException {
+		throws ParseException, IllegalArgumentException {
 		
 		SimpleDateFormat formatter = new SimpleDateFormat(fromPattern);
 		Date date = formatter.parse(dateStr);
@@ -265,8 +265,8 @@ public class DB2DateUtil {
 			
 			return newDateStr;
 		}
-		catch (ParseException e) {
-			logger.error("ParseException caught", e);
+		catch (ParseException | IllegalArgumentException e) {
+			logger.error(e.getClass().getSimpleName() + " caught", e);
 			return dateStr;
 		}
 	}
@@ -278,7 +278,7 @@ public class DB2DateUtil {
 	 * @return formatted date string
 	 * @throws ParseException if any error
 	 */
-	public static String formatDate(Date date, String pattern) throws ParseException {
+	public static String formatDate(Date date, String pattern) throws IllegalArgumentException {
 		
 		SimpleDateFormat formatter = new SimpleDateFormat(pattern);
 		String dateStr = formatter.format(date);

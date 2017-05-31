@@ -27,12 +27,20 @@ public class DB2DateUtilTest {
 
 		String dateStr = "20001012";
 		try {
-			String converted = DB2DateUtil.convertDateString(dateStr,"yyyyMMdd","MM/dd/yyyy");
-			logger.info("From "+dateStr+" -> "+converted);
+			String converted = DB2DateUtil.convertDateString(dateStr, "yyyyMMdd", "MM/dd/yyyy");
+			logger.info("From " + dateStr + " -> " + converted);
 			assertEquals(converted, "10/12/2000");
 		}
 		catch (Exception e) {
 			fail();
+		}
+		
+		try {
+			DB2DateUtil.formatDate(new java.util.Date(), "bad-format");
+			fail();
+		}
+		catch (IllegalArgumentException e) {
+			// expected
 		}
 	}
 }

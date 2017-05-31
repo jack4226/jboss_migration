@@ -30,8 +30,8 @@ public class ExceptionUtil {
 			throw new IllegalArgumentException("Input parameter must not be null");
 		}
 		Exception exception = ex;
-		while (ex.getCause()!=null) {
-			exception = (Exception)ex.getCause();
+		while (ex.getCause() != null) {
+			exception = (Exception) ex.getCause();
 			ex = exception;
 		}
 		return exception;
@@ -42,9 +42,9 @@ public class ExceptionUtil {
 		if (ex == null || StringUtils.isBlank(className)) {
 			throw new IllegalArgumentException("Input parameters must not be null");
 		}
-		while (ex.getCause()!=null) {
-			exception = (Exception)ex.getCause();
-			ex = (Exception)ex.getCause();
+		while (ex.getCause() != null) {
+			exception = (Exception) ex.getCause();
+			ex = (Exception) ex.getCause();
 		}
 		return findNestedStackTrace(ExceptionUtils.getStackTrace(exception), className);
 	}
@@ -58,9 +58,9 @@ public class ExceptionUtil {
 				Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
 		
 		Matcher m = p.matcher(ex);
-		if (m.find() && m.groupCount()>=1) {
-			for (int i=0; i<=m.groupCount(); i++) {
-				//System.out.println("[" + i + "]: " + m.group(i));
+		if (m.find() && m.groupCount() >= 1) {
+			for (int i = 0; i <= m.groupCount(); i++) {
+				// System.out.println("[" + i + "]: " + m.group(i));
 			}
 			return m.group(1);
 		}

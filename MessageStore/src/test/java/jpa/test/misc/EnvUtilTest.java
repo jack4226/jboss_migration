@@ -43,10 +43,8 @@ public class EnvUtilTest {
 		assertTrue(total > blocked);
 		assertTrue(total >= (running + blocked));
 		
-		logger.info("Display all threads:");
 		EnvUtil.displayAllThreads();
 		
-		logger.info("Display running threads:");
 		EnvUtil.displayRunningThreads();
 		
 		for (Thread t : threadList) {

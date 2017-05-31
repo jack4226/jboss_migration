@@ -43,8 +43,9 @@ public class DerbyInitServlet extends HttpServlet {
 	public void init() throws ServletException {
 		ServletContext ctx = getServletContext();
 		logger.info("init() - ServerInfo: " + ctx.getServerInfo() + ", Context Path: " + ctx.getContextPath());
-		logger.info("Display all threads:");
+		
 		EnvUtil.displayAllThreads();
+		
 		// test
 		logger.info("msgdb_pool DataSource 1: " + PrintUtil.prettyPrint(msgdb_pool));
 		logger.info("msgdb_pool DataSource 2: " + PrintUtil.prettyPrint(myDS));

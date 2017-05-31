@@ -39,6 +39,7 @@ public class EnvUtil {
 	public static void displayAllThreads() {
 		int nbThreads = 0;
 		Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
+		logger.info("Display all threads:");
 		for (Thread t : threadSet) {
 			logger.info("Thread - " + t + " : state: " + t.getState());
 			++nbThreads;
@@ -49,6 +50,7 @@ public class EnvUtil {
 	public static void displayRunningThreads() {
 		int nbThreads = 0;
 		Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
+		logger.info("Display running threads:");
 		for (Thread t : threadSet) {
 			//if (t.getThreadGroup() == Thread.currentThread().getThreadGroup()
 			//		&& t.getState() == Thread.State.RUNNABLE) {

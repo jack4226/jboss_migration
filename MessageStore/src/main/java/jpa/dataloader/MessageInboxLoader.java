@@ -27,6 +27,7 @@ import jpa.model.msg.MessageRfcField;
 import jpa.model.msg.MessageRfcFieldPK;
 import jpa.model.msg.MessageStream;
 import jpa.model.msg.MessageUnsubComment;
+import jpa.model.msg.MsgUnreadCount;
 import jpa.model.EmailAddress;
 import jpa.model.rule.RuleLogic;
 import jpa.service.common.EmailAddressService;
@@ -40,6 +41,7 @@ import jpa.service.msgdata.MessageInboxService;
 import jpa.service.msgdata.MessageRfcFieldService;
 import jpa.service.msgdata.MessageStreamService;
 import jpa.service.msgdata.MessageUnsubCommentService;
+import jpa.service.msgdata.MsgUnreadCountService;
 import jpa.service.rule.RuleLogicService;
 import jpa.spring.util.SpringUtil;
 
@@ -59,6 +61,7 @@ public class MessageInboxLoader extends AbstractDataLoader {
 	private MessageDeliveryStatusService dlvrStatService;
 	private MessageFolderService folderService;
 	private MessageUnsubCommentService cmtService;
+	private MsgUnreadCountService unreadCountService;
 
 	public static void main(String[] args) {
 		MessageInboxLoader loader = new MessageInboxLoader();
@@ -79,6 +82,8 @@ public class MessageInboxLoader extends AbstractDataLoader {
 		dlvrStatService = SpringUtil.getAppContext().getBean(MessageDeliveryStatusService.class);
 		folderService = SpringUtil.getAppContext().getBean(MessageFolderService.class);
 		cmtService = SpringUtil.getAppContext().getBean(MessageUnsubCommentService.class);
+		unreadCountService = SpringUtil.getAppContext().getBean(MsgUnreadCountService.class);
+		
 		startTransaction();
 		try {
 			loadMessageInbox();
@@ -176,6 +181,9 @@ public class MessageInboxLoader extends AbstractDataLoader {
 		
 		loadMessageUnsubComment(data1);
 		loadMessageUnsubComment(data2);
+		
+		MsgUnreadCount unreadCount = new MsgUnreadCount();
+		unreadCountService.insert(unreadCount);
 		
 		logger.info("EntityManager persisted the record.");
 	}

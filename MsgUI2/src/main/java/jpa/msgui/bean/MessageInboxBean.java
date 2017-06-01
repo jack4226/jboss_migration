@@ -122,7 +122,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		checkAll = false;
 	}
 	
-	public SearchFieldsVo getSearchFieldVo() {
+	public SearchFieldsVo getSearchFieldsVo() {
 		return getSearchVo();
 	}
 	
@@ -249,7 +249,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 	
 	public String viewAll() {
 		resetPagingVo();
-		//getSearchVo().resetFlags();
+		getSearchVo().resetFlags();
 		getMenuSearchVo().resetFlags();
 		return TO_SELF;
 	}
@@ -257,8 +257,8 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 	public void viewUnreadListener(AjaxBehaviorEvent event) {
 		logger.info("Entering viewUnreadListener()...");
 		resetPagingVo();
-		//getSearchVo().resetFlags();
-		//getSearchVo().setIsRead(Boolean.valueOf(false));
+		getSearchVo().resetFlags();
+		getSearchVo().setIsRead(Boolean.valueOf(false));
 		getMenuSearchVo().resetFlags();
 		getMenuSearchVo().setIsRead(Boolean.valueOf(false));
 		return; // TO_SELF;
@@ -267,8 +267,8 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 	public void viewReadListener(AjaxBehaviorEvent event) {
 		logger.info("Entering viewReadListener()...");
 		resetPagingVo();
-		//getSearchVo().resetFlags();
-		//getSearchVo().setIsRead(Boolean.valueOf(true));
+		getSearchVo().resetFlags();
+		getSearchVo().setIsRead(Boolean.valueOf(true));
 		getMenuSearchVo().resetFlags();
 		getMenuSearchVo().setIsRead(Boolean.valueOf(true));
 		return; // TO_SELF;
@@ -277,8 +277,8 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 	public void viewFlaggedListener(AjaxBehaviorEvent event) {
 		logger.info("Entering viewFlaggedListener()...");
 		resetPagingVo();
-		//getSearchVo().resetFlags();
-		//getSearchVo().setIsFlagged(Boolean.valueOf(true));
+		getSearchVo().resetFlags();
+		getSearchVo().setIsFlagged(Boolean.valueOf(true));
 		getMenuSearchVo().resetFlags();
 		getMenuSearchVo().setIsFlagged(Boolean.valueOf(true));
 		return; // TO_SELF;
@@ -311,6 +311,11 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		}
 		clearUploads(); // clear session upload records
 		MessageInbox webVo = (MessageInbox) folder.getRowData();
+		
+		webVo.setReadCount(webVo.getReadCount() + 1);
+		// update ReadCount
+		getMessageInboxService().updateReadCount(webVo);
+		logger.info("viewMessage() - Message updated: " + webVo.getRowId());
 		
 		return viewMessage(webVo.getRowId());
 	}
@@ -348,10 +353,10 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		message.setMarkedForEdition(true);
 		editMode = true;
 		beanMode = BeanMode.edit;
-		message.setReadCount(message.getReadCount() + 1);
-		// update ReadCount
-		getMessageInboxService().updateReadCount(message);
-		logger.info("viewMessage() - Message updated: " + message.getRowId());
+//		message.setReadCount(message.getReadCount() + 1);
+//		// update ReadCount
+//		getMessageInboxService().updateReadCount(message);
+//		logger.info("viewMessage() - Message updated: " + message.getRowId());
 		// fetch message threads
 		List<MessageInbox> threads = getMessageInboxService().getByLeadMsgId(message.getLeadMessageRowId());
 		if (threads != null && threads.size() > 1) {

@@ -118,24 +118,28 @@ public class SimpleMailTrackingMenu extends PaginationBean implements java.io.Se
 	public void selectAllListener(AjaxBehaviorEvent event) {
 		logger.info("Entering selectAllListener()...");
 		functionKey = FolderEnum.All.name();
+		updateMessageInboxBean();
 		return; // TO_SELF;
 	}
 	
 	public void selectReceivedListener(AjaxBehaviorEvent event) {
 		logger.info("Entering selectReceivedListener()...");
 		functionKey = FolderEnum.Inbox.name();
+		updateMessageInboxBean();
 		return; // TO_SELF;
 	}
 	
 	public void selectSentListener(AjaxBehaviorEvent event) {
 		logger.info("Entering selectSentListener()...");
 		functionKey = FolderEnum.Sent.name();
+		updateMessageInboxBean();
 		return; // TO_SELF;
 	}
 	
 	public void selectDraftListener(AjaxBehaviorEvent event) {
 		logger.info("Entering selectDraftListener()...");
 		functionKey = FolderEnum.Draft.name();
+		updateMessageInboxBean();
 		return; // TO_SELF;
 	}
 	
@@ -143,7 +147,24 @@ public class SimpleMailTrackingMenu extends PaginationBean implements java.io.Se
 		logger.info("Entering selectClosedListener()...");
 		functionKey = FolderEnum.Closed.name();
 		//getPagingVo().setSearchCriteria(PagingVo.Column.statusId, new PagingVo.Criteria(RuleCriteria.EQUALS, MsgStatusCode.CLOSED.getValue()));
+		updateMessageInboxBean();
 		return; // TO_SELF;
+	}
+	
+	void updateMessageInboxBean() {
+		MessageInboxBean bean = (MessageInboxBean) FacesUtil.getManagedBean("messageInbox");
+		if (bean != null) {
+			SearchFieldsVo beanSearchVo = bean.getSearchFieldsVo();
+			logger.info("Menu SearchFieldVo: " + getSearchFieldsVo());
+			logger.info("Inbox SearchFieldVo: " + beanSearchVo);
+			if (!getSearchFieldsVo().equalsLevel1(beanSearchVo)) {
+				if (getSearchFieldsVo().getPagingVo().getLogList().size() > 0) {
+					logger.info("updateMessageInboxBean() - Search criteria changes:  After <-> Before\n" + getSearchFieldsVo().getPagingVo().listChanges());
+				}
+				getSearchFieldsVo().copyLevel1To(beanSearchVo);
+				bean.resetPagingVo();
+			}
+		}
 	}
 	
 	/**
@@ -174,7 +195,7 @@ public class SimpleMailTrackingMenu extends PaginationBean implements java.io.Se
 		String oldValue = (String) event.getOldValue();
 		if (newValue != null && !newValue.equals(oldValue)) {
 			bean.viewAll(); // reset view search criteria
-			bean.getSearchFieldVo().setRuleName(newValue);
+			bean.getSearchFieldsVo().setRuleName(newValue);
 		}
 	}
 	

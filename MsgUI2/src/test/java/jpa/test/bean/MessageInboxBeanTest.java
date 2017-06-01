@@ -198,7 +198,7 @@ public class MessageInboxBeanTest {
 		SearchFieldsVo menuSrchVo = new SearchFieldsVo(menuPagingVo);
 		Mockito.when(mailTracking.getSearchFieldsVo()).thenReturn(menuSrchVo);
 		
-		SearchFieldsVo beanSrchVo = mib.getSearchFieldVo();
+		SearchFieldsVo beanSrchVo = mib.getSearchFieldsVo();
 		assertEquals(mib.getPagingVo(), beanSrchVo.getPagingVo());
 
 		RuleNameEnum testRule = RuleNameEnum.GENERIC;
@@ -212,7 +212,7 @@ public class MessageInboxBeanTest {
 			menuSrchVo.setFolderType(FolderEnum.Sent);
 		}
 		
-		menuSrchVo.copyLevel1To(mib.getSearchFieldVo());
+		menuSrchVo.copyLevel1To(mib.getSearchFieldsVo());
 		mib.getPagingVo().setPageAction(PagingVo.PageAction.FIRST);
 		
 		// fetch search result

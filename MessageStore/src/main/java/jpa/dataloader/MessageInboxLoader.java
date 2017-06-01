@@ -183,7 +183,7 @@ public class MessageInboxLoader extends AbstractDataLoader {
 		loadMessageUnsubComment(data2);
 		
 		MsgUnreadCount unreadCount = new MsgUnreadCount();
-		unreadCountService.insert(unreadCount);
+		unreadCountService.upsert(unreadCount);
 		
 		logger.info("EntityManager persisted the record.");
 	}

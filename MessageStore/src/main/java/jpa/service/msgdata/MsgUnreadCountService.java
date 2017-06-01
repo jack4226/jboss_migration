@@ -21,6 +21,38 @@ public class MsgUnreadCountService implements java.io.Serializable {
 	@Autowired
 	MsgUnreadCountRepository repository;
 
+	public MsgUnreadCount getCount() {
+		List<MsgUnreadCount> list = getAll();
+		if (list.isEmpty()) {
+			MsgUnreadCount count = new MsgUnreadCount();
+			upsert(count);
+			return count;
+		}
+		else {
+			return list.get(0);
+		}
+	}
+	
+	public void increaseInboxCount() {
+		increaseInboxCount(1);
+	}
+	
+	public void increaseInboxCount(int inc) {
+		MsgUnreadCount count = getCount();
+		count.setInboxUnreadCount(count.getInboxUnreadCount() + inc);
+		upsert(count);
+	}
+	
+	public void increaseSentCount() {
+		increaseSentCount(1);
+	}
+	
+	public void increaseSentCount(int inc) {
+		MsgUnreadCount count = getCount();
+		count.setSentUnreadCount(count.getSentUnreadCount() + inc);
+		upsert(count);
+	}
+	
 	public MsgUnreadCount getByRowId(int rowId) {
 		return repository.findOne(rowId);
 	}
@@ -29,12 +61,13 @@ public class MsgUnreadCountService implements java.io.Serializable {
 		return repository.findAll();
 	}
 	
-	public void insert(MsgUnreadCount unreadCount) {
-		repository.saveAndFlush(unreadCount);
-	}
-
-	public void update(MsgUnreadCount unreadCount) {
-		repository.saveAndFlush(unreadCount);
+	public void upsert(MsgUnreadCount unreadCount) {
+		if (getAll().isEmpty()) {
+			repository.saveAndFlush(unreadCount);
+		}
+		else if (unreadCount.getRowId() != null) {
+			repository.saveAndFlush(unreadCount);
+		}
 	}
 
 	public int deleteByRowId(int rowId) {

@@ -46,7 +46,7 @@
 		<f:selectItem itemValue="All" itemLabel="All Rule Names"/>
 		<f:selectItems value="#{dynacodes.builtinRuleNameItems}"/>
 		<f:selectItems value="#{dynacodes.customRuleNameItems}"/>
-		<f:ajax event="change" render="@all"/>
+		<f:ajax event="change" execute="@this" render="@this"/>
 	</h:selectOneMenu>
 	
 	<h:outputText value="#{msgs.subjectPrompt}" style="font-weight: bold;"/>
@@ -79,12 +79,12 @@
 	
 	<h:panelGroup>
 	<h:commandButton value="#{msgs.searchButtonText}" title="Submit search request">
-		<f:ajax execute="@form" listener="#{mailTracking.searchBySearchVoListener}" render="@all"/>
+		<f:ajax execute="@form" listener="#{mailTracking.searchBySearchVoListener}" render="@form @all"/>
 	</h:commandButton>
 	<f:verbatim>&nbsp;</f:verbatim>
 	<h:commandButton value="#{msgs.resetButtonText}" title="Reset search fields"
 		immediate="true">
-		<f:ajax immediate="true" listener="#{mailTracking.resetSearchFieldsListener}" render="@all"/>
+		<f:ajax immediate="true" listener="#{mailTracking.resetSearchFieldsListener}" render="@form @all"/>
 	</h:commandButton>
 	</h:panelGroup>
 </h:panelGrid>

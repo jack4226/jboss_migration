@@ -155,8 +155,8 @@ public class SimpleMailTrackingMenu extends PaginationBean implements java.io.Se
 		MessageInboxBean bean = (MessageInboxBean) FacesUtil.getManagedBean("messageInbox");
 		if (bean != null) {
 			SearchFieldsVo beanSearchVo = bean.getSearchFieldsVo();
-			logger.info("Menu SearchFieldVo: " + getSearchFieldsVo());
-			logger.info("Inbox SearchFieldVo: " + beanSearchVo);
+			//logger.info("Menu SearchFieldVo: " + getSearchFieldsVo());
+			//logger.info("Inbox SearchFieldVo: " + beanSearchVo);
 			if (!getSearchFieldsVo().equalsLevel1(beanSearchVo)) {
 				if (getSearchFieldsVo().getPagingVo().getLogList().size() > 0) {
 					logger.info("updateMessageInboxBean() - Search criteria changes:  After <-> Before\n" + getSearchFieldsVo().getPagingVo().listChanges());
@@ -201,11 +201,13 @@ public class SimpleMailTrackingMenu extends PaginationBean implements java.io.Se
 	
 	public void searchBySearchVoListener(AjaxBehaviorEvent event) {
 		logger.info("Entering searchBySearchVo()...");
+		updateMessageInboxBean();
 		return; // TO_SELF;
 	}
 	
 	public void resetSearchFieldsListener(AjaxBehaviorEvent event) {
 		resetSearchFields();
+		updateMessageInboxBean();
 	}
 	
 	public void checkEmailAddress(FacesContext context, UIComponent component, Object value) {

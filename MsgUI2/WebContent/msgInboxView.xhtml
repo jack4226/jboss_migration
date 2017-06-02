@@ -85,6 +85,9 @@
 			<h:outputText value="#{msgs.ruleNamePrompt}" />
 			<h:outputText value="#{messageInbox.message.ruleLogic.ruleName}" />
 
+			<h:outputText value="#{msgs.statusIdPrompt}" />
+			<h:outputText value="#{messageInbox.message.msgStatusCodeDesc}" />
+
 			<h:outputText value="#{msgs.bodyContentTypePrompt}" />
 			<h:outputText value="#{messageInbox.message.bodyContentType}" />
 		</h:panelGrid>
@@ -189,30 +192,29 @@
 			<h:panelGroup style="text-align: left;">
 				<h:commandButton value="#{msgs.closeButton}" title="Close this message"
 					onclick="javascript:return confirmClose();">
-					<f:ajax listener="#{messageInbox.closeMessageListener}" render="@all"/>
+					<f:ajax listener="#{messageInbox.closeMessageListener}" render="@form @all"/>
 				</h:commandButton>
 				<f:verbatim>&nbsp;</f:verbatim>
 				<h:commandButton value="#{msgs.closeThreadButton}" title="Close entire thread"
 					onclick="javascript:return confirmClose();">
-					<f:ajax listener="#{messageInbox.closeThreadListener}" render="@all"/>
+					<f:ajax listener="#{messageInbox.closeThreadListener}" render="@form @all"/>
 				</h:commandButton>
 				<f:verbatim>&nbsp;</f:verbatim>
 				<h:commandButton value="#{msgs.backButtonText}" title="Go back to List">
-					<f:ajax listener="#{messageInbox.cancelSendListener}" render="@all"/>
+					<f:ajax listener="#{messageInbox.cancelSendListener}" render="@form @all"/>
 				</h:commandButton>
 			</h:panelGroup>
 			<h:panelGroup style="text-align: right;">
 				<h:selectOneMenu id="newrulename" value="#{messageInbox.newRuleName}">
 					<f:selectItems value="#{dynacodes.builtinRuleNameItems}"/>
 					<f:selectItems value="#{dynacodes.customRuleNameItems}"/>
-					<f:ajax/>
 				</h:selectOneMenu>
 				<f:verbatim>&nbsp;</f:verbatim>
 				<h:commandButton value="#{msgs.reassignRuleButton}" title="Reassign to a new Rule"
 					disabled="#{messageInbox.message.ruleLogic != null and 
 						(messageInbox.message.ruleLogic.ruleName=='SEND_MAIL' or messageInbox.message.ruleLogic.ruleName=='BROADCAST')}"
 					onclick="javascript:return confirmReassignRule('#{messageInbox.message.ruleLogic.ruleName}');">
-					<f:ajax execute="newrulename" listener="#{messageInbox.reassignRuleListener}" render="@all"/>
+					<f:ajax execute="newrulename" listener="#{messageInbox.reassignRuleListener}" render="@form @all"/>
 				</h:commandButton>
 			</h:panelGroup>
 		</h:panelGrid>
@@ -220,7 +222,7 @@
 			styleClass="commandBar" columnClasses="alignLeft30, alignRight70">
 			<h:panelGroup style="text-align: left;">
 				<h:commandButton value="#{msgs.backButtonText}" title="Go back to List">
-					<f:ajax listener="#{messageInbox.cancelSendListener}" render="@all"/>
+					<f:ajax listener="#{messageInbox.cancelSendListener}" render="@form @all"/>
 				</h:commandButton>
 			</h:panelGroup>
 			<h:panelGroup style="text-align: right;">
@@ -253,7 +255,7 @@ function confirmOpen() {
 	return confirm(varText);
 }
 function confirmReassignRule(oldRuleName) {
-	var newRuleName = document.getElementById('inboxview:newrulename').value;
+	var newRuleName = document.getElementById('detail:inboxview:newrulename').value;
 	if (oldRuleName == newRuleName) {
 		alert("<h:outputText value='#{msgs.selectDifferentRuleText}'/>");
 		return false;

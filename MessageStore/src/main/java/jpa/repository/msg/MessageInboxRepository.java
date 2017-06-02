@@ -80,6 +80,11 @@ public interface MessageInboxRepository extends JpaRepository<MessageInbox, Inte
 	public int updateIsFlagged(@Param("isFlagged") Boolean isFlagged, @Param("updtUserId") String updtUserId,
 			@Param("msgId") Integer msgId, @Param("time") java.sql.Timestamp time);
 
+	@Modifying(clearAutomatically = true)
+	@Query(nativeQuery=true, value="update message_inbox set updt_user_id = ?3, updt_time = ?4, rulelogicrowid = ("
+			+ "select row_id from rule_logic where rulename = ?2) where row_id = ?1")
+	public int updateRuleNameByMsgId(Integer msgId, String ruleName, String updtUserId, java.sql.Timestamp time);
+
 	@Override
 	// XXX not necessary, can be removed
 	public long count(Specification<MessageInbox> spec);

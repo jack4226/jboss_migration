@@ -318,6 +318,31 @@ public class MessageBeanBo implements java.io.Serializable {
 			}
 		}
 		
+		// In case message_address data are corrupted, just for safety.
+		if (msgBean.getFrom() == null || msgBean.getFrom().length == 0) {
+			if (msgVo.getFromAddress() != null) {
+				try {
+					Address[] from = InternetAddress.parse(msgVo.getFromAddress().getAddress());
+					msgBean.setFrom(from);
+				}
+				catch (AddressException e) {
+					logger.error("AddressException caught parsing Bcc Address", e);
+				}
+			}
+		}
+		
+		if (msgBean.getTo() == null || msgBean.getTo().length == 0) {
+			if (msgVo.getToAddress() != null) {
+				try {
+					Address[] to = InternetAddress.parse(msgVo.getToAddress().getAddress());
+					msgBean.setTo(to);
+				}
+				catch (AddressException e) {
+					logger.error("AddressException caught parsing Bcc Address", e);
+				}
+			}
+		}
+		
 		//if (isDebugEnabled) {
 		//	logger.debug("createMessageBean() - MessageBean created:" + LF + msgBean);
 		//}

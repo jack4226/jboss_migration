@@ -137,6 +137,7 @@ public class MessageInboxTest extends BoTestBase {
 		MessageInbox msg1 = service.getByRowId(in.getRowId());
 		assertNotNull(msg1);
 		assertNotNull(msg1.getLeadMessageRowId());
+		assertNotNull(msg1.getRuleLogic());
 		int readcount = msg1.getReadCount();
 		msg1.setReadCount(msg1.getReadCount()+1);
 		service.updateReadCount(msg1);
@@ -157,12 +158,38 @@ public class MessageInboxTest extends BoTestBase {
 		MessageInbox msg1 = service.getByRowId(msg1RowId);
 		assertNotNull(msg1);
 		assertTrue(testFromAddr.equals(msg1.getFromAddress().getAddress()));
+		assertNotNull(msg1.getRuleLogic());
 		
 		msg1.setReadCount(msg1.getReadCount() + 1);
 		service.updateReadCount(msg1);
 		
 		msg1.setFlagged(!msg1.isFlagged());
 		service.updateIsFlagged(msg1);
+		
+		String ruleNameBefore = RuleNameEnum.GENERIC.getValue();
+		if (msg1.getRuleLogic() != null) {
+			ruleNameBefore = msg1.getRuleLogic().getRuleName();
+		}
+		String ruleNameAfter = RuleNameEnum.HARD_BOUNCE.getValue();
+		if (RuleNameEnum.HARD_BOUNCE.getValue().equals(ruleNameBefore)) {
+			ruleNameAfter = RuleNameEnum.SOFT_BOUNCE.getValue();
+		}
+		
+		RuleLogic rlAfter = logicService.getByRuleName(ruleNameAfter);
+		assertNotNull(rlAfter);
+		msg1.setRuleLogic(rlAfter);
+		service.update(msg1);
+		
+		assertEquals(1, service.updateRuleName(msg1.getRowId(), ruleNameAfter));
+		
+		assertEquals(ruleNameAfter, msg1.getRuleLogic().getRuleName());
+		
+		RuleLogic rlBefore = logicService.getByRuleName(ruleNameBefore);
+		assertNotNull(rlBefore);
+		msg1.setRuleLogic(rlBefore);
+		//service.update(msg1); // threw Optimistic Locking Failure Exception
+		
+		assertEquals(1, service.updateRuleName(msg1.getRowId(), ruleNameBefore));
 		
 		List<MessageInbox> lst1 = service.getByFromAddress(from_addr.getAddress());
 		assertFalse(lst1.isEmpty());

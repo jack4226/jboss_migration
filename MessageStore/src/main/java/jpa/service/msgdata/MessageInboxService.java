@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import jpa.constant.Constants;
 import jpa.constant.MsgDirectionCode;
 import jpa.constant.MsgStatusCode;
 import jpa.model.msg.MessageInbox;
@@ -207,6 +208,11 @@ public class MessageInboxService implements java.io.Serializable {
 	public int updateIsFlagged(MessageInbox msgInbox) {
 		java.sql.Timestamp time = new java.sql.Timestamp(System.currentTimeMillis());
 		return repository.updateIsFlagged(msgInbox.isFlagged(), msgInbox.getUpdtUserId(), msgInbox.getRowId(), time);
+	}
+
+	public int updateRuleName(int rowId, String ruleName) {
+		java.sql.Timestamp time = new java.sql.Timestamp(System.currentTimeMillis());
+		return repository.updateRuleNameByMsgId(rowId, ruleName, Constants.DEFAULT_USER_ID, time);
 	}
 
 	public long getRowCountForWeb(SearchFieldsVo vo) {

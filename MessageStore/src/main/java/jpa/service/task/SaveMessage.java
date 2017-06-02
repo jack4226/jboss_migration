@@ -6,8 +6,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import jpa.constant.Constants;
+import jpa.data.preload.RuleActionDetailEnum;
 import jpa.exception.DataValidationException;
+import jpa.message.MessageBean;
 import jpa.message.MessageContext;
+import jpa.service.msgdata.MessageInboxService;
 import jpa.service.msgin.MessageInboxBo;
 
 @Component("saveMessage")
@@ -19,6 +23,8 @@ public class SaveMessage extends TaskBaseAdapter {
 	
 	@Autowired
 	private MessageInboxBo msgInboxBo;
+	@Autowired
+	private MessageInboxService inboxService;
 
 	/**
 	 * Save the message into the MsgInbox and its satellite tables.
@@ -32,7 +38,22 @@ public class SaveMessage extends TaskBaseAdapter {
 			throw new DataValidationException("input MessageBean is null");
 		}
 		
-		int rowId = msgInboxBo.saveMessage(ctx.getMessageBean());
+		MessageBean msgBean = ctx.getMessageBean();
+		
+		if (msgBean.getMsgId() != null && msgBean.getRuleName() != null) {
+			String mapKey = Constants.RULE_ACTION;
+			if (msgBean.getHashMap().containsKey(mapKey)
+					&& RuleActionDetailEnum.ASSIGN_RULENAME.name().equals(msgBean.getHashMap().get(mapKey))) {
+				msgBean.getHashMap().remove(mapKey); // not to affect the rest of the tasks
+				int rowsUpdated = inboxService.updateRuleName(msgBean.getMsgId(), msgBean.getRuleName());
+				if (rowsUpdated > 0) {
+					ctx.getRowIds().add(msgBean.getMsgId());
+					return msgBean.getMsgId();
+				}
+			}
+		}
+		
+		int rowId = msgInboxBo.saveMessage(msgBean);
 		ctx.getRowIds().add(rowId);
 		
 		return rowId;

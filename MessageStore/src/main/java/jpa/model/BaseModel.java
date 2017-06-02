@@ -32,7 +32,7 @@ import org.apache.log4j.Logger;
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class BaseModel implements java.io.Serializable {
 	private static final long serialVersionUID = -3737571995910644181L;
-	static Logger logger = Logger.getLogger(BaseModel.class);
+	protected static Logger logger = Logger.getLogger(BaseModel.class);
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,7 +47,9 @@ public abstract class BaseModel implements java.io.Serializable {
 	@Column(name="updt_user_id", length=10, nullable=false)
 	protected String updtUserId = Constants.DEFAULT_USER_ID;
 	
-	/* Define transient fields for UI application */
+	/* 
+	 * Define transient fields and methods for UI application 
+	 */
 	@Transient
 	@XmlTransient
 	protected boolean editable = true;
@@ -77,16 +79,19 @@ public abstract class BaseModel implements java.io.Serializable {
 		this.markedForEdition = markedForEdition;
 	}
 	
-	public String getStatusIdDesc() {
+	public String getStatusIdDesc() { // Generic status description.
 		try {
 			Method method = this.getClass().getMethod("getStatusId", (Class[])null);
 			String desc = (String) method.invoke(this, (Object[])null);
-			if (StatusId.ACTIVE.getValue().equals(desc))
+			if (StatusId.ACTIVE.getValue().equals(desc)) {
 				desc = "Active";
-			else if (StatusId.INACTIVE.getValue().equals(desc))
+			}
+			else if (StatusId.INACTIVE.getValue().equals(desc)) {
 				desc = "Inactive";
-			else if (StatusId.SUSPENDED.getValue().equals(desc))
+			}
+			else if (StatusId.SUSPENDED.getValue().equals(desc)) {
 				desc = "Suspended";
+			}
 			return desc;
 		}
 		catch (Exception e) {

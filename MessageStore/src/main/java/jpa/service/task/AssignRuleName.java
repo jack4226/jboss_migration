@@ -5,7 +5,9 @@ import java.util.List;
 
 import javax.mail.MessagingException;
 
+import jpa.constant.Constants;
 import jpa.constant.XHeaderName;
+import jpa.data.preload.RuleActionDetailEnum;
 import jpa.exception.DataValidationException;
 import jpa.exception.TemplateException;
 import jpa.message.MessageBean;
@@ -60,6 +62,8 @@ public class AssignRuleName extends TaskBaseAdapter {
 		}
 		// Assign a new Rule Name
 		messageBean.setRuleName(convertArgumensTotList(ctx.getTaskArguments()).get(0));
+		// record the source of the action
+		messageBean.getHashMap().put(Constants.RULE_ACTION, RuleActionDetailEnum.ASSIGN_RULENAME.name());
 		messageBean.setIsReceived(true);
 		if (messageBean.getMsgRefId() == null) {
 			// append to the thread

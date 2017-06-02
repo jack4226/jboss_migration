@@ -46,7 +46,7 @@
 		<f:selectItem itemValue="All" itemLabel="All Rule Names"/>
 		<f:selectItems value="#{dynacodes.builtinRuleNameItems}"/>
 		<f:selectItems value="#{dynacodes.customRuleNameItems}"/>
-		<f:ajax event="change" execute="@this" render="@this"/>
+		<!-- f:ajax event="change" execute="@this" render="@this"/ -->
 	</h:selectOneMenu>
 	
 	<h:outputText value="#{msgs.subjectPrompt}" style="font-weight: bold;"/>

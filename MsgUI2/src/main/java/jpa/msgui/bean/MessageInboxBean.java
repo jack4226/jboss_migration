@@ -657,6 +657,10 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 			msgBean.setSendDate(new java.util.Date());
 			assignRuleBo.process(ctx);
 			logger.info("reassignRule() - assign rule to: " + newRuleName); //message.getRuleLogic().getRuleName());
+			message = getMessageInboxService().getAllDataByPrimaryKey(message.getRowId());
+			if (message.getRuleLogic() != null) {
+				logger.info("reassignRule() - rule name after: " + message.getRuleLogic().getRuleName());
+			}
 		}
 		catch (DataValidationException e) {
 			logger.error("DataValidationException caught", e);

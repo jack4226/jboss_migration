@@ -21,6 +21,8 @@ public class Constants {
 	final static String DB_PRODNAME_DERBY = "Derby";
 	final static String DB_PRODNAME_APACHEDERBY = "Apache Derby";
 	
+	public final static String RULE_ACTION = "Rule Action"; 
+	
 	public final static boolean isDerbyDatabase(String db_name) {
 		return (StringUtils.containsIgnoreCase(db_name, DB_PRODNAME_DERBY));
 	}

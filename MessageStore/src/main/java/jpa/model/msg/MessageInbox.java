@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import jpa.constant.CarrierCode;
 import jpa.constant.MsgDirectionCode;
+import jpa.constant.MsgStatusCode;
 import jpa.message.MessageBodyBuilder;
 import jpa.model.BaseModel;
 import jpa.model.EmailAddress;
@@ -228,8 +229,9 @@ public class MessageInbox extends BaseModel implements Serializable {
 	@XmlTransient
 	private String origStatusId = null;
 
+	
 	/*
-	 * define properties for UI components 
+	 * define properties and methods for UI components 
 	 */
 	@Transient
 	@XmlTransient
@@ -252,6 +254,42 @@ public class MessageInbox extends BaseModel implements Serializable {
 	@Transient
 	@XmlTransient
 	private boolean showRawMessage = false;
+	
+	
+	public String getMsgStatusCodeDesc() { // Status description
+		try {
+			String desc = getStatusId();
+			if (MsgStatusCode.CLOSED.getValue().equals(desc)) {
+				desc = "Closed";
+			}
+			else if (MsgStatusCode.RECEIVED.getValue().equals(desc)) {
+				desc = "Received";
+			}
+			else if (MsgStatusCode.OPENED.getValue().equals(desc)) {
+				desc = "Opened";
+			}
+			else if (MsgStatusCode.PENDING.getValue().equals(desc)) {
+				desc = "Pending";
+			}
+			else if (MsgStatusCode.DELIVERED.getValue().equals(desc)) {
+				desc = "Delivered";
+			}
+			else if (MsgStatusCode.DELIVERY_FAILED.getValue().equals(desc)) {
+				desc = "Delivery Failed";
+			}
+			else { 
+				desc = super.getStatusIdDesc();
+			}
+			return desc;
+		}
+		catch (Exception e) {
+			logger.warn("Exception caught: " + e.getMessage());
+			// ignored
+			return null;
+		}
+	}
+	/* End of UI */
+
 	
 	public boolean isReply() {
 		return isReply;

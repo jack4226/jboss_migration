@@ -607,7 +607,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		}
 		message.setStatusId(MsgStatusCode.CLOSED.getValue());
 		message.setUpdtUserId(FacesUtil.getLoginUserId());
-		int rowsUpdated = getMessageInboxService().updateStatusIdByLeadMsgId(message);
+		int rowsUpdated = getMessageInboxService().closeMessagesByLeadMsgId(message);
 		if (rowsUpdated > 0) {
 			logger.info("closeThread() - messages closed (LeadMsgId): " + message.getLeadMessageRowId());
 			getPagingVo().setRowCount(getPagingVo().getRowCount() - rowsUpdated);

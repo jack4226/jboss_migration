@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import jpa.constant.Constants;
 import jpa.constant.MsgDirectionCode;
 import jpa.constant.MsgStatusCode;
+import jpa.data.preload.FolderEnum;
 import jpa.model.msg.MessageInbox;
 import jpa.msgui.vo.PagingVo;
 import jpa.msgui.vo.SearchFieldsVo;
@@ -198,6 +199,14 @@ public class MessageInboxService implements java.io.Serializable {
 	public int updateStatusIdByLeadMsgId(MessageInbox msgInbox) {
 		java.sql.Timestamp time = new java.sql.Timestamp(System.currentTimeMillis());
 		return repository.updateStatusIdByLeadMsgId(msgInbox.getStatusId(), msgInbox.getUpdtUserId(), msgInbox.getLeadMessageRowId(), time);
+	}
+
+	public int closeMessagesByLeadMsgId(MessageInbox msgInbox) {
+		if (msgInbox.getLeadMessageRowId() == null) {
+			return 0;
+		}
+		java.sql.Timestamp time = new java.sql.Timestamp(System.currentTimeMillis());
+		return repository.closeMessagesByLeadMsgId(msgInbox.getLeadMessageRowId(), FolderEnum.Closed.name(), msgInbox.getUpdtUserId(), time);
 	}
 
 	public int updateReadCount(MessageInbox msgInbox) {

@@ -166,6 +166,10 @@ public class MessageInboxTest extends BoTestBase {
 		msg1.setFlagged(!msg1.isFlagged());
 		service.updateIsFlagged(msg1);
 		
+		assertNotNull(msg1.getMessageFolder());
+		assertNotNull(msg1.getLeadMessageRowId());
+		assertTrue(0 < service.closeMessagesByLeadMsgId(msg1));
+		
 		String ruleNameBefore = RuleNameEnum.GENERIC.getValue();
 		if (msg1.getRuleLogic() != null) {
 			ruleNameBefore = msg1.getRuleLogic().getRuleName();

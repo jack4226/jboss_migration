@@ -162,8 +162,8 @@ public class SimpleMailTrackingMenu extends PaginationBean implements java.io.Se
 					logger.info("updateMessageInboxBean() - Search criteria changes:  After <-> Before\n" + getSearchFieldsVo().getPagingVo().listChanges());
 				}
 				getSearchFieldsVo().copyLevel1To(beanSearchVo);
-				bean.resetPagingVo();
 			}
+			bean.resetPagingVo();
 		}
 	}
 	

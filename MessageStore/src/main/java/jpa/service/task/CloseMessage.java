@@ -7,10 +7,13 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import jpa.constant.MsgStatusCode;
+import jpa.data.preload.FolderEnum;
 import jpa.exception.DataValidationException;
 import jpa.message.MessageBean;
 import jpa.message.MessageContext;
+import jpa.model.msg.MessageFolder;
 import jpa.model.msg.MessageInbox;
+import jpa.service.msgdata.MessageFolderService;
 import jpa.service.msgdata.MessageInboxService;
 
 @Component("closeMessage")
@@ -22,6 +25,8 @@ public class CloseMessage extends TaskBaseAdapter {
 	
 	@Autowired
 	private MessageInboxService inboxService;
+	@Autowired
+	private MessageFolderService folderService;
 
 	/**
 	 * Close the message by MsgId.
@@ -44,6 +49,10 @@ public class CloseMessage extends TaskBaseAdapter {
 		if (msgInboxVo != null) {
 			msgId = msgInboxVo.getRowId();
 			msgInboxVo.setStatusId(MsgStatusCode.CLOSED.getValue());
+			MessageFolder folder = folderService.getOneByFolderName(FolderEnum.Closed.name());
+			if (folder != null) { // should always be true
+				msgInboxVo.setMessageFolder(folder);
+			}
 			inboxService.update(msgInboxVo);
 			if (isDebugEnabled)
 				logger.debug("Message with row_id of (" + msgInboxVo.getRowId() + ") is Closed.");

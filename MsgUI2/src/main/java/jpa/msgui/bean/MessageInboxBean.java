@@ -26,6 +26,7 @@ import javax.mail.internet.InternetAddress;
 import jpa.constant.Constants;
 import jpa.constant.EmailAddrType;
 import jpa.constant.MsgStatusCode;
+import jpa.data.preload.FolderEnum;
 import jpa.exception.DataValidationException;
 import jpa.message.BodypartBean;
 import jpa.message.MessageBean;
@@ -35,6 +36,7 @@ import jpa.model.EmailAddress;
 import jpa.model.SessionUpload;
 import jpa.model.SessionUploadPK;
 import jpa.model.msg.MessageAttachment;
+import jpa.model.msg.MessageFolder;
 import jpa.model.msg.MessageInbox;
 import jpa.model.msg.MessageRfcField;
 import jpa.model.rule.RuleLogic;
@@ -47,6 +49,7 @@ import jpa.msgui.vo.SearchFieldsVo;
 import jpa.service.common.EmailAddressService;
 import jpa.service.common.EntityManagerService;
 import jpa.service.common.SessionUploadService;
+import jpa.service.msgdata.MessageFolderService;
 import jpa.service.msgdata.MessageInboxService;
 import jpa.service.msgin.MessageInboxBo;
 import jpa.service.msgout.MessageBeanBo;
@@ -80,6 +83,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 	private transient SessionUploadService sessionUploadDao = null;
 	private transient EntityManagerService entityDao = null;
 	private transient MessageBeanBo msgBeanBo = null;
+	private transient MessageFolderService folderDao = null;
 	
 	private transient DataModel<MessageInbox> folder = null;
 	private MessageInbox message = null;
@@ -580,6 +584,10 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		}
 		message.setStatusId(MsgStatusCode.CLOSED.getValue());
 		message.setUpdtUserId(FacesUtil.getLoginUserId());
+		MessageFolder folder = getMessageFolderService().getOneByFolderName(FolderEnum.Closed.name());
+		if (folder != null) {
+			message.setMessageFolder(folder);
+		}
 		getMessageInboxService().update(message);
 		logger.info("closeMessage() - Mailbox message closed: " + message.getRowId());
 		getPagingVo().setRowCount(getPagingVo().getRowCount() - 1);
@@ -1096,6 +1104,13 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 	
 	public void setMessageBeanBo(MessageBeanBo msgBeanBo) {
 		this.msgBeanBo = msgBeanBo;
+	}
+	
+	public MessageFolderService getMessageFolderService() {
+		if (folderDao == null) {
+			folderDao = SpringUtil.getWebAppContext().getBean(MessageFolderService.class);
+		}
+		return folderDao;
 	}
 
 	public MessageInbox getMessage() {

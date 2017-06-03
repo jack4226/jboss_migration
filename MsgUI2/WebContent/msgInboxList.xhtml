@@ -135,7 +135,7 @@
 				<h:graphicImage value="/images/received.gif" alt="received" style="border: 0px"
 					rendered="#{mail.msgDirection.equals('R')}" title="Received"/>
 				<h:graphicImage value="/images/sent.gif" alt="sent" style="border: 0px"
-					rendered="#{!mail.msgDirection.equals('R')}" title="Sent"/>
+					rendered="#{mail.msgDirection.equals('S')}" title="Sent"/>
 			</h:column>
 			
 			<f:facet name="footer">

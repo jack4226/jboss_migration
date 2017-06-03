@@ -8,6 +8,8 @@ import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.validator.ValidatorException;
 
+import jpa.constant.MsgStatusCode;
+import jpa.constant.RuleCriteria;
 import jpa.constant.RuleType;
 import jpa.data.preload.FolderEnum;
 import jpa.model.EmailAddress;
@@ -240,6 +242,12 @@ public class SimpleMailTrackingMenu extends PaginationBean implements java.io.Se
 			msgType = FolderEnum.Inbox;
 		}
 		vo.setFolderType(msgType);
+		if (FolderEnum.Inbox.equals(msgType)) {
+			vo.getPagingVo().setSearchCriteria(PagingVo.Column.statusId, new PagingVo.Criteria(RuleCriteria.NOT_EQUALS, MsgStatusCode.CLOSED.getValue()));
+		}
+		if (FolderEnum.Closed.equals(msgType)) {
+			vo.getPagingVo().setSearchCriteria(PagingVo.Column.statusId, new PagingVo.Criteria(RuleCriteria.EQUALS, MsgStatusCode.CLOSED.getValue()));
+		}
 		vo.setRuleName(ruleName);
 		vo.getPagingVo().setSearchValue(PagingVo.Column.fromAddr, fromAddress);
 		if (StringUtils.isNotBlank(fromAddress)) {

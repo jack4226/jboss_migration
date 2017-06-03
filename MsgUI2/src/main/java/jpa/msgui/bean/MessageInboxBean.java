@@ -25,6 +25,7 @@ import javax.mail.internet.InternetAddress;
 
 import jpa.constant.Constants;
 import jpa.constant.EmailAddrType;
+import jpa.constant.MsgDirectionCode;
 import jpa.constant.MsgStatusCode;
 import jpa.data.preload.FolderEnum;
 import jpa.exception.DataValidationException;
@@ -407,6 +408,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 			MessageInbox vo = list.get(i);
 			if (vo.isMarkedForDeletion()) {
 				int rowsDeleted = getMessageInboxService().deleteByRowId(vo.getRowId());
+				vo.setMarkedForDeletion(false);
 				if (rowsDeleted > 0) {
 					logger.info("deleteMessages() - Mailbox message deleted: " + vo.getRowId());
 					getPagingVo().setRowCount(getPagingVo().getRowCount() - rowsDeleted);
@@ -570,6 +572,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		
 		// retrieve uploaded files
 		retrieveUploadFiles();
+		beanMode = BeanMode.send;
 		return TO_REPLY;
 	}
 	
@@ -628,9 +631,17 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		}
 		message.setStatusId(MsgStatusCode.OPENED.getValue());
 		message.setUpdtUserId(FacesUtil.getLoginUserId());
-		getMessageInboxService().update(message);
+		if (MsgDirectionCode.RECEIVED.getValue().equals(message.getMsgDirection())) {
+			// move to Inbox (Received) folder
+			getMessageInboxService().moveMessageToAnotherFolder(message, FolderEnum.Inbox.name());
+		}
+		else {
+			// move to Sent folder
+			getMessageInboxService().moveMessageToAnotherFolder(message, FolderEnum.Sent.name());
+		}
+		//getMessageInboxService().update(message);
 		logger.info("openMessage() - Mailbox message opened: " + message.getRowId());
-		getPagingVo().setRowCount(getPagingVo().getRowCount() + 1);
+		getPagingVo().setRowCount(getPagingVo().getRowCount() - 1);
 		refresh();
 		beanMode = BeanMode.list;
 		return TO_CLOSED;
@@ -725,6 +736,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		replyMessageVo.setMsgSubject("Fwd:" + message.getMsgSubject());
 		replyMessageVo.setMsgBody(getForwardEnvelope() + message.getMsgBody());
 		reset(); // avoid carrying over the current bound value
+		beanMode = BeanMode.send;
 		return TO_FORWARD;
 	}
 	
@@ -766,6 +778,10 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		return TO_SELF;
 	}
 	
+	public void sendMessageListener(AjaxBehaviorEvent event) {
+		sendMessage();
+	}
+	
 	public String sendMessage() {
 		if (message == null) {
 			logger.error("sendMessage() - MessageInbox is null");
@@ -777,7 +793,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		}
 		// make sure we have all the data to rebuild a message bean
 		// retrieve original message
-		MessageInbox msgData = getMessageInboxBo().getMessageByPK(message.getRowId());
+		MessageInbox msgData = message; //getMessageInboxBo().getMessageByPK(message.getRowId());
 		if (msgData == null) {
 			logger.error("sendMessage() - Original message has been deleted, msgId: " + message.getRowId());
 			return TO_FAILED;
@@ -926,13 +942,17 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		return TO_LIST;
 	}
 	
+	public void cancelViewListener(AjaxBehaviorEvent event) {
+		beanMode = BeanMode.list;
+	}
+	
 	public void cancelSendListener(AjaxBehaviorEvent event) {
 		cancelSend();
 	}
 	
 	public String cancelSend() {
 		replyMessageVo = null;
-		beanMode = BeanMode.list;
+		beanMode = BeanMode.edit;
 		return TO_CANCELED;
 	}
 	

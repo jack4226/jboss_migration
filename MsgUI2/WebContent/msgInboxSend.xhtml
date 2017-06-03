@@ -21,11 +21,13 @@
 		<h:panelGrid columns="2" styleClass="commandBar" 
 			columnClasses="alignLeft70, alignRight30">
 			<h:panelGroup>
-				<h:commandButton value="#{msgs.sendButtonText}" title="Send message"
-					action="#{messageInbox.sendMessage}"/>
+				<h:commandButton value="#{msgs.sendButtonText}" title="Send message">
+					<f:ajax execute="@form" listener="#{messageInbox.sendMessageListener}" render="@form @all"/>
+				</h:commandButton>
 				<f:verbatim>&nbsp;</f:verbatim>
-				<h:commandButton value="#{msgs.cancelButtonText}" title="Cancel"
-					immediate="true" action="#{messageInbox.cancelSend}" />
+				<h:commandButton value="#{msgs.cancelButtonText}" title="Cancel" immediate="true">
+					<f:ajax listener="#{messageInbox.cancelSendListener}" render="@form @all"/>
+				</h:commandButton>
 			</h:panelGroup>
 			<h:panelGroup style="align: right; text-align: right;">
 				<f:verbatim>&nbsp;</f:verbatim>

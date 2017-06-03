@@ -26,17 +26,17 @@
 				</h:commandButton>
 				<f:verbatim>&nbsp;</f:verbatim>
 				<h:commandButton value="#{msgs.replyButton}" title="Reply message">
-					<f:ajax listener="#{messageInbox.replyMessageListener}" render="@form"/>
+					<f:ajax listener="#{messageInbox.replyMessageListener}" render="@all"/>
 				</h:commandButton>
 				<f:verbatim>&nbsp;</f:verbatim>
 				<h:commandButton value="#{msgs.forwardButton}" title="Forward message">
-					<f:ajax listener="#{messageInbox.forwardMessageListener}" render="@form"/>
+					<f:ajax listener="#{messageInbox.forwardMessageListener}" render="@all"/>
 				</h:commandButton>
 				<f:verbatim rendered="#{messageInbox.message.statusId=='C'}">&nbsp;</f:verbatim>
 				<h:commandButton value="#{msgs.openButton}" title="Open this message"
 					rendered="#{messageInbox.message.statusId=='C'}"
 					onclick="javascript:return confirmOpen();">
-					<f:ajax listener="#{messageInbox.openMessageListener}" render="@form"/>
+					<f:ajax listener="#{messageInbox.openMessageListener}" render="@all"/>
 				</h:commandButton>
 			</h:panelGroup>
 			<h:panelGroup style="align: right; text-align: right;">
@@ -201,7 +201,7 @@
 				</h:commandButton>
 				<f:verbatim>&nbsp;</f:verbatim>
 				<h:commandButton value="#{msgs.backButtonText}" title="Go back to List">
-					<f:ajax listener="#{messageInbox.cancelSendListener}" render="@form @all"/>
+					<f:ajax listener="#{messageInbox.cancelViewListener}" render="@form @all"/>
 				</h:commandButton>
 			</h:panelGroup>
 			<h:panelGroup style="text-align: right;">
@@ -222,7 +222,7 @@
 			styleClass="commandBar" columnClasses="alignLeft30, alignRight70">
 			<h:panelGroup style="text-align: left;">
 				<h:commandButton value="#{msgs.backButtonText}" title="Go back to List">
-					<f:ajax listener="#{messageInbox.cancelSendListener}" render="@form @all"/>
+					<f:ajax listener="#{messageInbox.cancelViewListener}" render="@form @all"/>
 				</h:commandButton>
 			</h:panelGroup>
 			<h:panelGroup style="text-align: right;">

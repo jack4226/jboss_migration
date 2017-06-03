@@ -209,6 +209,31 @@ public class MessageInboxService implements java.io.Serializable {
 		return repository.closeMessagesByLeadMsgId(msgInbox.getLeadMessageRowId(), FolderEnum.Closed.name(), msgInbox.getUpdtUserId(), time);
 	}
 
+	public int moveMessageToFolderByStatus(MessageInbox msgInbox) {
+		String folderName = null;
+		if (MsgStatusCode.CLOSED.getValue().equals(msgInbox.getStatusId())) {
+			folderName = FolderEnum.Closed.name();
+		}
+		else if (MsgDirectionCode.RECEIVED.getValue().equals(msgInbox.getMsgDirection())) {
+			folderName = FolderEnum.Inbox.name();
+		}
+		else {
+			folderName = FolderEnum.Sent.name();
+		}
+		return moveMessageToAnotherFolder(msgInbox, folderName);
+	}
+
+	public int moveMessageToAnotherFolder(MessageInbox msgInbox, String folderName) {
+		try {
+			FolderEnum.getByName(folderName);
+		}
+		catch (IllegalArgumentException e) {
+			return 0;
+		}
+		java.sql.Timestamp time = new java.sql.Timestamp(System.currentTimeMillis());
+		return repository.moveMessageToAnotherFolder(msgInbox.getRowId(), folderName, msgInbox.getStatusId(), msgInbox.getUpdtUserId(), time);
+	}
+
 	public int updateReadCount(MessageInbox msgInbox) {
 		java.sql.Timestamp time = new java.sql.Timestamp(System.currentTimeMillis());
 		return repository.updateReadCount(msgInbox.getReadCount(), msgInbox.getUpdtUserId(), msgInbox.getRowId(), time);

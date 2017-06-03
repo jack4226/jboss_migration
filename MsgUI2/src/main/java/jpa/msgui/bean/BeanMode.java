@@ -5,5 +5,6 @@ public enum BeanMode {
 	viewList, // for MailingListBean
 	schedule, // for EmailTemplateBean
 	subrules, actions, elements, // for RuleLogicBean
-	preview; // for MailinListComposeBean
+	preview, // for MailinListComposeBean
+	send; // for MessageInboxBean
 }

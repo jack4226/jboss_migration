@@ -26,7 +26,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import jpa.constant.CarrierCode;
 import jpa.constant.Constants;
 import jpa.constant.MsgDirectionCode;
+import jpa.constant.MsgStatusCode;
 import jpa.constant.RuleCriteria;
+import jpa.constant.StatusId;
 import jpa.constant.XHeaderName;
 import jpa.data.preload.FolderEnum;
 import jpa.data.preload.RuleNameEnum;
@@ -169,6 +171,9 @@ public class MessageInboxTest extends BoTestBase {
 		assertNotNull(msg1.getMessageFolder());
 		assertNotNull(msg1.getLeadMessageRowId());
 		assertTrue(0 < service.closeMessagesByLeadMsgId(msg1));
+		
+		msg1.setStatusId(MsgStatusCode.OPENED.getValue());
+		assertTrue(0 < service.moveMessageToFolderByStatus(msg1));
 		
 		String ruleNameBefore = RuleNameEnum.GENERIC.getValue();
 		if (msg1.getRuleLogic() != null) {

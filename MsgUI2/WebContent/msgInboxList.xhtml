@@ -210,6 +210,10 @@
 	<ui:include src="msgInboxView.xhtml"/>
 </f:subview>
 
+<f:subview id="reply" rendered="#{messageInbox.beanMode=='send'}">
+	<ui:include src="msgInboxSend.xhtml"/>
+</f:subview>
+
 </div>
 </h:body>
 <f:verbatim>

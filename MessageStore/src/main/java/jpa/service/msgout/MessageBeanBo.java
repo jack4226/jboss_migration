@@ -356,7 +356,7 @@ public class MessageBeanBo implements java.io.Serializable {
 				BodypartBean aNode = new BodypartBean();
 				aNode.setContentType("message/delivery-status");
 				aNode.setValue(status.getDeliveryStatus());
-				aNode.setSize(aNode.getValue().length);
+				aNode.setSize(aNode.getValue() == null ? 0 : aNode.getValue().length);
 				subNode.put(aNode);
 				msgBean.setSmtpMessageId(status.getSmtpMessageId());
 				msgBean.setDsnDlvrStat(status.getDeliveryStatus());

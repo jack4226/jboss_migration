@@ -22,7 +22,21 @@ public class RegexTest {
 		
 		testReplace();
 		
+		testParseFilename();
+		
 		//System.getProperties().list(System.out);
+	}
+	
+	static void testParseFilename() {
+		String str = "form-data; name=\"reply:msgsend:file\"; filename=\"cdSpreadsheetLoader.pl\"";
+		//str = "form-data; name=\"reply:msgsend:file\"; filename='cdSpreadsheetLoader.pl'";
+		Pattern p = Pattern.compile("filename=[\"']?([\\w\\s\\.,-]{1,100})[\"']?", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+		Matcher m = p.matcher(str);
+		if (m.find() && m.groupCount() >= 1) {
+			for (int i=0; i<=m.groupCount(); i++) {
+				System.out.println("Group[" + i + "]: " + m.group(i));
+			}
+		}
 	}
 	
 	static void testReplace() {

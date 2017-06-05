@@ -8,7 +8,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -34,12 +33,20 @@ private static final long serialVersionUID = 2468665095583100932L;
 	@Lob
 	private byte[] sessionValue = null;
 
-	@Transient
-	private long fileSize = 0;
-
 	public SessionUpload() {
 		// must have a no-argument constructor
 	}
+	
+	public String getSizeAsString() {
+		int len = sessionValue == null ? 0 : sessionValue.length;
+		if (len < 1024) {
+			return 1024 + "";
+		}
+		else {
+			return (int) Math.ceil((double)len / 1024.0) + "K";
+		}
+	}
+
 
 	public SessionUploadPK getSessionUploadPK() {
 		return sessionUploadPK;
@@ -79,13 +86,5 @@ private static final long serialVersionUID = 2468665095583100932L;
 
 	public void setSessionValue(byte[] sessionValue) {
 		this.sessionValue = sessionValue;
-	}
-
-	public long getFileSize() {
-		return fileSize;
-	}
-
-	public void setFileSize(long fileSize) {
-		this.fileSize = fileSize;
 	}
 }

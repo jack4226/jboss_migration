@@ -28,7 +28,6 @@ import jpa.constant.Constants;
 import jpa.constant.MsgDirectionCode;
 import jpa.constant.MsgStatusCode;
 import jpa.constant.RuleCriteria;
-import jpa.constant.StatusId;
 import jpa.constant.XHeaderName;
 import jpa.data.preload.FolderEnum;
 import jpa.data.preload.RuleNameEnum;

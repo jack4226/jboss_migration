@@ -10,7 +10,7 @@
 	<link href="styles.css" rel="stylesheet" type="text/css" />
 	<title><h:outputText value="#{msgs.sendEmailReplyPageTitle}" /></title>
 </h:head>
-<h:body onLoad="setSelRange(document.getElementById('msgsend:bodytext'),0,0);">
+<h:body onLoad="setSelRange(document.getElementById('reply:msgsend:bodytext'),0,0);">
 	<div align="center">
 	<h:form id="msgsend" enctype="multipart/form-data">
 	<h:panelGrid columns="1" styleClass="headerMenuContent">
@@ -65,9 +65,12 @@
 		<h:panelGrid columns="1" styleClass="fullWidth"
 			rendered="#{messageInbox.replyMessageVo!=null and messageInbox.replyMessageVo.reply}">
 			<f:verbatim><br/></f:verbatim>
-			<h:commandButton value="#{msgs.attachFileButtonText}" title="Attach files"
-				action="#{messageInbox.attachFiles}"/>
-			<h:dataTable value="#{messageInbox.uploads}" var="upload"
+			<h:outputLabel value="#{msgs.attachFileButtonText}: "/>
+			<h:inputFile id="file" label="#{msgs.uploadFileButtonText}" value="#{messageInbox.file}" 
+				validator="#{messageInbox.validateFile}">
+				<f:ajax listener="#{messageInbox.uploadFileListener}" render="@form" />
+			</h:inputFile>
+			<h:dataTable id="uploaded_files" value="#{messageInbox.uploads}" var="upload"
 				style="width: auto; border: none;">
 				<h:column>
 					<h:graphicImage value="/images/clip_1.gif" alt="attachment" style="border: 0px"
@@ -75,7 +78,7 @@
 					<h:outputText value="#{upload.fileName}"/>
 					<f:verbatim>&nbsp;&nbsp;</f:verbatim>
 					<h:outputText value="#{msgs.sizePrompt}"/>
-					<h:outputText value="(#{upload.fileSize})"/>
+					<h:outputText value="(#{upload.sizeAsString})"/>
 					<h:commandLink action="#{messageInbox.removeUploadFile}"
 						style="color: darkblue; font-size: 1em; font-weight: bold;">
 						<f:param name="seq" value="#{upload.sessionUploadPK.sessionSequence}"/>
@@ -119,6 +122,9 @@ function setSelRange(inputEl, selStart, selEnd) {
   range.moveEnd('character', selEnd); 
   range.moveStart('character', selStart); 
   range.select();
+  inputEl.focus();
+ } else {
+  inputEl.focus();
  }
 }
 // insert text at the cursor position
@@ -157,7 +163,7 @@ Use save and reset the scrollTop property of the textarea object.
 Maybe it's trivial, but I've added a bit to this snippet such that the added text
 becomes highlighted / selected once inserted. :)
 */
-function insertAtCursor(myField, myValue)
+function insertAtCursor2(myField, myValue)
 {
 	//IE support
 	if (document.selection)

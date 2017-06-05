@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.faces.FacesException;
 import javax.faces.application.FacesMessage;
@@ -20,7 +22,6 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.validator.ValidatorException;
 import javax.mail.Address;
-import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.validation.ValidationException;
@@ -38,6 +39,7 @@ import jpa.message.MessageContext;
 import jpa.model.EmailAddress;
 import jpa.model.SessionUpload;
 import jpa.model.SessionUploadPK;
+import jpa.model.UserData;
 import jpa.model.msg.MessageAttachment;
 import jpa.model.msg.MessageFolder;
 import jpa.model.msg.MessageInbox;
@@ -62,6 +64,7 @@ import jpa.service.task.TaskBaseBo;
 import jpa.util.EmailAddrUtil;
 import jpa.util.PrintUtil;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -100,6 +103,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 	private MessageInbox replyMessageVo = null;
 	private List<MessageInbox> messageThreads = null;
 	private List<SessionUpload> uploads = null;
+	
 	private transient UIInput fromAddrInput = null;
 	private transient UIInput toAddrInput = null;
 
@@ -452,17 +456,17 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 
 	public void validateFile(FacesContext ctx, UIComponent comp, Object value) {
 		List<FacesMessage> msgs = new ArrayList<FacesMessage>();
-		javax.mail.Part file = (javax.mail.Part) value;
 		
 		try {
-			if (file.getSize() > (8 * 1024 * 1024)) { // limit to 8MB
+			javax.servlet.http.Part file = (javax.servlet.http.Part) value;
+			if (file.getSize() > (256 * 1024)) { // limit to 256KB
 				msgs.add(new FacesMessage("file too big"));
 			}
 			//if (!"text/plain".equals(file.getContentType())) {
 			//	msgs.add(new FacesMessage("not a text file"));
 			//}
 		}
-		catch (MessagingException e) {
+		catch (Exception e) {
 			throw new ValidationException(e);
 		}
 		if (!msgs.isEmpty()) {
@@ -470,41 +474,80 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		}
 	}
 	
-	/*
-	 * <h:inputFile id="file" value="#{fileUploadBean.file}" >
-        <f:validator validatorId="fileValidator"/>
-        <f:ajax execute="@this" render="@form"/>
-    </h:inputFile>
-    
-    
-    <h:inputFile id="file" value="#{fileUploadBean.file}" >
-        <f:validator validatorId="fileValidator"/>
-        <f:ajax execute="@this" render="@form"/>
-    </h:inputFile>
-    <h:message for="file"/>
-    <h:commandButton value="Upload" action="#{fileUploadBean.upload()}"/>
-    
-    <h:inputFile id="file" value="#{bean.file}" validator="#{bean.validateFile}"/>
-  <h:commandButton value="Upload"
-      action="#{bean.upload}"/>
-	 */
 	
-	public void upload() {
-        logger.info("upload() Enetring...");      
-        logger.info("content-type: " + file.getContentType());
-        logger.info("filename: " + file.getName());
+	public void uploadFileListener(AjaxBehaviorEvent event) {
+		uploadFile();
+	}
+	
+	public String uploadFile() {
+        logger.info("uploadFile() Enetring...");
+        
+        String fileName = file.getName();
+        for (String hdrName : file.getHeaderNames()) {
+        	logger.info("Header mame / value: " + hdrName + " / " + file.getHeader(hdrName));
+        	if (StringUtils.contains(hdrName, "content-disposition")) {
+        		String parsedName = parseFileName(file.getHeader(hdrName));
+        		if (StringUtils.isNotBlank(parsedName)) {
+        			fileName = parsedName;
+        		}
+        	}
+        }
+        
+        String contentType = file.getContentType();
+        logger.info("content-type: " + contentType);
+        logger.info("filename: " + fileName);
         logger.info("size: " + file.getSize());
-		try {
-			byte[] results = new byte[(int) file.getSize()];
-			InputStream in = file.getInputStream();
-			in.read(results);
+        
+        SessionUpload sessVo = new SessionUpload();
+    	SessionUploadPK pk = new SessionUploadPK();
+    	sessVo.setSessionUploadPK(pk);
+    	sessVo.getSessionUploadPK().setSessionSequence(0); // ignored by insertLast() method
+    	
+        String sessionId = FacesUtil.getSessionId();   	
+    	sessVo.getSessionUploadPK().setSessionId(sessionId);
+        
+        UserData userVo = (UserData) FacesUtil.getLoginUserData();
+        if (userVo != null) {
+        	sessVo.setUserData(userVo);
+        }
+        else {
+        	logger.warn("process() - UserData not found in httpSession!");
+        }
+    	sessVo.setFileName(fileName);
+    	sessVo.setContentType(contentType);
+    	
+    	try {
+	    	InputStream is = file.getInputStream();
+	    	sessVo.setSessionValue(IOUtils.toByteArray(is));
+	        // Write uploaded file to database
+	    	getSessionUploadService().insertLast(sessVo);
+	    	logger.info("process() - rows inserted: " + 1);
+			uploads = retrieveUploadFiles(); // TODO only retrieve the one inserted
 		}
 		catch (IOException ex) {
            logger.error("IOException caught", ex);
         }
+    	
+		//String msg = "File " + fileName + " uploaded!";
+        //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(msg));
         
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Uploaded!"));
+		FacesMessage message = jpa.msgui.util.MessageUtil.getMessage("jpa.msgui.messages", "uploadFileResult",
+				new String[] { fileName });
+		message.setSeverity(FacesMessage.SEVERITY_WARN);
+        return TO_SELF;
     }
+	
+	private String parseFileName(String headerValue) {
+		Pattern p = Pattern.compile("filename=[\"']?([\\w\\s\\.,-]{1,100})[\"']?", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+		Matcher m = p.matcher(headerValue);
+		if (m.find() && m.groupCount() >= 1) {
+			for (int i = 0; i <= m.groupCount(); i++) {
+				//System.out.println("Group[" + i + "]: " + m.group(i));
+			}
+			return m.group(1);
+		}
+		return null;
+	}
 
 
 	public void markAsRead(AjaxBehaviorEvent event) {

@@ -71,7 +71,7 @@
 					<h:outputText value="#{upload.fileName}"/>
 					<f:verbatim>&nbsp;&nbsp;</f:verbatim>
 					<h:outputText value="#{msgs.sizePrompt}"/>
-					<h:outputText value="(#{upload.fileSize})"/>
+					<h:outputText value="(#{upload.sizeAsString})"/>
 					<h:commandLink action="#{mailingListCompose.removeUploadFile}"
 						style="color: darkblue; font-size: 1em; font-weight: bold;">
 						<f:param name="seq" value="#{upload.sessionUploadPK.sessionSequence}"/>

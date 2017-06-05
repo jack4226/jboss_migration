@@ -1,6 +1,7 @@
 package jpa.msgui.bean;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -19,9 +20,10 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.validator.ValidatorException;
 import javax.mail.Address;
-import javax.mail.Part;
+import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+import javax.validation.ValidationException;
 
 import jpa.constant.Constants;
 import jpa.constant.EmailAddrType;
@@ -63,17 +65,17 @@ import jpa.util.PrintUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
-@ManagedBean(name="messageInbox")
+@ManagedBean(name = "messageInbox")
 @javax.faces.bean.ViewScoped
 public class MessageInboxBean extends PaginationBean implements java.io.Serializable {
 	private static final long serialVersionUID = -1682128466807436660L;
-	
+
 	static final Logger logger = Logger.getLogger(MessageInboxBean.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	static final boolean isInfoEnabled = logger.isInfoEnabled();
-	final static String LF = System.getProperty("line.separator","\n");
+	final static String LF = System.getProperty("line.separator", "\n");
 	final static boolean DisplaySearchVo = true;
-	
+
 	@ManagedProperty("#{facesBroker}")
 	private FacesBroker broker;
 
@@ -85,13 +87,13 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 	private transient EntityManagerService entityDao = null;
 	private transient MessageBeanBo msgBeanBo = null;
 	private transient MessageFolderService folderDao = null;
-	
+
 	private transient DataModel<MessageInbox> folder = null;
 	private MessageInbox message = null;
-	
+
 	private boolean editMode = true;
 	private BeanMode beanMode = BeanMode.list;
-	
+
 	private boolean isHtml = false;
 	private boolean checkAll = false;
 
@@ -102,11 +104,13 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 	private transient UIInput toAddrInput = null;
 
 	private MessageRfcField rfcFields = null;
-	
+
 	private final SearchFieldsVo searchVo = new SearchFieldsVo(getPagingVo());
-	
+
 	private String newRuleName = "";
 	
+	private javax.servlet.http.Part file;
+
 	private static String TO_SELF = null;
 	private static String TO_FAILED = TO_SELF;
 	private static String TO_EDIT = "msgInboxView.xhtml";
@@ -117,7 +121,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 	private static String TO_FORWARD = TO_SEND;
 	private static String TO_REPLY = TO_SEND;
 	private static String TO_CLOSED = TO_LIST;
-	
+
 	@Override
 	protected void refresh() {
 		folder = null;
@@ -126,25 +130,24 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		isHtml = false;
 		checkAll = false;
 	}
-	
+
 	public SearchFieldsVo getSearchFieldsVo() {
 		return getSearchVo();
 	}
-	
+
 	public SearchFieldsVo getSearchVo() {
-		//if (searchVo == null) {
-		//	searchVo = new SearchFieldsVo(getPagingVo());
-		//}
+		// if (searchVo == null) {
+		// searchVo = new SearchFieldsVo(getPagingVo());
+		// }
 		return searchVo;
 	}
-	
+
 	SearchFieldsVo getMenuSearchVo() {
 		SearchFieldsVo menuSearchVo = null;
 		SimpleMailTrackingMenu menu = (SimpleMailTrackingMenu) FacesUtil.getManagedBean("mailTracking");
 		if (menu != null) {
 			menuSearchVo = menu.getSearchFieldsVo();
-		}
-		else {
+		} else {
 			throw new RuntimeException("Failed to get managed bean \"mailTracking\" !");
 		}
 		return menuSearchVo;
@@ -156,25 +159,27 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		if (StringUtils.equals(fromPage, "main")) {
 			resetPagingVo();
 		}
-		//SimpleMailTrackingMenu menu = (SimpleMailTrackingMenu) sessionBean.getSessionMapValue("mailTracking");
+		// SimpleMailTrackingMenu menu = (SimpleMailTrackingMenu)
+		// sessionBean.getSessionMapValue("mailTracking");
 		SimpleMailTrackingMenu menu = (SimpleMailTrackingMenu) FacesUtil.getManagedBean("mailTracking");
 		if (menu != null) {
 			SearchFieldsVo menuSearchVo = menu.getSearchFieldsVo();
-			//logger.info("Menu SearchFieldVo: " + menuSearchVo);
-			//logger.info("Inbox SearchFieldVo: " + getSearchVo());
+			// logger.info("Menu SearchFieldVo: " + menuSearchVo);
+			// logger.info("Inbox SearchFieldVo: " + getSearchVo());
 			if (!menuSearchVo.equalsLevel1(getSearchVo())) {
 				if (menuSearchVo.getPagingVo().getLogList().size() > 0) {
-					logger.info("getAll() - Search criteria changes:  After <-> Before" + LF + menuSearchVo.getPagingVo().listChanges());
+					logger.info("getAll() - Search criteria changes:  After <-> Before" + LF
+							+ menuSearchVo.getPagingVo().listChanges());
 				}
 				menuSearchVo.copyLevel1To(getSearchVo());
 				resetPagingVo();
 			}
 		}
 		if (!getPagingVo().getPageAction().equals(PageAction.CURRENT) || folder == null) {
-			//logger.info("SearchVo Before: " + getSearchVo());
+			// logger.info("SearchVo Before: " + getSearchVo());
 			// retrieve rows based on page action
 			getPagingVo().setOrderBy(PagingVo.Column.receivedTime, false);
-			//getRowCount();
+			// getRowCount();
 			if (DisplaySearchVo) {
 				logger.info("SearchVo After: " + PrintUtil.prettyPrintRecursive(getSearchVo()));
 			}
@@ -186,7 +191,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		}
 		return folder;
 	}
-	
+
 	@Override
 	public long getRowCount() {
 		long rowCount = getMessageInboxService().getRowCountForWeb(getSearchVo());
@@ -195,25 +200,24 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 	}
 
 	public String getFromDisplayName(String fromAddrRowId) {
-		//logger.info("getFromDisplayName() - fromAddrRowId: " + fromAddrRowId);
+		// logger.info("getFromDisplayName() - fromAddrRowId: " +
+		// fromAddrRowId);
 		EmailAddress addr = getEmailAddressService().getByRowId(Integer.parseInt(fromAddrRowId));
 		if (addr == null) {
 			return "";
 		}
 		if (EmailAddrUtil.hasDisplayName(addr.getAddress())) {
 			return EmailAddrUtil.getDisplayName(addr.getAddress());
-		}
-		else {
+		} else {
 			return addr.getAddress();
 		}
 	}
-	
+
 	public String getEmailAddress(String addressRowId) {
 		EmailAddress addr = getEmailAddressService().getByRowId(Integer.parseInt(addressRowId));
 		if (addr != null) {
 			return addr.getAddress();
-		}
-		else {
+		} else {
 			return "";
 		}
 	}
@@ -222,8 +226,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		RuleLogic rule = getRuleLogicService().getByRowId(Integer.parseInt(ruleLogicRowId));
 		if (rule != null) {
 			return rule.getRuleName();
-		}
-		else {
+		} else {
 			return "";
 		}
 	}
@@ -232,33 +235,33 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		int threadLevel = Integer.parseInt(level);
 		StringBuffer sb = new StringBuffer();
 		for (int i = 0; i < threadLevel; i++) {
-			sb.append("&nbsp;&nbsp;"); //&bull;"); //&sdot;");
+			sb.append("&nbsp;&nbsp;"); // &bull;"); //&sdot;");
 		}
 		return sb.toString();
 	}
 
-	private void reset() { 
+	private void reset() {
 		fromAddrInput = null;
 		toAddrInput = null;
 	}
-	
+
 	public void refreshClickedListener(AjaxBehaviorEvent event) {
 		resetPagingVo();
 		return; // TO_SELF;
 	}
-	
+
 	public void viewAllListener(AjaxBehaviorEvent event) {
 		logger.info("Entering viewAllListener()...");
 		viewAll();
 	}
-	
+
 	public String viewAll() {
 		resetPagingVo();
 		getSearchVo().resetFlags();
 		getMenuSearchVo().resetFlags();
 		return TO_SELF;
 	}
-	
+
 	public void viewUnreadListener(AjaxBehaviorEvent event) {
 		logger.info("Entering viewUnreadListener()...");
 		resetPagingVo();
@@ -268,7 +271,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		getMenuSearchVo().setIsRead(Boolean.valueOf(false));
 		return; // TO_SELF;
 	}
-	
+
 	public void viewReadListener(AjaxBehaviorEvent event) {
 		logger.info("Entering viewReadListener()...");
 		resetPagingVo();
@@ -278,7 +281,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		getMenuSearchVo().setIsRead(Boolean.valueOf(true));
 		return; // TO_SELF;
 	}
-	
+
 	public void viewFlaggedListener(AjaxBehaviorEvent event) {
 		logger.info("Entering viewFlaggedListener()...");
 		resetPagingVo();
@@ -288,7 +291,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		getMenuSearchVo().setIsFlagged(Boolean.valueOf(true));
 		return; // TO_SELF;
 	}
-	
+
 	private void clearUploads() {
 		String sessionId = FacesUtil.getSessionId();
 		if (uploads != null) {
@@ -298,11 +301,11 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		logger.info("clearUploads() - SessionId: " + sessionId + ", rows deleted: " + rowsDeleted);
 		uploads = null;
 	}
-	
+
 	public void viewMessageListener(AjaxBehaviorEvent event) {
 		viewMessage();
 	}
-	
+
 	public String viewMessage() {
 		if (isDebugEnabled)
 			logger.debug("viewMessage() - Entering...");
@@ -316,19 +319,19 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		}
 		clearUploads(); // clear session upload records
 		MessageInbox webVo = (MessageInbox) folder.getRowData();
-		
+
 		webVo.setReadCount(webVo.getReadCount() + 1);
 		// update ReadCount
 		getMessageInboxService().updateReadCount(webVo);
 		logger.info("viewMessage() - Message updated: " + webVo.getRowId());
-		
+
 		return viewMessage(webVo.getRowId());
 	}
-	
+
 	private String viewMessage(int rowId) {
 		// retrieve other message properties including attachments
 		message = getMessageInboxService().getAllDataByPrimaryKey(rowId);
-		//logger.info(StringUtil.prettyPrint(message, 1));
+		// logger.info(StringUtil.prettyPrint(message, 1));
 
 		String contentType = message.getBodyContentType();
 		if (contentType != null && contentType.toLowerCase().startsWith("text/html")) {
@@ -340,62 +343,60 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 			for (MessageAttachment vo : message.getMessageAttachmentList()) {
 				if (vo.getAttachmentValue() != null) {
 					vo.setAttachmentSize(vo.getAttachmentValue().length);
-					//vo.setAttachmentValue(null); // this updates the database
+					// vo.setAttachmentValue(null); // this updates the database
 				}
 			}
 		}
 		if (isInfoEnabled) {
 			logger.info("viewMessage() - Message to be viewed: " + message.getMsgSubject() + ", " + message.getRowId());
 		}
-		
+
 		if (!message.getMessageRfcFieldList().isEmpty()) {
 			rfcFields = message.getMessageRfcFieldList().get(0);
-		}
-		else {
+		} else {
 			rfcFields = null;
 		}
-		
+
 		message.setMarkedForEdition(true);
 		editMode = true;
 		beanMode = BeanMode.edit;
-//		message.setReadCount(message.getReadCount() + 1);
-//		// update ReadCount
-//		getMessageInboxService().updateReadCount(message);
-//		logger.info("viewMessage() - Message updated: " + message.getRowId());
+		// message.setReadCount(message.getReadCount() + 1);
+		// // update ReadCount
+		// getMessageInboxService().updateReadCount(message);
+		// logger.info("viewMessage() - Message updated: " +
+		// message.getRowId());
 		// fetch message threads
 		List<MessageInbox> threads = getMessageInboxService().getByLeadMsgId(message.getLeadMessageRowId());
 		if (threads != null && threads.size() > 1) {
 			messageThreads = MessageThreadsBuilder.buildThreads(threads);
-		}
-		else {
+		} else {
 			messageThreads = null;
 		}
 		if (isDebugEnabled) {
-			//logger.debug("viewMessage() - MessageInbox to be passed to jsp: " + message);
-			logger.debug("viewMessage() - MessageInbox to be passed to jsp: "
-					+ LF + "Msg RowId: "	+ message.getRowId()
-					+ LF + "Msg Status: " + message.getStatusId()
-					+ LF + "Number of Attachments: " + message.getAttachmentCount()
-					+ LF + "Subject: " + message.getMsgSubject()
-					+ LF + "Message Body: " + LF + message.getMsgBody());
+			// logger.debug("viewMessage() - MessageInbox to be passed to jsp: "
+			// + message);
+			logger.debug("viewMessage() - MessageInbox to be passed to jsp: " + LF + "Msg RowId: " + message.getRowId()
+					+ LF + "Msg Status: " + message.getStatusId() + LF + "Number of Attachments: "
+					+ message.getAttachmentCount() + LF + "Subject: " + message.getMsgSubject() + LF + "Message Body: "
+					+ LF + message.getMsgBody());
 		}
 		return TO_EDIT;
 	}
-	
+
 	public void viewThreadListener(AjaxBehaviorEvent event) {
 		viewThread();
 	}
-	
+
 	public String viewThread() {
 		String msgId = FacesUtil.getRequestParameter("msgThreadId");
 		logger.info("viewThread() - msgRowId: " + msgId);
 		if (msgId == null) {
 			return null;
 		}
-		
+
 		return viewMessage(Integer.parseInt(msgId));
 	}
-	
+
 	public void deleteMessagesListener(AjaxBehaviorEvent event) {
 		if (isDebugEnabled)
 			logger.debug("deleteMessages() - Entering...");
@@ -404,7 +405,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 			return; // TO_FAILED;
 		}
 		List<MessageInbox> list = getMessageList();
-		for (int i=0; i<list.size(); i++) {
+		for (int i = 0; i < list.size(); i++) {
 			MessageInbox vo = list.get(i);
 			if (vo.isMarkedForDeletion()) {
 				int rowsDeleted = getMessageInboxService().deleteByRowId(vo.getRowId());
@@ -416,9 +417,9 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 			}
 		}
 		refresh();
-		//return TO_SELF;
+		// return TO_SELF;
 	}
-	
+
 	public String deleteMessage() {
 		if (message == null) {
 			logger.error("deleteMessage() - MessageInbox is null");
@@ -434,7 +435,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		beanMode = BeanMode.list;
 		return TO_DELETED;
 	}
-	
+
 	public String attachFiles() {
 		String pageUrl = "/upload/msgInboxAttachFiles.jsp?frompage=msgreply";
 		@SuppressWarnings("static-access")
@@ -442,14 +443,70 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		ExternalContext ectx = context.getExternalContext();
 		try {
 			ectx.redirect(ectx.encodeResourceURL(ectx.getRequestContextPath() + pageUrl));
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			logger.error("attachFiles() - IOException caught", e);
 			throw new FacesException("Cannot redirect to " + pageUrl + " due to IO exception.", e);
 		}
 		return null;
 	}
+
+	public void validateFile(FacesContext ctx, UIComponent comp, Object value) {
+		List<FacesMessage> msgs = new ArrayList<FacesMessage>();
+		javax.mail.Part file = (javax.mail.Part) value;
+		
+		try {
+			if (file.getSize() > (8 * 1024 * 1024)) { // limit to 8MB
+				msgs.add(new FacesMessage("file too big"));
+			}
+			//if (!"text/plain".equals(file.getContentType())) {
+			//	msgs.add(new FacesMessage("not a text file"));
+			//}
+		}
+		catch (MessagingException e) {
+			throw new ValidationException(e);
+		}
+		if (!msgs.isEmpty()) {
+			throw new ValidatorException(msgs);
+		}
+	}
 	
+	/*
+	 * <h:inputFile id="file" value="#{fileUploadBean.file}" >
+        <f:validator validatorId="fileValidator"/>
+        <f:ajax execute="@this" render="@form"/>
+    </h:inputFile>
+    
+    
+    <h:inputFile id="file" value="#{fileUploadBean.file}" >
+        <f:validator validatorId="fileValidator"/>
+        <f:ajax execute="@this" render="@form"/>
+    </h:inputFile>
+    <h:message for="file"/>
+    <h:commandButton value="Upload" action="#{fileUploadBean.upload()}"/>
+    
+    <h:inputFile id="file" value="#{bean.file}" validator="#{bean.validateFile}"/>
+  <h:commandButton value="Upload"
+      action="#{bean.upload}"/>
+	 */
+	
+	public void upload() {
+        logger.info("upload() Enetring...");      
+        logger.info("content-type: " + file.getContentType());
+        logger.info("filename: " + file.getName());
+        logger.info("size: " + file.getSize());
+		try {
+			byte[] results = new byte[(int) file.getSize()];
+			InputStream in = file.getInputStream();
+			in.read(results);
+		}
+		catch (IOException ex) {
+           logger.error("IOException caught", ex);
+        }
+        
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Uploaded!"));
+    }
+
+
 	public void markAsRead(AjaxBehaviorEvent event) {
 		if (isDebugEnabled)
 			logger.debug("markAsRead() - Entering...");
@@ -459,7 +516,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		}
 		List<MessageInbox> list = getMessageList();
 		// update Read Count
-		for (Iterator<MessageInbox> it=list.iterator(); it.hasNext();) {
+		for (Iterator<MessageInbox> it = list.iterator(); it.hasNext();) {
 			MessageInbox vo = it.next();
 			if (vo.isMarkedForDeletion()) {
 				vo.setMarkedForDeletion(false);
@@ -473,7 +530,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		}
 		return; // TO_SELF;
 	}
-	
+
 	public void markAsUnread(AjaxBehaviorEvent event) {
 		if (isDebugEnabled)
 			logger.debug("markAsUnread() - Entering...");
@@ -483,7 +540,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		}
 		List<MessageInbox> list = getMessageList();
 		// update Read Count
-		for (Iterator<MessageInbox> it=list.iterator(); it.hasNext();) {
+		for (Iterator<MessageInbox> it = list.iterator(); it.hasNext();) {
 			MessageInbox vo = it.next();
 			if (vo.isMarkedForDeletion()) {
 				vo.setMarkedForDeletion(false);
@@ -497,7 +554,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		}
 		return; // TO_SELF;
 	}
-	
+
 	public void markAsFlagged(AjaxBehaviorEvent event) {
 		if (isDebugEnabled)
 			logger.debug("markAsFlagged() - Entering...");
@@ -507,7 +564,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		}
 		List<MessageInbox> list = getMessageList();
 		// update Flagged
-		for (Iterator<MessageInbox> it=list.iterator(); it.hasNext();) {
+		for (Iterator<MessageInbox> it = list.iterator(); it.hasNext();) {
 			MessageInbox vo = it.next();
 			if (vo.isMarkedForDeletion()) {
 				vo.setMarkedForDeletion(false);
@@ -521,7 +578,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		}
 		return; // TO_SELF;
 	}
-	
+
 	public void markAsUnflagged(AjaxBehaviorEvent event) {
 		if (isDebugEnabled)
 			logger.debug("markAsUnflagged() - Entering...");
@@ -531,7 +588,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		}
 		List<MessageInbox> list = getMessageList();
 		// update Flagged
-		for (Iterator<MessageInbox> it=list.iterator(); it.hasNext();) {
+		for (Iterator<MessageInbox> it = list.iterator(); it.hasNext();) {
 			MessageInbox vo = it.next();
 			if (vo.isMarkedForDeletion()) {
 				vo.setMarkedForDeletion(false);
@@ -545,11 +602,11 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		}
 		return; // TO_SELF;
 	}
-	
+
 	public void replyMessageListener(AjaxBehaviorEvent event) {
 		replyMessage();
 	}
-	
+
 	public String replyMessage() {
 		if (message == null) {
 			logger.error("replyMessage() - MessageInbox is null");
@@ -558,28 +615,27 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		try {
 			replyMessageVo = new MessageInbox();
 			message.copyPropertiesTo(replyMessageVo);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			logger.error("BeanUtils.copyProperties() failed: ", e);
 			return TO_FAILED;
 		}
 		replyMessageVo.setReply(true);
 		replyMessageVo.setComposeFromAddress(message.getToAddress().getAddress());
 		replyMessageVo.setComposeToAddress(message.getFromAddress().getAddress());
-		replyMessageVo.setMsgSubject("Re:"+message.getMsgSubject());
+		replyMessageVo.setMsgSubject("Re:" + message.getMsgSubject());
 		replyMessageVo.setMsgBody(getReplyEnvelope() + message.getMsgBody());
 		reset(); // avoid carrying over the current bound value
-		
+
 		// retrieve uploaded files
 		retrieveUploadFiles();
 		beanMode = BeanMode.send;
 		return TO_REPLY;
 	}
-	
+
 	public void closeMessageListener(AjaxBehaviorEvent event) {
 		closeMessage();
 	}
-	
+
 	public String closeMessage() {
 		if (message == null) {
 			logger.error("closeMessage() - MessageInbox is null");
@@ -598,11 +654,11 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		beanMode = BeanMode.list;
 		return TO_CLOSED;
 	}
-	
+
 	public void closeThreadListener(AjaxBehaviorEvent event) {
 		closeThread();
 	}
-	
+
 	public String closeThread() {
 		if (message == null) {
 			logger.error("closeThread() - MessageInbox is null");
@@ -619,11 +675,11 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		beanMode = BeanMode.list;
 		return TO_CLOSED;
 	}
-	
+
 	public void openMessageListener(AjaxBehaviorEvent event) {
 		openMessage();
 	}
-	
+
 	public String openMessage() {
 		if (message == null) {
 			logger.error("closeMessage() - MessageInbox is null");
@@ -634,65 +690,65 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		if (MsgDirectionCode.RECEIVED.getValue().equals(message.getMsgDirection())) {
 			// move to Inbox (Received) folder
 			getMessageInboxService().moveMessageToAnotherFolder(message, FolderEnum.Inbox.name());
-		}
-		else {
+		} else {
 			// move to Sent folder
 			getMessageInboxService().moveMessageToAnotherFolder(message, FolderEnum.Sent.name());
 		}
-		//getMessageInboxService().update(message);
+		// getMessageInboxService().update(message);
 		logger.info("openMessage() - Mailbox message opened: " + message.getRowId());
 		getPagingVo().setRowCount(getPagingVo().getRowCount() - 1);
 		refresh();
 		beanMode = BeanMode.list;
 		return TO_CLOSED;
 	}
-	
+
 	public void reassignRuleListener(AjaxBehaviorEvent event) {
 		reassignRule();
 	}
-	
+
 	public String reassignRule() {
 		if (message == null) {
 			logger.error("reassignRule() - MessageInbox is null");
 			return TO_FAILED;
 		}
 		// retrieve the original message
-//		MessageInbox msgData = getMessageInboxBo().getAllDataByMsgId(message.getRowId());
-//		if (msgData == null) {
-//			logger.error("reassignRule() - Original message has been deleted, msgId: "
-//					+ message.getRowId());
-//			return TO_FAILED;
-//		}
-//		if (StringUtils.equals(message.getRuleLogic().getRuleName(), msgData.getRuleLogic().getRuleName())) {
+		// MessageInbox msgData =
+		// getMessageInboxBo().getAllDataByMsgId(message.getRowId());
+		// if (msgData == null) {
+		// logger.error("reassignRule() - Original message has been deleted,
+		// msgId: "
+		// + message.getRowId());
+		// return TO_FAILED;
+		// }
+		// if (StringUtils.equals(message.getRuleLogic().getRuleName(),
+		// msgData.getRuleLogic().getRuleName())) {
 		if (StringUtils.equals(message.getRuleLogic().getRuleName(), newRuleName)) {
 			return null;
 		}
 		// 1) send the message to rule-engine queue with new rule name
 		try {
-			MessageBean msgBean  = getMessageBeanBo().createMessageBean(message); //msgData);
+			MessageBean msgBean = getMessageBeanBo().createMessageBean(message); // msgData);
 			TaskBaseBo assignRuleBo = (TaskBaseBo) SpringUtil.getWebAppContext().getBean(AssignRuleName.class);
 			MessageContext ctx = new MessageContext(msgBean);
-			ctx.setTaskArguments(newRuleName); //message.getRuleLogic().getRuleName());
+			ctx.setTaskArguments(newRuleName); // message.getRuleLogic().getRuleName());
 			msgBean.setSendDate(new java.util.Date());
 			assignRuleBo.process(ctx);
-			logger.info("reassignRule() - assign rule to: " + newRuleName); //message.getRuleLogic().getRuleName());
+			logger.info("reassignRule() - assign rule to: " + newRuleName); // message.getRuleLogic().getRuleName());
 			message = getMessageInboxService().getAllDataByPrimaryKey(message.getRowId());
 			if (message.getRuleLogic() != null) {
 				logger.info("reassignRule() - rule name after: " + message.getRuleLogic().getRuleName());
 			}
-		}
-		catch (DataValidationException e) {
+		} catch (DataValidationException e) {
 			logger.error("DataValidationException caught", e);
 			return TO_FAILED;
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			logger.error("Exception caught", e);
 			return TO_FAILED;
 		}
 		// 2) close the current message
 		return closeMessage();
 	}
-	
+
 	public List<SessionUpload> retrieveUploadFiles() {
 		String sessionId = FacesUtil.getSessionId();
 		boolean valid = FacesUtil.isSessionIdValid();
@@ -703,7 +759,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		}
 		return uploads;
 	}
-	
+
 	private String getReplyEnvelope() {
 		StringBuffer sb = new StringBuffer();
 		sb.append(LF + LF);
@@ -712,11 +768,11 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		sb.append(Constants.DASHES_OF_33 + LF);
 		return sb.toString();
 	}
-	
+
 	public void forwardMessageListener(AjaxBehaviorEvent event) {
 		forwardMessage();
 	}
-	
+
 	public String forwardMessage() {
 		if (message == null) {
 			logger.error("forwardMessage() - MessageInbox is null");
@@ -725,8 +781,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		try {
 			replyMessageVo = new MessageInbox();
 			message.copyPropertiesTo(replyMessageVo);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			logger.error("BeanUtils.copyProperties() failed: ", e);
 			return TO_FAILED;
 		}
@@ -739,7 +794,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		beanMode = BeanMode.send;
 		return TO_FORWARD;
 	}
-	
+
 	private String getForwardEnvelope() {
 		StringBuffer sb = new StringBuffer();
 		sb.append(LF + LF);
@@ -753,7 +808,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		sb.append(Constants.DASHES_OF_33 + LF);
 		return sb.toString();
 	}
-	
+
 	public String removeUploadFile() {
 		String seq = FacesUtil.getRequestParameter("seq");
 		String name = FacesUtil.getRequestParameter("name");
@@ -771,17 +826,16 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 			SessionUploadPK pk = new SessionUploadPK(id, sessionSeq);
 			int rowsDeleted = getSessionUploadService().deleteByPrimaryKey(pk);
 			logger.info("removeUploadFile() - rows deleted: " + rowsDeleted + ", file name: " + name);
-		}
-		catch (RuntimeException e) {
+		} catch (RuntimeException e) {
 			logger.error("RuntimeException caught", e);
 		}
 		return TO_SELF;
 	}
-	
+
 	public void sendMessageListener(AjaxBehaviorEvent event) {
 		sendMessage();
 	}
-	
+
 	public String sendMessage() {
 		if (message == null) {
 			logger.error("sendMessage() - MessageInbox is null");
@@ -793,7 +847,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		}
 		// make sure we have all the data to rebuild a message bean
 		// retrieve original message
-		MessageInbox msgData = message; //getMessageInboxBo().getMessageByPK(message.getRowId());
+		MessageInbox msgData = message; // getMessageInboxBo().getMessageByPK(message.getRowId());
 		if (msgData == null) {
 			logger.error("sendMessage() - Original message has been deleted, msgId: " + message.getRowId());
 			return TO_FAILED;
@@ -801,13 +855,14 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		Integer msgsSent = null;
 		try {
 			// retrieve original message
-			MessageBean messageBean  = getMessageBeanBo().createMessageBean(msgData);
+			MessageBean messageBean = getMessageBeanBo().createMessageBean(msgData);
 			// retrieve new addresses
 			Address[] from = InternetAddress.parse(replyMessageVo.getComposeFromAddress());
 			Address[] to = InternetAddress.parse(replyMessageVo.getComposeToAddress());
 			// retrieve new message body
 			String wholeMsgText = replyMessageVo.getMsgBody();
-			wholeMsgText = wholeMsgText == null ? "" : wholeMsgText; // just for safety
+			wholeMsgText = wholeMsgText == null ? "" : wholeMsgText; // just for
+																		// safety
 			String origContentType = messageBean.getBodyContentType();
 			if (origContentType == null) { // should never happen
 				origContentType = "text/plain";
@@ -822,13 +877,11 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 				if (pos3 > pos2) {
 					String origMsg = wholeMsgText.substring(pos3 + Constants.DASHES_OF_33.length());
 					logger.info("Orig Msg: " + origMsg);
-				}
-				else {
+				} else {
 					String origMsg = wholeMsgText.substring(pos2 + Constants.MSG_DELIMITER_END.length());
 					logger.info("Orig Msg: " + origMsg);
 				}
-			}
-			else {
+			} else {
 				replyMsg = wholeMsgText;
 			}
 			// construct messageBean for new message
@@ -856,11 +909,10 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 				ctx.setTaskArguments("$" + EmailAddrType.TO_ADDR.getValue());
 				msgsSent = (Integer) forwardBo.process(ctx);
 				logger.info("sendMessage() - Message to send:\n" + messageBean);
-			}
-			else { // reply
+			} else { // reply
 				MessageBean mBean = new MessageBean();
 				mBean.setOriginalMail(messageBean);
-				//mBean.setBody(msgBody); // new message body
+				// mBean.setBody(msgBody); // new message body
 				String contentType = origContentType;
 				if (origContentType.startsWith("text/plain") && isHtml) {
 					contentType = "text/html";
@@ -882,14 +934,13 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 						SessionUpload vo = list.get(i);
 						BodypartBean subNode = new BodypartBean();
 						subNode.setContentType(vo.getContentType());
-						subNode.setDisposition(Part.ATTACHMENT);
+						subNode.setDisposition(javax.mail.Part.ATTACHMENT);
 						subNode.setDescription(vo.getFileName());
 						byte[] bytes = vo.getSessionValue();
 						subNode.setValue(bytes);
 						if (bytes != null) {
 							subNode.setSize(bytes.length);
-						}
-						else {
+						} else {
 							subNode.setSize(0);
 						}
 						mBean.put(subNode);
@@ -898,8 +949,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 					}
 					// remove uploaded files from session table
 					clearUploads();
-				}
-				else {
+				} else {
 					mBean.setContentType(contentType);
 					mBean.setBody(replyMsg);
 				}
@@ -914,16 +964,13 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 				msgsSent = (Integer) csrReplyBo.process(ctx);
 				logger.info("sendMessage() - Message to send:" + LF + mBean);
 			}
-		}
-		catch (DataValidationException e) {
+		} catch (DataValidationException e) {
 			logger.error("DataValidationException caught", e);
 			return TO_FAILED;
-		}
-		catch (AddressException e) {
+		} catch (AddressException e) {
 			logger.error("AddressException caught", e);
 			return TO_FAILED;
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			logger.error("Exception caught", e);
 			return TO_FAILED;
 		}
@@ -941,21 +988,21 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		beanMode = BeanMode.list;
 		return TO_LIST;
 	}
-	
+
 	public void cancelViewListener(AjaxBehaviorEvent event) {
 		beanMode = BeanMode.list;
 	}
-	
+
 	public void cancelSendListener(AjaxBehaviorEvent event) {
 		cancelSend();
 	}
-	
+
 	public String cancelSend() {
 		replyMessageVo = null;
 		beanMode = BeanMode.edit;
 		return TO_CANCELED;
 	}
-	
+
 	public boolean getAnyMessagesMarkedForDeletion() {
 		if (isDebugEnabled)
 			logger.debug("getAnyMessagesMarkedForDeletion() - Entering...");
@@ -964,7 +1011,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 			return false;
 		}
 		List<MessageInbox> list = getMessageList();
-		for (Iterator<MessageInbox> it=list.iterator(); it.hasNext();) {
+		for (Iterator<MessageInbox> it = list.iterator(); it.hasNext();) {
 			MessageInbox vo = it.next();
 			if (vo.isMarkedForDeletion()) {
 				return true;
@@ -975,6 +1022,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 
 	/**
 	 * Validate FROM email address
+	 * 
 	 * @param context
 	 * @param component
 	 * @param value
@@ -985,15 +1033,16 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		String fromAddr = (String) value;
 		if (!isValidEmailAddress(fromAddr)) {
 			// invalid email address
-			FacesMessage message = jpa.msgui.util.MessageUtil.getMessage(
-					"jpa.msgui.messages", "invalidEmailAddress", new String[] {fromAddr});
+			FacesMessage message = jpa.msgui.util.MessageUtil.getMessage("jpa.msgui.messages", "invalidEmailAddress",
+					new String[] { fromAddr });
 			message.setSeverity(FacesMessage.SEVERITY_WARN);
 			throw new ValidatorException(message);
 		}
 	}
-	
+
 	/**
 	 * Validate TO email address
+	 * 
 	 * @param context
 	 * @param component
 	 * @param value
@@ -1004,13 +1053,13 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		String toAddr = (String) value;
 		if (!isValidEmailAddress(toAddr)) {
 			// invalid email address
-			FacesMessage message = jpa.msgui.util.MessageUtil.getMessage(
-					"jpa.msgui.messages", "invalidEmailAddress", new String[] {toAddr});
+			FacesMessage message = jpa.msgui.util.MessageUtil.getMessage("jpa.msgui.messages", "invalidEmailAddress",
+					new String[] { toAddr });
 			message.setSeverity(FacesMessage.SEVERITY_WARN);
 			throw new ValidatorException(message);
 		}
 	}
-	
+
 	private boolean isValidEmailAddress(String addrs) {
 		List<String> list = getAddressList(addrs);
 		for (int i = 0; i < list.size(); i++) {
@@ -1020,7 +1069,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		}
 		return true;
 	}
-	
+
 	private List<String> getAddressList(String addrs) {
 		List<String> list = new ArrayList<String>();
 		StringTokenizer st = new StringTokenizer(addrs, ",");
@@ -1030,17 +1079,16 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		}
 		return list;
 	}
-	
+
 	@SuppressWarnings({ "unchecked" })
 	private List<MessageInbox> getMessageList() {
 		if (folder == null) {
 			return new ArrayList<MessageInbox>();
-		}
-		else {
+		} else {
 			return (List<MessageInbox>) folder.getWrappedData();
 		}
 	}
-	
+
 	public FacesBroker getBroker() {
 		return broker;
 	}
@@ -1055,7 +1103,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		}
 		return msgInboxDao;
 	}
-	
+
 	public void setMessageInboxService(MessageInboxService msgInboxDao) {
 		this.msgInboxDao = msgInboxDao;
 	}
@@ -1066,22 +1114,22 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		}
 		return emailAddrDao;
 	}
-	
+
 	public void setEmailAddressService(EmailAddressService emailAddrDao) {
 		this.emailAddrDao = emailAddrDao;
 	}
-	
+
 	public RuleLogicService getRuleLogicService() {
 		if (ruleLogicDao == null) {
 			ruleLogicDao = SpringUtil.getWebAppContext().getBean(RuleLogicService.class);
 		}
 		return ruleLogicDao;
 	}
-	
+
 	public void setRuleLogicService(RuleLogicService ruleLogicDao) {
 		this.ruleLogicDao = ruleLogicDao;
 	}
-	
+
 	public MessageInboxBo getMessageInboxBo() {
 		if (msgInboxBo == null) {
 			msgInboxBo = SpringUtil.getWebAppContext().getBean(MessageInboxBo.class);
@@ -1092,14 +1140,14 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 	public void setMessageInboxBo(MessageInboxBo msgInboxBo) {
 		this.msgInboxBo = msgInboxBo;
 	}
-	
+
 	public SessionUploadService getSessionUploadService() {
 		if (sessionUploadDao == null) {
 			sessionUploadDao = SpringUtil.getWebAppContext().getBean(SessionUploadService.class);
 		}
 		return sessionUploadDao;
 	}
-	
+
 	public void setSessionUploadService(SessionUploadService sessionUploadDao) {
 		this.sessionUploadDao = sessionUploadDao;
 	}
@@ -1110,22 +1158,22 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		}
 		return entityDao;
 	}
-	
+
 	public void setEntityManagerService(EntityManagerService entityDao) {
 		this.entityDao = entityDao;
 	}
-	
+
 	public MessageBeanBo getMessageBeanBo() {
 		if (msgBeanBo == null) {
 			msgBeanBo = SpringUtil.getWebAppContext().getBean(MessageBeanBo.class);
 		}
 		return msgBeanBo;
 	}
-	
+
 	public void setMessageBeanBo(MessageBeanBo msgBeanBo) {
 		this.msgBeanBo = msgBeanBo;
 	}
-	
+
 	public MessageFolderService getMessageFolderService() {
 		if (folderDao == null) {
 			folderDao = SpringUtil.getWebAppContext().getBean(MessageFolderService.class);
@@ -1156,7 +1204,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 	public void setMessageThreads(List<MessageInbox> messageThreads) {
 		this.messageThreads = messageThreads;
 	}
-	
+
 	public List<SessionUpload> getUploads() {
 		return uploads;
 	}
@@ -1164,7 +1212,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 	public void setUploads(List<SessionUpload> uploads) {
 		this.uploads = uploads;
 	}
-	
+
 	public boolean isEditMode() {
 		return editMode;
 	}
@@ -1180,8 +1228,8 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 	public void setBeanMode(String beanMode) {
 		try {
 			this.beanMode = BeanMode.valueOf(beanMode);
+		} catch (Exception e) {
 		}
-		catch (Exception e) {}
 	}
 
 	public boolean isHtml() {
@@ -1230,6 +1278,14 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 
 	public void setNewRuleName(String newRuleName) {
 		this.newRuleName = newRuleName;
+	}
+
+	public javax.servlet.http.Part getFile() {
+		return file;
+	}
+
+	public void setFile(javax.servlet.http.Part file) {
+		this.file = file;
 	}
 
 }

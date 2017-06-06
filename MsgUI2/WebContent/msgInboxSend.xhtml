@@ -79,11 +79,11 @@
 					<f:verbatim>&nbsp;&nbsp;</f:verbatim>
 					<h:outputText value="#{msgs.sizePrompt}"/>
 					<h:outputText value="(#{upload.sizeAsString})"/>
-					<h:commandLink action="#{messageInbox.removeUploadFile}"
-						style="color: darkblue; font-size: 1em; font-weight: bold;">
+					<h:commandLink title="Remove upload file" style="color: darkblue; font-size: 1em; font-weight: bold;">
 						<f:param name="seq" value="#{upload.sessionUploadPK.sessionSequence}"/>
 						<f:param name="name" value="#{upload.fileName}"/>
 						<h:outputText value="[#{msgs.removeLinkText}]"/>
+						<f:ajax listener="#{messageInbox.removeUploadFileListener}" render="@form" />
 					</h:commandLink>
 				</h:column>
 			</h:dataTable>

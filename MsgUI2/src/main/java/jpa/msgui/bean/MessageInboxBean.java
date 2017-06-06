@@ -522,7 +522,11 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 	        // Write uploaded file to database
 	    	getSessionUploadService().insertLast(sessVo);
 	    	logger.info("process() - rows inserted: " + 1);
-			uploads = retrieveUploadFiles(); // TODO only retrieve the one inserted
+			//uploads = retrieveUploadFiles(); // TODO only retrieve the one inserted
+			if (uploads == null) {
+				uploads = new ArrayList<SessionUpload>();
+			}
+			uploads.add(sessVo);
 		}
 		catch (IOException ex) {
            logger.error("IOException caught", ex);
@@ -850,6 +854,10 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		sb.append(">" + LF + LF);
 		sb.append(Constants.DASHES_OF_33 + LF);
 		return sb.toString();
+	}
+	
+	public void removeUploadFileListener(AjaxBehaviorEvent event) {
+		removeUploadFile();
 	}
 
 	public String removeUploadFile() {

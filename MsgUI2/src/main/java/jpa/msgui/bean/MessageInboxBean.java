@@ -460,7 +460,9 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		try {
 			javax.servlet.http.Part file = (javax.servlet.http.Part) value;
 			if (file.getSize() > (256 * 1024)) { // limit to 256KB
-				msgs.add(new FacesMessage("file too big"));
+				FacesMessage msg = jpa.msgui.util.MessageUtil.getMessage("jpa.msgui.messages", "uploadFileTooBig",
+						new String[] { "256kb" });
+				msgs.add(msg);
 			}
 			//if (!"text/plain".equals(file.getContentType())) {
 			//	msgs.add(new FacesMessage("not a text file"));

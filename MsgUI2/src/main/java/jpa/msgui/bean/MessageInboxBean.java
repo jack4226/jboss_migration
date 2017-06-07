@@ -140,9 +140,6 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 	}
 
 	public SearchFieldsVo getSearchVo() {
-		// if (searchVo == null) {
-		// searchVo = new SearchFieldsVo(getPagingVo());
-		// }
 		return searchVo;
 	}
 
@@ -163,8 +160,6 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		if (StringUtils.equals(fromPage, "main")) {
 			resetPagingVo();
 		}
-		// SimpleMailTrackingMenu menu = (SimpleMailTrackingMenu)
-		// sessionBean.getSessionMapValue("mailTracking");
 		SimpleMailTrackingMenu menu = (SimpleMailTrackingMenu) FacesUtil.getManagedBean("mailTracking");
 		if (menu != null) {
 			SearchFieldsVo menuSearchVo = menu.getSearchFieldsVo();
@@ -204,8 +199,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 	}
 
 	public String getFromDisplayName(String fromAddrRowId) {
-		// logger.info("getFromDisplayName() - fromAddrRowId: " +
-		// fromAddrRowId);
+		// logger.info("getFromDisplayName() - fromAddrRowId: " + fromAddrRowId);
 		EmailAddress addr = getEmailAddressService().getByRowId(Integer.parseInt(fromAddrRowId));
 		if (addr == null) {
 			return "";
@@ -367,8 +361,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		// message.setReadCount(message.getReadCount() + 1);
 		// // update ReadCount
 		// getMessageInboxService().updateReadCount(message);
-		// logger.info("viewMessage() - Message updated: " +
-		// message.getRowId());
+		// logger.info("viewMessage() - Message updated: " + message.getRowId());
 		// fetch message threads
 		List<MessageInbox> threads = getMessageInboxService().getByLeadMsgId(message.getLeadMessageRowId());
 		if (threads != null && threads.size() > 1) {
@@ -377,8 +370,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 			messageThreads = null;
 		}
 		if (isDebugEnabled) {
-			// logger.debug("viewMessage() - MessageInbox to be passed to jsp: "
-			// + message);
+			// logger.debug("viewMessage() - MessageInbox to be passed to view page: " + message);
 			logger.debug("viewMessage() - MessageInbox to be passed to jsp: " + LF + "Msg RowId: " + message.getRowId()
 					+ LF + "Msg Status: " + message.getStatusId() + LF + "Number of Attachments: "
 					+ message.getAttachmentCount() + LF + "Subject: " + message.getMsgSubject() + LF + "Message Body: "
@@ -464,9 +456,6 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 						new String[] { "256kb" });
 				msgs.add(msg);
 			}
-			//if (!"text/plain".equals(file.getContentType())) {
-			//	msgs.add(new FacesMessage("not a text file"));
-			//}
 		}
 		catch (Exception e) {
 			throw new ValidationException(e);
@@ -534,9 +523,6 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
            logger.error("IOException caught", ex);
         }
     	
-		//String msg = "File " + fileName + " uploaded!";
-        //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(msg));
-        
 		FacesMessage message = jpa.msgui.util.MessageUtil.getMessage("jpa.msgui.messages", "uploadFileResult",
 				new String[] { fileName });
 		message.setSeverity(FacesMessage.SEVERITY_WARN);
@@ -544,7 +530,8 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
     }
 	
 	private String parseFileName(String headerValue) {
-		Pattern p = Pattern.compile("filename=[\"']?([\\w\\s\\.,-]{1,100})[\"']?", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+		Pattern p = Pattern.compile("filename=[\"']?([\\w\\s\\.,-]{1,100})[\"']?",
+				Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 		Matcher m = p.matcher(headerValue);
 		if (m.find() && m.groupCount() >= 1) {
 			for (int i = 0; i <= m.groupCount(); i++) {
@@ -737,13 +724,12 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 		message.setStatusId(MsgStatusCode.OPENED.getValue());
 		message.setUpdtUserId(FacesUtil.getLoginUserId());
 		if (MsgDirectionCode.RECEIVED.getValue().equals(message.getMsgDirection())) {
-			// move to Inbox (Received) folder
+			// move message to Received folder
 			getMessageInboxService().moveMessageToAnotherFolder(message, FolderEnum.Inbox.name());
 		} else {
-			// move to Sent folder
+			// move message to Sent folder
 			getMessageInboxService().moveMessageToAnotherFolder(message, FolderEnum.Sent.name());
 		}
-		// getMessageInboxService().update(message);
 		logger.info("openMessage() - Mailbox message opened: " + message.getRowId());
 		getPagingVo().setRowCount(getPagingVo().getRowCount() - 1);
 		refresh();
@@ -760,17 +746,6 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 			logger.error("reassignRule() - MessageInbox is null");
 			return TO_FAILED;
 		}
-		// retrieve the original message
-		// MessageInbox msgData =
-		// getMessageInboxBo().getAllDataByMsgId(message.getRowId());
-		// if (msgData == null) {
-		// logger.error("reassignRule() - Original message has been deleted,
-		// msgId: "
-		// + message.getRowId());
-		// return TO_FAILED;
-		// }
-		// if (StringUtils.equals(message.getRuleLogic().getRuleName(),
-		// msgData.getRuleLogic().getRuleName())) {
 		if (StringUtils.equals(message.getRuleLogic().getRuleName(), newRuleName)) {
 			return null;
 		}
@@ -913,29 +888,28 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 			Address[] from = InternetAddress.parse(replyMessageVo.getComposeFromAddress());
 			Address[] to = InternetAddress.parse(replyMessageVo.getComposeToAddress());
 			// retrieve new message body
-			String wholeMsgText = replyMessageVo.getMsgBody();
-			wholeMsgText = wholeMsgText == null ? "" : wholeMsgText; // just for
-																		// safety
+			String msgBodyText = replyMessageVo.getMsgBody();
+			msgBodyText = msgBodyText == null ? "" : msgBodyText; // just for safety
 			String origContentType = messageBean.getBodyContentType();
 			if (origContentType == null) { // should never happen
 				origContentType = "text/plain";
 			}
 			String replyMsg = null;
 			// remove original message from message body
-			int pos1 = wholeMsgText.indexOf(Constants.MSG_DELIMITER_BEGIN);
-			int pos2 = wholeMsgText.indexOf(Constants.MSG_DELIMITER_END, pos1 + 1);
+			int pos1 = msgBodyText.indexOf(Constants.MSG_DELIMITER_BEGIN);
+			int pos2 = msgBodyText.indexOf(Constants.MSG_DELIMITER_END, pos1 + 1);
 			if (pos1 >= 0 && pos2 > pos1) {
-				replyMsg = wholeMsgText.substring(0, pos1);
-				int pos3 = wholeMsgText.indexOf(Constants.DASHES_OF_33, pos2 + 1);
+				replyMsg = msgBodyText.substring(0, pos1);
+				int pos3 = msgBodyText.indexOf(Constants.DASHES_OF_33, pos2 + 1);
 				if (pos3 > pos2) {
-					String origMsg = wholeMsgText.substring(pos3 + Constants.DASHES_OF_33.length());
+					String origMsg = msgBodyText.substring(pos3 + Constants.DASHES_OF_33.length());
 					logger.info("Orig Msg: " + origMsg);
 				} else {
-					String origMsg = wholeMsgText.substring(pos2 + Constants.MSG_DELIMITER_END.length());
+					String origMsg = msgBodyText.substring(pos2 + Constants.MSG_DELIMITER_END.length());
 					logger.info("Orig Msg: " + origMsg);
 				}
 			} else {
-				replyMsg = wholeMsgText;
+				replyMsg = msgBodyText;
 			}
 			// construct messageBean for new message
 			if (replyMessageVo.isForward()) { // forward

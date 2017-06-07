@@ -812,7 +812,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 	private String getReplyEnvelope() {
 		StringBuffer sb = new StringBuffer();
 		sb.append(LF + LF);
-		sb.append(Constants.MSG_DELIMITER_BEGIN + message.getFromAddress() + Constants.MSG_DELIMITER_END);
+		sb.append(Constants.MSG_DELIMITER_BEGIN + message.getFromAddress().getAddress() + Constants.MSG_DELIMITER_END);
 		sb.append(LF + LF);
 		sb.append(Constants.DASHES_OF_33 + LF);
 		return sb.toString();
@@ -847,10 +847,10 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 	private String getForwardEnvelope() {
 		StringBuffer sb = new StringBuffer();
 		sb.append(LF + LF);
-		sb.append(Constants.MSG_DELIMITER_BEGIN + message.getFromAddress() + Constants.MSG_DELIMITER_END + LF);
+		sb.append(Constants.MSG_DELIMITER_BEGIN + message.getFromAddress().getAddress() + Constants.MSG_DELIMITER_END + LF);
 		sb.append(LF);
-		sb.append("> From: " + message.getFromAddress() + LF);
-		sb.append("> To: " + message.getToAddress() + LF);
+		sb.append("> From: " + message.getFromAddress().getAddress() + LF);
+		sb.append("> To: " + message.getToAddress().getAddress() + LF);
 		sb.append("> Date: " + message.getReceivedTime() + LF);
 		sb.append("> Subject: " + message.getMsgSubject() + LF);
 		sb.append(">" + LF + LF);
@@ -1039,6 +1039,7 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 			logger.info("sendMessage() - Message updated: " + message.getRowId());
 		}
 		beanMode = BeanMode.list;
+		refresh();
 		return TO_LIST;
 	}
 

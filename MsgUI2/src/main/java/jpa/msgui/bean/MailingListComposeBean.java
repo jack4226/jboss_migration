@@ -1,9 +1,12 @@
 package jpa.msgui.bean;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.faces.FacesException;
 import javax.faces.application.FacesMessage;
@@ -18,6 +21,7 @@ import javax.mail.Address;
 import javax.mail.Part;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+import javax.validation.ValidationException;
 
 import jpa.constant.CodeType;
 import jpa.constant.MailingListDeliveryType;
@@ -34,6 +38,7 @@ import jpa.model.EmailVariable;
 import jpa.model.MailingList;
 import jpa.model.SessionUpload;
 import jpa.model.SessionUploadPK;
+import jpa.model.UserData;
 import jpa.msgui.util.FacesUtil;
 import jpa.msgui.util.SpringUtil;
 import jpa.service.common.EmailAddressService;
@@ -50,6 +55,8 @@ import jpa.util.HtmlUtil;
 import jpa.util.StringUtil;
 import jpa.variable.RenderUtil;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 @ManagedBean(name="mailingListCompose")
@@ -82,6 +89,8 @@ public class MailingListComposeBean implements java.io.Serializable {
 	private BeanMode beanMode = BeanMode.edit;
 
 	private List<SessionUpload> uploads = null;
+	
+	private javax.servlet.http.Part file;
 	
 	private String deliveryOption = null;
 	private String actionFailure = null;
@@ -166,6 +175,100 @@ public class MailingListComposeBean implements java.io.Serializable {
 		return null;
 	}
 	
+	public void validateFile(FacesContext ctx, UIComponent comp, Object value) {
+		List<FacesMessage> msgs = new ArrayList<FacesMessage>();
+		
+		try {
+			javax.servlet.http.Part file = (javax.servlet.http.Part) value;
+			if (file.getSize() > (256 * 1024)) { // limit to 256KB
+				FacesMessage msg = jpa.msgui.util.MessageUtil.getMessage("jpa.msgui.messages", "uploadFileTooBig",
+						new String[] { "256kb" });
+				msgs.add(msg);
+			}
+		}
+		catch (Exception e) {
+			throw new ValidationException(e);
+		}
+		if (!msgs.isEmpty()) {
+			throw new ValidatorException(msgs);
+		}
+	}
+	
+	public void uploadFileListener(AjaxBehaviorEvent event) {
+		uploadFile();
+	}
+	
+	public String uploadFile() {
+        logger.info("uploadFile() Enetring...");
+        
+        String fileName = file.getName();
+        for (String hdrName : file.getHeaderNames()) {
+        	logger.info("Header mame / value: " + hdrName + " / " + file.getHeader(hdrName));
+        	if (StringUtils.contains(hdrName, "content-disposition")) {
+        		String parsedName = parseFileName(file.getHeader(hdrName));
+        		if (StringUtils.isNotBlank(parsedName)) {
+        			fileName = parsedName;
+        		}
+        	}
+        }
+        
+        String contentType = file.getContentType();
+        logger.info("content-type: " + contentType);
+        logger.info("filename: " + fileName);
+        logger.info("size: " + file.getSize());
+        
+        SessionUpload sessVo = new SessionUpload();
+    	SessionUploadPK pk = new SessionUploadPK();
+    	sessVo.setSessionUploadPK(pk);
+    	sessVo.getSessionUploadPK().setSessionSequence(0); // ignored by insertLast() method
+    	
+        String sessionId = FacesUtil.getSessionId();   	
+    	sessVo.getSessionUploadPK().setSessionId(sessionId);
+        
+        UserData userVo = (UserData) FacesUtil.getLoginUserData();
+        if (userVo != null) {
+        	sessVo.setUserData(userVo);
+        }
+        else {
+        	logger.warn("process() - UserData not found in httpSession!");
+        }
+    	sessVo.setFileName(fileName);
+    	sessVo.setContentType(contentType);
+    	
+    	try {
+	    	InputStream is = file.getInputStream();
+	    	sessVo.setSessionValue(IOUtils.toByteArray(is));
+	        // Write uploaded file to database
+	    	getSessionUploadService().insertLast(sessVo);
+	    	logger.info("process() - rows inserted: " + 1);
+			if (uploads == null) {
+				uploads = new ArrayList<SessionUpload>();
+			}
+			uploads.add(sessVo);
+		}
+		catch (IOException ex) {
+           logger.error("IOException caught", ex);
+        }
+    	
+		FacesMessage message = jpa.msgui.util.MessageUtil.getMessage("jpa.msgui.messages", "uploadFileResult",
+				new String[] { fileName });
+		message.setSeverity(FacesMessage.SEVERITY_WARN);
+        return TO_SELF;
+    }
+	
+	private String parseFileName(String headerValue) {
+		Pattern p = Pattern.compile("filename=[\"']?([\\w\\s\\.,-]{1,100})[\"']?",
+				Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+		Matcher m = p.matcher(headerValue);
+		if (m.find() && m.groupCount() >= 1) {
+			for (int i = 0; i <= m.groupCount(); i++) {
+				//System.out.println("Group[" + i + "]: " + m.group(i));
+			}
+			return m.group(1);
+		}
+		return null;
+	}
+	
 	public List<SessionUpload> retrieveUploadFiles() {
 		String sessionId = FacesUtil.getSessionId();
 		boolean valid = FacesUtil.isSessionIdValid();
@@ -176,6 +279,10 @@ public class MailingListComposeBean implements java.io.Serializable {
 		return uploads;
 	}
 	
+	public void removeUploadFileListener(AjaxBehaviorEvent event) {
+		removeUploadFile();
+	}
+
 	public String removeUploadFile() {
 		String seq = FacesUtil.getRequestParameter("seq");
 		String name = FacesUtil.getRequestParameter("name");
@@ -192,8 +299,7 @@ public class MailingListComposeBean implements java.io.Serializable {
 			}
 			SessionUploadPK pk = new SessionUploadPK(id, sessionSeq);
 			int rowsDeleted = getSessionUploadService().deleteByPrimaryKey(pk);
-			logger.info("removeUploadFile() - rows deleted: " + rowsDeleted + ", file name: "
-					+ name);
+			logger.info("removeUploadFile() - rows deleted: " + rowsDeleted + ", file name: " + name);
 		}
 		catch (RuntimeException e) {
 			logger.error("RuntimeException caught", e);
@@ -566,6 +672,14 @@ public class MailingListComposeBean implements java.io.Serializable {
 			this.beanMode = BeanMode.valueOf(beanMode);
 		}
 		catch (Exception e) {}
+	}
+
+	public javax.servlet.http.Part getFile() {
+		return file;
+	}
+
+	public void setFile(javax.servlet.http.Part file) {
+		this.file = file;
 	}
 
 }

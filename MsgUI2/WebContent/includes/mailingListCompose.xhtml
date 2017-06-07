@@ -61,8 +61,11 @@
 		</h:panelGrid>
 
 		<h:panelGrid columns="1" styleClass="fullWidth">
-			<h:commandButton value="#{msgs.attachFileButtonText}" title="Attach files"
-				immediate="true" action="#{mailingListCompose.attachFiles}"/>
+			<h:outputLabel value="#{msgs.attachFileButtonText}: "/>
+			<h:inputFile id="file" label="#{msgs.uploadFileButtonText}" value="#{mailingListCompose.file}" 
+				validator="#{mailingListCompose.validateFile}">
+				<f:ajax listener="#{mailingListCompose.uploadFileListener}" render="@form" />
+			</h:inputFile>
 			<h:dataTable value="#{mailingListCompose.uploads}" var="upload"
 				style="width: auto; border: none;">
 				<h:column>
@@ -72,11 +75,11 @@
 					<f:verbatim>&nbsp;&nbsp;</f:verbatim>
 					<h:outputText value="#{msgs.sizePrompt}"/>
 					<h:outputText value="(#{upload.sizeAsString})"/>
-					<h:commandLink action="#{mailingListCompose.removeUploadFile}"
-						style="color: darkblue; font-size: 1em; font-weight: bold;">
+					<h:commandLink title="Remove upload file" style="color: darkblue; font-size: 1em; font-weight: bold;">
 						<f:param name="seq" value="#{upload.sessionUploadPK.sessionSequence}"/>
 						<f:param name="name" value="#{upload.fileName}"/>
 						<h:outputText value="[#{msgs.removeLinkText}]"/>
+						<f:ajax listener="#{mailingListCompose.removeUploadFileListener}" render="@form" />
 					</h:commandLink>
 				</h:column>
 			</h:dataTable>

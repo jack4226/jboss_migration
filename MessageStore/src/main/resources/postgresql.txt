@@ -1,14 +1,14 @@
 1) cd to installation bin folder
-2) Initialize server - initdb ..\..\pgdb
-3) start server - pg_ctl -D ..\..\pgdb -l logfile start
-4) stop server - pg_ctl -D ..\..\pgdb stop
-5) server status - pg_ctl -D ..\..\pgdb status
+2) Initialize server - .\initdb.exe ..\..\pgdb
+3) start server - .\pg_ctl.exe -D ..\..\pgdb -l logfile start
+4) stop server - .\pg_ctl.exe -D ..\..\pgdb stop
+5) server status - .\pg_ctl.exe -D ..\..\pgdb status
 
-6) create database - createdb --encoding=UTF8 --template=template0 emaildb
+6) create database - .\createdb.exe --encoding=UTF8 --template=template0 emaildb
 7) create user 'email' - createuser -d -r -s -W email (createdb, createrole, superuser, prompt for password)
-8) enter psql console - psql emaildb email (\quit to quit the console)
+8) enter psql console - .\psql.exe emaildb email (\quit to quit the console)
 9) in psql console - \h for list of SQL commands, \? for list of psql commands
 
-10) command to drop database > dropdb emaildb
+10) command to drop database > .\dropdb.exe emaildb
 
 11) Mac OSX user: postgres/jackwng01 

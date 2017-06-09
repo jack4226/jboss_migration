@@ -10,11 +10,13 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
 import jpa.model.BroadcastMessage;
+import jpa.model.BroadcastTracking;
 import jpa.msgui.util.FacesUtil;
 import jpa.msgui.util.SpringUtil;
 import jpa.msgui.vo.PagingVo;
 import jpa.service.common.EmailAddressService;
 import jpa.service.maillist.BroadcastMessageService;
+import jpa.service.maillist.BroadcastTrackingService;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -29,8 +31,10 @@ public class BroadcastMsgBean extends PaginationBean implements java.io.Serializ
 	
 	private transient BroadcastMessageService broadcastMsgDao = null;
 	private transient EmailAddressService emailAddrDao = null;
+	private transient BroadcastTrackingService broadcastTrkDao = null;
 	
 	private transient DataModel<BroadcastMessage> broadcasts = null;
+	private transient DataModel<BroadcastTracking> msgTrackings = null;
 	
 	private BroadcastMessage broadcastMsg = null;
 	private boolean editMode = true;
@@ -38,6 +42,8 @@ public class BroadcastMsgBean extends PaginationBean implements java.io.Serializ
 
 	private String testResult = null;
 	private String actionFailure = null;
+	
+	final PagingVo trkPagingVo = new PagingVo();
 	
 	static final String TO_VIEW = "broadcastMsgView.xhtml";
 	static final String TO_SELF = null; // null -> remains in the same view
@@ -95,6 +101,13 @@ public class BroadcastMsgBean extends PaginationBean implements java.io.Serializ
 		return emailAddrDao;
 	}
 	
+	public BroadcastTrackingService getBroadcastTrackingService() {
+		if (broadcastTrkDao == null) {
+			broadcastTrkDao = SpringUtil.getWebAppContext().getBean(BroadcastTrackingService.class);
+		}
+		return broadcastTrkDao;
+	}
+
 	public void viewBroadcastMsgListener(AjaxBehaviorEvent event) {
 		viewBroadcastMsg();
 	}
@@ -122,11 +135,6 @@ public class BroadcastMsgBean extends PaginationBean implements java.io.Serializ
 		return TO_VIEW;
 	}
 	
-	
-	public void viewMessageTrackingListener(AjaxBehaviorEvent event) {
-		beanMode = BeanMode.recipients;
-	}
-	
 	public void deleteBroadcastsListener(AjaxBehaviorEvent event) {
 		deleteBroadcasts();
 	}
@@ -144,6 +152,7 @@ public class BroadcastMsgBean extends PaginationBean implements java.io.Serializ
 			BroadcastMessage vo = subrList.get(i);
 			if (vo.isMarkedForDeletion()) {
 				int rowsDeleted = getBroadcastMessageService().deleteByRowId(vo.getRowId());
+				vo.setMarkedForDeletion(false);
 				if (rowsDeleted > 0) {
 					logger.info("deleteBroadcasts() - Broadcast deleted: " + vo.getRowId());
 					getPagingVo().setRowCount(getPagingVo().getRowCount() - rowsDeleted);
@@ -223,7 +232,143 @@ public class BroadcastMsgBean extends PaginationBean implements java.io.Serializ
 			return (List<BroadcastMessage>)broadcasts.getWrappedData();
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	private List<BroadcastTracking> getMsgTrackingList() {
+		if (msgTrackings == null) {
+			return new ArrayList<BroadcastTracking>();
+		}
+		else {
+			return (List<BroadcastTracking>)msgTrackings.getWrappedData();
+		}
+	}
+	
+	/*
+	 * Methods for Message Tracking
+	 */
+	private Integer bcstRowId = null;
+		
+	public void viewMessageTrackingListener(Integer rowId) {
+		beanMode = BeanMode.recipients;
+		bcstRowId = rowId;
+		getTrkRowCount();
+	}
+	
+	public DataModel<BroadcastTracking> getMsgTrackings() {
+		String fromPage = sessionBean.getRequestParam("frompage");
+		logger.info("getMsgTrackings() - fromPage = " + fromPage + ", Broadcast message row_id: " + bcstRowId);
+		if ("broadcast".equals(fromPage)) {
+			resetTrkPagingVo();
+		}
+		if (!getTrkPagingVo().getPageAction().equals(PagingVo.PageAction.CURRENT) || msgTrackings == null) {
+			Page<BroadcastTracking> trkList = getBroadcastTrackingService().getBroadcastTrackingsForWeb(bcstRowId, getTrkPagingVo());
+			logger.info("Tracking PagingVo After: " + getTrkPagingVo());
+			getTrkPagingVo().setPageAction(PagingVo.PageAction.CURRENT);
+			msgTrackings = new ListDataModel<BroadcastTracking>(trkList.getContent());
+		}
+		return msgTrackings;
+	}
+	
+	public long getTrkRowCount() {
+		int rowCount = getBroadcastTrackingService().getMessageCountForWeb(bcstRowId);
+		getTrkPagingVo().setRowCount(rowCount);
+		return rowCount;
+	}
+	
+	public void deleteMsgTrackingsListener(AjaxBehaviorEvent event) {
+		deleteMsgTrackings();
+	}
+	
+	public String deleteMsgTrackings() {
+		if (isDebugEnabled)
+			logger.debug("deleteMsgTrackings() - Entering...");
+		if (msgTrackings == null) {
+			logger.warn("deleteMsgTrackings() - Msg Tracking List is null.");
+			return TO_FAILED;
+		}
+		reset();
+		List<BroadcastTracking> subrList = getMsgTrackingList();
+		for (int i=0; i<subrList.size(); i++) {
+			BroadcastTracking vo = subrList.get(i);
+			if (vo.isMarkedForDeletion()) {
+				int rowsDeleted = getBroadcastTrackingService().deleteByRowId(vo.getRowId());
+				vo.setMarkedForDeletion(false);
+				if (rowsDeleted > 0) {
+					logger.info("deleteMsgTrackings() - Message tracking deleted: " + vo.getRowId());
+					getTrkPagingVo().setRowCount(getTrkPagingVo().getRowCount() - rowsDeleted);
+				}
+			}
+		}
+		msgTrackings = null;
+		return TO_DELETED;
+	}
 
+	public boolean getAnyMsgTrackinbgsMarkedForDeletion() {
+		if (isDebugEnabled)
+			logger.debug("getAnyMsgTrackinbgsMarkedForDeletion() - Entering...");
+		if (broadcasts == null) {
+			logger.warn("getAnyMsgTrackinbgsMarkedForDeletion() - MsgTracking List is null.");
+			return false;
+		}
+		List<BroadcastTracking> subrList = getMsgTrackingList();
+		for (Iterator<BroadcastTracking> it=subrList.iterator(); it.hasNext();) {
+			BroadcastTracking vo = it.next();
+			if (vo.isMarkedForDeletion()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void trkPageFirst(AjaxBehaviorEvent event) {
+		trkPagingVo.setPageAction(PagingVo.PageAction.FIRST);
+		return; // TO_PAGING;
+	}
+
+	public void trkPagePrevious(AjaxBehaviorEvent event) {
+		trkPagingVo.setPageAction(PagingVo.PageAction.PREVIOUS);
+		return; // TO_PAGING;
+	}
+
+	public void trkPageNext(AjaxBehaviorEvent event) {
+		trkPagingVo.setPageAction(PagingVo.PageAction.NEXT);
+		return; // TO_PAGING;
+	}
+
+	public void trkPageLast(AjaxBehaviorEvent event) {
+		if (trkPagingVo.getRowCount() < 0) {
+			trkPagingVo.setRowCount(getRowCount());
+		}
+		trkPagingVo.setPageAction(PagingVo.PageAction.LAST);
+		return; // TO_PAGING;
+	}
+
+	public long getTrkLastPageRow() {
+		long lastRow = (trkPagingVo.getPageNumber() + 1) * trkPagingVo.getPageSize();
+		if (trkPagingVo.getRowCount() < 0) {
+			trkPagingVo.setRowCount(getTrkRowCount());
+		}
+		if (lastRow > trkPagingVo.getRowCount()) {
+			return trkPagingVo.getRowCount();
+		}
+		else {
+			return lastRow;
+		}
+	}
+	
+	public PagingVo getTrkPagingVo() {
+		return trkPagingVo;
+	}
+
+	public void resetTrkPagingVo() {
+		trkPagingVo.resetPageContext();
+		msgTrackings = null;
+	}
+	/*
+	 * End of Message Tracking
+	 */
+	
+	
 	public BroadcastMessage getBroadcastMsg() {
 		return broadcastMsg;
 	}

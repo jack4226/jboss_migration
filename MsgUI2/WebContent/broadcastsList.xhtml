@@ -9,8 +9,11 @@
    <c:if test="#{broadcastMsg.beanMode=='list'}">
    	<title><h:outputText value="#{msgs.listBroadcastsPageTitle}"/></title>
    </c:if>
-   <c:if test="#{broadcastMsg.beanMode!='list'}">
-   <title><h:outputText value="#{msgs.viewBroadcastMsgPageTitle}"/></title>
+   <c:if test="#{broadcastMsg.beanMode=='edit'}">
+   	<title><h:outputText value="#{msgs.viewBroadcastMsgPageTitle}"/></title>
+   </c:if>
+   <c:if test="#{broadcastMsg.beanMode=='recipients'}">
+   	<title><h:outputText value="#{msgs.viewMsgTrackingPageTitle}"/></title>
    </c:if>
 </h:head>
 <body>
@@ -28,6 +31,9 @@
 			</f:subview>
 			<f:subview id="detail" rendered="#{broadcastMsg.beanMode=='edit'}">
 				<ui:include src="/includes/broadcastMsgView.xhtml" />
+			</f:subview>
+			<f:subview id="track" rendered="#{broadcastMsg.beanMode=='recipients'}">
+				<ui:include src="/includes/broadcastTracking.xhtml" />
 			</f:subview>
 			<f:subview id="footer">
 				<ui:include src="includes/gettingStartedFooter.xhtml" />

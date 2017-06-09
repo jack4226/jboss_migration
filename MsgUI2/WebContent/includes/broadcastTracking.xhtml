@@ -10,8 +10,8 @@
 <h:outputFormat value="#{msgs.broadcastTrackingLabel}" styleClass="gridHeader">
    <f:param value=""/>
 </h:outputFormat>
-<h:dataTable id="dt_tracking" value="#{broadcastTrk.msgTrackings}" var="list" 
-   rows="#{broadcastTrk.pagingVo.pageSize}" binding="#{table}"
+<h:dataTable id="dt_tracking" value="#{broadcastMsg.msgTrackings}" var="list" 
+   rows="#{broadcastMsg.trkPagingVo.pageSize}" binding="#{trk_table}"
    styleClass="jsfDataTable" rowClasses="oddRows, evenRows"
    headerClass="dataTableHeader" footerClass="dataTableFooter">
    
@@ -19,7 +19,7 @@
       <f:facet name="header">
          <h:outputText value=""/>
       </f:facet>
-      <h:selectBooleanCheckbox value="#{list.markedForDeletion}" title="#{table.rowIndex}_checkBox"
+      <h:selectBooleanCheckbox value="#{list.markedForDeletion}" title="#{trk_table.rowIndex}_checkBox"
          disabled="#{not list.editable}">
          <f:ajax event="click" render="@form" />
       </h:selectBooleanCheckbox>
@@ -28,79 +28,76 @@
       <f:facet name="header">
          <h:outputText value="#{msgs.emailAddrHeader}"/>
       </f:facet>
-		<h:outputText value="#{list.emailAddress.address}" title="#{table.rowIndex}_emailAddr" />
+		<h:outputText value="#{list.emailAddress.address}" title="#{trk_table.rowIndex}_emailAddr" />
    </h:column>
    <h:column>
       <f:facet name="header">
          <h:outputText value="#{msgs.sentCountHeader}"/>
       </f:facet>
-      <h:outputText value="#{list.sentCount}" title="#{table.rowIndex}_sentCount"/>
+      <h:outputText value="#{list.sentCount}" title="#{trk_table.rowIndex}_sentCount"/>
    </h:column>
    <h:column>
       <f:facet name="header">
          <h:outputText value="#{msgs.openCountHeader}"/>
       </f:facet>
-		<h:outputText value="#{list.openCount}" title="#{table.rowIndex}_openCount"/>
+		<h:outputText value="#{list.openCount}" title="#{trk_table.rowIndex}_openCount"/>
    </h:column>
    <h:column>
       <f:facet name="header">
          <h:outputText value="#{msgs.clickCountHeader}"/>
       </f:facet>
-      <h:outputText value="#{list.clickCount}" title="#{table.rowIndex}_clickCount"/>
+      <h:outputText value="#{list.clickCount}" title="#{trk_table.rowIndex}_clickCount"/>
    </h:column>
    <h:column>
       <f:facet name="header">
          <h:outputText value="#{msgs.lastOpenedHeader}"/>
       </f:facet>
       <h:outputText value="#{list.lastOpenTime}">
-      	<f:convertDateTime pattern="yyyy-MM-dd" title="#{table.rowIndex}_lastOpenTime"/>
+      	<f:convertDateTime pattern="yyyy-MM-dd" title="#{trk_table.rowIndex}_lastOpenTime"/>
       </h:outputText>
    </h:column>
    <h:column>
       <f:facet name="header">
          <h:outputText value="#{msgs.lastClickedHeader}"/>
       </f:facet>
-      <h:outputText value="#{list.lastClickTime}" title="#{table.rowIndex}_lastClickTime">
+      <h:outputText value="#{list.lastClickTime}" title="#{trk_table.rowIndex}_lastClickTime">
       	<f:convertDateTime pattern="yyyy-MM-dd"/>
       </h:outputText>
    </h:column>
 	<f:facet name="footer">
     <h:panelGroup>
-	<h:panelGrid columns="2" styleClass="fullWidth"
-		columnClasses="alignLeft50, alignRight50">
+	<h:panelGrid columns="2" styleClass="fullWidth" columnClasses="alignLeft50, alignRight50">
 		<h:panelGroup>
 			<f:verbatim>&nbsp;</f:verbatim>
 		</h:panelGroup>
 		<h:panelGroup>
-          	<h:outputText value="#{broadcastTrk.pagingVo.pageNumber * broadcastTrk.pagingVo.pageSize + 1}"
+          	<h:outputText value="#{broadcastMsg.trkPagingVo.pageNumber * broadcastMsg.trkPagingVo.pageSize + 1}"
           		style="font-weight: bold;" title="First Row Number"/>
           	<h:outputText value=" - "/>
-			<h:outputText value="#{broadcastTrk.lastPageRow}"
-				style="font-weight: bold;" title="Last Row Number"/>
+			<h:outputText value="#{broadcastMsg.trkLastPageRow}" style="font-weight: bold;" title="Last Row Number"/>
 			<h:outputText value=" of " style="font-weight: bold;"/>
-          	<h:outputText value="#{broadcastTrk.rowCount}" 
-          		style="font-weight: bold;" title="Row Count"/>
+          	<h:outputText value="#{broadcastMsg.trkRowCount}" style="font-weight: bold;" title="Row Count"/>
           	<f:verbatim>&nbsp;&nbsp;</f:verbatim>
             <h:commandLink value="#{msgs.firstLinkText}" title="Page First"
-                disabled="#{broadcastTrk.pagingVo.pageNumber == 0}" >
-                <f:ajax listener="#{broadcastTrk.pageFirst}" render="@form"/>
+                disabled="#{broadcastMsg.trkPagingVo.pageNumber == 0}" >
+                <f:ajax listener="#{broadcastMsg.trkPageFirst}" render="@form"/>
             </h:commandLink>
             <f:verbatim>&nbsp;|&nbsp;</f:verbatim>
             <h:commandLink value="#{msgs.prevLinkText}" title="Page Previous"
-                disabled="#{broadcastTrk.pagingVo.pageNumber == 0}" >
-                <f:ajax listener="#{broadcastTrk.pagePrevious}" render="@form"/>
+                disabled="#{broadcastMsg.trkPagingVo.pageNumber == 0}" >
+                <f:ajax listener="#{broadcastMsg.trkPagePrevious}" render="@form"/>
             </h:commandLink>
             <f:verbatim>&nbsp;|&nbsp;</f:verbatim>
-            <c:set var="page_number" value="${broadcastTrk.pagingVo.pageNumber + 1}"/>
-            <c:set var="page_size" value="${broadcastTrk.pagingVo.pageSize}"/>
-			<c:set var="row_count" value="${broadcastTrk.rowCount}"/>
+            <c:set var="page_number" value="${broadcastMsg.trkPagingVo.pageNumber + 1}"/>
+            <c:set var="page_size" value="${broadcastMsg.trkPagingVo.pageSize}"/>
+			<c:set var="row_count" value="${broadcastMsg.trkRowCount}"/>
             <c:if test="${page_number * page_size lt row_count}">
 	            <h:commandLink value="#{msgs.nextLinkText}" title="Page Next" disabled="false" >
-	                <f:ajax listener="#{broadcastTrk.pageNext}" render="@form"/>
+	                <f:ajax listener="#{broadcastMsg.trkPageNext}" render="@form"/>
 	            </h:commandLink>
 	            <f:verbatim>&nbsp;|&nbsp;</f:verbatim>
 	            <h:commandLink value="#{msgs.lastLinkText}" title="Page Last" disabled="false" >
-	                <f:ajax listener="#{broadcastTrk.pageLast}" render="@form"/>
+	                <f:ajax listener="#{broadcastMsg.trkPageLast}" render="@form"/>
 	            </h:commandLink>
             </c:if>
             <c:if test="${page_number * page_size ge row_count}">
@@ -114,15 +111,20 @@
 	</f:facet>
 </h:dataTable>
 <f:verbatim><p/></f:verbatim>
-<h:panelGrid columns="2" styleClass="commandBar"
-	columnClasses="alignLeft70, alignRight30">
+<h:panelGrid columns="2" styleClass="commandBar" columnClasses="alignLeft70, alignRight30">
 	<h:panelGroup>
+		<h:commandButton value="#{msgs.deleteButtonText}" title="Delete selected rows" 
+			disabled="#{not broadcastMsg.anyMsgTrackinbgsMarkedForDeletion}"
+			onclick="javascript:return confirmDelete();">
+			<f:ajax listener="#{broadcastMsg.deleteMsgTrackingsListener}" render="@form"/>
+		</h:commandButton>
+		<f:verbatim>&nbsp;</f:verbatim>
 		<h:commandButton value="#{msgs.refreshLinkText}" title="Refresh from database" >
-			<f:ajax event="click" render="@form" />
+			<f:ajax event="click" render="dt_tracking" />
 		</h:commandButton>
 		<f:verbatim>&nbsp;</f:verbatim>
 		<h:commandButton value="#{msgs.backButtonText}" title="Go Back">
-			<f:ajax event="click" listener="#{broadcastTrk.cancelEditListener}" render="@form @all" />
+			<f:ajax event="click" listener="#{broadcastMsg.cancelEditListener}" render="@form" />
 		</h:commandButton>
 	</h:panelGroup>
 	<h:panelGroup>

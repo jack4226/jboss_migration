@@ -103,14 +103,12 @@
       <h:commandLink title="#{table.rowIndex}_viewRecipients">
 	      <h:outputText value="#{msgs.broadcastMsgRecipients}" title="Click to view broadcast recipients"/>
 	      <f:param name="frompage" value="broadcast"/>
-	      <f:param name="bcstrowid" value="#{list.rowId}"/>
-	      <f:ajax listener="#{broadcastMsg.viewMessageTrackingListener}" render="@form"/>
+	      <f:ajax listener="#{broadcastMsg.viewMessageTrackingListener(list.rowId)}" render="@form"/>
       </h:commandLink>
-   </h:column>   
+   </h:column>
 	<f:facet name="footer">
     <h:panelGroup>
-	<h:panelGrid columns="2" styleClass="fullWidth"
-		columnClasses="alignLeft50, alignRight50">
+	<h:panelGrid columns="2" styleClass="fullWidth" columnClasses="alignLeft50, alignRight50">
 		<h:panelGroup>
 			<f:verbatim>&nbsp;</f:verbatim>
 		</h:panelGroup>
@@ -118,11 +116,9 @@
           	<h:outputText value="#{broadcastMsg.pagingVo.pageNumber * broadcastMsg.pagingVo.pageSize + 1}"
           		style="font-weight: bold;" title="First Row Number"/>
           	<h:outputText value=" - "/>
-			<h:outputText value="#{broadcastMsg.lastPageRow}"
-				style="font-weight: bold;" title="Last Row Number"/>
+			<h:outputText value="#{broadcastMsg.lastPageRow}" style="font-weight: bold;" title="Last Row Number"/>
 			<h:outputText value=" of " style="font-weight: bold;"/>
-          	<h:outputText value="#{broadcastMsg.rowCount}" 
-          		style="font-weight: bold;" title="Row Count"/>
+          	<h:outputText value="#{broadcastMsg.rowCount}" style="font-weight: bold;" title="Row Count"/>
           	<f:verbatim>&nbsp;&nbsp;</f:verbatim>
             <h:commandLink value="#{msgs.firstLinkText}" title="Page First"
                 disabled="#{broadcastMsg.pagingVo.pageNumber == 0}" >
@@ -157,8 +153,7 @@
 	</f:facet>
 </h:dataTable>
 <f:verbatim><p/></f:verbatim>
-<h:panelGrid columns="2" styleClass="commandBar"
-	columnClasses="alignLeft70, alignRight30">
+<h:panelGrid columns="2" styleClass="commandBar" columnClasses="alignLeft70, alignRight30">
 	<h:panelGroup>
 		<h:commandButton value="#{msgs.deleteButtonText}" title="Delete selected rows" 
 			disabled="#{not broadcastMsg.anyBroadcastsMarkedForDeletion}"

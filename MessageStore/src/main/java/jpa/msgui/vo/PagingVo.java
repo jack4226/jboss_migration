@@ -437,7 +437,7 @@ public class PagingVo extends BaseVo implements Serializable {
 			pageNumber = pageNumber > 0 ? pageNumber - 1 : pageNumber;
 		}
 		else if (PageAction.LAST.equals(action)) {
-			pageNumber = (int) Math.floor((double)rowCount / (double)pageSize);
+			pageNumber = (int) Math.floor(Math.abs((double)(rowCount - 1)) / (double)pageSize);
 		}
 	}
 

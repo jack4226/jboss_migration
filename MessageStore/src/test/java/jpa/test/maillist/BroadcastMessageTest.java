@@ -40,7 +40,7 @@ public class BroadcastMessageTest extends BoTestBase {
 	@Test
 	public void testBroadcastMessageService() {
 		
-		List<BroadcastMessage> bdlist = service.getAll();
+		List<BroadcastMessage> bdlist = service.getTop100();
 		assertFalse(bdlist.isEmpty());
 		
 		BroadcastMessage bd1 = bdlist.get(0);
@@ -96,7 +96,7 @@ public class BroadcastMessageTest extends BoTestBase {
 
 	@Test
 	public void testBroadcastMessageForWeb() {
-		List<BroadcastMessage> bdlist = service.getAll();
+		List<BroadcastMessage> bdlist = service.getTop100();
 		assertFalse(bdlist.isEmpty());
 		
 		BroadcastMessage bd1 = bdlist.get(0);

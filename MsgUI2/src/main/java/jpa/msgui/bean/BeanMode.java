@@ -6,5 +6,6 @@ public enum BeanMode {
 	schedule, // for EmailTemplateBean
 	subrules, actions, elements, // for RuleLogicBean
 	preview, // for MailinListComposeBean
-	send; // for MessageInboxBean
+	send, // for MessageInboxBean
+	recipients; // for BroadcastMsgBean
 }

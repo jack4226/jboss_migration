@@ -4,11 +4,17 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import jpa.model.BroadcastTracking;
+import jpa.msgui.vo.PagingVo;
 import jpa.repository.msg.BroadcastTrackingRepository;
 
 @Component("broadcastTrackingService")
@@ -40,6 +46,21 @@ public class BroadcastTrackingService implements java.io.Serializable {
 
 	public List<BroadcastTracking> getByBroadcastMessageRowId(int bcstMsgRowId) {
 		return repository.findAllByBroadcastMessage_RowId(bcstMsgRowId);
+	}
+	
+	public Page<BroadcastTracking> getBroadcastTrackingsForWeb(Integer bcstMsgRowId, PagingVo vo) {
+		Direction dir = Direction.DESC;
+		Boolean isAscending = vo.getOrderBy().getIsAscending(PagingVo.Column.rowId);
+		if (isAscending != null && isAscending == true) {
+			dir = Direction.ASC;
+		}
+		Sort sort = new Sort(dir, "rowId");
+		Pageable paging = new PageRequest(vo.getPageNumber(), vo.getPageSize(), sort);
+		return repository.findAllByBroadcastMessage_RowId(bcstMsgRowId, paging);
+	}
+	
+	public int getMessageCountForWeb(Integer bcstMsgRowId) {
+		return repository.countByBroadcastMessage_RowId(bcstMsgRowId);
 	}
 
 	public int updateSentCount(int rowId) {

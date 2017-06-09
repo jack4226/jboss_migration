@@ -2,6 +2,8 @@ package jpa.repository.msg;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -37,4 +39,7 @@ public interface BroadcastTrackingRepository extends JpaRepository<BroadcastTrac
 			+ "t.updtTime = :time where t.rowId = :rowId")
 	public int updateClickCount(@Param("rowId") Integer rowId, @Param("time") java.sql.Timestamp time);
 	
+	public int countByBroadcastMessage_RowId(Integer bcstMsgRowId);
+	
+	public Page<BroadcastTracking> findAllByBroadcastMessage_RowId(Integer bcstMsgRowId, Pageable paging);
 }

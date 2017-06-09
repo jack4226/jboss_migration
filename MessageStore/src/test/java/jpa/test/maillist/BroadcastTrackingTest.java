@@ -1,20 +1,19 @@
 package jpa.test.maillist;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 
 import jpa.constant.Constants;
 import jpa.constant.StatusId;
 import jpa.model.BroadcastMessage;
 import jpa.model.BroadcastTracking;
+import jpa.msgui.vo.PagingVo;
 import jpa.service.common.EmailAddressService;
 import jpa.service.maillist.BroadcastMessageService;
 import jpa.service.maillist.BroadcastTrackingService;
@@ -37,7 +36,7 @@ public class BroadcastTrackingTest extends BoTestBase {
 	@Test
 	public void testBroadcastTrackingService() {
 		
-		List<BroadcastMessage> bdlist = bcdService.getAll();
+		List<BroadcastMessage> bdlist = bcdService.getTop100();
 		assertFalse(bdlist.isEmpty());
 		
 		BroadcastMessage bd1 = bdlist.get(0);
@@ -92,4 +91,24 @@ public class BroadcastTrackingTest extends BoTestBase {
 		assertNull(service.getByRowId(eb3.getRowId()));
 	}
 
+	@Test
+	public void testBroadcastTrackingPaging() {
+		
+		List<BroadcastMessage> bdlist = bcdService.getTop100();
+		assertFalse(bdlist.isEmpty());
+		
+		BroadcastMessage bd1 = bdlist.get(0);
+		
+		int count = service.getMessageCountForWeb(bd1.getRowId());
+		assertTrue(0 <= count);
+		
+		PagingVo vo = new PagingVo();
+		int pageSize = count > vo.getPageSize() ? vo.getPageSize() : (count > 2 ? count - 2 : count);
+		vo.setPageSize(pageSize);
+		
+		Page<BroadcastTracking> page = service.getBroadcastTrackingsForWeb(bd1.getRowId(), vo);
+		assertNotNull(page);
+		
+		assertTrue(pageSize >= page.getContent().size());
+	}
 }

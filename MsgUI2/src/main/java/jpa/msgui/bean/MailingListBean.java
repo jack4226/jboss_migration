@@ -278,10 +278,13 @@ public class MailingListBean implements java.io.Serializable {
 		return TO_CANCELED;
 	}
 	
-	// TODO investigate using xhtml for file upload
+	public void uploadFilesListener(AjaxBehaviorEvent event) {
+		uploadFiles();
+	}
+	
+	// TODO use xhtml for file upload
 	public String uploadFiles() {
 		String listId = mailingList.getListId();
-		//String pageUrl = "/upload/msgInboxAttachFiles.jsp?frompage=uploademails&listid="+listId;
 		String pageUrl = "/upload/emailAddrAttachFile.jsp?frompage=uploademails&listid="+listId;
 		FacesContext context = FacesContext.getCurrentInstance();
 		ExternalContext ectx = context.getExternalContext();

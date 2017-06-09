@@ -47,7 +47,7 @@ public class BroadcastTrackingBoTest extends BoTestBase {
 	@Test
 	public void testBroadcastTrackingBo() {
 		
-		List<BroadcastMessage> bmlist = bcdService.getAll();
+		List<BroadcastMessage> bmlist = bcdService.getTop100();
 		assertFalse(bmlist.isEmpty());
 		
 		BroadcastMessage bd1 = bmlist.get(0);

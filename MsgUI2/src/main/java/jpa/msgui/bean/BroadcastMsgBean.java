@@ -29,6 +29,7 @@ public class BroadcastMsgBean extends PaginationBean implements java.io.Serializ
 	
 	private transient BroadcastMessageService broadcastMsgDao = null;
 	private transient EmailAddressService emailAddrDao = null;
+	
 	private transient DataModel<BroadcastMessage> broadcasts = null;
 	
 	private BroadcastMessage broadcastMsg = null;
@@ -120,7 +121,12 @@ public class BroadcastMsgBean extends PaginationBean implements java.io.Serializ
 		}
 		return TO_VIEW;
 	}
-
+	
+	
+	public void viewMessageTrackingListener(AjaxBehaviorEvent event) {
+		beanMode = BeanMode.recipients;
+	}
+	
 	public void deleteBroadcastsListener(AjaxBehaviorEvent event) {
 		deleteBroadcasts();
 	}
@@ -183,13 +189,6 @@ public class BroadcastMsgBean extends PaginationBean implements java.io.Serializ
 	public String cancelEdit() {
 		refresh();
 		beanMode = BeanMode.list;
-//		String viewId = FacesUtil.getCurrentViewId();
-//		if (StringUtils.contains(viewId, "broadcastMsgView")) {
-//			return TO_CANCELED_FROM_VIEW;
-//		}
-//		else {
-//			return TO_CANCELED;
-//		}
 		return TO_CANCELED;
 	}
 

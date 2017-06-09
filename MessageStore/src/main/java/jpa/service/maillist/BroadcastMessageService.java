@@ -49,8 +49,11 @@ public class BroadcastMessageService implements java.io.Serializable {
 		return repository.findAllByMailingList_ListIdAndEmailTemplate_TemplateId(listId, templateId);
 	}
 
-	public List<BroadcastMessage> getAll() {
-		return repository.findAllByOrderByRowId();
+	/*
+	 * returns up to 100 more recent messages. 
+	 */
+	public List<BroadcastMessage> getTop100() {
+		return repository.findTop100ByOrderByRowIdDesc();
 	}
 	
 	public int updateSentCount(int rowId) {

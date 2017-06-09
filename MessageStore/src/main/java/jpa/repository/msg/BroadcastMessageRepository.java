@@ -13,7 +13,7 @@ import jpa.model.BroadcastMessage;
 
 public interface BroadcastMessageRepository extends JpaRepository<BroadcastMessage, Integer> {
 
-	public List<BroadcastMessage> findAllByOrderByRowId();
+	public List<BroadcastMessage> findTop100ByOrderByRowIdDesc();
 	
 	public List<BroadcastMessage> findAllByMailingList_ListId(String listId);
 	

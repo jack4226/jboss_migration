@@ -7,11 +7,11 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 <h:messages styleClass="errors" layout="list" rendered="#{debug.showMessages}"/>
-<h:outputFormat value="#{msgs.broadcastsListLabel}" styleClass="gridHeader">
+<h:outputFormat value="#{msgs.broadcastTrackingLabel}" styleClass="gridHeader">
    <f:param value=""/>
 </h:outputFormat>
-<h:dataTable id="data_table" value="#{broadcastMsg.broadcasts}" var="list" 
-   rows="#{broadcastMsg.pagingVo.pageSize}" binding="#{table}"
+<h:dataTable id="dt_tracking" value="#{broadcastTrk.msgTrackings}" var="list" 
+   rows="#{broadcastTrk.pagingVo.pageSize}" binding="#{table}"
    styleClass="jsfDataTable" rowClasses="oddRows, evenRows"
    headerClass="dataTableHeader" footerClass="dataTableFooter">
    
@@ -26,35 +26,9 @@
    </h:column>
    <h:column>
       <f:facet name="header">
-         <h:outputText value="#{msgs.timeStartedHeader}"/>
+         <h:outputText value="#{msgs.emailAddrHeader}"/>
       </f:facet>
-      <h:commandLink title="#{table.rowIndex}_viewDetail">
-	      <h:outputText value="#{list.startTime}" title="Click to view broadcast message">
-	      	<f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
-	      </h:outputText>
-	      <f:param name="msgId" value="#{list.rowId}"/>
-	      <f:ajax listener="#{broadcastMsg.viewBroadcastMsgListener}" render="@form"/>
-      </h:commandLink>
-   </h:column>
-   <h:column>
-      <f:facet name="header">
-         <h:outputText value="#{msgs.timeEndedHeader}"/>
-      </f:facet>
-		<h:outputText value="#{list.endTime}">
-		  <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss" title="#{table.rowIndex}_endTime"/>
-		</h:outputText>
-   </h:column>
-   <h:column>
-      <f:facet name="header">
-         <h:outputText value="#{msgs.listIdHeader}"/>
-      </f:facet>
-      <h:outputText value="#{mailingList.findListIdByRowId(list.mailingList.rowId)}" title="#{table.rowIndex}_listId"/>
-   </h:column>
-   <h:column>
-      <f:facet name="header">
-         <h:outputText value="#{msgs.deliveryOptionHeader}"/>
-      </f:facet>
-		<h:outputText value="#{list.deliveryType}" title="#{table.rowIndex}_deliveryType"/>
+		<h:outputText value="#{list.emailAddress.address}" title="#{table.rowIndex}_emailAddr" />
    </h:column>
    <h:column>
       <f:facet name="header">
@@ -66,7 +40,7 @@
       <f:facet name="header">
          <h:outputText value="#{msgs.openCountHeader}"/>
       </f:facet>
-      <h:outputText value="#{list.openCount}" title="#{table.rowIndex}_openCount"/>
+		<h:outputText value="#{list.openCount}" title="#{table.rowIndex}_openCount"/>
    </h:column>
    <h:column>
       <f:facet name="header">
@@ -90,23 +64,6 @@
       	<f:convertDateTime pattern="yyyy-MM-dd"/>
       </h:outputText>
    </h:column>
-   <h:column>
-      <f:facet name="header">
-         <h:outputText value="#{msgs.unsubscribeCountHeader}"/>
-      </f:facet>
-	  <h:outputText value="#{list.unsubscribeCount}" title="#{table.rowIndex}_unsubCount"/>
-   </h:column>
-   <h:column>
-      <f:facet name="header">
-         <h:outputText value="#{msgs.broadcastMsgRecipients}"/>
-      </f:facet>
-      <h:commandLink title="#{table.rowIndex}_viewRecipients">
-	      <h:outputText value="#{msgs.broadcastMsgRecipients}" title="Click to view broadcast recipients"/>
-	      <f:param name="frompage" value="broadcast"/>
-	      <f:param name="bcstrowid" value="#{list.rowId}"/>
-	      <f:ajax listener="#{broadcastMsg.viewMessageTrackingListener}" render="@form"/>
-      </h:commandLink>
-   </h:column>   
 	<f:facet name="footer">
     <h:panelGroup>
 	<h:panelGrid columns="2" styleClass="fullWidth"
@@ -115,35 +72,35 @@
 			<f:verbatim>&nbsp;</f:verbatim>
 		</h:panelGroup>
 		<h:panelGroup>
-          	<h:outputText value="#{broadcastMsg.pagingVo.pageNumber * broadcastMsg.pagingVo.pageSize + 1}"
+          	<h:outputText value="#{broadcastTrk.pagingVo.pageNumber * broadcastTrk.pagingVo.pageSize + 1}"
           		style="font-weight: bold;" title="First Row Number"/>
           	<h:outputText value=" - "/>
-			<h:outputText value="#{broadcastMsg.lastPageRow}"
+			<h:outputText value="#{broadcastTrk.lastPageRow}"
 				style="font-weight: bold;" title="Last Row Number"/>
 			<h:outputText value=" of " style="font-weight: bold;"/>
-          	<h:outputText value="#{broadcastMsg.rowCount}" 
+          	<h:outputText value="#{broadcastTrk.rowCount}" 
           		style="font-weight: bold;" title="Row Count"/>
           	<f:verbatim>&nbsp;&nbsp;</f:verbatim>
             <h:commandLink value="#{msgs.firstLinkText}" title="Page First"
-                disabled="#{broadcastMsg.pagingVo.pageNumber == 0}" >
-                <f:ajax listener="#{broadcastMsg.pageFirst}" render="@form"/>
+                disabled="#{broadcastTrk.pagingVo.pageNumber == 0}" >
+                <f:ajax listener="#{broadcastTrk.pageFirst}" render="@form"/>
             </h:commandLink>
             <f:verbatim>&nbsp;|&nbsp;</f:verbatim>
             <h:commandLink value="#{msgs.prevLinkText}" title="Page Previous"
-                disabled="#{broadcastMsg.pagingVo.pageNumber == 0}" >
-                <f:ajax listener="#{broadcastMsg.pagePrevious}" render="@form"/>
+                disabled="#{broadcastTrk.pagingVo.pageNumber == 0}" >
+                <f:ajax listener="#{broadcastTrk.pagePrevious}" render="@form"/>
             </h:commandLink>
             <f:verbatim>&nbsp;|&nbsp;</f:verbatim>
-            <c:set var="page_number" value="${broadcastMsg.pagingVo.pageNumber + 1}"/>
-            <c:set var="page_size" value="${broadcastMsg.pagingVo.pageSize}"/>
-			<c:set var="row_count" value="${broadcastMsg.rowCount}"/>
+            <c:set var="page_number" value="${broadcastTrk.pagingVo.pageNumber + 1}"/>
+            <c:set var="page_size" value="${broadcastTrk.pagingVo.pageSize}"/>
+			<c:set var="row_count" value="${broadcastTrk.rowCount}"/>
             <c:if test="${page_number * page_size lt row_count}">
 	            <h:commandLink value="#{msgs.nextLinkText}" title="Page Next" disabled="false" >
-	                <f:ajax listener="#{broadcastMsg.pageNext}" render="@form"/>
+	                <f:ajax listener="#{broadcastTrk.pageNext}" render="@form"/>
 	            </h:commandLink>
 	            <f:verbatim>&nbsp;|&nbsp;</f:verbatim>
 	            <h:commandLink value="#{msgs.lastLinkText}" title="Page Last" disabled="false" >
-	                <f:ajax listener="#{broadcastMsg.pageLast}" render="@form"/>
+	                <f:ajax listener="#{broadcastTrk.pageLast}" render="@form"/>
 	            </h:commandLink>
             </c:if>
             <c:if test="${page_number * page_size ge row_count}">
@@ -160,23 +117,13 @@
 <h:panelGrid columns="2" styleClass="commandBar"
 	columnClasses="alignLeft70, alignRight30">
 	<h:panelGroup>
-		<h:commandButton value="#{msgs.deleteButtonText}" title="Delete selected rows" 
-			disabled="#{not broadcastMsg.anyBroadcastsMarkedForDeletion}"
-			onclick="javascript:return confirmDelete();">
-			<f:ajax listener="#{broadcastMsg.deleteBroadcastsListener}" render="@form"/>
-		</h:commandButton>
-		<f:verbatim>&nbsp;</f:verbatim>
-		<h:commandButton value="#{msgs.saveSelectedButtonText}" title="Save selected rows"
-			disabled="#{not broadcastMsg.anyBroadcastsMarkedForDeletion}"
-			onclick="javascript:return confirmSubmit();">
-			<f:ajax listener="#{broadcastMsg.saveBroadcastsListener}" render="@form"/>
-		</h:commandButton>
-		<f:verbatim>&nbsp;</f:verbatim>
 		<h:commandButton value="#{msgs.refreshLinkText}" title="Refresh from database" >
-			<f:ajax event="click" render="data_table" />
+			<f:ajax event="click" render="@form" />
 		</h:commandButton>
 		<f:verbatim>&nbsp;</f:verbatim>
-		<h:commandButton value="#{msgs.backButtonText}" title="Go Back" onclick="window.history.back();"/>
+		<h:commandButton value="#{msgs.backButtonText}" title="Go Back">
+			<f:ajax event="click" listener="#{broadcastTrk.cancelEditListener}" render="@form @all" />
+		</h:commandButton>
 	</h:panelGroup>
 	<h:panelGroup>
 		<f:verbatim>&nbsp;</f:verbatim>

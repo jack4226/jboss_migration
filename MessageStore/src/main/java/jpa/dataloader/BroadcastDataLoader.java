@@ -92,7 +92,7 @@ public class BroadcastDataLoader extends AbstractDataLoader {
 	
 	private void loadEmailBroadcasts() {
 		java.sql.Timestamp createTime = new java.sql.Timestamp(System.currentTimeMillis());
-		List<BroadcastMessage> bdlist = bcastService.getAll();
+		List<BroadcastMessage> bdlist = bcastService.getTop100();
 		
 		int count = 0;
 		int nextIdx = 0;

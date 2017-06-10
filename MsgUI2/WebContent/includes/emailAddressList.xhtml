@@ -170,7 +170,7 @@
 			<f:ajax event="click" listener="#{emailAddress.refreshPage}" render="data_table" />
 		</h:commandButton>
 		<f:verbatim>&nbsp;</f:verbatim>
-		<h:commandButton value="#{msgs.backButtonText}" onclick="window.history.back();"/>
+		<h:commandButton value="#{msgs.backButtonText}" onclick="window.history.back(); return false;"/>
 	</h:panelGroup>
 	<h:panelGroup  id="eal_navpanel4">
 		<f:verbatim>&nbsp;</f:verbatim>

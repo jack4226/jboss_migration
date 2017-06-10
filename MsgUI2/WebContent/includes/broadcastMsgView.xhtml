@@ -12,8 +12,11 @@
 <h:panelGrid columns="2" styleClass="smtpHeaders" 
 	columnClasses="smtpLabelColumn, smtpTextColumn">
 	
-	<h:outputText value="#{msgs.msgSubjectPrompt}" />
+	<h:outputText value="#{msgs.broadcastMsgTitleLabel}" />
 	<h:outputText value="#{broadcastMsg.broadcastMsg.msgSubject}" />
+
+	<h:outputText value="#{msgs.tmpltSubjectHeader}" />
+	<h:outputText value="#{broadcastMsg.broadcastMsg.emailTemplate.subject}" />
 
 	<h:outputText value="#{msgs.receivedDatePrompt}" />
 	<h:outputText value="#{broadcastMsg.broadcastMsg.startTime}">
@@ -24,6 +27,9 @@
 		rendered="#{broadcastMsg.broadcastMsg.mailingList.senderData != null}" />
 	<h:outputText value="#{broadcastMsg.broadcastMsg.mailingList.senderData.senderId}" 
 		rendered="#{broadcastMsg.broadcastMsg.mailingList.senderData != null}" />
+	
+	<h:outputText value="#{msgs.listIdPrompt}" />
+	<h:outputText value="#{broadcastMsg.broadcastMsg.mailingList.listId}" />
 	
 	<h:outputText value="#{msgs.emailTemplatePrompt}" 
 		rendered="#{broadcastMsg.broadcastMsg.emailTemplate != null}" />

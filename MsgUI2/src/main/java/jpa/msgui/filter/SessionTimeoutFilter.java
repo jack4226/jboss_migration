@@ -53,8 +53,7 @@ public class SessionTimeoutFilter implements Filter {
 		}
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
-		String pathInfo = StringUtil
-				.trim(httpRequest.getRequestURI(), httpRequest.getContextPath());
+		String pathInfo = StringUtil.trim(httpRequest.getRequestURI(), httpRequest.getContextPath());
 		// Check PathInfo
 		if (isPageSessioned(httpRequest, pathInfo) == false) {
 			chain.doFilter(request, response);
@@ -104,8 +103,7 @@ public class SessionTimeoutFilter implements Filter {
 	 */
 	private boolean isPageSessioned(HttpServletRequest httpRequest, String pathInfo) {
 		boolean pageSessioned = false;
-		if (pathInfo.startsWith("/includes") || pathInfo.startsWith("/images")
-				|| pathInfo.startsWith("/htmls")) {
+		if (pathInfo.startsWith("/includes") || pathInfo.startsWith("/images") || pathInfo.startsWith("/htmls")) {
 			// This is not necessary, but it might be useful if you want to skip
 			// some include files. If those include files are loaded, continue 
 			// the filter chain and abort this filter, because it is usually not

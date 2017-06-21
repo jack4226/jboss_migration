@@ -24,6 +24,10 @@ public class BoTestBase {
 	
 	protected static boolean enableJunitRunClasses = false;
 	
+	static {
+		System.setProperty("hibernate.generate_statistics", "true");
+	}
+	
 	@Before
 	public void prepare() {
 	}

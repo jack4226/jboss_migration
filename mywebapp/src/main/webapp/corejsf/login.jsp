@@ -47,7 +47,7 @@
             	<h:outputText value="Conclusion"/>
             </h:outputLink>
             <p><p><p><p><p>
-            <a name="conclusion">Conclusion</a>
+            <a title="conclusion">Conclusion</a>
          </h:form>
       </body>
    </f:view>

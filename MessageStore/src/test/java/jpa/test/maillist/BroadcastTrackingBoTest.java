@@ -74,13 +74,16 @@ public class BroadcastTrackingBoTest extends BoTestBase {
 		
 		java.sql.Timestamp ts = new java.sql.Timestamp(System.currentTimeMillis());
 		
-		BroadcastTracking bt2 = new BroadcastTracking();
-		bt2.setBroadcastMessage(bt1.getBroadcastMessage());
-		bt2.setEmailAddress(sub2.getEmailAddress());
-		bt2.setStatusId(StatusId.ACTIVE.getValue());
-		bt2.setUpdtUserId(Constants.DEFAULT_USER_ID);
-		bt2.setUpdtTime(ts);
-		service.insert(bt2);
+		BroadcastTracking bttmp = service.getByPrimaryKey(sub2.getEmailAddress().getRowId(), bt1.getBroadcastMessage().getRowId());
+		if (bttmp == null) {
+			BroadcastTracking bt2 = new BroadcastTracking();
+			bt2.setBroadcastMessage(bt1.getBroadcastMessage());
+			bt2.setEmailAddress(sub2.getEmailAddress());
+			bt2.setStatusId(StatusId.ACTIVE.getValue());
+			bt2.setUpdtUserId(Constants.DEFAULT_USER_ID);
+			bt2.setUpdtTime(ts);
+			service.insert(bt2);
+		}
 		
 		Subscription sub3 = bcstTrkBo.removeFromList(bt1.getBroadcastMessage().getRowId(), sub2.getEmailAddress().getRowId());
 		assertNotNull(sub3);

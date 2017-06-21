@@ -1,9 +1,6 @@
 package jpa.test.maillist;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
@@ -44,6 +41,17 @@ public class BroadcastMessageTest extends BoTestBase {
 		assertFalse(bdlist.isEmpty());
 		
 		BroadcastMessage bd1 = bdlist.get(0);
+		
+		if (bd1.getEmailTemplate() == null) {
+			for (int i = 1; i < bdlist.size(); i++) {
+				BroadcastMessage bm = bdlist.get(i);
+				if (bm.getEmailTemplate() != null) {
+					bd1 = bm;
+					break;
+				}
+			}
+		}
+		assertNotNull(bd1.getEmailTemplate());
 		
 		java.sql.Timestamp ts = new java.sql.Timestamp(System.currentTimeMillis());
 		bd1.setUpdtTime(ts);

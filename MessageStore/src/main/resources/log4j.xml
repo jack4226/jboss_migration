@@ -52,6 +52,9 @@
    <logger name="org.hibernate.loader">
 	  <level value="INFO"/> 
    </logger>
+   <logger name="org.hibernate.stat">
+	  <level value="DEBUG"/> 
+   </logger>
    <logger name="org.hibernate">
 	  <level value="INFO"/> 
    </logger>

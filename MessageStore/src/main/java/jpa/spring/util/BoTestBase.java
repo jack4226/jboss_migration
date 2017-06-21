@@ -1,5 +1,6 @@
 package jpa.spring.util;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +10,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import jpa.util.Log4jConfigUtil;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes={jpa.spring.util.SpringAppConfig.class})
@@ -26,6 +29,7 @@ public class BoTestBase {
 	
 	static {
 		System.setProperty("hibernate.generate_statistics", "true");
+		Log4jConfigUtil.modifyLogLevel(Level.ERROR, Level.INFO, true);
 	}
 	
 	@Before

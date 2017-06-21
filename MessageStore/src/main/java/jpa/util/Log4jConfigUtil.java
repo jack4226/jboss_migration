@@ -9,6 +9,7 @@ import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.Layout;
 import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.apache.log4j.RollingFileAppender;
@@ -28,8 +29,8 @@ public class Log4jConfigUtil {
 	
 	/**
 	 * modify the log level for console appender and file appender.
-	 * @param console
-	 * @param file
+	 * @param console - console logging level
+	 * @param file - file logging level
 	 */
 	public static void modifyLogLevel(Level console, Level file) {
 		modifyLogLevel(console, file, false);
@@ -41,12 +42,12 @@ public class Log4jConfigUtil {
 		Enumeration<Appender> appenders = root.getAllAppenders();
 		while(appenders.hasMoreElements()) {
 			Appender appender = appenders.nextElement();
-			if ("CONSOLE".equals(appender.getName()) && console != null) {
+			if ("CONSOLE".equalsIgnoreCase(appender.getName()) && console != null) {
 				System.out.println("Appender: " + appender.getName() + ", level: " + console.toString());
 				if (appender instanceof ConsoleAppender)
 					((ConsoleAppender)appender).setThreshold(console);
 			}
-			else if ("FILE".equals(appender.getName()) && file != null) {
+			else if ("FILE".equalsIgnoreCase(appender.getName()) && file != null) {
 				System.out.println("Appender: " + appender.getName() + ", level: " + file.toString());
 				if (appender instanceof FileAppender) {
 					((FileAppender)appender).setThreshold(file);
@@ -58,8 +59,8 @@ public class Log4jConfigUtil {
 		}
 		
 		if (setHibernateLoggingLevelToInfo) {
-			@SuppressWarnings({ "unchecked", "deprecation" })
-			Enumeration<Category> categories = Logger.getCurrentCategories();
+			@SuppressWarnings({ "unchecked" })
+			Enumeration<Category> categories = LogManager.getCurrentLoggers();
 			while (categories.hasMoreElements()) {
 				Category category = categories.nextElement();
 				//System.out.println(category.getName() + ", Level: " + category.getLevel());

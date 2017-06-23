@@ -102,7 +102,7 @@ public class TemplateVariableTest extends BoTestBase {
 		
 		TemplateVariable var1 = service.getByBestMatch(pk0);
 		assertNotNull(var1);
-		System.out.println("TemplateVariable: " + PrintUtil.prettyPrint(var1,2));
+		logger.info("TemplateVariable: " + PrintUtil.prettyPrint(var1,2));
 
 		TemplateVariablePK pk1 = var1.getTemplateVariablePK();
 		TemplateVariable var2 = service.getByPrimaryKey(pk1);

@@ -72,7 +72,7 @@ public class RuleElementTest extends BoTestBase {
 		List<RuleElement> lst1 = service.getByRuleName(logic.getRuleName());
 		assertFalse(lst1.isEmpty());
 		RuleElement elem = lst1.get(0);
-		System.out.println(PrintUtil.prettyPrint(elem));
+		logger.info(PrintUtil.prettyPrint(elem));
 		
 		// test update
 		RuleElement obj2 = logic.getRuleElements().get(size-1);

@@ -97,7 +97,7 @@ public class SubscriptionTest extends BoTestBase {
 			String address = rcd7.getEmailAddress().getAddress();
 			String listId = rcd7.getMailingList().getListId();
 			Subscription rcd8 = service.getByAddressAndListId(address, listId);
-			System.out.println("RCD8: " + PrintUtil.prettyPrint(rcd8,1));
+			logger.info("RCD8: " + PrintUtil.prettyPrint(rcd8,1));
 			assertEquals(rcd8.getOpenCount(), openCount+5);
 			assertEquals(rcd8.getClickCount(), clickCount+10);
 			
@@ -210,19 +210,19 @@ public class SubscriptionTest extends BoTestBase {
 		int rowsDeleted = service.deleteByRowId(rcd3.getRowId());
 		assertTrue(0==rowsDeleted);
 
-		System.out.println(PrintUtil.prettyPrint(rcd5,1));
+		logger.info(PrintUtil.prettyPrint(rcd5,1));
 		rowsDeleted = service.deleteByAddressAndListId(emailAddr2.getAddress(), rcd5.getMailingList().getListId());
 		assertTrue(1==rowsDeleted);
 
 		// test subscription
 		Subscription sub1 = service.subscribe("jpasubtest1@localhost", list.get(0).getListId());
-		System.out.println(PrintUtil.prettyPrint(sub1,1));
+		logger.info(PrintUtil.prettyPrint(sub1,1));
 		sub1 = service.getByAddressAndListId("jpasubtest1@localhost", list.get(0).getListId());
 		assertNotNull(sub1);
 		assertTrue(sub1.isSubscribed());
 	
 		Subscription sub2 = service.unsubscribe("jpasubtest1@localhost", list.get(0).getListId());
-		System.out.println(PrintUtil.prettyPrint(sub2,1));
+		logger.info(PrintUtil.prettyPrint(sub2,1));
 		sub2 = service.getByAddressAndListId("jpasubtest1@localhost", list.get(0).getListId());
 		assertFalse(sub2.isSubscribed());
 		

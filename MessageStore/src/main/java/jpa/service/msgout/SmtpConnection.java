@@ -17,6 +17,7 @@ import jpa.model.SmtpServer;
 import jpa.util.EmailAddrUtil;
 import jpa.util.ExceptionUtil;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 /** 
@@ -34,6 +35,8 @@ public final class SmtpConnection implements java.io.Serializable {
 	private static final long serialVersionUID = -2482207330299000973L;
 	static final Logger logger = Logger.getLogger(SmtpConnection.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
+	
+	private boolean debugSession = Level.DEBUG.equals(logger.getLevel());
 	
 	private final SmtpServer smtpConnVo;
 
@@ -116,9 +119,7 @@ public final class SmtpConnection implements java.io.Serializable {
 		
 		// Get a Session object
 		session = Session.getInstance(sys_props);
-		if (isDebugEnabled)
-			session.setDebug(true);
-
+		session.setDebug(debugSession);
 		int extraRetryTime = 0;
 		extraRetryTime = vo.getMaximumRetries();
 		retryFreq = vo.getRetryFrequence();

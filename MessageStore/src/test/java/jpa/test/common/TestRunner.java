@@ -28,7 +28,7 @@ public class TestRunner {
 			System.err.println("!!!!! JPA test stopped with error, number of errors (" + result.getFailures().size()  + ") !!!!!");
 		}
 		else {
-			System.out.println("########## JPA test completed ##########");
+			logger.info("########## JPA test completed ##########");
 		}
 	}
 
@@ -37,7 +37,7 @@ public class TestRunner {
 		// looking for class name ending with "Test", for example SubscriberTest.class
 		List<Class<?>> clsList = new ArrayList<Class<?>>();
 		String homeDir = System.getProperty("user.dir") + PS + "bin" + PS;
-		System.out.println("Working directory: " + homeDir);
+		logger.info("Working directory: " + homeDir);
 		List<File> files =  null;
 		try {
 			files = getClassesFromDirTree(new File(homeDir), "Test.class");
@@ -61,7 +61,7 @@ public class TestRunner {
 						continue;
 					}
 					clsList.add(testCls);
-					System.out.println("Test Class: " + testCls.getName());
+					logger.info("Test Class: " + testCls.getName());
 				}
 			}
 			catch (ClassNotFoundException e) {
@@ -85,7 +85,7 @@ public class TestRunner {
 			if (file.isFile()) {
 				if (file.getName().endsWith(endsWith)) {
 					result.add(file);
-					//System.out.println(file.getPath());
+					//logger.info(file.getPath());
 				}
 			}
 			else if (file.isDirectory()) {

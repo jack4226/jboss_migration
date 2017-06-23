@@ -78,7 +78,7 @@ public class MessageBeanTest extends BoTestBase {
 		if (msgStreamVo == null) {
 			msgStreamVo = streamService.getLastRecord();
 		}
-		System.out.println("MsgStreamDao - getByPrimaryKey: "+LF+msgStreamVo);
+		logger.info("MsgStreamDao - getByPrimaryKey: "+LF+msgStreamVo);
 		return msgStreamVo.getMsgStream();
 	}
 }

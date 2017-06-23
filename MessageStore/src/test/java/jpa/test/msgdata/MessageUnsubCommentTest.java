@@ -111,7 +111,7 @@ public class MessageUnsubCommentTest extends BoTestBase {
 		insertUnsubComments();
 		MessageUnsubComment cmt11 = service.getByRowId(cmt1.getRowId());
 		
-		System.out.println(PrintUtil.prettyPrint(cmt11,2));
+		logger.info(PrintUtil.prettyPrint(cmt11,2));
 		
 		MessageUnsubComment cmt12 = service.getByMsgInboxId(inbox1.getRowId());
 		assertTrue(cmt11.equals(cmt12));

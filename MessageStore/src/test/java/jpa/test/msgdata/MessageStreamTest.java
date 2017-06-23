@@ -102,7 +102,7 @@ public class MessageStreamTest extends BoTestBase {
 		insertMsgStreams();
 		MessageStream adr11 = service.getByRowId(adr1.getRowId());
 		
-		System.out.println(PrintUtil.prettyPrint(adr11,2));
+		logger.info(PrintUtil.prettyPrint(adr11,2));
 		
 		MessageStream adr12 = service.getByMsgInboxId(inbox1.getRowId());
 		assertTrue(adr11.equals(adr12));

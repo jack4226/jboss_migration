@@ -10,6 +10,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.log4j.Logger;
 import org.eclipse.persistence.config.PersistenceUnitProperties;
 import org.eclipse.persistence.jpa.PersistenceProvider;
 import org.junit.AfterClass;
@@ -31,6 +32,7 @@ import jpa.service.common.SenderDataService;
 import jpa.spring.util.SpringUtil;
 
 public class IdTokens2Test {
+	static final Logger logger = Logger.getLogger(IdTokens2Test.class);
 
 	private static final String PERSISTENCE_UNIT_NAME = "MessageDB";
 
@@ -69,7 +71,7 @@ public class IdTokens2Test {
 		List<IdTokens> tokens = q.getResultList();
 		try {
 			for (IdTokens token : tokens) {
-				System.out.println(token);
+				logger.info(token);
 				// update record
 				entityManager.getTransaction().begin();
 				if ("SysAdmin".equalsIgnoreCase(token.getUpdtUserId())) {
@@ -82,7 +84,7 @@ public class IdTokens2Test {
 				entityManager.persist(token);
 				entityManager.getTransaction().commit();
 			}
-			System.out.println("Size: " + tokens.size());
+			logger.info("Size: " + tokens.size());
 		}
 		finally {
 			entityManager.close();
@@ -174,7 +176,7 @@ public class IdTokens2Test {
 		@SuppressWarnings("unchecked")
 		List<IdTokens> tokens = q.getResultList();
 		for (IdTokens token : tokens) {
-			System.out.println(token);
+			logger.info(token);
 			// update record
 			entityManager.getTransaction().begin();
 			if ("SysAdmin".equalsIgnoreCase(token.getUpdtUserId())) {
@@ -187,7 +189,7 @@ public class IdTokens2Test {
 			entityManager.persist(token);
 			entityManager.getTransaction().commit();
 		}
-		System.out.println("Size: " + tokens.size());
+		logger.info("Size: " + tokens.size());
 
 		entityManager.close();
 	}

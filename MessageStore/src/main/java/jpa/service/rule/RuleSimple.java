@@ -180,22 +180,6 @@ public class RuleSimple extends RuleBase {
 			return null;
 		}
 	}
-	
-	public String printRuleContent() {
-		StringBuffer sb = new StringBuffer();
-		sb.append(super.printRuleContent());
-		
-		if (storedProcedure != null) {
-			sb.append("Stored Procedure: " + storedProcedure + LF);
-		}
-		if (exclusionList != null) {
-			sb.append("Exclusion List:" + LF);
-			for (int i = 0; i < exclusionList.size(); i++) {
-				sb.append("     " + exclusionList.get(i) + LF);
-			}
-		}
-		return sb.toString();
-	}
 
 	public String match(String mail_type, Object mail_obj) {
 		// dummy implementation satisfying the super class

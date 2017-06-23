@@ -84,7 +84,7 @@ public class RenderVariableTest extends BoTestBase {
 		service.insert(in1);
 		
 		RenderVariable msg1 = service.getByPrimaryKey(in1.getRenderVariablePK());
-		System.out.println(PrintUtil.prettyPrint(msg1,2));
+		logger.info(PrintUtil.prettyPrint(msg1,2));
 		
 		RenderVariable in2 = new RenderVariable();
 		try {
@@ -109,7 +109,7 @@ public class RenderVariableTest extends BoTestBase {
 		service.insert(in3);
 
 		RenderVariable msg2  =service.getByRowId(in2.getRowId());
-		System.out.println(PrintUtil.prettyPrint(msg2,1));
+		logger.info(PrintUtil.prettyPrint(msg2,1));
 		
 		List<RenderVariable> lst1 = service.getByRenderId(mrn1.getRowId());
 		assertTrue(3==lst1.size());

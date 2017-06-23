@@ -52,7 +52,7 @@ public class SessionUploadTest extends BoTestBase {
 		
 		SessionUpload tkn2 = service.getByPrimaryKey(pk1);
 		assertNotNull(tkn2);
-		System.out.println(PrintUtil.prettyPrint(tkn2,2));
+		logger.info(PrintUtil.prettyPrint(tkn2,2));
 		
 		assertFalse(service.getBySessionId(pk1.getSessionId()).isEmpty());
 		assertFalse(service.getByUserId(usr1.getUserId()).isEmpty());

@@ -99,7 +99,7 @@ public class SubscriberDataLoader extends AbstractDataLoader {
 		vo.setPageSize(100);
 		vo.setSearchCriteria(PagingVo.Column.address, new PagingVo.Criteria(RuleCriteria.STARTS_WITH, "user"));
 		List<EmailAddress> emailList = emailAddrService.getAddrListByPagingVo(vo);
-		System.out.println("Number of email addresses: " + emailList.size());
+		logger.info("Number of email addresses: " + emailList.size());
 		for (EmailAddress emailaddr : emailList) {
 			if (service.getBySubscriberId(emailaddr.getAddress()) != null) {
 				logger.warn("Subscriber \"" + emailaddr.getAddress() + "\" already exists!");

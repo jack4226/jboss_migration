@@ -37,9 +37,9 @@ public class IdTokens1Test extends BoTestBase {
 		@SuppressWarnings("unchecked")
 		List<IdTokens> tokens = q.getResultList();
 		for (IdTokens token : tokens) {
-			System.out.println(token);
+			logger.info(token);
 		}
-		System.out.println("Size: " + tokens.size());
+		logger.info("Size: " + tokens.size());
 		entityManager.close();
 		assertFalse(tokens.isEmpty());
 	}

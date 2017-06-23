@@ -75,7 +75,7 @@ public class BroadcastMessageTest extends BoTestBase {
 		
 		BroadcastMessage bd2 = service.getByRowId(bd1.getRowId());
 		assertTrue(ts.equals(bd2.getUpdtTime()));
-		System.out.println(PrintUtil.prettyPrint(bd2, 2));
+		logger.info(PrintUtil.prettyPrint(bd2, 2));
 		
 		List<BroadcastMessage> bdlist2 = service.getByMailingListId(bd1.getMailingList().getListId());
 		assertFalse(bdlist2.isEmpty());

@@ -93,7 +93,7 @@ public class MessageSourceTest extends BoTestBase {
 		MessageSource tkn0 = service.getByMsgSourceId(testMsgSourceId);
 		assertNotNull(tkn0);
 		assertFalse(tkn0.getTemplateVariableList().isEmpty());
-		System.out.println(PrintUtil.prettyPrint(tkn0,2));
+		logger.info(PrintUtil.prettyPrint(tkn0,2));
 		
 		List<MessageSource> lst2 = service.getByFromAddress(adr1.getAddress());
 		assertFalse(lst2.isEmpty());

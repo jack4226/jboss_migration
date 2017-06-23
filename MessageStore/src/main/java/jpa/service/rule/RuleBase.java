@@ -110,8 +110,16 @@ public abstract class RuleBase implements java.io.Serializable {
 		sb.append(dots + "Criteria  : " + criteria.getValue() + LF);
 		sb.append(dots + "Case Sensitive : " + isCaseSensitive + LF);
 		if (this instanceof RuleSimple) {
-			if (StringUtils.isNotBlank(((RuleSimple)this).targetText)) {
-				sb.append(dots + "Target Text : " + ((RuleSimple)this).targetText + LF);
+			if (StringUtils.isNotBlank(((RuleSimple)this).getTargetText())) {
+				sb.append(dots + "Target Text : " + ((RuleSimple)this).getTargetText() + LF);
+			}if (((RuleSimple)this).getStoredProcedure() != null) {
+				sb.append(dots + "Stored Procedure: " + ((RuleSimple)this).getStoredProcedure() + LF);
+			}
+			if (((RuleSimple)this).getExclusionList() != null) {
+				sb.append(dots + "Exclusion List:" + LF);
+				for (int i = 0; i < ((RuleSimple)this).getExclusionList().size(); i++) {
+					sb.append("     " + dots + ((RuleSimple)this).getExclusionList().get(i) + LF);
+				}
 			}
 		}
 		if (subruleList != null) {

@@ -100,7 +100,7 @@ public class MessageDeliveryStatusTest extends BoTestBase {
 		insertDeliveryStatuss();
 		MessageDeliveryStatus log11 = service.getByRowId(log1.getRowId());
 		
-		System.out.println(PrintUtil.prettyPrint(log11,3));
+		logger.info(PrintUtil.prettyPrint(log11,3));
 		
 		MessageDeliveryStatus log12 = service.getByPrimaryKey(log11.getMessageDeliveryStatusPK());
 		assertTrue(log11.equals(log12));

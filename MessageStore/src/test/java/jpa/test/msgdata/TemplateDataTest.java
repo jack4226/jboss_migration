@@ -72,7 +72,7 @@ public class TemplateDataTest extends BoTestBase {
 		
 		TemplateData var1 = service.getByBestMatch(pk0);
 		assertNotNull(var1);
-		System.out.println("TemplateData: " + PrintUtil.prettyPrint(var1,2));
+		logger.info("TemplateData: " + PrintUtil.prettyPrint(var1,2));
 
 		TemplateDataPK pk1 = var1.getTemplateDataPK();
 		TemplateData var2 = service.getByPrimaryKey(pk1);

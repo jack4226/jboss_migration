@@ -57,7 +57,7 @@ public class MessageFolderTest extends BoTestBase {
 		MessageFolder adr11 = service.getByRowId(adr1.getRowId());
 		assertNotNull(adr11);
 		
-		System.out.println(PrintUtil.prettyPrint(adr11,2));
+		logger.info(PrintUtil.prettyPrint(adr11,2));
 		
 		MessageFolder adr12 = service.getOneByFolderName(name1);
 		assertNotNull(adr12);
@@ -71,7 +71,7 @@ public class MessageFolderTest extends BoTestBase {
 		MessageFolder adr22 = service.getByRowId(adr2.getRowId());
 		assertTrue("jpa test".equals(adr22.getUpdtUserId()));
 		
-		System.out.println(PrintUtil.prettyPrint(adr22,2));
+		logger.info(PrintUtil.prettyPrint(adr22,2));
 		
 		// test delete
 		service.delete(adr11);

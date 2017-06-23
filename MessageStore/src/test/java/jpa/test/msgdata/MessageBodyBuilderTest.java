@@ -41,10 +41,10 @@ public class MessageBodyBuilderTest extends BoTestBase {
 		msgBean.setCarrierCode(CarrierCode.SMTPMAIL);
 		msgBean.setMsgId(Integer.valueOf(msgId2));
 		msgBean.setBody(MessageBodyBuilder.getBodyWithEmailId(msgBean));
-		System.out.println(">>>>>>>>>>>>>>>>HTML Message:" + LF + msgBean);
+		logger.info(">>>>>>>>>>>>>>>>HTML Message:" + LF + msgBean);
 
 		String msgId = parser.parseMsg(msgBean.getBody());
-		System.out.println("Email_Id from Body: " + msgId);
+		logger.info("Email_Id from Body: " + msgId);
 		assertTrue((""+bodyId).equals(msgId));
 
 		// embed email_id for plain text email
@@ -62,14 +62,14 @@ public class MessageBodyBuilderTest extends BoTestBase {
 		List<MsgHeader> hdrs = new ArrayList<MsgHeader>();
 		hdrs.add(hdr);
 		msgBean.setHeaders(hdrs);
-		System.out.println(">>>>>>>>>>>>>>>>TEXT Message:" + LF +msgBean);
+		logger.info(">>>>>>>>>>>>>>>>TEXT Message:" + LF +msgBean);
 
 		// parse email_id
 		msgId = parser.parseMsg(msgBean.getBody());
-		System.out.println("Email_Id from Body: " + msgId);
+		logger.info("Email_Id from Body: " + msgId);
 		assertTrue((""+bodyId).equals(msgId));
 		msgId = parser.parseHeaders(msgBean.getHeaders());
-		System.out.println("Email_Id from X-Header: " + msgId);
+		logger.info("Email_Id from X-Header: " + msgId);
 		assertTrue((""+xheaderId).equals(msgId));
 		
 		// embed email_id by MessageBodyBuilder

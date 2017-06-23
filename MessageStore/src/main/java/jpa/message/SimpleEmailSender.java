@@ -17,6 +17,7 @@ import javax.mail.Transport;
 import javax.mail.URLName;
 import javax.mail.internet.MimeMessage;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import jpa.constant.MailProtocol;
@@ -45,7 +46,7 @@ public class SimpleEmailSender implements java.io.Serializable {
 	private Session session=null;
 	private Transport transport=null;
 	private final boolean persistent;
-	private boolean debug = false;
+	private boolean debugSession = Level.DEBUG.equals(logger.getLevel());
 	
 	String LF = System.getProperty("line.separator","\n");
 	
@@ -124,9 +125,7 @@ public class SimpleEmailSender implements java.io.Serializable {
 		
 		// Get a Session object
 		Session session = Session.getDefaultInstance(props, null);
-		if (debug) {
-			session.setDebug(true);
-		}
+		session.setDebug(debugSession);
 		msg.setSentDate(new Date());
 		// send the thing off
 		transportSend(msg, 0);
@@ -155,9 +154,7 @@ public class SimpleEmailSender implements java.io.Serializable {
 		// Get a Session object
 		Session session = Session.getDefaultInstance(props, null);
 		
-		if (debug) {
-			session.setDebug(true);
-		}
+		session.setDebug(debugSession);
 		// construct the message
 		Message msg = new MimeMessage(session);
 		if (m.getFrom() != null && m.getFrom().length > 0) {
@@ -259,9 +256,7 @@ public class SimpleEmailSender implements java.io.Serializable {
 			logger.debug("Entering sendUsePersistent method");
 		}
 		try {
-			if (debug) {
-				session.setDebug(true);
-			}
+			session.setDebug(debugSession);
 			msg.setSentDate(new Date());
 			// use a Transport instance to send the message via a specified smtp
 			// server
@@ -287,9 +282,7 @@ public class SimpleEmailSender implements java.io.Serializable {
 			logger.debug("Entering sendUsePersistent method");
 		}
 		try {
-			if (debug) {
-				session.setDebug(true);
-			}
+			session.setDebug(debugSession);
 			// construct the message
 			Message msg = new MimeMessage(session);
 			if (m.getFrom() != null && m.getFrom().length > 0) {

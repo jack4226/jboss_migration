@@ -53,9 +53,9 @@ public class MessageBeanUtilTest extends BoTestBase {
 
 		for (RuleDataName name : RuleDataName.values()) {
 			Object obj = MessageBeanUtil.invokeMethod(msgBean, name.getValue());
-			//System.out.println("Name: " + name.getValue());
+			//logger.info("Name: " + name.getValue());
 			//if (obj!=null) {
-			//	System.out.println("class: " + obj.getClass().getName() + ", value: " + obj);
+			//	logger.info("class: " + obj.getClass().getName() + ", value: " + obj);
 			//}
 			if ("From".equals(name.getValue())) {
 				assertTrue("postmaster@synnex.com.au".equals(obj));

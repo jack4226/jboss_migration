@@ -61,7 +61,7 @@ public class RuleLogicTest extends BoTestBase {
 		
 		RuleLogic objs2 = service.getByRuleName("testrule1");
 		assertNotNull(objs2);
-		System.out.println(PrintUtil.prettyPrint(objs2));
+		logger.info(PrintUtil.prettyPrint(objs2));
 		
 		List<String> listweb1 = service.getBuiltinRuleNames4Web();
 		assertTrue(listweb1.size()>0);
@@ -99,11 +99,11 @@ public class RuleLogicTest extends BoTestBase {
 		assertTrue(1<service.getNextEvalSequence());
 		List<RuleLogic> lst1 = service.getActiveRules();
 		for (RuleLogic objs : lst1) {
-			System.out.println(PrintUtil.prettyPrint(objs,1));
+			logger.info(PrintUtil.prettyPrint(objs,1));
 		}
-		System.out.println("Number of active rules: " + lst1.size());
+		logger.info("Number of active rules: " + lst1.size());
 		RuleLogic logic = service.getByRuleName(RuleNameEnum.HARD_BOUNCE.getValue());
-		System.out.println(PrintUtil.prettyPrint(logic));
+		logger.info(PrintUtil.prettyPrint(logic));
 		
 		boolean hasSubrules = service.getHasSubrules(RuleNameEnum.HARD_BOUNCE.getValue());
 		assertTrue(hasSubrules);
@@ -138,7 +138,7 @@ public class RuleLogicTest extends BoTestBase {
 		assertTrue(objs2.length > 0);
 		for (int i=0; i<objs2.length; i++) {
 			Object obj = objs2[i];
-			System.out.println("Object[" + i + "]: "  + PrintUtil.prettyPrint(obj));
+			logger.info("Object[" + i + "]: "  + PrintUtil.prettyPrint(obj));
 		}
 		
 		logger.info("Calling getByActiveRules()...");
@@ -146,11 +146,11 @@ public class RuleLogicTest extends BoTestBase {
 		assertTrue(objs3!=null && objs3.size()>0);
 		int idx1 = 0;
 		for (Object[] objs : objs3) {
-			System.out.println("ActiveRule[" + idx1 + "]: ##############################################");
+			logger.info("ActiveRule[" + idx1 + "]: ##############################################");
 			assertTrue(objs!=null && objs.length>0);
 			for (int i=0; i<objs.length; i++) {
 				Object obj = objs[i];
-				System.out.println("Object[" + i + "]: "  + PrintUtil.prettyPrint(obj));
+				logger.info("Object[" + i + "]: "  + PrintUtil.prettyPrint(obj));
 			}
 			idx1++;
 		}
@@ -160,11 +160,11 @@ public class RuleLogicTest extends BoTestBase {
 		assertTrue(objs4!=null && objs4.size()>0);
 		int idx2 = 0;
 		for (Object[] objs : objs4) {
-			System.out.println("BuiltinRule[" + idx2 + "]: ++++++++++++++++++++++++++++++++++++++++++++++");
+			logger.info("BuiltinRule[" + idx2 + "]: ++++++++++++++++++++++++++++++++++++++++++++++");
 			assertTrue(objs!=null && objs.length>0);
 			for (int i=0; i<objs.length; i++) {
 				Object obj = objs[i];
-				System.out.println("Object[" + i + "]: "  + PrintUtil.prettyPrint(obj));
+				logger.info("Object[" + i + "]: "  + PrintUtil.prettyPrint(obj));
 			}
 			idx2++;
 		}

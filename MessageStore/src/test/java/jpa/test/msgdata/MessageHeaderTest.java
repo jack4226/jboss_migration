@@ -102,7 +102,7 @@ public class MessageHeaderTest extends BoTestBase {
 		insertMessageHeaders();
 		MessageHeader hdr11 = service.getByRowId(hdr1.getRowId());
 		
-		System.out.println(PrintUtil.prettyPrint(hdr11,2));
+		logger.info(PrintUtil.prettyPrint(hdr11,2));
 		
 		MessageHeader hdr12 = service.getByPrimaryKey(hdr11.getMessageHeaderPK());
 		assertTrue(hdr11.equals(hdr12));

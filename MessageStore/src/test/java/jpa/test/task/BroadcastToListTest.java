@@ -80,7 +80,7 @@ public class BroadcastToListTest extends BoTestBase {
 				mBean.getHeaders().add(hdr);
 			}
 			String emailId_xhdr = parser.parseHeaders(mBean.getHeaders());
-			System.out.println("Email_Id from body: " + emailId_body + ", from XHdr: " + emailId_xhdr);
+			logger.info("Email_Id from body: " + emailId_body + ", from XHdr: " + emailId_xhdr);
 			assertNotNull(emailId_xhdr);
 			if (emailId_body != null) { // in case of text message
 				assertTrue(emailId_body.equals(emailId_xhdr));
@@ -97,8 +97,8 @@ public class BroadcastToListTest extends BoTestBase {
 			String subj = Renderer.getInstance().render(
 					testNewsLetter.getSubject(), vars,
 					new HashMap<String, ErrorVariableVo>());
-			System.out.println("Subject rendered: " + subj);
-			System.out.println("Subject msginbox: " + minbox.getMsgSubject());
+			logger.info("Subject rendered: " + subj);
+			logger.info("Subject msginbox: " + minbox.getMsgSubject());
 			assertTrue(subj.equals(minbox.getMsgSubject()));
 			
 			if (EmailTemplateEnum.SampleNewsletter2.equals(testNewsLetter)) {

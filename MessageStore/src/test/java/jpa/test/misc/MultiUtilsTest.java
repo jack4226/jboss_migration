@@ -58,7 +58,7 @@ public class MultiUtilsTest {
 			byte[] bytes = FileUtil.loadFromFile("samples/","HtmlSample.html");
 			HtmlConverter parser = HtmlConverter.getInstance();
 			String text = parser.convertToText(new String(bytes));
-			//System.out.println(text);
+			//logger.info(text);
 			assertTrue(StringUtils.startsWith(text.trim(), "A Simple HTML Example Page"));
 			assertTrue(StringUtils.contains(text, "Example Page for simple HTML tags."));
 			assertTrue(StringUtils.endsWith(StringUtil.trimRight(text), "which looks like this </html>."));
@@ -78,7 +78,7 @@ public class MultiUtilsTest {
 			HtmlToText parser = new HtmlToText();
 			String text2 = parser.parse(in);
 			in.close();
-			//System.out.println(text2);
+			//logger.info(text2);
 			assertTrue(StringUtils.startsWith(text2, "A Simple HTML Example Page"));
 			assertTrue(StringUtils.contains(text2, "Example Page for simple HTML tags."));
 			assertTrue(StringUtils.endsWith(StringUtil.trimRight(text2), "which looks like this </html>."));

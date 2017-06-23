@@ -57,7 +57,7 @@ public class MessageRenderedTest extends BoTestBase {
 		service.insert(in1);
 		
 		MessageRendered msg1 = service.getByPrimaryKey(in1.getRowId());
-		System.out.println("Message #1: " + PrintUtil.prettyPrint(msg1,2));
+		logger.info("Message #1: " + PrintUtil.prettyPrint(msg1,2));
 		
 		MessageRendered  first = service.getFirstRecord();
 		assertNotNull(first);
@@ -75,15 +75,15 @@ public class MessageRenderedTest extends BoTestBase {
 		service.insert(in2);
 		
 		MessageRendered msg2 = service.getLastRecord();
-		System.out.println("Message #2: " + PrintUtil.prettyPrint(msg2,2));
+		logger.info("Message #2: " + PrintUtil.prettyPrint(msg2,2));
 		MessageRendered msg22 = service.getAllDataByPrimaryKey(msg2.getRowId());
-		System.out.println("Message #2 (All Data): " + PrintUtil.prettyPrint(msg22,2));
+		logger.info("Message #2 (All Data): " + PrintUtil.prettyPrint(msg22,2));
 		
 		assertNull(service.getNextRecord(msg2));
 		
 		MessageRendered msg3  =service.getPrevoiusRecord(msg2);
 		if (msg3 != null) {
-			System.out.println("Message #3: " + PrintUtil.prettyPrint(msg3,2));
+			logger.info("Message #3: " + PrintUtil.prettyPrint(msg3,2));
 			
 			assertTrue(msg1.equals(msg3));
 	

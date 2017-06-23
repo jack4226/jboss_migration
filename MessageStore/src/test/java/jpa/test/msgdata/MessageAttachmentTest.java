@@ -104,7 +104,7 @@ public class MessageAttachmentTest extends BoTestBase {
 		insertMessageAttachments();
 		MessageAttachment atc11 = service.getByRowId(atc1.getRowId());
 		
-		System.out.println(PrintUtil.prettyPrint(atc11,3));
+		logger.info(PrintUtil.prettyPrint(atc11,3));
 		
 		MessageAttachment atc12 = service.getByPrimaryKey(atc11.getMessageAttachmentPK());
 		assertTrue(atc11.equals(atc12));

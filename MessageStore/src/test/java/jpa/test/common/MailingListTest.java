@@ -142,14 +142,14 @@ public class MailingListTest extends BoTestBase {
 		 * PostgreSQL: BigInteger
 		 * Derby 	 : Integer
 		 */
-		System.out.println(PrintUtil.prettyPrint(mlst1,1));
-		System.out.println("Mailing List Counts: " + mlst1.getSentCount() + "," + mlst1.getOpenCount() + "," + mlst1.getClickCount());
+		logger.info(PrintUtil.prettyPrint(mlst1,1));
+		logger.info("Mailing List Counts: " + mlst1.getSentCount() + "," + mlst1.getOpenCount() + "," + mlst1.getClickCount());
 		
 		// test delete
 		service.delete(rcd3);
 		assertNull(service.getByRowId(rcd3.getRowId()));
 
-		System.out.println(PrintUtil.prettyPrint(rcd5,1));
+		logger.info(PrintUtil.prettyPrint(rcd5,1));
 		int rowsDeleted = service.deleteByListId(testListId2);
 		assertTrue(1==rowsDeleted);
 		

@@ -31,6 +31,7 @@ import jpa.spring.util.SpringUtil;
 import jpa.util.PrintUtil;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 /**
@@ -56,7 +57,7 @@ public class MailReaderBo implements Serializable, Runnable, ConnectionListener,
 	final Session session;
 	
 	private Store store = null;
-	private final boolean debugSession = false;
+	private final boolean debugSession = Level.DEBUG.equals(logger.getLevel());
 
 //	protected int MAX_SENDERS = 0;
 	protected int MESSAGE_COUNT = 0;
@@ -210,7 +211,7 @@ public class MailReaderBo implements Serializable, Runnable, ConnectionListener,
 		else {
 			session = Session.getInstance(m_props, null);
 		}
-		session.setDebug(false); //true); // DON'T CHANGE THIS
+		session.setDebug(false); // DON'T CHANGE THIS
 	}
 	
 

@@ -1,7 +1,7 @@
 package jpa.service.rule;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -45,6 +45,7 @@ public class RuleLoaderBo implements java.io.Serializable {
 	final List<RuleBase>[] preRules;
 	final List<RuleBase>[] postRules;
 	final Map<String, List<RuleBase>>[] subRules;
+	final Set<String>[] subRuleNames;
 	
 	private static boolean isPrintRuleContents = true;
 
@@ -77,6 +78,7 @@ public class RuleLoaderBo implements java.io.Serializable {
 		preRules = new List[2];
 		postRules = new List[2];
 		subRules = new Map[2];
+		subRuleNames = new Set[2];
 		
 		mainRules[0] = new ArrayList<RuleBase>();
 		mainRules[1] = new ArrayList<RuleBase>();
@@ -84,8 +86,10 @@ public class RuleLoaderBo implements java.io.Serializable {
 		preRules[1] = new ArrayList<RuleBase>();
 		postRules[0] = new ArrayList<RuleBase>();
 		postRules[1] = new ArrayList<RuleBase>();
-		subRules[0] = new HashMap<String, List<RuleBase>>();
-		subRules[1] = new HashMap<String, List<RuleBase>>();
+		subRules[0] = new LinkedHashMap<String, List<RuleBase>>();
+		subRules[1] = new LinkedHashMap<String, List<RuleBase>>();
+		subRuleNames[0] = new HashSet<>();
+		subRuleNames[1] = new HashSet<>();
 	}
 	
 	public static void main(String[] args) {
@@ -176,6 +180,7 @@ public class RuleLoaderBo implements java.io.Serializable {
 		preRules[index].clear();
 		postRules[index].clear();
 		subRules[index].clear();
+		subRuleNames[index].clear();
 		
 		for (int i = 0; i < ruleLogics.size(); i++) {
 			RuleLogic logic = ruleLogics.get(i);
@@ -192,6 +197,9 @@ public class RuleLoaderBo implements java.io.Serializable {
 			}
 			else if (!(logic.isSubrule())) {
 				mainRules[index].addAll(rules);
+			}
+			else {
+				subRuleNames[index].add(logic.getRuleName());
 			}
 			
 			// a non sub-rule could also be used as a sub-rule
@@ -306,7 +314,7 @@ public class RuleLoaderBo implements java.io.Serializable {
 			listRuleNames("Pre  Rule", getPostRuleSet(), prt);
 			listRuleNames("Main Rule", getRuleSet(), prt);
 			listRuleNames("Post Rule", getPostRuleSet(), prt);
-			listRuleNames("Sub  Rule", subRules[currIndex], prt);
+			listRuleNames("Sub  Rule", getSubRuleSet(), prt);
 		}
 		catch (Exception e) {
 			logger.error("Exception caught during ListRuleNames", e);
@@ -328,36 +336,28 @@ public class RuleLoaderBo implements java.io.Serializable {
 		}
 	}
 
-	private void listRuleNames(String ruleLit, Map<String,?> rules, java.io.PrintStream prt) {
-		Set<?> keys = rules.keySet();
-		for (Iterator<?> it=keys.iterator(); it.hasNext();) {
-			Object obj = it.next();
-			if (obj instanceof RuleBase) {
-				RuleBase r = (RuleBase) obj;
-				String ruleName = StringUtils.rightPad(r.getRuleName(), 28, " ");
-				prt.println("RuleLoaderBo.2 - " + ruleLit + ": " + ruleName);
-				if (isPrintRuleContents) {
-					prt.print(r.printRuleContent());
+	private void listRuleNames(String ruleLit, Map<String, List<RuleBase>> rules, java.io.PrintStream prt) {
+		Set<String> keys = rules.keySet();
+		for (Iterator<String> it = keys.iterator(); it.hasNext();) {
+			String key = it.next();
+			if (subRuleNames[currIndex].contains(key)) {
+				List<RuleBase> list = (List<RuleBase>) rules.get(key);
+				for (RuleBase r : list) {
+					String ruleName = StringUtils.rightPad(r.getRuleName(), 28, " ");
+					prt.print("RuleLoaderBo.2 - " + ruleLit + ": " + ruleName);
+					if (isPrintRuleContents) {
+						prt.print(r.printRuleContent());
+						prt.println();
+					}
+					listSubRuleNames(r.getSubRules(), prt);
 					prt.println();
 				}
-				listSubRuleNames(r.getSubRules(), prt);
- 			}
-			else {
-				String ruleName = (String) obj;
-				prt.println("RuleLoaderBo.3 - " + ruleLit + ": " + ruleName);
 			}
 		}
 	}
 
 	private void listSubRuleNames(List<String> subRuleNames, java.io.PrintStream prt) {
-		if (subRuleNames != null) {
-			for (int i = 0; i < subRuleNames.size(); i++) {
-				if (i == 0)
-					prt.print("SubRules: " + subRuleNames.get(i));
-				else
-					prt.print(", " + subRuleNames.get(i));
-			}
-		}		
+		return;
 	}
 	
 	public String findSenderIdByAddr(String addr) {

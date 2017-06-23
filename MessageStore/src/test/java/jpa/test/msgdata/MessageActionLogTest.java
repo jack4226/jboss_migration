@@ -100,7 +100,7 @@ public class MessageActionLogTest extends BoTestBase {
 		insertActionLogs();
 		MessageActionLog log11 = service.getByRowId(log1.getRowId());
 		
-		System.out.println(PrintUtil.prettyPrint(log11,3));
+		logger.info(PrintUtil.prettyPrint(log11,3));
 		
 		MessageActionLog log12 = service.getByPrimaryKey(log11.getMessageActionLogPK());
 		assertTrue(log11.equals(log12));

@@ -63,9 +63,9 @@ public class Log4jConfigUtil {
 			Enumeration<Category> categories = LogManager.getCurrentLoggers();
 			while (categories.hasMoreElements()) {
 				Category category = categories.nextElement();
-				//System.out.println(category.getName() + ", Level: " + category.getLevel());
 				if (category.getName().startsWith("org.hibernate")) {
 					if (Level.TRACE.equals(category.getLevel()) || Level.DEBUG.equals(category.getLevel())) {
+						System.out.println(category.getName() + ", Level: " + category.getLevel() + " --> " + Level.INFO);
 						category.setLevel(Level.INFO);
 					}
 				}

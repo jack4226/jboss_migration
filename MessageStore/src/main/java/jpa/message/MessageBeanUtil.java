@@ -42,6 +42,7 @@ import jpa.util.PrintUtil;
 import jpa.util.StringUtil;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 public final class MessageBeanUtil {
@@ -50,7 +51,7 @@ public final class MessageBeanUtil {
 
 	final static String LF = System.getProperty("line.separator", "\n");
 	private static String MAILER = "MailSender";
-	static boolean debugSession = false;
+	static boolean debugSession = Level.DEBUG.equals(logger.getLevel());
 
 	private MessageBeanUtil() {
 		// make it static only
@@ -68,8 +69,8 @@ public final class MessageBeanUtil {
 	public static Message createMimeMessage(MessageBean msgBean) throws MessagingException,
 			IOException {
 		javax.mail.Session session = Session.getDefaultInstance(System.getProperties());
-		if (debugSession)
-			session.setDebug(true);
+
+		session.setDebug(debugSession);
 		Message msg = new MimeMessage(session);
 
 		// First Set All Headers from a header List
@@ -272,7 +273,7 @@ public final class MessageBeanUtil {
 	public static Message createMimeMessage(String filePath)
 			throws MessagingException, FileNotFoundException {
 		javax.mail.Session session = Session.getDefaultInstance(System.getProperties());
-		session.setDebug(true);
+		session.setDebug(debugSession);
 		InputStream fis = null;
 		Message msg = null;
 		try {
@@ -401,8 +402,8 @@ public final class MessageBeanUtil {
 		if (isDebugEnabled)
 			logger.debug("Entering createMimeMessage() for email loopback");
 		javax.mail.Session session = Session.getDefaultInstance(System.getProperties());
-		if (debugSession)
-			session.setDebug(true);
+
+		session.setDebug(debugSession);
 		Message msg = new MimeMessage(session);
 
 		Address[] fromAddr = InternetAddress.parse("postmaster@localhost");

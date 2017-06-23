@@ -100,7 +100,7 @@ public class MessageAddressTest extends BoTestBase {
 		insertAddr1AndAddr2();
 		MessageAddress adr11 = service.getByRowId(adr1.getRowId());
 		
-		System.out.println(PrintUtil.prettyPrint(adr11,2));
+		logger.info(PrintUtil.prettyPrint(adr11,2));
 		
 		MessageAddress adr12 = service.getByPrimaryKey(inbox1.getRowId(), EmailAddrType.FROM_ADDR.getValue(), from.getAddress());
 		assertTrue(adr11.equals(adr12));

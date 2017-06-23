@@ -90,8 +90,8 @@ public class CsrReplyMessageTest extends BoTestBase {
 		assertTrue(toaddr.equals(minbox.getFromAddress().getAddress()));
 		assertTrue(fromaddr.equals(minbox.getToAddress().getAddress()));
 		assertTrue(mBean.getSubject().equals(minbox.getMsgSubject()));
-		System.out.println("MsgInbox Body: " + minbox.getMsgBody());
-		System.out.println("MsgBean  Body: " + mBean.getBody());
+		logger.info("MsgInbox Body: " + minbox.getMsgBody());
+		logger.info("MsgBean  Body: " + mBean.getBody());
 		assertTrue(minbox.getMsgBody().indexOf(replyBody)>=0);
 		assertTrue(minbox.getMsgBody().indexOf(origMsg.getBody())>0);
 		assertTrue(minbox.getMsgBody().indexOf(origMsg.getSubject())>0);

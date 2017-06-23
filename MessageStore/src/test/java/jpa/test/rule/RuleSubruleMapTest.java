@@ -61,7 +61,7 @@ public class RuleSubruleMapTest extends BoTestBase {
 		
 		RuleSubruleMap map2 = service.getByPrimaryKey(pk1);
 		assertNotNull(map2);
-		System.out.println(PrintUtil.prettyPrint(map2));
+		logger.info(PrintUtil.prettyPrint(map2));
 		
 		// test update
 		map2.setUpdtUserId("JpaTest");

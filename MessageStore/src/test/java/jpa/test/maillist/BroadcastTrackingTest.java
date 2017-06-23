@@ -67,7 +67,7 @@ public class BroadcastTrackingTest extends BoTestBase {
 		
 		BroadcastTracking eb2 = service.getByRowId(eb1.getRowId());
 		assertTrue(ts.equals(eb2.getUpdtTime()));
-		System.out.println(PrintUtil.prettyPrint(eb2, 2));
+		logger.info(PrintUtil.prettyPrint(eb2, 2));
 		
 		List<BroadcastTracking> eblist2 = service.getByEmailAddress(eb1.getEmailAddress().getAddress());
 		assertFalse(eblist2.isEmpty());

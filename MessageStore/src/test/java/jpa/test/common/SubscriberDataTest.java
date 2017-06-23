@@ -75,7 +75,7 @@ public class SubscriberDataTest extends BoTestBase {
 		}
 		List<SubscriberData> listPg = service.getSubscribersWithPaging(vo);
 		assertTrue(listPg.size()>0);
-		System.out.println(PrintUtil.prettyPrint(listPg.get(0)));
+		logger.info(PrintUtil.prettyPrint(listPg.get(0)));
 		long count = service.getSubscriberCount(vo);
 		assertTrue(count==listPg.size());
 

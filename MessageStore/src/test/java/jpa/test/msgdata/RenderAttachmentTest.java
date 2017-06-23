@@ -86,7 +86,7 @@ public class RenderAttachmentTest extends BoTestBase {
 		service.insert(in1);
 		
 		RenderAttachment msg1 = service.getByPrimaryKey(in1.getRenderAttachmentPK());
-		System.out.println(PrintUtil.prettyPrint(msg1,2));
+		logger.info(PrintUtil.prettyPrint(msg1,2));
 		
 		RenderAttachment in2 = new RenderAttachment();
 		try {
@@ -111,7 +111,7 @@ public class RenderAttachmentTest extends BoTestBase {
 		service.insert(in3);
 
 		RenderAttachment msg2 = service.getByRowId(in2.getRowId());
-		System.out.println(PrintUtil.prettyPrint(msg2,1));
+		logger.info(PrintUtil.prettyPrint(msg2,1));
 		
 		List<RenderAttachment> lst1 = service.getByRenderId(mrn1.getRowId());
 		assertTrue(3==lst1.size());

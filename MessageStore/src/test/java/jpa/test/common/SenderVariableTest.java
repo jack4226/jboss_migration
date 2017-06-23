@@ -42,7 +42,7 @@ public class SenderVariableTest extends BoTestBase {
 		SenderVariablePK pk0 = new SenderVariablePK(cd0, testVariableName, new Timestamp(System.currentTimeMillis()));
 		SenderVariable var1 = service.getByBestMatch(pk0);
 		assertNotNull(var1);
-		System.out.println("SenderVariable: " + PrintUtil.prettyPrint(var1));
+		logger.info("SenderVariable: " + PrintUtil.prettyPrint(var1));
 
 		SenderVariablePK pk1 = var1.getSenderVariablePK();
 		SenderVariable var2 = service.getByPrimaryKey(pk1);

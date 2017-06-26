@@ -39,7 +39,7 @@ public class SpringJmsConfig implements JmsListenerConfigurer {
 	private @Value("${listener.Queues}") String[] listenerQueues;
 	
 	private @Value("${mailReaderOutput.Queue}") String mailReaderOutputQueueName;
-	private @Value("${ruleEngineOutput.Queue}") String ruleEngineOutputQueueName;
+	private @Value("${ruleEngineError.Queue}") String ruleEngineErrorQueueName;
 	private @Value("${mailSenderInput.Queue}") String mailSenderInputQueueName;
 	private @Value("${customerCareInput.Queue}") String customerCareInputQueueName;
 	private @Value("${rmaRequestInput.Queue}") String rmaRequestInputQueueName;
@@ -185,7 +185,7 @@ public class SpringJmsConfig implements JmsListenerConfigurer {
 	            endpoint.setId(queueName + "_id");
 	            endpoint.setDestination(queueName);
 	            endpoint.setConcurrency("1-4");
-	            if (StringUtils.equals(queueName, ruleEngineOutputQueueName)) {
+	            if (StringUtils.equals(queueName, ruleEngineErrorQueueName)) {
 	            	endpoint.setMessageListener(message -> {
 		                // TODO implement
 	            		logger.info("Received from " + queueName + ": " + message);

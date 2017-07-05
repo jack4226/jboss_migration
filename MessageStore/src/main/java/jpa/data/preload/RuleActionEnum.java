@@ -53,7 +53,7 @@ public enum RuleActionEnum {
 	BROADCAST_3(RuleNameEnum.BROADCAST,3,RuleActionDetailEnum.CLOSE,null),
 	GENERIC_1(RuleNameEnum.GENERIC,1,RuleActionDetailEnum.SAVE,null),
 	GENERIC_2(RuleNameEnum.GENERIC,2,RuleActionDetailEnum.ACTIVATE,"$"+EmailAddrType.FROM_ADDR.getValue()),
-	GENERIC_3(RuleNameEnum.GENERIC,3,RuleActionDetailEnum.TO_CSR,"custcare@localhost"),
+	GENERIC_3(RuleNameEnum.GENERIC,3,RuleActionDetailEnum.TO_CSR,"$"+RuleNameEnum.CONTACT_US.getValue()),
 	GENERIC_4(RuleNameEnum.GENERIC,4,RuleActionDetailEnum.OPEN,null),
 	UNATTENDED_MAILBOX_1(RuleNameEnum.UNATTENDED_MAILBOX,1,RuleActionDetailEnum.DROP,null),
 	OUF_OF_OFFICE_AUTO_REPLY_1(RuleNameEnum.OUF_OF_OFFICE_AUTO_REPLY,1,RuleActionDetailEnum.SAVE,null),

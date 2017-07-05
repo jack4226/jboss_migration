@@ -99,8 +99,8 @@ public class ForwardToCsr extends TaskBaseAdapter {
 		if (StringUtils.isBlank(forwardAddr)) {
 			forwardAddr = sender.getSubrCareEmail();
 		}
-		int looping = EmailAddrUtil.compareEmailAddrs(forwardAddr, messageBean.getToAsString());
-		if (looping == 0 && disableLooping) {
+		int areFwdAndToSame = EmailAddrUtil.compareEmailAddrs(forwardAddr, messageBean.getToAsString());
+		if (areFwdAndToSame == 0 && disableLooping) {
 			logger.warn("Email looping detected. Forward Message operation abandoned.");
 			return 0;
 		}

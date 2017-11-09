@@ -12,3 +12,5 @@
 10) command to drop database > .\dropdb.exe emaildb
 
 11) Mac OSX user: postgres/jackwng01 
+
+12) Run DataLoader class to load initial data to database.

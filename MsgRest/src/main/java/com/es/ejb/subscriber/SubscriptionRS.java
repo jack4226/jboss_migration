@@ -27,6 +27,9 @@ import javax.ws.rs.core.UriInfo;
 
 import jpa.model.SubscriberData;
 import jpa.model.Subscription;
+import jpa.service.common.SubscriberDataService;
+import jpa.service.common.SubscriptionService;
+import jpa.spring.util.SpringUtil;
 import jpa.util.BeanCopyUtil;
 import jpa.util.ExceptionUtil;
 import jpa.util.PrintUtil;
@@ -48,14 +51,24 @@ public class SubscriptionRS {
 	@javax.ejb.EJB
 	private SubscriberLocal subscriber;
 	
+	private SubscriberDataService subscriberDao;
+	private SubscriptionService subscriptionDao;
+	
 	public SubscriptionRS() {
 		BeanCopyUtil.registerBeanUtilsConverters();
 	}
 	
-	SubscriberLocal getSubscriberLocal() throws NamingException {
+	SubscriberLocal getSubscriberLocal() {
 		if (subscriber == null) {
-			javax.naming.Context context = TomeeCtxUtil.getLocalContext();
-			subscriber = (SubscriberLocal) context.lookup("SubscriberLocal");
+			try {
+				javax.naming.Context context = TomeeCtxUtil.getLocalContext();
+				subscriber = (SubscriberLocal) context.lookup("SubscriberLocal");
+			}
+			catch (NamingException e) {
+				// fall back services used by unit testing
+				subscriberDao = SpringUtil.getAppContext().getBean(SubscriberDataService.class);
+				subscriptionDao = SpringUtil.getAppContext().getBean(SubscriptionService.class);
+			}
 		}
 		return subscriber;
 	}
@@ -66,7 +79,14 @@ public class SubscriptionRS {
 		logger.info("Entering getSubscriberAsXmlOrJson() method..."); 
 		ResponseBuilder rb = new ResponseBuilderImpl();
 		try {
-			SubscriberData sd = getSubscriberLocal().getSubscriberByEmailAddress(emailAddr);
+			getSubscriberLocal();
+			SubscriberData sd = null;
+			if (subscriber != null) {
+				sd = subscriber.getSubscriberByEmailAddress(emailAddr);
+			}
+			else {
+				sd = subscriberDao.getByEmailAddress(emailAddr);
+			}
 			if (sd != null) {
 				rb.status(Status.OK);
 				rb.entity(sd);
@@ -81,10 +101,10 @@ public class SubscriptionRS {
 			}
 			return rb.build();
 		}
-		catch (NamingException e) {
-			logger.error("NamingException caught: " + e.getMessage());
+		catch (Exception e) {
+			logger.error("Exception caught: " + e.getMessage());
 			rb.status(500); //Status.INTERNAL_SERVER_ERROR);
-			rb.entity("NamingException caught");
+			rb.entity("Exception caught: " + e.getMessage());
 			return rb.build();
 		}
 	}
@@ -95,13 +115,16 @@ public class SubscriptionRS {
 		logger.info("Entering subscriber() method..."); 
 		ResponseBuilder rb = new ResponseBuilderImpl();
 		try {
-			Subscription sub = getSubscriberLocal().subscribe(emailAddr, listId);
+			getSubscriberLocal();
+			Subscription sub = null;
+			if (subscriber != null) {
+				sub = subscriber.subscribe(emailAddr, listId);
+			}
+			else {
+				sub = subscriptionDao.subscribe(emailAddr, listId);
+			}
 			rb.status(Status.OK);
 			rb.entity(sub);
-		}
-		catch (NamingException e) {
-			logger.error("NamingException caught: " + e.getMessage());
-			return Response.serverError().entity("NamingException caught").build();
 		}
 		catch (Exception e) {
 			Exception cause = ExceptionUtil.findRootCause(e);
@@ -132,10 +155,6 @@ public class SubscriptionRS {
 			rb.status(Status.OK);
 			rb.entity(sub);
 		}
-		catch (NamingException e) {
-			logger.error("NamingException caught: " + e.getMessage());
-			return Response.serverError().entity("NamingException caught").build();
-		}
 		catch (Exception e) {
 			Exception cause = ExceptionUtil.findRootCause(e);
 			if (cause instanceof IllegalArgumentException) {
@@ -163,10 +182,6 @@ public class SubscriptionRS {
 			Subscription sub = getSubscriberLocal().addToList(sbsrEmailAddr, listEmailAddr);
 			return sub;
 		}
-		catch (NamingException e) {
-			logger.error("NamingException caught: " + e.getMessage());
-			throw new WebApplicationException(Response.serverError().entity("NamingException caught").build());
-		}
 		catch (Exception e) {
 			Exception cause = ExceptionUtil.findRootCause(e);
 			if (cause instanceof IllegalArgumentException) {
@@ -183,10 +198,6 @@ public class SubscriptionRS {
 		try {
 			Subscription sub = getSubscriberLocal().removeFromList(sbsrEmailAddr, listEmailAddr);
 			return sub;
-		}
-		catch (NamingException e) {
-			logger.error("NamingException caught: " + e.getMessage());
-			throw new WebApplicationException(Response.serverError().entity("NamingException caught").build());
 		}
 		catch (Exception e) {
 			Exception cause = ExceptionUtil.findRootCause(e);
@@ -227,7 +238,7 @@ public class SubscriptionRS {
 				return Response.ok(rsp).build();
 			}
 		}
-		catch (NamingException e) {
+		catch (Exception e) {
 			logger.error("NamingException caught: " + e.getMessage());
 			// produce HTTP 500 Internal Server Error
 			return Response.serverError().entity("NamingException caught").build();
@@ -240,7 +251,14 @@ public class SubscriptionRS {
 	public SubscriberData getSubscriberByEmailAddressAsXml(@PathParam("emailAddr") String emailAddr) {
 		logger.info("Entering getSubscriberByEmailAddressAsXml() method..."); 
 		try {
-			SubscriberData sd = getSubscriberLocal().getSubscriberByEmailAddress(emailAddr);
+			getSubscriberLocal();
+			SubscriberData sd = null;
+			if (subscriber != null) {
+				sd = subscriber.getSubscriberByEmailAddress(emailAddr);
+			}
+			else {
+				sd = subscriberDao.getByEmailAddress(emailAddr);
+			}
 			if (sd != null) {
 				logger.info(PrintUtil.prettyPrint(sd,1));
 				return sd;
@@ -256,7 +274,7 @@ public class SubscriptionRS {
 				throw new WebApplicationException(rb.build());
 			}
 		}
-		catch (NamingException e) {
+		catch (Exception e) {
 			throw new WebApplicationException(Response.serverError().entity("NamingException caught").build());
 		}
 	}
@@ -311,7 +329,7 @@ public class SubscriptionRS {
 				return rb.build();
 			}
 		}
-		catch (NamingException e) {
+		catch (Exception e) {
 			logger.error("NamingException caught: " + e.getMessage());
 			return Response.serverError().entity("NamingException caught").build();
 		}

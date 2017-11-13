@@ -1,5 +1,7 @@
 package com.es.ejb.subscriber;
 
+import static org.junit.Assert.*;
+
 import java.io.IOException;
 
 import org.apache.cxf.jaxrs.client.WebClient;
@@ -17,15 +19,18 @@ public class SubscriptionRSTest {
 	static final Logger logger = Logger.getLogger(SubscriptionRSTest.class);
 
 	@Module
-    public SingletonBean app() {
-        return (SingletonBean) new SingletonBean(SubscriptionRS.class).localBean();
-    }
+	public SingletonBean app() {
+	    return (SingletonBean) new SingletonBean(SubscriptionRS.class).localBean();
+	}
 
     @Test
     public void get() throws IOException {
-        final String message = WebClient.create("http://localhost:4204").path("/msgapi/subscription/getSubscriber?emailAddr=jsmith@test.com/").get(String.class);
+		final String message = WebClient.create("http://localhost:4204")
+				.path("/SubscriptionRSTest/msgapi/subscription/getSubscriber")
+				.query("emailAddr", "jsmith@test.com")
+				.get(String.class);
         logger.info("Message: " + message);
-        //assertEquals("Hi REST!", message);
+        assertTrue(message.indexOf("Smith") > 0);
     }
 
 }

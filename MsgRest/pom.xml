@@ -8,7 +8,7 @@
   <properties>
   	<message-store-version>1.0.0-SNAPSHOT</message-store-version>
   	<spring.version>4.3.8.RELEASE</spring.version> <!-- 4.1.7.RELEASE last release supports AopUtils.isCglibProxyClass() -->
-  	<java.version>1.8</java.version>
+  	<java.version>1.7</java.version>
   	<mysql.connector.version>5.1.39</mysql.connector.version>
   	<aopalliance.version>1.0</aopalliance.version>
   	<aspectjrt.version>1.8.9</aspectjrt.version>
@@ -162,6 +162,13 @@
 	</dependency>
 	-->
 	<!-- End of Embedded EJB Container -->
+
+
+	<!-- dependency>
+	    <groupId>javax.persistence</groupId>
+	    <artifactId>javax.persistence-api</artifactId>
+	    <version>2.2</version>
+	</dependency -->
 
 	<dependency>
 		<groupId>org.apache.openejb</groupId>

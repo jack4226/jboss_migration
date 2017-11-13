@@ -1,6 +1,7 @@
 package com.es.jaxrs.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,7 +18,6 @@ import org.apache.openejb.junit.ApplicationComposer;
 import org.apache.openejb.testing.Classes;
 import org.apache.openejb.testing.EnableServices;
 import org.apache.openejb.testing.Module;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -33,47 +33,48 @@ public class SubscriptionRestTest {
 	
 	private String sbsrEmail = "jsmith@test.com";
 
-    @Module
-    @Classes(SubscriptionRS.class)
-    public WebApp app() {
-        return new WebApp().contextRoot("test");
-    }
+	@Module
+	@Classes(SubscriptionRS.class)
+	public WebApp app() {
+		return new WebApp().contextRoot("SubscriptionRestTest");
+	}
     
     @Test
-    @Ignore
+    //@org.junit.Ignore
     public void getSubscriber1() throws IOException {
 		WebClient client = WebClient.create("http://localhost:4204", getProviders())
-				.path("/test/msgapi/subscription/getSubscriber").query("emailAddr", sbsrEmail);
+				.path("/SubscriptionRestTest/msgapi/subscription/getSubscriber").query("emailAddr", sbsrEmail);
 		logger.info("Status: " + client.get().getStatus());
 		SubscriberData sbsrData = client.get(SubscriberData.class);
 		logger.info("Subscriber: " + PrintUtil.prettyPrint(sbsrData));
-        assertEquals(sbsrEmail, sbsrData.getEmailAddress());
+		assertEquals("Joe", sbsrData.getFirstName());
+        assertEquals("Smith", sbsrData.getLastName());
     }
 
-    @Test // TODO need to launch ejbContainer
+    @Test
     public void getSubscriber2() throws IOException {
 		WebClient client = WebClient.create("http://localhost:4204", getProviders())
-				.path("/test/msgapi/subscription/getSubscriber").query("emailAddr", sbsrEmail);
+				.path("/SubscriptionRestTest/msgapi/subscription/getSubscriber").query("emailAddr", sbsrEmail);
 		final Response rsp = client.get();
 		logger.info("Status: " + rsp.getStatus() + ", Class: " + rsp.getEntity().getClass().getName());
 		InputStream is = (InputStream) rsp.getEntity();
 		logger.info("Size of InputStream: " + is.available());
 		String message = IOUtils.toString(is, "UTF-8");
 		logger.info("Subscriber: " + message);
-        assertEquals("NamingException caught", message); // TODO fix this
+		assertTrue(message.indexOf("Smith") > 0);
     }
     
-    @Test // TODO need to launch ejbContainer
+    @Test
     public void getSubscriber3() throws IOException {
 		WebClient client = WebClient.create("http://localhost:4204", getProviders())
-				.path("/test/msgapi/subscription/subscriber/" + sbsrEmail);
+				.path("/SubscriptionRestTest/msgapi/subscription/subscriber/" + sbsrEmail);
 		final Response rsp = client.get();
 		logger.info("Status: " + rsp.getStatus() + ", Class: " + rsp.getEntity().getClass().getName());
 		InputStream is = (InputStream) rsp.getEntity();
 		logger.info("Size of InputStream: " + is.available());
 		String message = IOUtils.toString(is, "UTF-8");
 		logger.info("Subscriber: " + message);
-        assertEquals("NamingException caught", message); // TODO fix this
+		assertTrue(message.indexOf("Smith") > 0);
     }
     
     private List<Object> getProviders() {

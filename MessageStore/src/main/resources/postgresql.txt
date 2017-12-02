@@ -5,7 +5,7 @@
 5) server status - .\pg_ctl.exe -D ..\..\pgdb status
 
 6) create database - .\createdb.exe --encoding=UTF8 --template=template0 emaildb
-7) create user 'email' - createuser -d -r -s -W email (createdb, createrole, superuser, prompt for password)
+7) create user 'email' - .\createuser -d -r -s -W email (createdb, createrole, superuser, prompt for password)
 8) enter psql console - .\psql.exe emaildb email (\quit to quit the console)
 9) in psql console - \h for list of SQL commands, \? for list of psql commands
 

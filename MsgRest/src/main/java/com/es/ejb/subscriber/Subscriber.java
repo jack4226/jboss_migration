@@ -259,7 +259,7 @@ public class Subscriber implements SubscriberRemote, SubscriberLocal, Subscriber
 		return vo;
 	}
 	
-	SubscriptionVo subscriptionToVo(Subscription sub) {
+	static SubscriptionVo subscriptionToVo(Subscription sub) {
 		SubscriptionVo vo = new SubscriptionVo();
 		try {
 			BeanUtils.copyProperties(vo, sub);

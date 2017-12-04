@@ -14,7 +14,7 @@ import javax.ws.rs.ext.Provider;
 
 @Consumes("application/x-www-form-urlencoded")
 @Provider
-public class FromReader implements MessageBodyReader<Map<String, String>> {
+public class FormReader implements MessageBodyReader<Map<String, String>> {
 
 	@Override
 	public boolean isReadable(Class<?> arg0, Type arg1, Annotation[] arg2,

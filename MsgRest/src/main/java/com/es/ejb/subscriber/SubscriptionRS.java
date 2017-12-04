@@ -1,5 +1,6 @@
 package com.es.ejb.subscriber;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -214,7 +215,19 @@ public class SubscriptionRS {
 	public Response getSubscriberByEmailAddress(@QueryParam("emailAddr") String emailAddr, @Context HttpHeaders hh) {
 		logger.info("Entering getSubscriberByEmailAddress() method..."); 
 		try {
-			List<SubscriptionVo> sublist = getSubscriberLocal().getSubscribedList(emailAddr);
+			getSubscriberLocal();
+			List<SubscriptionVo> sublist = null;
+			if (subscriber != null) {
+				sublist = subscriber.getSubscribedList(emailAddr);
+			}
+			else {
+				List<Subscription> sub_list = subscriptionDao.getByAddress(emailAddr);
+				sublist = new ArrayList<SubscriptionVo>();
+				for (Subscription sub : sub_list) {
+					SubscriptionVo vo = Subscriber.subscriptionToVo(sub);
+					sublist.add(vo);
+				}
+			}
 			if (!sublist.isEmpty()) {
 				logger.info(PrintUtil.prettyPrint(sublist.get(0), 1));
 				GenericEntity<List<SubscriptionVo>> entity = new GenericEntity<List<SubscriptionVo>>(sublist) {};

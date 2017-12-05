@@ -43,28 +43,13 @@ public class JasonParser<T> {
 		}
 		if (!isXmlAnnotated(clazz)) {
 			if (jsonObj instanceof List) {
-				StringBuilder sb = new StringBuilder();
-				int idx = 0;
-				for (T obj : (List<T>) jsonObj) {
-					if (idx++ > 0) {
-						sb.append(", ");
-					}
-					String tmpstr = ObjectToJson(obj, clazz);
-					//logger.info("List Item: " + tmpstr);
-					if (tmpstr.endsWith("}}") && tmpstr.indexOf(":{") > 0) {
-						tmpstr = tmpstr.substring(tmpstr.indexOf(":{") + 1, tmpstr.length() - 1);
-					}
-					sb.append(tmpstr);
-				}
-				return sb.toString();
+				return ListToJson((List<T>) jsonObj);
 			}
 			else if (jsonObj instanceof Map) {
-				String jsonStr = MapToJson(((Map<String, Object>) jsonObj));
-				return jsonStr;
+				return MapToJson(((Map<String, Object>) jsonObj));
 			}
 			else {
-				String jsonStr = jsonObj == null ? "" : jsonObj.toString();
-				return jsonStr;
+				return (jsonObj == null ? "" : jsonObj.toString());
 			}
 		}
 		try {
@@ -80,11 +65,40 @@ public class JasonParser<T> {
 	        marshaller.marshal(jsonObj, xmlStreamWriter);
 	        return new String(baos.toByteArray());
 		} catch (JAXBException e) {
-			logger.error("JSONException caught", e);
+			logger.error("JAXBException caught", e);
 			throw e;
 		}
 	}
 
+	public static <T> String ListToJson(@NotNull List<T> list) throws JAXBException {
+		StringBuilder sb = new StringBuilder();
+		if (!list.isEmpty()) {
+			T obj0 = list.get(0);
+			try {
+				@SuppressWarnings("unchecked")
+				Class<T> clazz = (Class<T>) Class.forName(obj0.getClass().getName());
+				sb.append("{\"" + clazz.getSimpleName() + "\":[");
+		
+				int idx = 0;
+				for (T obj : (List<T>) list) {
+					if (idx++ > 0) {
+						sb.append(", ");
+					}
+					String tmpStr = ObjectToJson(obj, clazz);
+					//logger.info("List Item: " + tmpStr);
+					if (tmpStr.endsWith("}}") && tmpStr.indexOf(":{") > 0) {
+						tmpStr = tmpStr.substring(tmpStr.indexOf(":{") + 1, tmpStr.length() - 1);
+					}
+					sb.append(tmpStr);
+				}
+				sb.append("]");
+			} catch (ClassNotFoundException e) {
+				throw new IllegalArgumentException("This should not happen!");
+			}
+		}
+		return sb.toString();
+	}
+	
 	public static <T> T JsonToObject(@NotNull String jsonString, @NotNull Class<T> clazz) {
 		try {
 			JSONObject obj = new JSONObject(jsonString);
@@ -97,14 +111,10 @@ public class JasonParser<T> {
 			@SuppressWarnings("unchecked")
 			T vo = (T) unmarshaller.unmarshal(xmlStreamReader);
 			return vo;
-		} catch (JSONException e) {
-			logger.error("JSONException caught", e);
-		} catch (XMLStreamException e) {
-			logger.error("XMLStreamException caught", e);
-		} catch (JAXBException e) {
-			logger.error("JAXBException caught", e);
+		} catch (JSONException | XMLStreamException |JAXBException e) {
+			logger.error("Exception caught", e);
+			throw new RuntimeException(e.getClass().getSimpleName() + " caught, " + e.getMessage());
 		}
-		return null;
 	}
 
 	public static <T> List<T> JsonArrayToList(@NotNull String jsonString, @NotNull Class<T> clazz) {
@@ -126,89 +136,21 @@ public class JasonParser<T> {
 				T obj = JsonToObject(jsonItem, clazz);
 				list.add(obj);
 			}
+			return list;
 		} catch (JSONException e) {
 			logger.error("JSONException caught", e);
+			throw new RuntimeException("JSONException caught: " + e.getMessage());
 		}
-		return list;
 	}
 	
-	public static <T> T findJsonArrayClass(String jsonString) {
-		if (isJsonArray(jsonString) && !StringUtils.startsWith(jsonString, "[")) {
-			String beginning = StringUtils.substring(jsonString, 0, jsonString.indexOf("["));
-			String classStr = StringUtils.substring(beginning, beginning.indexOf("\"") + 1, beginning.lastIndexOf("\""));
-			try {
-				@SuppressWarnings("unchecked")
-				T clazz = (T) Class.forName("com.es.ejb.ws.vo." + classStr);
-				logger.info("Class name found in json array: " + clazz.toString());
-				return clazz;
-			} catch (ClassNotFoundException e) {
-				logger.error("ClassNotFoundException: " + e.getMessage());
-			}
-		}
-		return null;
-	}
-	
-	static <T> String formatJsonArray(String jsonString) {
-		if (isJsonArray(jsonString) && !StringUtils.startsWith(jsonString, "[")) {
-			String formatted = StringUtils.substring(jsonString, jsonString.indexOf("["), jsonString.lastIndexOf("]") + 1);
-			return formatted;
-		}
-		return jsonString;
-	}
-	
-	static boolean isJsonArray(String jsonString) {
-		Stack<String> stack = new Stack<>();
-		char[] chars = jsonString.toCharArray();
-		int opening = 10;
-		int idx = 0;
-		while (idx < chars.length) {
-			if (chars[idx] == '{' || chars[idx] == '[') {
-				if (chars[idx] == '[') {
-					opening = Math.min(opening, stack.size());
-				}
-				stack.push(String.valueOf(chars[idx]));
-			}
-			else {
-				if (chars[idx] == '}' || chars[idx] == ']') {
-					if (!stack.isEmpty()) {
-						if (chars[idx] == '}') {
-							if (stack.peek().equals(String.valueOf('{'))) {
-								stack.pop();
-							}
-							else {
-								throw new RuntimeException("Could not find the opening {");
-							}
-						}
-						else if (chars[idx] == ']') {
-							if (stack.peek().equals(String.valueOf('['))) {
-								stack.pop();
-							}
-							else {
-								throw new RuntimeException("Could not find the opening [");
-							}
-						}
-
-					}
-				}
-			}
-			idx++;
-		}
-		if (opening <= 1) {
-			return true;
-		}
-		return false;
-	}
- 
 	@SuppressWarnings("unchecked")
 	public static <T> String MapToJson(@NotNull Map<String, Object> jsonMap) throws JAXBException {
 		StringBuilder sb = new StringBuilder();
-
 		int idx = 0;
 		for (Iterator<String> it = jsonMap.keySet().iterator(); it.hasNext();) {
 			String key = it.next();
 			Object obj = jsonMap.get(key);
 			String jsonStr = null;
-
 			try {
 				Class<?> clazz = Class.forName(obj.getClass().getName());
 				logger.info("Class name: " + clazz.getName());
@@ -227,20 +169,97 @@ public class JasonParser<T> {
 				logger.error("ClassNotFoundException: " + e.getMessage());
 			}
 		}
-
 		String rtnStr = "{" + sb.toString() + "}";
 		return rtnStr;
 	}
 
-	static <T> boolean isXmlAnnotated(@NotNull Class<T> clazz) {
-		for (Annotation ann : clazz.getAnnotations()) {
-			logger.info("Annotation: " + ann.toString());
-			if (ann instanceof XmlAccessorType || ann instanceof XmlRootElement) {
+	/*
+	 * Returns JSON array name, for example it will return "name" from {"name":[{},{}]}
+	 */
+	public static <T> T findJsonArrayClass(String jsonString) {
+		if (isJsonArray(jsonString) && !StringUtils.startsWith(jsonString, "[")) {
+			String beginning = StringUtils.substring(jsonString, 0, jsonString.indexOf("["));
+			String classStr = StringUtils.substring(beginning, beginning.indexOf("\"") + 1, beginning.lastIndexOf("\""));
+			try {
+				@SuppressWarnings("unchecked")
+				T clazz = (T) Class.forName("com.es.ejb.ws.vo." + classStr);
+				logger.info("Class name found in json array: " + clazz.toString());
+				return clazz;
+			} catch (ClassNotFoundException e) {
+				logger.error("ClassNotFoundException: " + e.getMessage());
+			}
+		}
+		return null; // TODO return some thing else
+	}
+	
+	/*
+	 *  Strip off the JSON array name, for example it will return [{},{}] from {"name":[{},{}]}
+	 */
+	private static <T> String formatJsonArray(String jsonString) {
+		if (isJsonArray(jsonString) && !StringUtils.startsWith(jsonString, "[")) {
+			String formatted = StringUtils.substring(jsonString, jsonString.indexOf("["), jsonString.lastIndexOf("]") + 1);
+			return formatted;
+		}
+		return jsonString;
+	}
+	
+	/*
+	 * Returns true is the input looks like {"name":[{},{}]} or [{},{}]
+	 */
+	private static boolean isJsonArray(String jsonString) {
+		Stack<String> stack = new Stack<>();
+		char[] chars = jsonString.toCharArray();
+		int firstOpening = 10;
+		int idx = 0;
+		while (idx < chars.length) {
+			if (chars[idx] == '{' || chars[idx] == '[') {
+				if (chars[idx] == '[') {
+					firstOpening = Math.min(firstOpening, stack.size());
+				}
+				stack.push(String.valueOf(chars[idx]));
+			}
+			else {
+				if (chars[idx] == '}' || chars[idx] == ']') {
+					if (!stack.isEmpty()) {
+						if (chars[idx] == '}') {
+							if (stack.peek().equals(String.valueOf('{'))) {
+								stack.pop();
+							}
+							else {
+								throw new RuntimeException("Could not find matching opening {");
+							}
+						}
+						else if (chars[idx] == ']') {
+							if (stack.peek().equals(String.valueOf('['))) {
+								stack.pop();
+							}
+							else {
+								throw new RuntimeException("Could not find matching opening [");
+							}
+						}
+
+					}
+					else {
+						throw new RuntimeException("Could not find matching opening { or [");
+					}
+				}
+			}
+			idx++;
+		}
+		if (firstOpening <= 1) {
+			return true;
+		}
+		return false;
+	}
+ 
+	private static <T> boolean isXmlAnnotated(@NotNull Class<T> clazz) {
+		for (Annotation anno : clazz.getAnnotations()) {
+			logger.info("Class Annotation: " + anno.toString());
+			if (anno instanceof XmlAccessorType || anno instanceof XmlRootElement) {
 				return true;
 			}
 		}
 		return false;
 	}
-
 
 }

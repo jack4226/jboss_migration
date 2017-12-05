@@ -14,6 +14,7 @@ import javax.ws.rs.ext.MessageBodyReader;
 import javax.ws.rs.ext.Provider;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 
 import org.apache.cxf.jaxrs.impl.ResponseBuilderImpl;
 
@@ -27,21 +28,18 @@ public class SubscriberDataReader implements MessageBodyReader<SubscriberData> {
 	ResponseBuilder rb = new ResponseBuilderImpl();
 	
 	@Override
-	public boolean isReadable(Class<?> arg0, Type arg1, Annotation[] arg2,
-			MediaType arg3) {
-		return arg0 == SubscriberData.class;
+	public boolean isReadable(Class<?> clazz, Type type, Annotation[] anno, MediaType mediaType) {
+		return clazz == SubscriberData.class;
 	}
 
 	@Override
-	public SubscriberData readFrom(Class<SubscriberData> arg0,
-			Type arg1, Annotation[] arg2, MediaType arg3,
-			MultivaluedMap<String, String> arg4, InputStream arg5)
-			throws IOException {
+	public SubscriberData readFrom(Class<SubscriberData> clazz, Type type, Annotation[] anno, MediaType mediaType,
+			MultivaluedMap<String, String> map, InputStream is) throws IOException {
 		// TODO implement
 		try {
 	        JAXBContext jaxbContext = JAXBContext.newInstance(SubscriberData.class);
-	        SubscriberData sbsrData = (SubscriberData) jaxbContext.createUnmarshaller()
-	            .unmarshal(arg5);
+	        Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+	        SubscriberData sbsrData = (SubscriberData) unmarshaller.unmarshal(is);
 	        return sbsrData;
 	    } catch (JAXBException jaxbException) {
 	        throw new IOException(jaxbException);

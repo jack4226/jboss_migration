@@ -34,12 +34,12 @@ public class SubscriptionRSTest {
 	}
 
     @Test
-    public void getSubscriber() throws IOException {
+    public void getSubscriberAsObject() throws IOException {
 		final SubscriberData sbsrData = WebClient.create("http://localhost:4204")
 				.path("/SubscriptionRSTest/msgapi/subscription/getSubscriber")
 				.query("emailAddr", "jsmith@test.com").accept(MediaType.APPLICATION_JSON)
 				.get(SubscriberData.class);
-		logger.info("Subscriber: " + PrintUtil.prettyPrint(sbsrData));
+		logger.info("SubscriberData: " + PrintUtil.prettyPrint(sbsrData));
 		assertEquals("Joe", sbsrData.getFirstName());
         assertEquals("Smith", sbsrData.getLastName());
     }
@@ -67,12 +67,16 @@ public class SubscriptionRSTest {
     @Test
     public void getSubscriberListAddress() throws IOException {
 		@SuppressWarnings("unchecked")
-		final List<SubscriptionVo> message = (List<SubscriptionVo>) WebClient.create("http://localhost:4204", getProviders())
+		final List<SubscriptionVo> list = (List<SubscriptionVo>) WebClient.create("http://localhost:4204", getProviders())
 				.path("/SubscriptionRSTest/msgapi/subscription/subscribedlist")
 				.query("emailAddr", "jsmith@test.com").accept(MediaType.APPLICATION_JSON)
 				.get(List.class);
-        logger.info("Message: " + message);
-        //assertTrue(message.indexOf("jsmith@test.com") > 0);
+		assertNotNull(list);
+		assertFalse(list.isEmpty());
+		for (SubscriptionVo vo : list) {
+			logger.info("Message: " + PrintUtil.prettyPrintRecursive(vo));
+			assertEquals("jsmith@test.com", vo.getAddress());
+		}
     }
 
     private List<Object> getProviders() {

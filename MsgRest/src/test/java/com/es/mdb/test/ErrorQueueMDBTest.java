@@ -75,9 +75,7 @@ public class ErrorQueueMDBTest extends TestCase {
 		}
 	}
 	
-	private void sendText(String text, MessageProducer producer,
-			Session session) throws JMSException {
-
+	private void sendText(String text, MessageProducer producer, Session session) throws JMSException {
 		TextMessage msg = session.createTextMessage(text);
 		msg.setBooleanProperty(ErrorQueueMDBTest.class.getSimpleName(), Boolean.TRUE);
 		producer.send(msg);

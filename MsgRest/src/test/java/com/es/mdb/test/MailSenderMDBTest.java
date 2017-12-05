@@ -74,9 +74,7 @@ public class MailSenderMDBTest extends TestCase {
 		}
 	}
 	
-	private void sendText(String text, MessageProducer producer,
-			Session session) throws JMSException {
-
+	private void sendText(String text, MessageProducer producer, Session session) throws JMSException {
 		producer.send(session.createTextMessage(text));
 	}
 

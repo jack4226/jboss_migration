@@ -45,6 +45,9 @@ import com.es.ejb.ws.vo.MailingListVo;
 import com.es.jaxrs.common.ErrorResponse;
 import com.es.tomee.util.BeanReflUtil;
 import com.es.tomee.util.JaxrsUtil;
+
+import jpa.service.maillist.MailingListService;
+import jpa.spring.util.SpringUtil;
 import jpa.tomee.util.TomeeCtxUtil;
 
 @Path("/msgapi/mailinglist")
@@ -57,14 +60,22 @@ public class MailingListRS {
 	@javax.ejb.EJB
 	private MailingListLocal maillist;
 	
+	private MailingListService mlistService;
+	
 	public MailingListRS() {
 		BeanCopyUtil.registerBeanUtilsConverters();
 	}
 	
 	MailingListLocal getMailingListLocal() throws NamingException {
+
 		if (maillist == null) {
-			javax.naming.Context context = TomeeCtxUtil.getLocalContext();
-			maillist = (MailingListLocal) context.lookup("MailingListLocal");
+			try {
+				javax.naming.Context context = TomeeCtxUtil.getLocalContext();
+				maillist = (MailingListLocal) context.lookup("MailingListLocal");
+			}
+			catch (NamingException e) {
+		    	mlistService = SpringUtil.getAppContext().getBean(MailingListService.class);
+			}
 		}
 		return maillist;
 	}
@@ -73,20 +84,27 @@ public class MailingListRS {
 	@GET
 	public Response getAllMailingLists() {
 		logger.info("Entering getAllMailingLists() method...");
+
 		try {
-			List<jpa.model.MailingList> list = getMailingListLocal().getActiveLists();
-			logger.info("Number of lists: " + list.size());
-			List<MailingListVo> volist = new ArrayList<MailingListVo>();
-			for (jpa.model.MailingList ml : list) {
-				MailingListVo vo = mailingListModelToVo(ml);
-				volist.add(vo);
-			}
-			GenericEntity<List<MailingListVo>> entity = new GenericEntity<List<MailingListVo>>(volist) {};
-			return Response.ok(entity).build();
+			getMailingListLocal();
+		} catch (NamingException e) {
+			logger.error("NamingException caught: " + e.getMessage()); // should not happen
 		}
-		catch (NamingException e) {
-			throw new WebApplicationException(Response.serverError().entity("NamingException caught").build());
+		List<jpa.model.MailingList> list = null;
+		if (maillist != null) {
+			list = maillist.getActiveLists();
 		}
+		else {
+			list = mlistService.getAll(true);
+		}
+		logger.info("Number of lists: " + list.size());
+		List<MailingListVo> volist = new ArrayList<MailingListVo>();
+		for (jpa.model.MailingList ml : list) {
+			MailingListVo vo = mailingListModelToVo(ml);
+			volist.add(vo);
+		}
+		GenericEntity<List<MailingListVo>> entity = new GenericEntity<List<MailingListVo>>(volist) {};
+		return Response.ok(entity).build();
 	}
 	
 	/*
@@ -193,6 +211,7 @@ public class MailingListRS {
 		if (rb != null) {
 			rb.build();
         }
+
 		try {
 			jpa.model.MailingList ml = getMailingListLocal().getByListId(listId);
 			vo.setListId(listId); // make sure listId is not changed

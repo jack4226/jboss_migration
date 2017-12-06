@@ -46,7 +46,7 @@ public class ListReader<T> implements MessageBodyReader<List<T>> {
 			assert(cls != null);
 			logger.info("Class name: " + cls.toString());
 			@SuppressWarnings({ "rawtypes" })
-			List list = JasonParser.JsonArrayToList(message, (Class<T>)cls);
+			List list = JasonParser.jsonArrayToList(message, (Class<T>)cls);
 			return list;
 		}
 		throw new IllegalStateException("Invalid Media Type: " + mtype);

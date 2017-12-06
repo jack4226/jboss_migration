@@ -36,17 +36,17 @@ public class JasonParser<T> {
 	static final Logger logger = Logger.getLogger(JasonParser.class);
 
 	@SuppressWarnings("unchecked")
-	public static <T> String ObjectToJson(@NotNull T jsonObj, @NotNull Class<T> clazz) throws JAXBException {
+	public static <T> String objectToJson(@NotNull T jsonObj, @NotNull Class<T> clazz) throws JAXBException {
 		if (ClassUtils.isPrimitiveOrWrapper(clazz) || jsonObj instanceof String) {
 			String jsonStr = (jsonObj == null ? "" : jsonObj.toString());
 			return jsonStr;
 		}
 		if (!isXmlAnnotated(clazz)) {
 			if (jsonObj instanceof List) {
-				return ListToJson((List<T>) jsonObj);
+				return listToJson((List<T>) jsonObj);
 			}
 			else if (jsonObj instanceof Map) {
-				return MapToJson(((Map<String, Object>) jsonObj));
+				return mapToJson(((Map<String, Object>) jsonObj));
 			}
 			else {
 				return (jsonObj == null ? "" : jsonObj.toString());
@@ -70,36 +70,40 @@ public class JasonParser<T> {
 		}
 	}
 
-	public static <T> String ListToJson(@NotNull List<T> list) throws JAXBException {
+	public static <T> String listToJson(@NotNull List<T> list) throws JAXBException {
 		StringBuilder sb = new StringBuilder();
 		if (!list.isEmpty()) {
 			T obj0 = list.get(0);
-			try {
-				@SuppressWarnings("unchecked")
-				Class<T> clazz = (Class<T>) Class.forName(obj0.getClass().getName());
-				sb.append("{\"" + clazz.getSimpleName() + "\":[");
-		
-				int idx = 0;
-				for (T obj : (List<T>) list) {
-					if (idx++ > 0) {
-						sb.append(", ");
-					}
-					String tmpStr = ObjectToJson(obj, clazz);
-					//logger.info("List Item: " + tmpStr);
-					if (tmpStr.endsWith("}}") && tmpStr.indexOf(":{") > 0) {
-						tmpStr = tmpStr.substring(tmpStr.indexOf(":{") + 1, tmpStr.length() - 1);
-					}
-					sb.append(tmpStr);
+			@SuppressWarnings("unchecked")
+			Class<T> clazz = (Class<T>) obj0.getClass();
+			sb.append("{\"" + clazz.getSimpleName() + "\":[");
+	
+			int idx = 0;
+			for (T obj : (List<T>) list) {
+				if (idx++ > 0) {
+					sb.append(", ");
 				}
-				sb.append("]");
-			} catch (ClassNotFoundException e) {
-				throw new IllegalArgumentException("This should not happen!");
+				String tmpStr = objectToJson(obj, clazz);
+				//logger.info("List Item: " + tmpStr);
+				if (tmpStr.endsWith("}}") && tmpStr.indexOf(":{") > 0) {
+					// Strip off the class name
+					tmpStr = tmpStr.substring(tmpStr.indexOf(":{") + 1, tmpStr.length() - 1);
+				}
+				sb.append(tmpStr);
 			}
+			sb.append("]}");
 		}
 		return sb.toString();
 	}
 	
-	public static <T> T JsonToObject(@NotNull String jsonString, @NotNull Class<T> clazz) {
+	public static <T> T jsonToObject(@NotNull String jsonString, @NotNull Class<T> clazz) {
+		if (isJsonArray(jsonString)) {
+			String arrayName = getXmlRootName(clazz);
+			String nameToReplace = parseJsonArrayName(jsonString);
+			if (StringUtils.isNotBlank(nameToReplace)) {
+				jsonString.replaceFirst(nameToReplace, arrayName);
+			}
+		}
 		try {
 			JSONObject obj = new JSONObject(jsonString);
 			Configuration config = new Configuration();
@@ -117,23 +121,22 @@ public class JasonParser<T> {
 		}
 	}
 
-	public static <T> List<T> JsonArrayToList(@NotNull String jsonString, @NotNull Class<T> clazz) {
+	public static <T> List<T> jsonArrayToList(@NotNull String jsonString, @NotNull Class<T> clazz) {
 		List<T> list = new ArrayList<>();
 		if (!isJsonArray(jsonString)) {
 			throw new IllegalArgumentException("The input string is not a json array!");
 		}
-		T cls = findJsonArrayClass(jsonString);
-		assert(cls != null);
-		@SuppressWarnings({"unchecked" })
-		String clsName = ((Class<T>) cls).getSimpleName();
-		jsonString = formatJsonArray(jsonString);
+		String arrayName = parseJsonArrayName(jsonString);
+		jsonString = removeArrayNameIfPresent(jsonString);
 		try {
 			JSONArray jsonArray = new JSONArray(jsonString);
 			for (int i = 0; i < jsonArray.length(); i++) {
 				String jsonItem = jsonArray.getString(i);
-				jsonItem = "{\"" + clsName + "\":" + jsonItem + "}";
+				if (StringUtils.isNotBlank(arrayName)) {
+					jsonItem = "{\"" + arrayName + "\":" + jsonItem + "}";
+				}
 				logger.info("json array line: " + jsonItem);
-				T obj = JsonToObject(jsonItem, clazz);
+				T obj = jsonToObject(jsonItem, clazz);
 				list.add(obj);
 			}
 			return list;
@@ -144,33 +147,45 @@ public class JasonParser<T> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static <T> String MapToJson(@NotNull Map<String, Object> jsonMap) throws JAXBException {
+	public static <T> String mapToJson(@NotNull Map<String, Object> jsonMap) throws JAXBException {
 		StringBuilder sb = new StringBuilder();
 		int idx = 0;
 		for (Iterator<String> it = jsonMap.keySet().iterator(); it.hasNext();) {
 			String key = it.next();
 			Object obj = jsonMap.get(key);
+			if (obj == null) {
+				continue;
+			}
 			String jsonStr = null;
-			try {
-				Class<?> clazz = Class.forName(obj.getClass().getName());
-				logger.info("Class name: " + clazz.getName());
-				jsonStr = ObjectToJson((T) obj, (Class<T>)clazz);
-				logger.info("Key=" + key + ", Object=" + jsonStr);
-				if (idx++ > 0) {
-					sb.append(", ");
-				}
-				if (obj instanceof List) {
-					sb.append("\"" + key + "\":[" + jsonStr + "]");
-				}
-				else {
-					sb.append("\"" + key + "\":\"" + jsonStr + "\"");
-				}
-			} catch (ClassNotFoundException e) {
-				logger.error("ClassNotFoundException: " + e.getMessage());
+			Class<?> clazz = obj.getClass();
+			logger.info("Class name: " + clazz.getName());
+			jsonStr = objectToJson((T) obj, (Class<T>) clazz);
+			logger.info("Key=" + key + ", Object=" + jsonStr);
+			if (idx++ > 0) {
+				sb.append(", ");
+			}
+			if (obj instanceof List) {
+				jsonStr = removeArrayNameIfPresent(jsonStr);
+				sb.append("\"" + key + "\":" + jsonStr + "");
+			}
+			else {
+				sb.append("\"" + key + "\":\"" + jsonStr + "\"");
 			}
 		}
 		String rtnStr = "{" + sb.toString() + "}";
 		return rtnStr;
+	}
+
+	/*
+	 * Returns JSON array name, for example it will return "name" from {"name":[{},{}]}
+	 */
+	public static String parseJsonArrayName(String jsonString) {
+		if (isJsonArray(jsonString) && !StringUtils.startsWith(jsonString, "[")) {
+			String beginning = StringUtils.substring(jsonString, 0, jsonString.indexOf("["));
+			String arrayName = StringUtils.substring(beginning, beginning.indexOf("\"") + 1, beginning.lastIndexOf("\""));
+			return arrayName;
+		}
+		return null;
 	}
 
 	/*
@@ -195,7 +210,7 @@ public class JasonParser<T> {
 	/*
 	 *  Strip off the JSON array name, for example it will return [{},{}] from {"name":[{},{}]}
 	 */
-	private static <T> String formatJsonArray(String jsonString) {
+	private static <T> String removeArrayNameIfPresent(String jsonString) {
 		if (isJsonArray(jsonString) && !StringUtils.startsWith(jsonString, "[")) {
 			String formatted = StringUtils.substring(jsonString, jsonString.indexOf("["), jsonString.lastIndexOf("]") + 1);
 			return formatted;
@@ -260,6 +275,19 @@ public class JasonParser<T> {
 			}
 		}
 		return false;
+	}
+
+	private static <T> String getXmlRootName(@NotNull Class<T> clazz) {
+		for (Annotation anno : clazz.getAnnotations()) {
+			if (anno instanceof XmlRootElement) {
+				logger.info("XmlRootElement Annotation: " + anno.toString());
+				String rootName = ((XmlRootElement) anno).name();
+				if (StringUtils.isNotBlank(rootName)) {
+					return rootName;
+				}
+			}
+		}
+		return clazz.getSimpleName();
 	}
 
 }

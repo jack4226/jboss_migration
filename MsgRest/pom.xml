@@ -18,7 +18,7 @@
   	<jstl.version>1.2</jstl.version>
   	<javax.mail.version>1.4.7</javax.mail.version>
   	<faces-api.version>2.2</faces-api.version>
-  	<tomee.version>1.7.4</tomee.version>
+  	<tomee.version>1.7.5</tomee.version>
   </properties>
   
   <build>

@@ -79,12 +79,10 @@ public class SubscriptionRSTest {
 		}
     }
 
-    private List<Object> getProviders() {
+    private <T> List<Object> getProviders() {
     	// build provider list
     	List<Object> providers = new ArrayList<>();
-    	//SubscriberDataReader reader = new SubscriberDataReader();
-    	//providers.add(reader);
-    	ListReader<SubscriptionVo> lstRdr = new ListReader<>();
+    	ListReader<T> lstRdr = new ListReader<>();
     	providers.add(lstRdr);
     	return providers;
     }

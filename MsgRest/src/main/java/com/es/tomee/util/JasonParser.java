@@ -1,6 +1,8 @@
 package com.es.tomee.util;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.lang.annotation.Annotation;
@@ -31,6 +33,13 @@ import org.codehaus.jettison.mapped.Configuration;
 import org.codehaus.jettison.mapped.MappedNamespaceConvention;
 import org.codehaus.jettison.mapped.MappedXMLStreamReader;
 import org.codehaus.jettison.mapped.MappedXMLStreamWriter;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternResolver;
+
+import jpa.util.PrintUtil;
 
 public class JasonParser<T> {
 	static final Logger logger = Logger.getLogger(JasonParser.class);
@@ -189,22 +198,70 @@ public class JasonParser<T> {
 	}
 
 	/*
-	 * Returns JSON array name, for example it will return "name" from {"name":[{},{}]}
+	 * Returns a Class by JSON array name, for example it will return "name" from {"name":[{},{}]}
 	 */
-	public static <T> T findJsonArrayClass(String jsonString) {
-		if (isJsonArray(jsonString) && !StringUtils.startsWith(jsonString, "[")) {
-			String beginning = StringUtils.substring(jsonString, 0, jsonString.indexOf("["));
-			String classStr = StringUtils.substring(beginning, beginning.indexOf("\"") + 1, beginning.lastIndexOf("\""));
-			try {
-				@SuppressWarnings("unchecked")
-				T clazz = (T) Class.forName("com.es.ejb.ws.vo." + classStr);
-				logger.info("Class name found in json array: " + clazz.toString());
-				return clazz;
-			} catch (ClassNotFoundException e) {
-				logger.error("ClassNotFoundException: " + e.getMessage());
+	public static <T> Class<T> findJsonArrayClass(String jsonString) {
+		String arrayName = parseJsonArrayName(jsonString);
+		if (StringUtils.isNotBlank(arrayName)) {
+			List<Class<T>> list = findClassesByPattern("classpath*:com/es/ejb/ws/vo/" + StringUtils.capitalize(arrayName) + ".class");
+			if (!list.isEmpty()) {
+				return list.get(0);
 			}
 		}
-		return null; // TODO return some thing else
+		return null;
+	}
+	
+	public static <T> List<Class<T>> findClassesByPattern(String pattern) {
+		// pattern example 1: classpath*:edi/*/vo/*.class
+		// pattern example 2: classpath*:edi/*/vo/QueueInVo.class
+		logger.info("Find classes by pattern: " + pattern);
+		ResourcePatternResolver resourceResolver = new PathMatchingResourcePatternResolver();
+		List<Class<T>> clsList = new ArrayList<>();
+		try {
+			Resource[] resources = resourceResolver.getResources(pattern);
+			for (Resource res : resources) {
+				logger.info("Resource: " + PrintUtil.prettyPrint(res, 3));
+				String path = null;
+				if (res instanceof FileSystemResource) {
+					File file = res.getFile();
+					path = file.getPath();
+					path = StringUtils.replace(path, "\\", "/");
+					logger.info("File path: " + path);
+				}
+				else if (res instanceof UrlResource) {
+					java.net.URL url = res.getURL();
+					path = url.getPath();
+					logger.info("URL path: " + path);
+				}
+				else {
+					logger.warn("Unchecked object type: " + res.getClass().getName());
+					continue;
+				}
+				
+				String classNamePath = path;
+				if (path.startsWith("file:") && path.contains(".jar!/")) {
+					classNamePath = path.substring(path.indexOf(".jar!/") + 6);
+				}
+				else if (StringUtils.contains(path, "classes/")) {
+					classNamePath = path.substring(path.indexOf("classes/") + 8);
+				}
+				logger.info("Class name path: " + classNamePath);
+				
+				String className = org.springframework.util.ClassUtils.convertResourcePathToClassName(classNamePath);
+				String pkgName = org.apache.commons.lang3.ClassUtils.getPackageName(className);
+				logger.info("Package name: " + pkgName);
+				try {
+					@SuppressWarnings("unchecked")
+					Class<T> clazz = (Class<T>) Class.forName(pkgName);
+					clsList.add(clazz);
+				} catch (ClassNotFoundException e) {
+					logger.warn("Could not find the class: " + e.getMessage());
+				}
+			}
+		} catch (IOException e) {
+			logger.error("IOException caught", e);
+		}
+		return clsList;
 	}
 	
 	/*

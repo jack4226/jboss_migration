@@ -20,7 +20,6 @@ import org.junit.runner.RunWith;
 
 import com.es.ejb.mailinglist.MailingListRS;
 import com.es.ejb.ws.vo.MailingListVo;
-import com.es.ejb.ws.vo.SubscriptionVo;
 import com.es.jaxrs.common.ListReader;
 
 import jpa.util.PrintUtil;
@@ -62,10 +61,10 @@ public class MailingListRestTest {
         }
 	}
 
-    private List<Object> getProviders() {
+    private <T> List<Object> getProviders() {
     	// build provider list
     	List<Object> providers = new ArrayList<>();
-    	ListReader<SubscriptionVo> lstRdr = new ListReader<>();
+    	ListReader<T> lstRdr = new ListReader<>();
     	providers.add(lstRdr);
     	return providers;
     }

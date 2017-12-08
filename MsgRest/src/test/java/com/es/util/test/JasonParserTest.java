@@ -176,6 +176,29 @@ public class JasonParserTest {
 		}
 	}
 
+	@Test
+	public <T> void testFindClassesByPattern() {
+		List<Class<T>> list1 = JasonParser.findClassesByPattern("classpath*:com/es/ejb/*/vo/Sub*.class");
+		assertFalse(list1.isEmpty());
+		for (Class<T> cls : list1) {
+			assertNotNull(cls);
+			assertTrue(cls.getName().contains("ejb") && cls.getName().contains("Sub"));
+		}
+		
+		List<Class<T>> list2 = JasonParser.findClassesByPattern("classpath*:com/**/vo/MailingListVo.class");
+		assertEquals(1, list2.size());
+		assertTrue(list2.get(0).getName().contains("MailingListVo"));
+		
+		List<Class<T>> list3 = JasonParser.findClassesByPattern("classpath*:META-INF/openejb.xml");
+		assertTrue(list3.isEmpty());
+		
+		List<Class<T>> list4 = JasonParser.findClassesByPattern("classpath*:jpa/model/EmailAddress.class");
+		assertEquals(1, list4.size());
+		
+		List<Class<T>> list5 = JasonParser.findClassesByPattern("classpath*:org/apache/commons/*/ClassUtils.class");
+		assertTrue(list5.size() > 0 && list5.size() <= 2);
+	}
+
 	private void assertSubscriptionVosEqual(SubscriptionVo vo1, SubscriptionVo vo2) {
 		assertEquals(vo1.getAddress(), vo2.getAddress());
 		assertEquals(vo1.getCreateTime(), vo2.getCreateTime());

@@ -42,11 +42,11 @@ public class ListReader<T> implements MessageBodyReader<List<T>> {
 		if (MediaType.APPLICATION_JSON.toString().equals(mtype)) {
 			String message = IOUtils.toString(is, "UTF-8");
 			logger.info("in readFrom()... input stream text: " + message);
-			T cls = JasonParser.findJsonArrayClass(message);
+			Class<T> cls = JasonParser.findJsonArrayClass(message);
 			assert(cls != null);
-			logger.info("Class name: " + cls.toString());
+			logger.info("Class name for message body reader: " + cls.toString());
 			@SuppressWarnings({ "rawtypes" })
-			List list = JasonParser.jsonArrayToList(message, (Class<T>)cls);
+			List list = JasonParser.jsonArrayToList(message, cls);
 			return list;
 		}
 		throw new IllegalStateException("Invalid Media Type: " + mtype);

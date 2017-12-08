@@ -41,7 +41,7 @@ public class SubscriptionRestTest {
     
     @Test
     //@org.junit.Ignore
-    public void getSubscriber1() throws IOException {
+    public void testGetSubscriberAsObject() throws IOException {
 		WebClient client = WebClient.create("http://localhost:4204", getProviders())
 				.path("/SubscriptionRestTest/msgapi/subscription/getSubscriber").query("emailAddr", sbsrEmail);
 		logger.info("Status: " + client.get().getStatus());
@@ -52,7 +52,7 @@ public class SubscriptionRestTest {
     }
 
     @Test
-    public void getSubscriber2() throws IOException {
+    public void testGetSubscriberAsStream() throws IOException {
 		WebClient client = WebClient.create("http://localhost:4204", getProviders())
 				.path("/SubscriptionRestTest/msgapi/subscription/getSubscriber").query("emailAddr", sbsrEmail);
 		final Response rsp = client.get();
@@ -65,7 +65,7 @@ public class SubscriptionRestTest {
     }
     
     @Test
-    public void getSubscriber3() throws IOException {
+    public void testGetSubscriberByPath() throws IOException {
 		WebClient client = WebClient.create("http://localhost:4204", getProviders())
 				.path("/SubscriptionRestTest/msgapi/subscription/subscriber/" + sbsrEmail);
 		final Response rsp = client.get();

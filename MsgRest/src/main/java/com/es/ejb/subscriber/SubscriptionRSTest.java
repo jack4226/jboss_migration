@@ -50,7 +50,8 @@ public class SubscriptionRSTest {
 				.path("/SubscriptionRSTest/msgapi/subscription/subscribedlist")
 				.query("emailAddr", "jsmith@test.com").accept(MediaType.APPLICATION_JSON)
 				.get(String.class);
-        logger.info("Message: " + message);
+        logger.info("Json Message: " + message);
+        assertTrue(message.startsWith("{") && message.endsWith("}"));
         assertTrue(message.indexOf("jsmith@test.com") > 0);
     }
 
@@ -60,7 +61,8 @@ public class SubscriptionRSTest {
 				.path("/SubscriptionRSTest/msgapi/subscription/subscribedlist")
 				.query("emailAddr", "jsmith@test.com").accept(MediaType.APPLICATION_XML)
 				.get(String.class);
-        logger.info("Message: " + message);
+        logger.info("Xml Message: " + message);
+        assertTrue(message.startsWith("<?xml ") && message.endsWith(">"));
         assertTrue(message.indexOf("jsmith@test.com") > 0);
     }
 
@@ -74,7 +76,7 @@ public class SubscriptionRSTest {
 		assertNotNull(list);
 		assertFalse(list.isEmpty());
 		for (SubscriptionVo vo : list) {
-			logger.info("Message: " + PrintUtil.prettyPrintRecursive(vo));
+			logger.info("Object Message: " + PrintUtil.prettyPrintRecursive(vo));
 			assertEquals("jsmith@test.com", vo.getAddress());
 		}
     }

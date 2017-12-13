@@ -113,7 +113,7 @@ public class SubscriptionRS {
 	@Path("/subscribe/{emailAddr}")
     @PUT
 	public Response subscribe(@PathParam("emailAddr") String emailAddr, String listId) {
-		logger.info("Entering subscriber() method..."); 
+		logger.info("Entering subscribe() - emailAddr: " + emailAddr + ", listId: " + listId); 
 		ResponseBuilder rb = new ResponseBuilderImpl();
 		try {
 			getSubscriberLocal();
@@ -149,10 +149,17 @@ public class SubscriptionRS {
 	@Path("/unsubscribe/{emailAddr}")
 	@PUT
 	public Response unSubscribe(@PathParam("emailAddr") String emailAddr, String listId) {
-		logger.info("Entering unSubscriber() method..."); 
+		logger.info("Entering unSubscribe() emailAddr: " + emailAddr + ", listId: " + listId); 
 		ResponseBuilder rb = new ResponseBuilderImpl();
 		try {
-			Subscription sub = getSubscriberLocal().unSubscribe(emailAddr, listId);
+			getSubscriberLocal();
+			Subscription sub = null;
+			if (subscriber != null) {
+				sub = subscriber.unSubscribe(emailAddr, listId);
+			}
+			else {
+				sub = subscriptionDao.unsubscribe(emailAddr, listId);
+			}
 			rb.status(Status.OK);
 			rb.entity(sub);
 		}
@@ -178,9 +185,16 @@ public class SubscriptionRS {
 	@Path("/addtolist/{sbsrEmailAddr}")
     @PUT
 	public Subscription addToList(@PathParam("sbsrEmailAddr") String sbsrEmailAddr, String listEmailAddr) {
-		logger.info("Entering addToList() method..."); 
+		logger.info("Entering addToList() - sbsrEmailAddr: " + sbsrEmailAddr + ", listEmailAddr: " + listEmailAddr); 
 		try {
-			Subscription sub = getSubscriberLocal().addToList(sbsrEmailAddr, listEmailAddr);
+			getSubscriberLocal();
+			Subscription sub = null;
+			if (subscriber != null) {
+				sub = subscriber.addToList(sbsrEmailAddr, listEmailAddr);
+			}
+			else {
+				sub = subscriptionDao.addToList(sbsrEmailAddr, listEmailAddr);
+			}
 			return sub;
 		}
 		catch (Exception e) {
@@ -195,9 +209,16 @@ public class SubscriptionRS {
 	@Path("/removefromlist/{sbsrEmailAddr}")
 	@PUT
 	public Subscription removeFromList(@PathParam("sbsrEmailAddr") String sbsrEmailAddr, String listEmailAddr) {
-		logger.info("Entering removeFromList() method..."); 
+		logger.info("Entering removeFromList() - sbsrEmailAddr: " + sbsrEmailAddr + ", listEmailAddr: " + listEmailAddr); 
 		try {
-			Subscription sub = getSubscriberLocal().removeFromList(sbsrEmailAddr, listEmailAddr);
+			getSubscriberLocal();
+			Subscription sub = null;
+			if (subscriber != null) {
+				sub = subscriber.removeFromList(sbsrEmailAddr, listEmailAddr);
+			}
+			else {
+				sub = subscriptionDao.removeFromList(sbsrEmailAddr, listEmailAddr);
+			}
 			return sub;
 		}
 		catch (Exception e) {
@@ -213,7 +234,7 @@ public class SubscriptionRS {
 	@Path("/subscribedlist")
 	@GET
 	public Response getSubscriberByEmailAddress(@QueryParam("emailAddr") String emailAddr, @Context HttpHeaders hh) {
-		logger.info("Entering getSubscriberByEmailAddress() method..."); 
+		logger.info("Entering getSubscriberByEmailAddress() - emailAddr: " + emailAddr); 
 		try {
 			getSubscriberLocal();
 			List<SubscriptionVo> sublist = null;
@@ -260,9 +281,9 @@ public class SubscriptionRS {
 	
 	@Path("/subscriber/{emailAddr}")
 	@GET
-	@Produces("application/xml")
+	@Produces(MediaType.APPLICATION_XML)
 	public SubscriberData getSubscriberByEmailAddressAsXml(@PathParam("emailAddr") String emailAddr) {
-		logger.info("Entering getSubscriberByEmailAddressAsXml() method..."); 
+		logger.info("Entering getSubscriberByEmailAddressAsXml() - emailAddr: " + emailAddr ); 
 		try {
 			getSubscriberLocal();
 			SubscriberData sd = null;
@@ -297,7 +318,7 @@ public class SubscriptionRS {
 	@Consumes("application/x-www-form-urlencoded")
 	public Response update(@Context UriInfo ui, @Context HttpHeaders hh, MultivaluedMap<String, String> formParams,
 			@PathParam("emailAddr") String emailAddr) {
-		logger.info("Entering update() method..."); 
+		logger.info("Entering update() method... emailAddr: " + emailAddr); 
 		// print out UriInfo
 		MultivaluedMap<String, String> pathParams = ui.getPathParameters();
 		MultivaluedMap<String, String> queryParams = ui.getQueryParameters();
@@ -329,10 +350,23 @@ public class SubscriptionRS {
 			logger.info("Form Key: " + key + ", Values: " + formParams.get(key));
 		}
 		try {
-			SubscriberData sbsrdata = getSubscriberLocal().getSubscriberByEmailAddress(emailAddr);
+			getSubscriberLocal();
+			SubscriberData sbsrdata = null;
+			if (subscriber != null) {
+				sbsrdata = subscriber.getSubscriberByEmailAddress(emailAddr);
+			}
+			else {
+				sbsrdata = subscriberDao.getByEmailAddress(emailAddr);
+			}
 			if (sbsrdata != null) {
 				BeanReflUtil.copyProperties(sbsrdata, formParams);
-				getSubscriberLocal().updateSubscriber(sbsrdata);
+				//getSubscriberLocal().updateSubscriber(sbsrdata);
+				if (subscriber != null) {
+					subscriber.updateSubscriber(sbsrdata);
+				}
+				else {
+					subscriberDao.update(sbsrdata);
+				}
 				return Response.ok("Success").build();
 			}
 			else {

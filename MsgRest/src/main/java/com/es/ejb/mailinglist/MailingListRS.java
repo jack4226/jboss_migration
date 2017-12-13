@@ -30,7 +30,6 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
 import jpa.util.BeanCopyUtil;
-import jpa.util.FileUtil;
 import jpa.util.PrintUtil;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -66,7 +65,7 @@ public class MailingListRS {
 		BeanCopyUtil.registerBeanUtilsConverters();
 	}
 	
-	MailingListLocal getMailingListLocal() throws NamingException {
+	MailingListLocal getMailingListLocal() {
 
 		if (maillist == null) {
 			try {
@@ -85,11 +84,7 @@ public class MailingListRS {
 	public Response getAllMailingLists() {
 		logger.info("Entering getAllMailingLists() method...");
 
-		try {
-			getMailingListLocal();
-		} catch (NamingException e) {
-			logger.error("NamingException caught: " + e.getMessage()); // should not happen
-		}
+		getMailingListLocal();
 		List<jpa.model.MailingList> list = null;
 		if (maillist != null) {
 			list = maillist.getActiveLists();
@@ -153,12 +148,23 @@ public class MailingListRS {
 		}
 		if (StringUtils.isNoneBlank(keyType) && StringUtils.isNotBlank(keyValue)) {
 			ResponseBuilder rb = new ResponseBuilderImpl();
+			getMailingListLocal();
 			jpa.model.MailingList ml;
 			if (StringUtils.containsIgnoreCase(keyType, "id")) {
-				ml =maillist.getByListId(keyValue);
+				if (maillist != null) {
+					ml = maillist.getByListId(keyValue);
+				}
+				else {
+					ml = mlistService.getByListId(keyValue);
+				}
 			}
 			else {
-				ml = maillist.getByListAddress(keyValue);
+				if (maillist != null) {
+					ml = maillist.getByListAddress(keyValue);
+				}
+				else {
+					ml = mlistService.getByListAddress(keyValue);
+				}
 			}
 			if (ml != null) {
 				rb.status(Status.OK);
@@ -213,7 +219,14 @@ public class MailingListRS {
         }
 
 		try {
-			jpa.model.MailingList ml = getMailingListLocal().getByListId(listId);
+			getMailingListLocal();
+			jpa.model.MailingList ml;
+			if (maillist != null) {
+				ml = maillist.getByListId(listId);
+			}
+			else {
+				ml = mlistService.getByListId(listId);
+			}
 			vo.setListId(listId); // make sure listId is not changed
 			try {
 				BeanUtils.copyProperties(ml, vo);
@@ -221,13 +234,19 @@ public class MailingListRS {
 			catch (Exception e) {
 				throw new RuntimeException("Failed to copy properties", e);
 			}
-			getMailingListLocal().update(ml);
+			//getMailingListLocal().update(ml);
+			if (maillist != null) {
+				maillist.update(ml);
+			}
+			else {
+				mlistService.update(ml);
+			}
 			logger.info("MailingList updated, listId = " + ml.getListId());
 			return Response.ok("Success").build();
 		}
-		catch (NamingException e) {
-			logger.error("NamingException caught: " + e.getMessage());
-			return Response.serverError().entity("NamingException caught").build();
+		catch (Exception e) {
+			logger.error("Exception caught: " + e.getMessage());
+			return Response.serverError().entity("Exception caught").build();
 		}
 	}
 
@@ -241,18 +260,31 @@ public class MailingListRS {
 			logger.info("Form Key/Values: " + key + " => " + formParams.get(key));
 		}
 		try {
-			jpa.model.MailingList ml = getMailingListLocal().getByListId(listId);
+			getMailingListLocal();
+			jpa.model.MailingList ml;
+			if (maillist != null) {
+				ml = maillist.getByListId(listId);
+			}
+			else {
+				ml = mlistService.getByListId(listId);
+			}
 			if (ml == null) {
 				return Response.noContent().build();
 			}
 			BeanReflUtil.copyProperties(ml, formParams);
-			getMailingListLocal().update(ml);
+			//getMailingListLocal().update(ml);
+			if (maillist != null) {
+				maillist.update(ml);
+			}
+			else {
+				mlistService.update(ml);
+			}
 			logger.info("MailingList updated, listId = " + ml.getListId());
 			return Response.ok("Success").build();
 		}
-		catch (NamingException e) {
-			logger.error("NamingException caught: " + e.getMessage());
-			return Response.serverError().entity("NamingException caught").build();
+		catch (Exception e) {
+			logger.error("Exception caught: " + e.getMessage());
+			return Response.serverError().entity("Exception caught").build();
 		}
 	}
 
@@ -260,18 +292,22 @@ public class MailingListRS {
 	@POST
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	@Produces("multipart/mixed")
-	public Map<String, Object> saveMultipart(MultipartBody multipartBody, @Context HttpHeaders hh,
-			@Multipart(value="listId", required=false) String listId,
-			@Multipart(value="fileUpload", required=false, type="text/*") String file) {
-		logger.info("Entering saveMultipart() method..., listId = " + listId); 
+	public Map<String, Object> saveMultipart(MultipartBody multipartBody, @Context HttpHeaders hh) {
+		logger.info("Entering saveMultipart() method..."); 
 		JaxrsUtil.printOutHttpHeaders(hh);
+		
+		Map<String, Object> map = new LinkedHashMap<>();
+		
 		Attachment root = multipartBody.getRootAttachment();
 		if (root != null) {
-			logger.info("Root attachment content type/id: " + root.getContentType() + ", " + root.getContentId());
+			logger.info("Root attachment content type/id: " + root.getContentType() + " / " + root.getContentId());
 			JaxrsUtil.printOutMultivaluedMap(root.getHeaders());
 			boolean isTextContent = StringUtils.contains(root.getContentType().toString(), "text");
 			try {
 				byte[] content = JaxrsUtil.getBytesFromDataHandler(root.getDataHandler());
+				if (content != null && content.length > 0) {
+					map.put(root.getContentType().toString(), content);
+				}
 				if (isTextContent) {
 					logger.info("     Content: " + LF + new String(content));
 				}
@@ -283,12 +319,77 @@ public class MailingListRS {
 				throw new WebApplicationException(e);
 			}
 		}
+
 		for (Attachment attch : multipartBody.getAllAttachments()) {
-			logger.info("Attachment content type/id: " + attch.getContentType() + ", " + attch.getContentId());
+			logger.info("Attachment content type/id: " + attch.getContentType() + " / " + attch.getContentId());
 			JaxrsUtil.printOutMultivaluedMap(attch.getHeaders());
-			boolean isTextContent = StringUtils.contains(attch.getContentType().toString(), "text");
+			String contentType = attch.getContentType().toString();
+			boolean isTextContent = StringUtils.contains(contentType, "text");
 			try {
 				byte[] content = JaxrsUtil.getBytesFromDataHandler(attch.getDataHandler());
+				if (content != null && content.length > 0) { // content is empty content Id is "root"
+					map.put(contentType, content);
+				}
+				if (isTextContent) {
+					logger.info("     Content: " + LF + new String(content));
+				}
+				else {
+					logger.info("     Content name: " + attch.getDataHandler().getName());
+				}
+			}
+			catch (IOException e) {
+				throw new WebApplicationException(e);
+			}
+		}
+		
+		return map;
+	}
+	
+	@Path("/uploadpart2")
+	@POST
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	@Produces("multipart/mixed")
+	public Map<String, Object> saveMultipart2(MultipartBody multipartBody, @Context HttpHeaders hh,
+			@Multipart(value="listId", required=false) String listId,
+			@Multipart(value="fileUpload", required=false, type="text/*") String file) {
+		// The attachment whose Id equals "fileUpload" can only be text content type.
+		logger.info("Entering saveMultipart() method..., listId = " + listId); 
+		JaxrsUtil.printOutHttpHeaders(hh);
+		
+		Map<String, Object> map = new LinkedHashMap<>();
+		
+		Attachment root = multipartBody.getRootAttachment();
+		if (root != null) {
+			logger.info("Root attachment content type/id: " + root.getContentType() + " / " + root.getContentId());
+			JaxrsUtil.printOutMultivaluedMap(root.getHeaders());
+			boolean isTextContent = StringUtils.contains(root.getContentType().toString(), "text");
+			try {
+				byte[] content = JaxrsUtil.getBytesFromDataHandler(root.getDataHandler());
+				if (content != null && content.length > 0) {
+					map.put(root.getContentType().toString(), content);
+				}
+				if (isTextContent) {
+					logger.info("     Content: " + LF + new String(content));
+				}
+				else {
+					logger.info("     Content name: " + root.getDataHandler().getName());
+				}
+			}
+			catch (IOException e) {
+				throw new WebApplicationException(e);
+			}
+		}
+
+		for (Attachment attch : multipartBody.getAllAttachments()) {
+			logger.info("Attachment content type/id: " + attch.getContentType() + " / " + attch.getContentId());
+			JaxrsUtil.printOutMultivaluedMap(attch.getHeaders());
+			String contentType = attch.getContentType().toString();
+			boolean isTextContent = StringUtils.contains(contentType, "text");
+			try {
+				byte[] content = JaxrsUtil.getBytesFromDataHandler(attch.getDataHandler());
+				if (content != null && content.length > 0) {
+					map.put(contentType, content);
+				}
 				if (isTextContent) {
 					logger.info("     Content: " + LF + new String(content));
 				}
@@ -304,28 +405,75 @@ public class MailingListRS {
 			logger.info("Attachment text file: " + LF + file);
 		}
 		
-		Map<String, Object> map = new LinkedHashMap<String, Object>();
-		byte[] txtfile = FileUtil.loadFromFile("META-INF", "openejb.xml");
-		//byte[] pdffile = FileUtil.loadFromFile("META-INF", "ErrorCodes.pdf");
-		map.put("text/xml", txtfile);
-		//map.put("application/octet-stream", pdffile);
+		return map;
+	}
+
+
+	@Path("/uploadpart3")
+	@POST
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	@Produces("multipart/mixed")
+	public Map<String, Object> saveMultipart3(@Context HttpHeaders hh,
+			@Multipart(value = "root", required = true, type = "text/xml") String root,
+			@Multipart(value = "fileUpload", required = false, type = "text/plain") String file) {
+
+		logger.info("Entering saveMultipart() method..."); 
+		JaxrsUtil.printOutHttpHeaders(hh);
+		
+		Map<String, Object> map = new LinkedHashMap<>();
+		
+		map.put("text/xml", root);
+		logger.info("Root Content: " + LF + root);
+		if (StringUtils.isNotBlank(file)) {
+			map.put("text/plain", file);
+			logger.info("fileUpload Content: " + LF + file);
+		}
+		
 		return map;
 	}
 
 	@Path("/uploadfile")
 	@POST
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	@Produces("multipart/mixed;type=text/xml")
-	public MultipartBody saveAttachments(List<Attachment> attachments, @Context HttpHeaders hh,
-			@Multipart(value="fileUpload", required=false, type="text/html") String file) {
-		// type="application/octet-stream"
-		logger.info("Entering  saveAttachments() method..., fileUpload = " + LF + file);
+	@Produces("multipart/mixed")
+	public MultipartBody saveAttachments(List<Attachment> attachments, @Context HttpHeaders hh) {
+		logger.info("Entering  saveAttachments() method...");
 		JaxrsUtil.printOutHttpHeaders(hh);
+		List<Attachment> atts = new LinkedList<Attachment>();
 		for (Attachment attch : attachments) {
-			logger.info("Attachment content type/id: " + attch.getContentType() + ", " + attch.getContentId());
-			boolean isTextContent = StringUtils.contains(attch.getContentType().toString(), "text");
+			logger.info("Attachment content type/id: " + attch.getContentType() + " / " + attch.getContentId());
+			String contentType = attch.getContentType().toString();
 			try {
 				byte[] content = JaxrsUtil.getBytesFromDataHandler(attch.getDataHandler());
+				if (content != null && content.length > 0) {
+					atts.add(new Attachment(attch.getContentId(), contentType, content));
+				}
+			}
+			catch (IOException e) {
+				throw new WebApplicationException(e);
+			}
+		}
+		return new MultipartBody(atts, true);
+	}
+
+	@Path("/uploadfile2")
+	@POST
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	@Produces("multipart/mixed;type=text/xml")
+	public MultipartBody saveAttachments2(List<Attachment> attachments, @Context HttpHeaders hh,
+			@Multipart(value="fileUpload", required=false, type="text/xml") String file) {
+		logger.info("Entering  saveAttachments() method..., fileUpload = " + LF + file);
+		JaxrsUtil.printOutHttpHeaders(hh);
+		List<Attachment> atts = new LinkedList<Attachment>();
+		for (Attachment attch : attachments) {
+			logger.info("Attachment content type/id: " + attch.getContentType() + " / " + attch.getContentId());
+			String contentType = attch.getContentType().toString();
+			boolean isTextContent = StringUtils.contains(contentType, "text");
+			try {
+				byte[] content = JaxrsUtil.getBytesFromDataHandler(attch.getDataHandler());
+				if (content != null && content.length > 0) {
+					atts.add(new Attachment(attch.getContentId(), contentType, content));
+				}
 				if (isTextContent) {
 					logger.info("     Content: " + LF + new String(content));
 				}
@@ -337,14 +485,6 @@ public class MailingListRS {
 				throw new WebApplicationException(e);
 			}
 		}
-		// build Multipart output
-		List<Attachment> atts = new LinkedList<Attachment>();
-		byte[] txtfile = FileUtil.loadFromFile("META-INF", "openejb.xml");
-		byte[] txtfile2 = FileUtil.loadFromFile("META-INF", "ejb-jar.xml");
-		//byte[] pdffile = FileUtil.loadFromFile("META-INF", "ErrorCodes.pdf");
-		atts.add(new Attachment("root", "text/xml", txtfile));
-		atts.add(new Attachment("ejbjar", "text/xml", txtfile2));
-		//atts.add(new Attachment("pdf", "application/octet-stream", pdffile));
 		return new MultipartBody(atts, true);
 	}
 

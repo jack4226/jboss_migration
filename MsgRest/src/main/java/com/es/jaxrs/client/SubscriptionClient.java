@@ -130,7 +130,7 @@ public class SubscriptionClient {
 		WebClient client = WebClient.create(httpAddr).path("/MsgRest/msgapi/subscription/addtolist/" + "newsbsr@test.com");
 		
 		Subscription sub = client.put("demolist1@localhost", Subscription.class);
-		logger.info("Subscription (removed from list): " + PrintUtil.prettyPrint(sub));
+		logger.info("Subscription (added to list): " + PrintUtil.prettyPrint(sub));
 		assertEquals(sub.isSubscribed(), true);
 	}
 
@@ -138,7 +138,7 @@ public class SubscriptionClient {
 		WebClient client = WebClient.create(httpAddr).path("/MsgRest/msgapi/subscription/removefromlist/" + "newsbsr@test.com");
 		
 		Subscription sub = client.put("demolist1@localhost", Subscription.class);
-		logger.info("Subscription (added to list): " + PrintUtil.prettyPrint(sub));
+		logger.info("Subscription (removed from list): " + PrintUtil.prettyPrint(sub));
 		assertEquals(sub.isSubscribed(), false);
 	}
 

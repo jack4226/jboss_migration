@@ -154,35 +154,62 @@ public class MailingListRestTest {
 
 	@Test
 	public void testUploadPartAndFile() throws IOException {
-		testUpload("uploadpart", 2);
-		testUpload("uploadpart2", 2);
-		testUpload("uploadfile", 2);
-		testUpload("uploadfile2", 2);
+		testUpload("uploadpart", 2, 1);
+		try {
+			testUpload("uploadpart", 2, 2);
+			fail();
+		}
+		catch (javax.ws.rs.WebApplicationException e) {
+			// media type mismatch.
+		}
+		
+		testUpload("uploadpart2", 2, 1);
+		testUpload("uploadpart2", 1, 2);
+		
+		testUpload("uploadfile", 2, 1);
+		try {
+			testUpload("uploadfile", 2, 2);
+			fail();
+		}
+		catch (javax.ws.rs.WebApplicationException e) {
+			// media type mismatch.
+		}
 	}
 
-	private void testUpload(String part, int expectedCount) throws IOException {
+	private void testUpload(String part, int expectedCount, int iteration) throws IOException {
 		WebClient client = WebClient.create("http://localhost:4204", getProviders())
 				.path("/MailingListRestTest/msgapi/mailinglist/" + part);
 		client.type("multipart/form-data").accept("multipart/mixed");
 		List<Attachment> atts = new LinkedList<Attachment>();
-		byte[] txtfile = FileUtil.loadFromFile("META-INF", "openejb.xml");
-		assertNotNull(txtfile);
-		atts.add(new Attachment("root", "text/xml", txtfile));
-		if (StringUtils.equals(part, "uploadpart"))  {
-			byte[] pdffile = FileUtil.loadFromFile("META-INF", "ErrorCodes.pdf");
-			atts.add(new Attachment("ErrorCode.pdf", "application/octet-stream", pdffile));
+		byte[] txtfile1 = FileUtil.loadFromFile("META-INF", "openejb.xml");
+		byte[] txtfile2 = FileUtil.loadFromFile("META-INF", "MANIFEST.MF");
+		byte[] txtfile3 = FileUtil.loadFromFile("META-INF", "ejb-jar.xml");
+		byte[] pdffile = FileUtil.loadFromFile("META-INF", "ErrorCodes.pdf");
+		assertNotNull(txtfile1);
+		atts.add(new Attachment("root", "text/xml", txtfile1));
+		if (StringUtils.equals(part, "uploadpart")) {
+			if (iteration == 1) {
+				atts.add(new Attachment("ErrorCode.pdf", "application/octet-stream", pdffile));
+			} else if (iteration == 2) {
+				// atts.add(new Attachment("textfile", "text/plain", txtfile1));
+				atts.add(new Attachment("textfile", "application/octet-stream", txtfile2));
+			}
 		}
-		if (StringUtils.equals(part, "uploadpart2"))  {
-			byte[] txtfile2 = FileUtil.loadFromFile("META-INF", "MANIFEST.MF");
-			atts.add(new Attachment("fileUpload", "text/plain", txtfile2));
+		else if (StringUtils.equals(part, "uploadpart2")) {
+			if (iteration == 1) {
+				atts.add(new Attachment("textfile", "text/plain", txtfile2));
+			}
+			else if (iteration == 2) {
+				atts.add(new Attachment("textfile_nomatch", "text/plain", txtfile2));
+			}
 		}
 		else if (StringUtils.equals(part, "uploadfile")) {
-			byte[] pdffile = FileUtil.loadFromFile("META-INF", "ErrorCodes.pdf");
-			atts.add(new Attachment("ErrorCode.pdf", "application/octet-stream", pdffile));
-		}
-		else {
-			byte[] txtfile2 = FileUtil.loadFromFile("META-INF", "ejb-jar.xml");
-			atts.add(new Attachment("ejb-jar", "text/xml", txtfile2));
+			if (iteration == 1) {
+				atts.add(new Attachment("ErrorCode.pdf", "application/octet-stream", pdffile));
+			}
+			else if (iteration == 2) {
+				atts.add(new Attachment("textfile", "application/octet-stream", txtfile3));
+			}
 		}
 		// invoke restful service
 		Collection<?> attlist = client.postAndGetCollection(atts, Attachment.class);

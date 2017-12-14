@@ -412,7 +412,7 @@ public class MailingListRS {
 	@Path("/uploadpart3")
 	@POST
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	@Produces("multipart/mixed")
+	@Produces("multipart/mixed;type=text/xml")
 	public Map<String, Object> saveMultipart3(@Context HttpHeaders hh,
 			@Multipart(value = "root", required = true, type = "text/xml") String root,
 			@Multipart(value = "fileUpload", required = false, type = "text/plain") String file) {

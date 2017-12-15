@@ -12,6 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.xml.parsers.ParserConfigurationException;
@@ -20,7 +21,6 @@ import javax.xml.transform.TransformerException;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.cxf.jaxrs.client.WebClient;
-import org.apache.cxf.jaxrs.ext.form.Form;
 import org.apache.cxf.jaxrs.ext.multipart.Attachment;
 import org.apache.cxf.jaxrs.provider.JAXBElementProvider;
 import org.apache.cxf.jaxrs.provider.json.JSONProvider;
@@ -116,9 +116,9 @@ public class MailingListClient {
 	static void testUpdateWithForm(String uriStr) {
 		WebClient client = WebClient.create(uriStr).path("/MsgRest/msgapi/mailinglist/updateform");
 		Form form = new Form();
-		form.set("listId", "SMPLLST2");
+		form.param("listId", "SMPLLST2");
 		int suffix = new Random().nextInt(1000) + 1000;
-		form.set("description", "Sample mailing list 2 - " + suffix);
+		form.param("description", "Sample mailing list 2 - " + suffix);
 		client.type(MediaType.APPLICATION_FORM_URLENCODED);
 		// Send the form object along with the post call
 		Response rsp = client.post(form);

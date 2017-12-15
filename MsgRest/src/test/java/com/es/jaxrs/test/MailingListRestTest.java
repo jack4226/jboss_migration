@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.cxf.jaxrs.client.WebClient;
 import org.apache.cxf.jaxrs.ext.form.Form;
 import org.apache.cxf.jaxrs.ext.multipart.Attachment;
@@ -161,6 +162,7 @@ public class MailingListRestTest {
 		}
 		catch (javax.ws.rs.WebApplicationException e) {
 			// media type mismatch.
+			logger.info("Stack trace: " + ExceptionUtils.getStackTrace(e));
 		}
 		
 		testUpload("uploadpart2", 2, 1);

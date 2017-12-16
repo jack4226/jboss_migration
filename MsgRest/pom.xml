@@ -18,7 +18,7 @@
   	<jstl.version>1.2</jstl.version>
   	<javax.mail.version>1.4.7</javax.mail.version>
   	<faces-api.version>2.2</faces-api.version>
-  	<tomee.version>7.0.4</tomee.version> <!-- 1.7.5, 7.0.4 -->
+  	<tomee.version>7.0.4</tomee.version> <!-- 7.0.4 -->
   </properties>
   
   <build>
@@ -142,31 +142,6 @@
 
 	<!-- Dependencies for Embedded EJB Container -->
 
-	<!-- dependency>
-		<groupId>org.apache.openejb</groupId>
-		<artifactId>tomee-embedded</artifactId>
-		<version>${tomee.version}</version>
-		<scope>provided</scope>
-	</dependency>
-	<dependency>
-		<groupId>org.apache.openejb</groupId>
-		<artifactId>tomee-jaxrs</artifactId>
-		<version>${tomee.version}</version>
-		<scope>provided</scope>
-	</dependency>
-	<dependency>
-		<groupId>org.apache.openejb</groupId>
-		<artifactId>tomee-webservices</artifactId>
-		<version>${tomee.version}</version>
-		<scope>provided</scope>
-	</dependency -->
-	
-	<!-- dependency>
-	    <groupId>org.codehaus.jettison</groupId>
-	    <artifactId>jettison</artifactId>
-	    <version>1.3.8</version>
-	</dependency -->
-	
 	<dependency>
 		<groupId>org.apache.tomee</groupId>
 		<artifactId>tomee-embedded</artifactId>

@@ -9,17 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.cxf.jaxrs.client.WebClient;
-import org.apache.cxf.jaxrs.ext.form.Form;
 import org.apache.log4j.Logger;
-import org.apache.openejb.jee.WebApp;
+import org.apache.openejb.jee.SingletonBean;
 import org.apache.openejb.junit.ApplicationComposer;
-import org.apache.openejb.testing.Classes;
 import org.apache.openejb.testing.EnableServices;
 import org.apache.openejb.testing.Module;
 import org.junit.Test;
@@ -39,9 +38,8 @@ public class SubscriptionRestTest {
 	private String sbsrEmail = "jsmith@test.com";
 
 	@Module
-	@Classes(SubscriptionRS.class)
-	public WebApp app() {
-		return new WebApp().contextRoot("SubscriptionRestTest");
+	public SingletonBean app() {
+	    return (SingletonBean) new SingletonBean(SubscriptionRS.class).localBean();
 	}
     
     @Test
@@ -137,8 +135,8 @@ public class SubscriptionRestTest {
 				.path("/SubscriptionRestTest/msgapi/subscription/update/" + sbsrEmail);
 		Form form = new Form();
 		int suffix = new Random().nextInt(10000) + 10000;
-		form.set("msgFooter", "Have a nice day. - " + suffix);
-		form.set("msgHeader", "Joe's Message Header - " + suffix);
+		form.param("msgFooter", "Have a nice day. - " + suffix);
+		form.param("msgHeader", "Joe's Message Header - " + suffix);
 		client.type(MediaType.APPLICATION_FORM_URLENCODED);
 		// Send the form object along with the post call
 		Response rsp = client.post(form);
@@ -157,8 +155,6 @@ public class SubscriptionRestTest {
     private List<Object> getProviders() {
     	// build provider list
     	List<Object> providers = new ArrayList<>();
-    	//SubscriberDataReader reader = new SubscriberDataReader();
-    	//providers.add(reader);
     	return providers;
     }
 }

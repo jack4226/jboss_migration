@@ -9,6 +9,7 @@ import java.util.List;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.cxf.jaxrs.client.WebClient;
+import org.apache.johnzon.jaxrs.JohnzonProvider;
 import org.apache.log4j.Logger;
 import org.apache.openejb.jee.SingletonBean;
 import org.apache.openejb.junit.ApplicationComposer;
@@ -18,7 +19,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.es.ejb.ws.vo.SubscriptionVo;
-import com.es.jaxrs.common.ListReader;
 
 import jpa.model.SubscriberData;
 import jpa.util.PrintUtil;
@@ -34,10 +34,11 @@ public class SubscriptionRSTest {
 	}
 
     @Test
+    //@org.junit.Ignore
     public void getSubscriberAsObject() throws IOException {
 		final SubscriberData sbsrData = WebClient.create("http://localhost:4204")
 				.path("/SubscriptionRSTest/msgapi/subscription/getSubscriber")
-				.query("emailAddr", "jsmith@test.com").accept(MediaType.APPLICATION_JSON)
+				.query("emailAddr", "jsmith@test.com")
 				.get(SubscriberData.class);
 		logger.info("SubscriberData: " + PrintUtil.prettyPrint(sbsrData));
 		assertEquals("Joe", sbsrData.getFirstName());
@@ -45,19 +46,19 @@ public class SubscriptionRSTest {
     }
 
     @Test
-    @org.junit.Ignore
+    //@org.junit.Ignore
     public void getSubscriberListAsJson() throws IOException {
 		final String message = WebClient.create("http://localhost:4204")
 				.path("/SubscriptionRSTest/msgapi/subscription/subscribedlist")
 				.query("emailAddr", "jsmith@test.com").accept(MediaType.APPLICATION_JSON)
 				.get(String.class);
         logger.info("Json Message: " + message);
-        assertTrue(message.startsWith("{") && message.endsWith("}"));
+        assertTrue(message.startsWith("[{") && message.endsWith("}]"));
         assertTrue(message.indexOf("jsmith@test.com") > 0);
     }
 
     @Test
-    @org.junit.Ignore
+    //@org.junit.Ignore
     public void getSubscriberListAsXml() throws IOException {
 		final String message = WebClient.create("http://localhost:4204")
 				.path("/SubscriptionRSTest/msgapi/subscription/subscribedlist")
@@ -69,13 +70,13 @@ public class SubscriptionRSTest {
     }
 
     @Test
-    @org.junit.Ignore
+    //@org.junit.Ignore
     public void getSubscriberListAddress() throws IOException {
 		@SuppressWarnings("unchecked")
 		final List<SubscriptionVo> list = (List<SubscriptionVo>) WebClient.create("http://localhost:4204", getProviders())
 				.path("/SubscriptionRSTest/msgapi/subscription/subscribedlist")
-				.query("emailAddr", "jsmith@test.com").accept(MediaType.APPLICATION_JSON)
-				.get(List.class);
+				.query("emailAddr", "jsmith@test.com")
+				.getCollection(SubscriptionVo.class);
 		assertNotNull(list);
 		assertFalse(list.isEmpty());
 		for (SubscriptionVo vo : list) {
@@ -84,11 +85,11 @@ public class SubscriptionRSTest {
 		}
     }
 
-    private <T> List<Object> getProviders() {
+	private <T> List<Object> getProviders() {
     	// build provider list
     	List<Object> providers = new ArrayList<>();
-    	ListReader<T> lstRdr = new ListReader<>();
-    	providers.add(lstRdr);
+    	JohnzonProvider<?> provider = new JohnzonProvider<>();
+    	providers.add(provider);
     	return providers;
     }
 

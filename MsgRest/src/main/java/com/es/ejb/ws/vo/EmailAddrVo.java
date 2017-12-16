@@ -8,7 +8,10 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import org.apache.johnzon.mapper.JohnzonConverter;
+
 import jpa.msgui.vo.TimestampAdapter;
+import jpa.msgui.vo.TimestampConverter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "EmailAddrVo")
@@ -18,6 +21,7 @@ public class EmailAddrVo extends BaseWsVo {
 	@XmlElement(required=true)
 	private String address;
 	@XmlJavaTypeAdapter(TimestampAdapter.class)
+	@JohnzonConverter(TimestampConverter.class)
 	private Timestamp statusChangeTime;
  	private String statusChangeUserId;
 	@XmlElement(required=true)

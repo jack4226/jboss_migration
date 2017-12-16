@@ -6,7 +6,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	<spring.version>4.3.8.RELEASE</spring.version> <!-- 4.1.7.RELEASE last release supports AopUtils.isCglibProxyClass() -->
+	<spring.version>4.3.13.RELEASE</spring.version> <!-- 4.1.7.RELEASE last release supports AopUtils.isCglibProxyClass() -->
 	<aspectjweaver.version>1.8.9</aspectjweaver.version>
 	<cglib.version>3.2.4</cglib.version>
 	<hibernate.version>5.2.12.Final</hibernate.version>
@@ -32,7 +32,8 @@
     <faces-api.version>2.2</faces-api.version>
     <spring-data-commons.version>1.13.3.RELEASE</spring-data-commons.version>
     <spring-data-jpa.version>1.11.3.RELEASE</spring-data-jpa.version>
-    <activemq-version>5.11.4</activemq-version> <!-- 5.11.x last version supports: java.lang.NoSuchMethodError: org.apache.activemq.ActiveMQPrefetchPolicy.getInputStreamPrefetch() -->
+    <activemq-version>5.14.5</activemq-version> <!-- 5.11.4 last version supports: java.lang.NoSuchMethodError: org.apache.activemq.ActiveMQPrefetchPolicy.getInputStreamPrefetch() -->
+    <johnzen.version>1.1.5</johnzen.version>
   </properties>
 <!-- 
 	<repositories>
@@ -345,6 +346,25 @@
 	    <groupId>org.apache.activemq</groupId>
 	    <artifactId>activemq-all</artifactId>
 	    <version>${activemq-version}</version>
+	    <scope>provided</scope>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.apache.johnzon</groupId>
+	    <artifactId>johnzon-core</artifactId>
+	    <version>${johnzen.version}</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.apache.johnzon</groupId>
+	    <artifactId>johnzon-mapper</artifactId>
+	    <version>${johnzen.version}</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>javax.json</groupId>
+	    <artifactId>javax.json-api</artifactId>
+	    <version>1.1.2</version>
 	</dependency>
 	
   </dependencies>

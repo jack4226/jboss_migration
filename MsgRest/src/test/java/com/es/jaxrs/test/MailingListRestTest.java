@@ -9,18 +9,22 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.cxf.jaxrs.client.WebClient;
-import org.apache.cxf.jaxrs.ext.form.Form;
 import org.apache.cxf.jaxrs.ext.multipart.Attachment;
+import org.apache.johnzon.jaxrs.JohnzonProvider;
 import org.apache.log4j.Logger;
-import org.apache.openejb.jee.WebApp;
+import org.apache.openejb.jee.SingletonBean;
 import org.apache.openejb.junit.ApplicationComposer;
-import org.apache.openejb.testing.Classes;
 import org.apache.openejb.testing.EnableServices;
 import org.apache.openejb.testing.Module;
 import org.junit.Test;
@@ -28,7 +32,6 @@ import org.junit.runner.RunWith;
 
 import com.es.ejb.mailinglist.MailingListRS;
 import com.es.ejb.ws.vo.MailingListVo;
-import com.es.jaxrs.common.ListReader;
 import com.es.tomee.util.JaxrsUtil;
 
 import jpa.util.FileUtil;
@@ -40,31 +43,45 @@ public class MailingListRestTest {
 	static final Logger logger = Logger.getLogger(MailingListRestTest.class);
 	
 	@Module
-	@Classes(MailingListRS.class)
-	public WebApp app() {
-		return new WebApp().contextRoot("MailingListRestTest");
+	public SingletonBean app() {
+	    return (SingletonBean) new SingletonBean(MailingListRS.class).localBean();
 	}
-
+	
 	@Test
-	@org.junit.Ignore
+	public void testGetMailingListJaxrsApi() {
+		Client client = ClientBuilder.newClient();
+		WebTarget target = client.target("http://localhost:4204");
+		target = target.path("/MailingListRestTest/msgapi/mailinglist/getBy/listId").queryParam("value", "SMPLLST1");
+		 
+		Invocation.Builder builder = target.request();
+		Response response = builder.get();
+		logger.info("Class: " + response.getEntity().getClass().getName());
+		MailingListVo vo = builder.get(MailingListVo.class);
+		logger.info("Status: " + response.getStatus());
+		assertNotNull(vo);
+		logger.info("MailingListVo: (JAX-RS 2.0 API)" + PrintUtil.prettyPrint(vo));
+		assertEquals("SMPLLST1", vo.getListId());
+	}
+	
+	@Test
+	//@org.junit.Ignore
 	public void testGetMailingListsAsString() {
 		final String message = WebClient.create("http://localhost:4204")
 				.path("/MailingListRestTest/msgapi/mailinglist/list")
 				.accept(MediaType.APPLICATION_JSON)
 				.get(String.class);
         logger.info("Message: " + message);
-        assertTrue(message.startsWith("{") && message.endsWith("}"));
-        assertTrue(message.indexOf("MailingListVo") > 0);
+        assertTrue(message.startsWith("[{") && message.endsWith("}]"));
+        assertTrue(message.indexOf("Sample mailing list 1") > 0);
 	}
 	
 	@Test
-	@org.junit.Ignore
+	//@org.junit.Ignore
 	public void testGetMailingListsAsList() {
 		@SuppressWarnings("unchecked")
-		final List<MailingListVo> list = WebClient.create("http://localhost:4204", getProviders())
+		final List<MailingListVo> list = (List<MailingListVo>) WebClient.create("http://localhost:4204")
 				.path("/MailingListRestTest/msgapi/mailinglist/list")
-				.accept(MediaType.APPLICATION_JSON)
-				.get(List.class);
+				.getCollection(MailingListVo.class);
         logger.info("MailingListVo list size: " + list.size());
         assertFalse(list.isEmpty());
         for (MailingListVo vo : list) {
@@ -75,7 +92,7 @@ public class MailingListRestTest {
 	}
 
 	@Test
-	@org.junit.Ignore
+	//@org.junit.Ignore
 	public void testGetByListId() {
 		WebClient client = WebClient.create("http://localhost:4204", getProviders())
 				.path("/MailingListRestTest/msgapi/mailinglist/getBy/listId");
@@ -87,7 +104,7 @@ public class MailingListRestTest {
 	}
 	
 	@Test
-	@org.junit.Ignore
+	//@org.junit.Ignore
 	public void testGetByAddress() {
 		WebClient client = WebClient.create("http://localhost:4204", getProviders())
 				.path("/MailingListRestTest/msgapi/mailinglist/getBy/address");
@@ -99,7 +116,7 @@ public class MailingListRestTest {
 	}
 	
 	@Test
-	@org.junit.Ignore
+	//@org.junit.Ignore
 	public void testUpdateWithObject() {
 		// get mailing list from list email address
 		WebClient client = WebClient.create("http://localhost:4204", getProviders())
@@ -112,6 +129,7 @@ public class MailingListRestTest {
 		// update the mailing list
 		client = WebClient.create("http://localhost:4204", getProviders())
 				.path("/MailingListRestTest/msgapi/mailinglist/update/" + vo.getListId());
+		client.type(MediaType.APPLICATION_XML);
 		int suffix = new Random().nextInt(10000) + 10000;
 		vo.setDescription("Sample mailing list 2 - " + suffix);
 		Response rsp = client.post(vo);
@@ -129,14 +147,14 @@ public class MailingListRestTest {
 	}
 
 	@Test
-	@org.junit.Ignore
+	//@org.junit.Ignore
 	public void testUpdateWithForm() {
 		WebClient client = WebClient.create("http://localhost:4204", getProviders())
 				.path("/MailingListRestTest/msgapi/mailinglist/updateform");
 		Form form = new Form();
-		form.set("listId", "SMPLLST2");
+		form.param("listId", "SMPLLST2");
 		int suffix = new Random().nextInt(10000) + 10000;
-		form.set("description", "Sample mailing list 2 - " + suffix);
+		form.param("description", "Sample mailing list 2 - " + suffix);
 		client.type(MediaType.APPLICATION_FORM_URLENCODED);
 		// Send the form object along with the post call
 		Response rsp = client.post(form);
@@ -154,6 +172,7 @@ public class MailingListRestTest {
 	}
 
 	@Test
+	@org.junit.Ignore
 	public void testUploadPartAndFile() throws IOException {
 		testUpload("uploadpart", 2, 1);
 		try {
@@ -240,11 +259,11 @@ public class MailingListRestTest {
 		assertEquals(expectedCount, count);
 	}
 
-    private <T> List<Object> getProviders() {
+	private <T> List<Object> getProviders() {
     	// build provider list
     	List<Object> providers = new ArrayList<>();
-    	ListReader<T> lstRdr = new ListReader<>();
-    	providers.add(lstRdr);
+    	JohnzonProvider<?> provider = new JohnzonProvider<>();
+    	providers.add(provider);
     	return providers;
     }
 

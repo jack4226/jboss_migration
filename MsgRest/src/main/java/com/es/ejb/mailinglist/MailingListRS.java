@@ -78,6 +78,12 @@ public class MailingListRS {
 		}
 		return maillist;
 	}
+	
+	@Path("/greeting")
+	@GET
+    public String getGreeting() {
+        throw new IllegalArgumentException("this exception is handled by an exception mapper");
+    }
 
 	@Path("/list")
 	@GET
@@ -206,7 +212,7 @@ public class MailingListRS {
 	 */
 	@Path("/update/{listId}")
 	@POST
-	@Consumes(MediaType.APPLICATION_XML)
+	@Consumes({MediaType.APPLICATION_XML})
 	public Response updateList(@Context Request req, @PathParam("listId") String listId, MailingListVo vo) {
 		logger.info("Entering updateList() method...  list to update: " + listId);
 		logger.info("MailingList to upadte:" + PrintUtil.prettyPrint(vo));
@@ -292,11 +298,8 @@ public class MailingListRS {
 	@POST
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	@Produces("multipart/mixed")
-	public Map<String, Object> saveMultipart(MultipartBody multipartBody, @Context HttpHeaders hh,
-			// Optional parameters for testing purpose only.
-			@Multipart(value="listId", required=false) String listId,
-			@Multipart(value="textfile", required=false, type="text/*") String file) {
-		logger.info("Entering saveMultipart() method..., listId = " + listId);
+	public Map<String, Object> saveMultipart(MultipartBody multipartBody, @Context HttpHeaders hh) {
+		logger.info("Entering saveMultipart() method...");
 		JaxrsUtil.printOutHttpHeaders(hh);
 		
 		Map<String, Object> map = new LinkedHashMap<>();
@@ -343,9 +346,6 @@ public class MailingListRS {
 			catch (IOException e) {
 				throw new WebApplicationException(e);
 			}
-		}
-		if (file != null) { // @Multipart annotation does not work with java.io.File type parameter
-			logger.info("Attachment text file: " + LF + file);
 		}
 		
 		return map;

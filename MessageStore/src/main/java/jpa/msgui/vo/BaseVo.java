@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import org.apache.johnzon.mapper.JohnzonConverter;
 import org.apache.log4j.Logger;
 
 import jpa.constant.StatusId;
@@ -34,11 +35,13 @@ public class BaseVo implements java.io.Serializable, Cloneable {
 	private String statusId = StatusId.ACTIVE.getValue();
 	@XmlElement
     @XmlJavaTypeAdapter(TimestampAdapter.class)
+	@JohnzonConverter(TimestampConverter.class)
 	protected Timestamp updtTime = null;
     @XmlElement
 	protected String updtUserId = null;
     @XmlElement
 	@XmlJavaTypeAdapter(TimestampAdapter.class)
+    @JohnzonConverter(TimestampConverter.class)
 	private Timestamp origUpdtTime = null;
 
     @XmlTransient

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Random;
 
+import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.xml.parsers.ParserConfigurationException;
@@ -15,7 +16,6 @@ import javax.xml.transform.TransformerException;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.cxf.jaxrs.client.WebClient;
-import org.apache.cxf.jaxrs.ext.form.Form;
 import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
@@ -146,8 +146,8 @@ public class SubscriptionClient {
 		WebClient client = WebClient.create(httpAddr).path("/MsgRest/msgapi/subscription/update/" + sbsrEmail);
 		Form form = new Form();
 		int suffix = new Random().nextInt(1000) + 1000;
-		form.set("msgFooter", "Have a nice day. - " + suffix);
-		form.set("msgHeader", "Joe's Message Header - " + suffix);
+		form.param("msgFooter", "Have a nice day. - " + suffix);
+		form.param("msgHeader", "Joe's Message Header - " + suffix);
 		client.type(MediaType.APPLICATION_FORM_URLENCODED);
 		// Send the form object along with the post call
 		Response rsp = client.post(form);
@@ -165,7 +165,7 @@ public class SubscriptionClient {
 		WebClient client = WebClient.create(httpAddr).path("/MsgRest/msgapi/subscription/update/" + notExist);
 		Form form = new Form();
 		int suffix = new Random().nextInt(1000) + 1000;
-		form.set("msgFooter", "Have a nice day. - " + suffix);
+		form.param("msgFooter", "Have a nice day. - " + suffix);
 		client.type(MediaType.APPLICATION_FORM_URLENCODED);
 		// Send the form object along with the post call
 		Response rsp = client.post(form);

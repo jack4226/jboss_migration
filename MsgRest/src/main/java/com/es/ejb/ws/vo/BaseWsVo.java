@@ -6,8 +6,11 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import org.apache.johnzon.mapper.JohnzonConverter;
+
 import jpa.constant.Constants;
 import jpa.msgui.vo.TimestampAdapter;
+import jpa.msgui.vo.TimestampConverter;
 
 @XmlTransient
 public abstract class BaseWsVo implements java.io.Serializable {
@@ -17,6 +20,7 @@ public abstract class BaseWsVo implements java.io.Serializable {
 	protected int rowId = 0;
 	@XmlElement()
 	@XmlJavaTypeAdapter(TimestampAdapter.class)
+	@JohnzonConverter(TimestampConverter.class)
 	protected Timestamp updtTime = new Timestamp(System.currentTimeMillis());
 	@XmlElement()
 	protected String updtUserId = Constants.DEFAULT_USER_ID;

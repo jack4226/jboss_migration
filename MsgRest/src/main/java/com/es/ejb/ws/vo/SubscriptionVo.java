@@ -8,7 +8,10 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import org.apache.johnzon.mapper.JohnzonConverter;
+
 import jpa.msgui.vo.TimestampAdapter;
+import jpa.msgui.vo.TimestampConverter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "SubscriptionVo")
@@ -26,7 +29,8 @@ public class SubscriptionVo extends BaseWsVo {
 	private String address;
 	private Boolean isOptIn = null;
 	@XmlJavaTypeAdapter(TimestampAdapter.class)
-	private Timestamp CreateTime;
+	@JohnzonConverter(TimestampConverter.class)
+	private Timestamp createTime;
 
 	public SubscriptionVo() {
 		// must have a no-argument constructor
@@ -73,11 +77,11 @@ public class SubscriptionVo extends BaseWsVo {
 	}
 
 	public Timestamp getCreateTime() {
-		return CreateTime;
+		return createTime;
 	}
 
 	public void setCreateTime(Timestamp createTime) {
-		CreateTime = createTime;
+		this.createTime = createTime;
 	}
 
 }

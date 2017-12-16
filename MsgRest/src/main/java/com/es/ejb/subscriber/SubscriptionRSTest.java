@@ -45,6 +45,7 @@ public class SubscriptionRSTest {
     }
 
     @Test
+    @org.junit.Ignore
     public void getSubscriberListAsJson() throws IOException {
 		final String message = WebClient.create("http://localhost:4204")
 				.path("/SubscriptionRSTest/msgapi/subscription/subscribedlist")
@@ -56,6 +57,7 @@ public class SubscriptionRSTest {
     }
 
     @Test
+    @org.junit.Ignore
     public void getSubscriberListAsXml() throws IOException {
 		final String message = WebClient.create("http://localhost:4204")
 				.path("/SubscriptionRSTest/msgapi/subscription/subscribedlist")
@@ -67,6 +69,7 @@ public class SubscriptionRSTest {
     }
 
     @Test
+    @org.junit.Ignore
     public void getSubscriberListAddress() throws IOException {
 		@SuppressWarnings("unchecked")
 		final List<SubscriptionVo> list = (List<SubscriptionVo>) WebClient.create("http://localhost:4204", getProviders())

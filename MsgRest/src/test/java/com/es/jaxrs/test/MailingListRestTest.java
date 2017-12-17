@@ -48,6 +48,7 @@ public class MailingListRestTest {
 	}
 	
 	@Test
+	//@org.junit.Ignore
 	public void testGetMailingListJaxrsApi() {
 		Client client = ClientBuilder.newClient();
 		WebTarget target = client.target("http://localhost:4204");
@@ -200,7 +201,7 @@ public class MailingListRestTest {
 	private void testUpload(String part, int expectedCount, int iteration) throws IOException {
 		WebClient client = WebClient.create("http://localhost:4204", getProviders())
 				.path("/MailingListRestTest/msgapi/mailinglist/" + part);
-		client.type("multipart/form-data").accept("multipart/mixed");
+		client.type(MediaType.MULTIPART_FORM_DATA).accept("multipart/mixed");
 		List<Attachment> atts = new LinkedList<Attachment>();
 		byte[] txtfile1 = FileUtil.loadFromFile("META-INF", "openejb.xml");
 		byte[] txtfile2 = FileUtil.loadFromFile("META-INF", "MANIFEST.MF");

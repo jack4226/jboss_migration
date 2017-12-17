@@ -96,6 +96,7 @@ public class MailingListClient {
 		logger.info("Mailing List: (before update)" + PrintUtil.prettyPrint(vo));
 		// update the mailing list
 		client = WebClient.create(uriStr).path("/MsgRest/msgapi/mailinglist/update/" + vo.getListId());
+		client.type(MediaType.APPLICATION_XML);
 		int suffix = new Random().nextInt(1000) + 1000;
 		vo.setDescription("Sample mailing list 2 - " + suffix);
 		Response rsp = client.post(vo);
@@ -132,7 +133,7 @@ public class MailingListClient {
 	
 	static void testMultipart(String uriStr, String part) throws IOException {
 		WebClient client = WebClient.create(uriStr).path("/MsgRest/msgapi/mailinglist/" + part);
-		client.type("multipart/form-data").accept("multipart/mixed");
+		client.type(MediaType.MULTIPART_FORM_DATA).accept("multipart/mixed");
 		List<Attachment> atts = new LinkedList<Attachment>();
 		byte[] txtfile = FileUtil.loadFromFile("META-INF", "openejb.xml");
 		atts.add(new Attachment("root", "text/xml", txtfile));

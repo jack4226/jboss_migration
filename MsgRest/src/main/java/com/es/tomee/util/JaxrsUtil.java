@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
 public class JaxrsUtil {
 	final static Logger logger = Logger.getLogger(JaxrsUtil.class);
 	
+	// TODO - the method returns blank when called from unit test with binary pay load
 	public static byte[] getBytesFromDataHandler(DataHandler dh) throws IOException {
 		if (dh == null) {
 			return "DataHandler is null.".getBytes();

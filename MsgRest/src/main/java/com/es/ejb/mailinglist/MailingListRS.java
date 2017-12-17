@@ -298,7 +298,9 @@ public class MailingListRS {
 	@POST
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	@Produces("multipart/mixed")
-	public Map<String, Object> saveMultipart(MultipartBody multipartBody, @Context HttpHeaders hh) {
+	public Map<String, Object> saveMultipart(MultipartBody multipartBody, @Context HttpHeaders hh,
+			// Optional parameter for testing purpose only.
+			@Multipart(value="textfile", required=false, type="text/*") String file) {
 		logger.info("Entering saveMultipart() method...");
 		JaxrsUtil.printOutHttpHeaders(hh);
 		

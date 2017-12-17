@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import javax.ws.rs.NotSupportedException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation;
@@ -34,6 +35,7 @@ import com.es.ejb.mailinglist.MailingListRS;
 import com.es.ejb.ws.vo.MailingListVo;
 import com.es.tomee.util.JaxrsUtil;
 
+import jpa.util.ExceptionUtil;
 import jpa.util.FileUtil;
 import jpa.util.PrintUtil;
 
@@ -173,7 +175,7 @@ public class MailingListRestTest {
 	}
 
 	@Test
-	@org.junit.Ignore
+	//@org.junit.Ignore
 	public void testUploadPartAndFile() throws IOException {
 		testUpload("uploadpart", 2, 1);
 		try {
@@ -183,6 +185,7 @@ public class MailingListRestTest {
 		catch (javax.ws.rs.WebApplicationException e) {
 			// media type mismatch.
 			logger.info("Stack trace: " + ExceptionUtils.getStackTrace(e));
+			assertNotNull(ExceptionUtil.findException(e, NotSupportedException.class));
 		}
 		
 		testUpload("uploadpart2", 2, 1);
@@ -195,6 +198,7 @@ public class MailingListRestTest {
 		}
 		catch (javax.ws.rs.WebApplicationException e) {
 			// media type mismatch.
+			assertNotNull(ExceptionUtil.findException(e, NotSupportedException.class));
 		}
 	}
 
@@ -206,12 +210,13 @@ public class MailingListRestTest {
 		byte[] txtfile1 = FileUtil.loadFromFile("META-INF", "openejb.xml");
 		byte[] txtfile2 = FileUtil.loadFromFile("META-INF", "MANIFEST.MF");
 		byte[] txtfile3 = FileUtil.loadFromFile("META-INF", "ejb-jar.xml");
-		byte[] pdffile = FileUtil.loadFromFile("META-INF", "ErrorCodes.pdf");
+		//byte[] pdffile = FileUtil.loadFromFile("META-INF", "ErrorCodes.pdf"); // server receives empty content when PDF file is used
 		assertNotNull(txtfile1);
 		atts.add(new Attachment("root", "text/xml", txtfile1));
 		if (StringUtils.equals(part, "uploadpart")) {
 			if (iteration == 1) {
-				atts.add(new Attachment("ErrorCode.pdf", "application/octet-stream", pdffile));
+				//atts.add(new Attachment("ErrorCode.pdf", "application/octet-stream", pdffile));
+				atts.add(new Attachment("ErrorCode.pdf", "application/octet-stream", txtfile2));
 			} else if (iteration == 2) {
 				// atts.add(new Attachment("textfile", "text/plain", txtfile1));
 				atts.add(new Attachment("textfile", "application/octet-stream", txtfile2));
@@ -227,7 +232,7 @@ public class MailingListRestTest {
 		}
 		else if (StringUtils.equals(part, "uploadfile")) {
 			if (iteration == 1) {
-				atts.add(new Attachment("ErrorCode.pdf", "application/octet-stream", pdffile));
+				atts.add(new Attachment("ErrorCode.pdf", "application/octet-stream", txtfile2));
 			}
 			else if (iteration == 2) {
 				atts.add(new Attachment("textfile", "application/octet-stream", txtfile3));

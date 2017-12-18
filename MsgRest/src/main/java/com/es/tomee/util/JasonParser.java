@@ -25,6 +25,9 @@ import org.springframework.core.io.support.ResourcePatternResolver;
 
 import jpa.util.PrintUtil;
 
+/*
+ * Class name misspelled intentionally.
+ */
 public class JasonParser<T> {
 	static final Logger logger = Logger.getLogger(JasonParser.class);
 

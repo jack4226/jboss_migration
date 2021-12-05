@@ -105,7 +105,7 @@ public class MessageAddressTest extends BoTestBase {
 		logger.info(PrintUtil.prettyPrint(adr11.get(),2));
 		
 		MessageAddress adr12 = service.getByPrimaryKey(inbox1.getRowId(), EmailAddrType.FROM_ADDR.getValue(), from.getAddress());
-		assertTrue(adr11.equals(adr12));
+		assertTrue(adr11.get().equals(adr12));
 		
 		// test update
 		adr2.setUpdtUserId("jpa test");

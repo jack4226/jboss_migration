@@ -173,7 +173,7 @@ public class DeliveryErrorTest extends BoTestBase {
 			}
 		}
 		else if (MsgDirectionCode.RECEIVED.getValue().equals(inbox.getMsgDirection())) {
-			assertTrue(id_xhdr.equals(id_inbox) || id_xhdr.equals(inboxMsgBean.getMsgRefId()));
+			assertTrue(id_xhdr.equals(id_inbox) || id_xhdr.equals(inboxMsgBean.getMsgRefId()+""));
 		}
 		
 		assertTrue(MsgStatusCode.DELIVERY_FAILED.getValue().equals(refInbox.getStatusId()));

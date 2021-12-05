@@ -105,7 +105,7 @@ public class MessageActionLogTest extends BoTestBase {
 		logger.info(PrintUtil.prettyPrint(log11.get(),3));
 		
 		MessageActionLog log12 = service.getByPrimaryKey(log11.get().getMessageActionLogPK());
-		assertTrue(log11.equals(log12));
+		assertTrue(log11.get().equals(log12));
 		
 		MessageActionLogPK notExist = new MessageActionLogPK();
 		notExist.setMessageInbox(log11.get().getMessageActionLogPK().getMessageInbox());

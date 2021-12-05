@@ -376,7 +376,7 @@ public class RenderBo implements java.io.Serializable {
 				}
 			}
 			else if (VariableType.DATETIME.equals(r.getVariableType())) {
-				if (VariableName.SEND_DATE.equals(r.getVariableName())) {
+				if (VariableName.SEND_DATE.getValue().equals(r.getVariableName())) {
 					if (r.getVariableValue() == null) {
 						mBean.setSendDate(new java.util.Date());
 					}

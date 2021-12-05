@@ -89,7 +89,7 @@ public class Subscription extends BaseModel implements java.io.Serializable {
 	}
 	
 	public String getSubscribedDesc() {
-		return CodeType.NO_CODE.getValue().equals(isSubscribed) ? CodeType.NO.getValue() : CodeType.YES.getValue();
+		return isSubscribed ? CodeType.YES.getValue() : CodeType.NO.getValue();
 	}
 	
 	public String getAcceptHtmlDesc() {

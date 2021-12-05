@@ -249,9 +249,9 @@ public class BroadcastMsgBean extends PaginationBean implements java.io.Serializ
 	 */
 	private Integer bcstRowId = null;
 		
-	public void viewMessageTrackingListener(Integer rowId) {
+	public void viewMessageTrackingListener(String rowIdStr) {
 		beanMode = BeanMode.recipients;
-		bcstRowId = rowId;
+		bcstRowId = Integer.valueOf(rowIdStr);
 		getTrkRowCount();
 	}
 	

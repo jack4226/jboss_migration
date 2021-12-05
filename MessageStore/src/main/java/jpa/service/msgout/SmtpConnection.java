@@ -140,7 +140,7 @@ public final class SmtpConnection implements java.io.Serializable {
 		}
 		TIME_TO_ISSUE_ALERT *= 60;
 
-		if (MailServerType.EXCHANGE.equals(serverType)) {
+		if (MailServerType.EXCHANGE.value().equals(serverType)) {
 			retryFreqArray = retryFreqArrayExch;
 		}
 		else {

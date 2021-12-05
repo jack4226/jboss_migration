@@ -23,7 +23,6 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.validation.ValidationException;
 
-import jpa.constant.CodeType;
 import jpa.constant.MailingListDeliveryType;
 import jpa.data.preload.RuleNameEnum;
 import jpa.exception.DataValidationException;
@@ -383,10 +382,10 @@ public class MailingListComposeBean implements java.io.Serializable {
 			mBean.setMailingListId(listId);
 			mBean.setSenderId(listVo.getSenderData().getSenderId());
 			mBean.setRuleName(RuleNameEnum.BROADCAST.getValue());
-			if (CodeType.YES_CODE.getValue().equals(embedEmailId)) {
+			if (embedEmailId != null && embedEmailId.booleanValue()==true) {
 				mBean.setEmBedEmailId(Boolean.valueOf(true));
 			}
-			else if (CodeType.NO_CODE.getValue().equals(embedEmailId)) {
+			else if (embedEmailId != null && embedEmailId.booleanValue()==false) {
 				mBean.setEmBedEmailId(Boolean.valueOf(false));
 			}
 			if (MailingListDeliveryType.SUBSCRIBERS_ONLY.getValue().equals(deliveryOption)) {

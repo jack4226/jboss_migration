@@ -18,6 +18,8 @@ public class MessageInboxSpecs {
 
 	public static Specification<MessageInbox> buildSpecForRowCount(PagingVo vo) {
 		return new Specification<MessageInbox>() {
+			private static final long serialVersionUID = 6448525010823466010L;
+
 			public Predicate toPredicate(Root<MessageInbox> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
 
 				root.join("fromAddress", JoinType.INNER);

@@ -113,7 +113,7 @@ public class EmailTemplateBo implements java.io.Serializable {
 			}
 			else if (StringUtils.isNotBlank(proc)) {
 				try {
-					Object obj = Class.forName(proc).newInstance();
+					Object obj = Class.forName(proc).getDeclaredConstructor().newInstance();
 					if (obj instanceof VariableResolver) {
 						value = ((VariableResolver)obj).process(addrId);
 					}

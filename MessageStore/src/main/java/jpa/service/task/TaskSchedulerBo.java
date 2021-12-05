@@ -1,6 +1,7 @@
 package jpa.service.task;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 import java.util.List;
 
@@ -95,7 +96,7 @@ public class TaskSchedulerBo implements java.io.Serializable {
 					// use process class
 					logger.info("scheduleTasks() - ClassName [" + i + "]: " + className);
 					try {
-						bo = (TaskBaseBo) Class.forName(className).newInstance();
+						bo = (TaskBaseBo) Class.forName(className).getDeclaredConstructor().newInstance();
 					}
 					catch (ClassNotFoundException e) {
 						logger.error("ClassNotFoundException caught", e);
@@ -107,6 +108,22 @@ public class TaskSchedulerBo implements java.io.Serializable {
 					}
 					catch (IllegalAccessException e) {
 						logger.error("IllegalAccessException caught", e);
+						throw new DataValidationException(e.getMessage());
+					}
+					catch (IllegalArgumentException e) {
+						logger.error("IllegalArgumentException caught", e);
+						throw new DataValidationException(e.getMessage());
+					}
+					catch (InvocationTargetException e) {
+						logger.error("InvocationTargetException caught", e);
+						throw new DataValidationException(e.getMessage());
+					}
+					catch (NoSuchMethodException e) {
+						logger.error("NoSuchMethodException caught", e);
+						throw new DataValidationException(e.getMessage());
+					}
+					catch (SecurityException e) {
+						logger.error("SecurityException caught", e);
 						throw new DataValidationException(e.getMessage());
 					}
 				}

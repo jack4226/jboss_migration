@@ -19,6 +19,8 @@ public class EmailAddressSpecs {
 
 	public static Specification<EmailAddress> buildSpecForFirstRow() {
 		return new Specification<EmailAddress>() {
+			private static final long serialVersionUID = 2882172268965394418L;
+
 			public Predicate toPredicate(Root<EmailAddress> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
 				
 				LocalDateTime dateTime = LocalDateTime.now().minusYears(1);
@@ -31,6 +33,8 @@ public class EmailAddressSpecs {
 
 	public static Specification<EmailAddress> buildSpecByPagingVo(PagingVo vo) {
 		return new Specification<EmailAddress>() {
+			private static final long serialVersionUID = -8346054049294860717L;
+
 			public Predicate toPredicate(Root<EmailAddress> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
 
 				List<Predicate> predicates = new ArrayList<>();

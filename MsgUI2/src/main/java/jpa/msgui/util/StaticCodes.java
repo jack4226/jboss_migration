@@ -89,7 +89,7 @@ public class StaticCodes implements java.io.Serializable {
 							Class<?> cls = Class.forName(fullName);
 							if (!cls.isInterface()) {
 								try {
-									Object obj = cls.newInstance();
+									Object obj = cls.getDeclaredConstructor().newInstance();
 									if (obj instanceof TargetTextProc) {
 										list.add(new SelectItem(fullName, className));
 									}
@@ -156,7 +156,7 @@ public class StaticCodes implements java.io.Serializable {
 							Class<?> cls = Class.forName(fullName);
 							if (!cls.isInterface()) {
 								try {
-									Object obj = cls.newInstance();
+									Object obj = cls.getDeclaredConstructor().newInstance();
 									if (obj instanceof VariableResolver) {
 										list.add(new SelectItem(fullName, className));
 									}

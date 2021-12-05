@@ -57,7 +57,7 @@ public class RuleDataService implements java.io.Serializable {
 			if (element.getTargetProcName() == null) continue;
 			Object obj = null;
 			try { // a TargetProc could be a class name or a bean id
-				obj = Class.forName(element.getTargetProcName()).newInstance();
+				obj = Class.forName(element.getTargetProcName()).getDeclaredConstructor().newInstance();
 				logger.info("Loaded class " + element.getTargetProcName() + " for rule "
 						+ rule.getRuleName());
 			}

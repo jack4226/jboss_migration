@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
@@ -77,8 +78,8 @@ public class RuleActionDetailTest extends BoTestBase {
 		
 		service.delete(var3);
 
-		RuleActionDetail deleted = service.getByRowId(var5.getRowId());
-		if (deleted != null) {
+		Optional<RuleActionDetail> deleted = service.getByRowId(var5.getRowId());
+		if (deleted.isPresent()) {
 			fail();
 		}
 		

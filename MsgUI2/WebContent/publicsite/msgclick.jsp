@@ -30,12 +30,12 @@
 	if (StringUtils.isNotBlank(msgId)) {
 		// update newsletter click count
 		try {
-			BroadcastMessage bm = getBroadcastMessageService(ctx).getByRowId(Integer.parseInt(msgId));
-			if (bm == null) {
+			java.util.Optional<BroadcastMessage> bm = getBroadcastMessageService(ctx).getByRowId(Integer.parseInt(msgId));
+			if (bm.isEmpty()) {
 				logger.error("msgunsub.jsp - Failed to find broadcase message by id: " + msgId);
 			}
 			else {
-				rowsUpdated += getBroadcastMessageService(ctx).updateClickCount(bm.getRowId());
+				rowsUpdated += getBroadcastMessageService(ctx).updateClickCount(bm.get().getRowId());
 			}
 		}
 		catch (NumberFormatException e) {

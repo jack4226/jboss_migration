@@ -1,5 +1,7 @@
 package jpa.service.msgdata;
 
+import java.util.Optional;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,16 +21,16 @@ public class MessageRenderedService implements java.io.Serializable {
 	@Autowired
 	MessageRenderedRepository repository;
 
-	public MessageRendered getByRowId(int rowId) {
-		return repository.findOne(rowId);
+	public Optional<MessageRendered> getByRowId(int rowId) {
+		return repository.findById(rowId);
 	}
 
-	public MessageRendered getByPrimaryKey(int rowId) {
+	public Optional<MessageRendered> getByPrimaryKey(int rowId) {
 		return getByRowId(rowId);
 	}
 
-	public MessageRendered getAllDataByPrimaryKey(int rowId) {
-		MessageRendered mr = getByRowId(rowId);
+	public Optional<MessageRendered> getAllDataByPrimaryKey(int rowId) {
+		Optional<MessageRendered> mr = getByRowId(rowId);
 		return mr;
 	}
 	

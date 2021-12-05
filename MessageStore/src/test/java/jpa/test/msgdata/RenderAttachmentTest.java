@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 
 import javax.mail.Part;
 
@@ -110,8 +111,9 @@ public class RenderAttachmentTest extends BoTestBase {
 		in3.setRenderAttachmentPK(pk3);
 		service.insert(in3);
 
-		RenderAttachment msg2 = service.getByRowId(in2.getRowId());
-		logger.info(PrintUtil.prettyPrint(msg2,1));
+		Optional<RenderAttachment> msg2 = service.getByRowId(in2.getRowId());
+		assertTrue(msg2.isPresent());
+		logger.info(PrintUtil.prettyPrint(msg2.get(),1));
 		
 		List<RenderAttachment> lst1 = service.getByRenderId(mrn1.getRowId());
 		assertTrue(3==lst1.size());
@@ -119,8 +121,9 @@ public class RenderAttachmentTest extends BoTestBase {
 		
 		rv1.setUpdtUserId("jpa test");
 		service.update(rv1);
-		RenderAttachment rv2 = service.getByRowId(rv1.getRowId());
-		assertTrue("jpa test".equals(rv2.getUpdtUserId()));
+		Optional<RenderAttachment> rv2 = service.getByRowId(rv1.getRowId());
+		assertTrue(rv2.isPresent());
+		assertTrue("jpa test".equals(rv2.get().getUpdtUserId()));
 		
 		service.delete(in2);
 		assertNull(service.getByPrimaryKey(in2.getRenderAttachmentPK()));

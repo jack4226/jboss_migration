@@ -4,6 +4,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.Timestamp;
+import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -98,29 +99,31 @@ public class MessageActionLogTest extends BoTestBase {
 	@Test
 	public void messageActionLogService() {
 		insertActionLogs();
-		MessageActionLog log11 = service.getByRowId(log1.getRowId());
+		Optional<MessageActionLog> log11 = service.getByRowId(log1.getRowId());
+		assertTrue(log11.isPresent());
 		
-		logger.info(PrintUtil.prettyPrint(log11,3));
+		logger.info(PrintUtil.prettyPrint(log11.get(),3));
 		
-		MessageActionLog log12 = service.getByPrimaryKey(log11.getMessageActionLogPK());
+		MessageActionLog log12 = service.getByPrimaryKey(log11.get().getMessageActionLogPK());
 		assertTrue(log11.equals(log12));
 		
 		MessageActionLogPK notExist = new MessageActionLogPK();
-		notExist.setMessageInbox(log11.getMessageActionLogPK().getMessageInbox());
+		notExist.setMessageInbox(log11.get().getMessageActionLogPK().getMessageInbox());
 		notExist.setLeadMessageRowId(99999);
 		assertNull(service.getByPrimaryKey(notExist));
 		
 		// test update
 		log2.setUpdtUserId("jpa test");
 		service.update(log2);
-		MessageActionLog adr22 = service.getByRowId(log2.getRowId());
-		assertTrue("jpa test".equals(adr22.getUpdtUserId()));
+		Optional<MessageActionLog> adr22 = service.getByRowId(log2.getRowId());
+		assertTrue(adr22.isPresent());
+		assertTrue("jpa test".equals(adr22.get().getUpdtUserId()));
 		
 		assertTrue(1==service.getByLeadMsgId(inbox1.getRowId()).size());
 		
 		// test delete
-		service.delete(log11);
-		assertNull(service.getByRowId(log11.getRowId()));
+		service.delete(log11.get());
+		assertNull(service.getByRowId(log11.get().getRowId()));
 
 		
 		assertTrue(1==service.deleteByRowId(log2.getRowId()));

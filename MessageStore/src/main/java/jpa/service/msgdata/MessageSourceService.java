@@ -1,6 +1,7 @@
 package jpa.service.msgdata;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,8 @@ public class MessageSourceService implements java.io.Serializable {
 		return repository.findOneByMsgSourceId(sourceId);
 	}
 	
-	public MessageSource getByRowId(int rowId) {
-		return repository.findOne(rowId);
+	public Optional<MessageSource> getByRowId(int rowId) {
+		return repository.findById(rowId);
 	}
 
 	public List<MessageSource> getByFromAddress(String address) {

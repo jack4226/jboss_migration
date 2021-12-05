@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -106,8 +107,9 @@ public class IdTokens2Test {
 		tkn0.setUpdtUserId("JpaTest");
 		service.update(tkn0);
 		
-		IdTokens tkn1 = service.getByRowId(tkn0.getRowId());
-		assertTrue("JpaTest".equals(tkn1.getUpdtUserId()));
+		Optional<IdTokens> tkn1 = service.getByRowId(tkn0.getRowId());
+		assertTrue(tkn1.isPresent());
+		assertTrue("JpaTest".equals(tkn1.get().getUpdtUserId()));
 		// end of test update
 		
 		// test insert - a new record should be created
@@ -124,7 +126,7 @@ public class IdTokens2Test {
 		
 		IdTokens tkn3 = service.getBySenderId("JBatchCorp");
 		assertNotNull(tkn3);
-		assertTrue(tkn1.getRowId()!=tkn3.getRowId());
+		assertTrue(tkn1.get().getRowId()!=tkn3.getRowId());
 		// end of test insert
 		
 		service.delete(tkn3);

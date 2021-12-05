@@ -1,6 +1,7 @@
 package jpa.service.msgdata;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,8 @@ public class MessageFolderService implements java.io.Serializable {
 	@Autowired
 	private MessageFolderRepository repository;
 	
-	public MessageFolder getByRowId(int rowId) {
-		return repository.findOne(rowId);
+	public Optional<MessageFolder> getByRowId(int rowId) {
+		return repository.findById(rowId);
 	}
 
 	public MessageFolder getOneByFolderName(String folderName) {

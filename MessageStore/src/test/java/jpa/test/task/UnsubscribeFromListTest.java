@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 import javax.annotation.Resource;
@@ -75,10 +76,11 @@ public class UnsubscribeFromListTest extends BoTestBase {
 	public void testUnsubscribeFromList() throws Exception {
 		logger.info("in testUnsubscribeFromList() method...");
 		// verify results
-		Subscription sub = subService.getByRowId(rowId);
+		Optional<Subscription> sub = subService.getByRowId(rowId);
+		assertTrue(sub.isPresent());
 		logger.info("Subscription record: " + PrintUtil.prettyPrint(sub, 2));
-		assertTrue(fromaddr.equals(sub.getEmailAddress().getAddress()));
+		assertTrue(fromaddr.equals(sub.get().getEmailAddress().getAddress()));
 		//assertFalse(sub.isSubscribed());
-		assertTrue(lists.get(0).getListId().equals(sub.getMailingList().getListId()));
+		assertTrue(lists.get(0).getListId().equals(sub.get().getMailingList().getListId()));
 	}
 }

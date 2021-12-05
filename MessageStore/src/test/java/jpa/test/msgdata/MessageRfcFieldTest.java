@@ -4,6 +4,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.Timestamp;
+import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -99,24 +100,26 @@ public class MessageRfcFieldTest extends BoTestBase {
 	@Test
 	public void messageRfcFieldService() {
 		insertMessageRfcFields();
-		MessageRfcField hdr11 = service.getByRowId(hdr1.getRowId());
+		Optional<MessageRfcField> hdr11 = service.getByRowId(hdr1.getRowId());
+		assertTrue(hdr11.isPresent());
 		
-		logger.info(PrintUtil.prettyPrint(hdr11,2));
+		logger.info(PrintUtil.prettyPrint(hdr11.get(),2));
 		
-		MessageRfcField hdr12 = service.getByPrimaryKey(hdr11.getMessageRfcFieldPK());
-		assertTrue(hdr11.equals(hdr12));
+		MessageRfcField hdr12 = service.getByPrimaryKey(hdr11.get().getMessageRfcFieldPK());
+		assertTrue(hdr11.get().equals(hdr12));
 		
 		// test update
 		hdr2.setUpdtUserId("jpa test");
 		service.update(hdr2);
-		MessageRfcField hdr22 = service.getByRowId(hdr2.getRowId());
-		assertTrue("jpa test".equals(hdr22.getUpdtUserId()));
+		Optional<MessageRfcField> hdr22 = service.getByRowId(hdr2.getRowId());
+		assertTrue(hdr22.isPresent());
+		assertTrue("jpa test".equals(hdr22.get().getUpdtUserId()));
 		
 		// test delete
-		service.delete(hdr11);
-		assertNull(service.getByRowId(hdr11.getRowId()));
-		assertTrue(0==service.deleteByPrimaryKey(hdr11.getMessageRfcFieldPK()));
-		assertNull(service.getByPrimaryKey(hdr11.getMessageRfcFieldPK()));
+		service.delete(hdr11.get());
+		assertNull(service.getByRowId(hdr11.get().getRowId()));
+		assertTrue(0==service.deleteByPrimaryKey(hdr11.get().getMessageRfcFieldPK()));
+		assertNull(service.getByPrimaryKey(hdr11.get().getMessageRfcFieldPK()));
 		
 		assertTrue(1==service.deleteByRowId(hdr2.getRowId()));
 		assertTrue(1==service.deleteByMsgInboxId(inbox1.getRowId()));

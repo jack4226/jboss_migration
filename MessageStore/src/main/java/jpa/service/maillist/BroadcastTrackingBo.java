@@ -1,5 +1,7 @@
 package jpa.service.maillist;
 
+import java.util.Optional;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,10 +42,10 @@ public class BroadcastTrackingBo implements java.io.Serializable {
 			logger.info("EmailAddress record not found by RowId (" + emailAddrRowId + "), ignored.");
 		}
 		else {
-			BroadcastMessage bm = bcstMsgService.getByRowId(bcstMsgRowId);
-			if (bm != null) {
+			Optional<BroadcastMessage> bm = bcstMsgService.getByRowId(bcstMsgRowId);
+			if (bm.isPresent()) {
 				bcstMsgService.updateUnsubscribeCount(bcstMsgRowId);
-				Subscription sub = subService.unsubscribe(ea.getAddress(), bm.getMailingList().getListId());
+				Subscription sub = subService.unsubscribe(ea.getAddress(), bm.get().getMailingList().getListId());
 				return sub;
 			}
 			else {
@@ -58,13 +60,13 @@ public class BroadcastTrackingBo implements java.io.Serializable {
 	}
 
 	public Subscription removeFromList(int bcstTrkRowId, String comment) {
-		BroadcastTracking bt = trackingService.getByRowId(bcstTrkRowId);
-		if (bt == null) {
+		Optional<BroadcastTracking> bt = trackingService.getByRowId(bcstTrkRowId);
+		if (bt.isEmpty()) {
 			logger.info("BroadcastTracking record not found by RowId (" + bcstTrkRowId + "), ignored.");
 			return null;
 		}
-		EmailAddress ea = bt.getEmailAddress();
-		BroadcastMessage bm  = bt.getBroadcastMessage();
+		EmailAddress ea = bt.get().getEmailAddress();
+		BroadcastMessage bm  = bt.get().getBroadcastMessage();
 		if (StringUtils.isNotBlank(comment)) {
 			UnsubComment uc = new UnsubComment();
 			uc.setEmailAddress(ea);

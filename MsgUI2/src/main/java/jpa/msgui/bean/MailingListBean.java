@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import javax.faces.FacesException;
 import javax.faces.application.FacesMessage;
@@ -108,9 +109,9 @@ public class MailingListBean implements java.io.Serializable {
 	 * Use String signature for rowId to support JSF script.
 	 */
 	public String findListIdByRowId(String rowId) {
-		MailingList mlist = getMailingListService().getByRowId(Integer.parseInt(rowId));
-		if (mlist != null) {
-			return mlist.getListId();
+		Optional<MailingList> mlist = getMailingListService().getByRowId(Integer.parseInt(rowId));
+		if (mlist.isPresent()) {
+			return mlist.get().getListId();
 		}
 		else {
 			return "";

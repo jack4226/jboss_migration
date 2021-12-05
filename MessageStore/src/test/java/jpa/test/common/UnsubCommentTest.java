@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 
@@ -82,8 +83,9 @@ public class UnsubCommentTest extends BoTestBase {
 		// test update
 		rcd2.setUpdtUserId("JpaTest");
 		service.update(rcd2);
-		UnsubComment rcd3 = service.getByRowId(rcd2.getRowId());
-		assertTrue("JpaTest".equals(rcd2.getUpdtUserId()));
+		Optional<UnsubComment> rcd3 = service.getByRowId(rcd2.getRowId());
+		assertTrue(rcd3.isPresent());
+		assertTrue("JpaTest".equals(rcd3.get().getUpdtUserId()));
 		
 		UnsubComment rcd4 = new UnsubComment();
 		BeanCopyUtil.registerBeanUtilsConverters();
@@ -103,6 +105,6 @@ public class UnsubCommentTest extends BoTestBase {
 		// test delete
 		service.delete(rcd4);
 		assertTrue(1<=service.deleteByAddress(rcd2.getEmailAddress().getAddress()));
-		assertTrue(0<=service.deleteByRowId(rcd3.getRowId()));
+		assertTrue(0<=service.deleteByRowId(rcd3.get().getRowId()));
 	}
 }

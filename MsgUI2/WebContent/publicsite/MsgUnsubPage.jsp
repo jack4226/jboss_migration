@@ -118,15 +118,15 @@ function checkLength(element, maxvalue) {
 	String msgId = request.getParameter("msgid"); // broadcast message id
 	BroadcastTracking countVo = null;
 
-	BroadcastMessage bmsg = getBroadcastMessageService(ctx).getByRowId(Integer.parseInt(msgId));
-	if (bmsg == null) {
+	java.util.Optional<BroadcastMessage> bmsg = getBroadcastMessageService(ctx).getByRowId(Integer.parseInt(msgId));
+	if (bmsg.isEmpty()) {
 		logger.error("MsgUnsubPage.jsp - Failed to find broadcast message by Id: " + msgId);
 	}
 	else {
-		bmsg.setUnsubscribeCount(bmsg.getUnsubscribeCount()+1);
-		getBroadcastMessageService(ctx).update(bmsg);
+		bmsg.get().setUnsubscribeCount(bmsg.get().getUnsubscribeCount()+1);
+		getBroadcastMessageService(ctx).update(bmsg.get());
 
-		countVo = getBroadcastTrackingService(ctx).getByPrimaryKey(addrVo.getRowId(), bmsg.getRowId());
+		countVo = getBroadcastTrackingService(ctx).getByPrimaryKey(addrVo.getRowId(), bmsg.get().getRowId());
 		if (countVo == null) {
 	 		logger.error("MsgUnsubPage.jsp - Failed to find broadcast tracking by emailAddrRowId/broadcastMsgRowId: " + sbsrId + "/" + msgId);
 	 	}

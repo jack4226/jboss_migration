@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Optional;
 
 import javax.mail.Address;
 
@@ -202,8 +203,10 @@ public class MessageInboxBo implements java.io.Serializable {
 			msgVo.setDeliveryTime(null); // delivery time
 			msgVo.setStatusId(MsgStatusCode.PENDING.getValue());
 			if (msgBean.getRenderId() != null) {
-				MessageRendered mr = msgRenderedDao.getByPrimaryKey(msgBean.getRenderId());
-				msgVo.setMessageRendered(mr);
+				Optional<MessageRendered> mr = msgRenderedDao.getByPrimaryKey(msgBean.getRenderId());
+				if (mr.isPresent()) {
+					msgVo.setMessageRendered(mr.get());
+				}
 			}
 			msgVo.setOverrideTestAddr(msgBean.getOverrideTestAddr());
 			// check original message body's content type

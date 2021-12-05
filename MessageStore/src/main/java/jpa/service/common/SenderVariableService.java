@@ -2,6 +2,7 @@ package jpa.service.common;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,8 @@ public class SenderVariableService implements java.io.Serializable {
 	@Autowired
 	SenderVariableRepository repository;
 
-	public SenderVariable getByRowId(int rowId) {
-		return repository.findOne(rowId);
+	public Optional<SenderVariable> getByRowId(int rowId) {
+		return repository.findById(rowId);
 	}
 
 	public SenderVariable getByPrimaryKey(SenderVariablePK pk) {

@@ -3,6 +3,7 @@ package jpa.msgui.servlet;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.Optional;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -70,34 +71,33 @@ public class FileServlet extends HttpServlet {
             return;
         }
         //MessageInbox msgInbox = messageDao.getByRowId(attchRowId);
-		MessageAttachment fileData = null;
 
     	//MessageAttachmentPK pk = new MessageAttachmentPK();
     	//pk.setMessageInbox(msgInbox);
     	//pk.setAttachmentDepth(attchmntDepth);
     	//pk.setAttachmentSequence(attchmntSeq);
-    	fileData = attachmentsDao.getByRowId(attchRowId); //getByPrimaryKey(pk);
+		Optional<MessageAttachment> fileData = attachmentsDao.getByRowId(attchRowId); //getByPrimaryKey(pk);
         // Check if file is actually retrieved from database.
-        if (fileData == null) {
+        if (fileData.isEmpty()) {
             logger.error("Failed to retrieve file from database.");
             response.sendRedirect(fileNotFoundPage);
             return;
         }
-        if (fileData.getAttachmentValue() == null) {
+        if (fileData.get().getAttachmentValue() == null) {
         	logger.warn("Empty attachment, key = " + id +"/" + depth + "/" + seq);
         	return;
         }
         BufferedOutputStream output = null;
         try {
             // Get file content
-            ByteArrayInputStream input = new ByteArrayInputStream(fileData.getAttachmentValue());
+            ByteArrayInputStream input = new ByteArrayInputStream(fileData.get().getAttachmentValue());
             int contentLength = input.available();
             // initialize servlet response.
             response.reset();
             response.setContentLength(contentLength);
-            response.setContentType(fileData.getAttachmentType());
+            response.setContentType(fileData.get().getAttachmentType());
             response.setHeader("Content-disposition",
-                "attachment; filename=\"" + fileData.getAttachmentName() + "\"");
+                "attachment; filename=\"" + fileData.get().getAttachmentName() + "\"");
             output = new BufferedOutputStream(response.getOutputStream());
             // Write file contents to response
             while (contentLength-- > 0) {

@@ -1,6 +1,7 @@
 package jpa.service.rule;
 
 import java.util.List;
+import java.util.Optional;
 
 import jpa.model.rule.RuleActionDetail;
 import jpa.repository.RuleActionDetailRepository;
@@ -25,8 +26,8 @@ public class RuleActionDetailService implements java.io.Serializable {
 		return repository.findOneByActionId(actionId);
 	}
 	
-	public RuleActionDetail getByRowId(int rowId) {
-		return repository.findOne(rowId);
+	public Optional<RuleActionDetail> getByRowId(int rowId) {
+		return repository.findById(rowId);
 	}
 	
 	public List<RuleActionDetail> getAll() {

@@ -1,6 +1,7 @@
 package com.es.ejb.subscription;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.Resource;
 import javax.annotation.Resource.AuthenticationType;
@@ -90,7 +91,8 @@ public class Subscription implements SubscriptionLocal, SubscriptionRemote, Subs
 	@Override
 	public jpa.model.Subscription getByRowId(int rowId) {
 		logger.info("in getByRowId() - rowId: " + rowId);
-		return subService.getByRowId(rowId);
+		Optional<jpa.model.Subscription> sub = subService.getByRowId(rowId);
+		return sub.isPresent()? sub.get() : null;
 	}
 	
 	@Override

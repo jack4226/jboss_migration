@@ -1,6 +1,7 @@
 package jpa.service.msgdata;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,8 @@ public class MessageAttachmentService implements java.io.Serializable {
 	@Autowired
 	MessageAttachmentRepository repository;
 	
-	public MessageAttachment getByRowId(int rowId) {
-		return repository.findOne(rowId);
+	public Optional<MessageAttachment> getByRowId(int rowId) {
+		return repository.findById(rowId);
 	}
 
 	public MessageAttachment getByPrimaryKey(MessageAttachmentPK pk) {

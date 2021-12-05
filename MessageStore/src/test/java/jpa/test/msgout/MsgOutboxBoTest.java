@@ -8,6 +8,7 @@ import static org.junit.Assert.fail;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -45,28 +46,29 @@ public class MsgOutboxBoTest extends BoTestBase {
 
 	@Test
 	public void msgOutboxBoService() {
-		MessageRendered mr = renderedService.getFirstRecord();
-		logger.info("MessageRendered:\n" + ToStringBuilder.reflectionToString(mr, ToStringStyle.MULTI_LINE_STYLE));
-		mr = renderedService.getAllDataByPrimaryKey(mr.getRowId());
+		MessageRendered mr0 = renderedService.getFirstRecord();
+		logger.info("MessageRendered:\n" + ToStringBuilder.reflectionToString(mr0, ToStringStyle.MULTI_LINE_STYLE));
+		Optional<MessageRendered> mr = renderedService.getAllDataByPrimaryKey(mr0.getRowId());
+		assertTrue(mr.isPresent());
 		
 		try {
-			MessageBean bean = service.getMessageByPK(mr.getRowId());
+			MessageBean bean = service.getMessageByPK(mr.get().getRowId());
 			logger.info("MessageRendered:\n" + PrintUtil.prettyPrint(mr, 1));
 			logger.info("MessageBean retrieved:\n" + bean);
 			assertNotNull(bean.getRenderId());
-			assertNotNull(mr.getRowId());
-			assertEquals(mr.getRowId(), bean.getRenderId());
+			assertNotNull(mr.get().getRowId());
+			assertEquals(mr.get().getRowId(), bean.getRenderId());
 			if (StringUtils.isNotBlank(bean.getSenderId())) {
-				assertTrue(bean.getSenderId().equals(mr.getSenderData().getSenderId()));
+				assertTrue(bean.getSenderId().equals(mr.get().getSenderData().getSenderId()));
 			}
-			assertTrue(bean.getFromAsString().equals(mr.getMessageSource().getFromAddress().getAddress()));
-			assertTrue(bean.getCarrierCode().getValue().equals(mr.getMessageSource().getCarrierCode()));
+			assertTrue(bean.getFromAsString().equals(mr.get().getMessageSource().getFromAddress().getAddress()));
+			assertTrue(bean.getCarrierCode().getValue().equals(mr.get().getMessageSource().getCarrierCode()));
 			logger.info("subject: " + bean.getSubject());
 			logger.info("body: " + bean.getBody());
 			Renderer renderer = Renderer.getInstance();
-			String bodyTmptl = mr.getMessageTemplate().getBodyTemplate();
-			String subjTmptl = mr.getMessageTemplate().getSubjectTemplate();
-			List<RenderVariable> varbles = mr.getRenderVariableList();
+			String bodyTmptl = mr.get().getMessageTemplate().getBodyTemplate();
+			String subjTmptl = mr.get().getMessageTemplate().getSubjectTemplate();
+			List<RenderVariable> varbles = mr.get().getRenderVariableList();
 			Map<String, RenderVariableVo> map = RenderBo.renderVariablesToMap(varbles);
 			Map<String, ErrorVariableVo> errors = new HashMap<String, ErrorVariableVo>();
 			assertTrue(bean.getBody().equals(renderer.render(bodyTmptl, map, errors)));
@@ -77,20 +79,21 @@ public class MsgOutboxBoTest extends BoTestBase {
 			fail();
 		}
 
-		RenderRequest req = service.getRenderRequestByPK(mr.getRowId());
+		RenderRequest req = service.getRenderRequestByPK(mr.get().getRowId());
 		assertNotNull(req);
-		assertTrue(req.getMsgSourceId().equals(mr.getMessageSource().getMsgSourceId()));
-		assertTrue(req.getSenderId().equals(mr.getSenderData().getSenderId()));
-		assertTrue(req.getVariableOverrides().size()>=mr.getRenderVariableList().size());
+		assertTrue(req.getMsgSourceId().equals(mr.get().getMessageSource().getMsgSourceId()));
+		assertTrue(req.getSenderId().equals(mr.get().getSenderData().getSenderId()));
+		assertTrue(req.getVariableOverrides().size()>=mr.get().getRenderVariableList().size());
 		try {
 			RenderResponse rsp = renderBo.getRenderedEmail(req);
 			int renderId = service.saveRenderData(rsp);
-			MessageRendered mr2 = renderedService.getByPrimaryKey(renderId);
-			assertTrue(mr2.getSenderData().getRowId().equals(mr.getSenderData().getRowId()));
-			assertTrue(mr2.getMessageSource().getRowId()==mr.getMessageSource().getRowId());
-			assertTrue(mr2.getMessageTemplate().getRowId()==mr.getMessageTemplate().getRowId());
-			assertTrue(mr2.getRenderAttachmentList().size()==mr.getRenderAttachmentList().size());
-			assertTrue(mr2.getRenderVariableList().size()>=mr.getRenderVariableList().size());
+			Optional<MessageRendered> mr2 = renderedService.getByPrimaryKey(renderId);
+			assertTrue(mr2.isPresent());
+			assertTrue(mr2.get().getSenderData().getRowId().equals(mr.get().getSenderData().getRowId()));
+			assertTrue(mr2.get().getMessageSource().getRowId()==mr.get().getMessageSource().getRowId());
+			assertTrue(mr2.get().getMessageTemplate().getRowId()==mr.get().getMessageTemplate().getRowId());
+			assertTrue(mr2.get().getRenderAttachmentList().size()==mr.get().getRenderAttachmentList().size());
+			assertTrue(mr2.get().getRenderVariableList().size()>=mr.get().getRenderVariableList().size());
 		}
 		catch (Exception e) {
 			e.printStackTrace();

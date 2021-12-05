@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
@@ -136,8 +137,9 @@ public class TemplateDataTest extends BoTestBase {
 		assertNotNull(service.getByPrimaryKey(pk9));
 		var9.setBodyTemplate("new test value");
 		service.update(var9);
-		TemplateData var_updt = service.getByRowId(var9.getRowId());
-		assertTrue("new test value".equals(var_updt.getBodyTemplate()));
+		Optional<TemplateData> var_updt = service.getByRowId(var9.getRowId());
+		assertTrue(var_updt.isPresent());
+		assertTrue("new test value".equals(var_updt.get().getBodyTemplate()));
 		// end of test update
 		
 		service.delete(var9);

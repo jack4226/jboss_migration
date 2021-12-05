@@ -4,6 +4,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.Timestamp;
+import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -100,26 +101,28 @@ public class MessageHeaderTest extends BoTestBase {
 	@Test
 	public void messageHeaderService() {
 		insertMessageHeaders();
-		MessageHeader hdr11 = service.getByRowId(hdr1.getRowId());
+		Optional<MessageHeader> hdr11 = service.getByRowId(hdr1.getRowId());
+		assertTrue(hdr11.isPresent());
 		
-		logger.info(PrintUtil.prettyPrint(hdr11,2));
+		logger.info(PrintUtil.prettyPrint(hdr11.get(),2));
 		
-		MessageHeader hdr12 = service.getByPrimaryKey(hdr11.getMessageHeaderPK());
-		assertTrue(hdr11.equals(hdr12));
+		MessageHeader hdr12 = service.getByPrimaryKey(hdr11.get().getMessageHeaderPK());
+		assertTrue(hdr11.get().equals(hdr12));
 		
 		// test update
 		hdr2.setUpdtUserId("jpa test");
 		service.update(hdr2);
-		MessageHeader hdr22 = service.getByRowId(hdr2.getRowId());
-		assertTrue("jpa test".equals(hdr22.getUpdtUserId()));
+		Optional<MessageHeader> hdr22 = service.getByRowId(hdr2.getRowId());
+		assertTrue(hdr22.isPresent());
+		assertTrue("jpa test".equals(hdr22.get().getUpdtUserId()));
 		
 		// test delete
 		/*
 		 * Aggregated objects cannot be written/deleted/queried independently from their owners.
 		 */
-		service.delete(hdr11); // TODO resolve above EclipseLink error
-		service.deleteByRowId(hdr11.getRowId());
-		assertNull(service.getByRowId(hdr11.getRowId()));
+		service.delete(hdr11.get()); // TODO resolve above EclipseLink error
+		service.deleteByRowId(hdr11.get().getRowId());
+		assertNull(service.getByRowId(hdr11.get().getRowId()));
 
 		
 		assertTrue(1==service.deleteByRowId(hdr2.getRowId()));

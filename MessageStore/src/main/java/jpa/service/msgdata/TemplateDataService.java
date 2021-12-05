@@ -2,6 +2,7 @@ package jpa.service.msgdata;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,8 @@ public class TemplateDataService implements java.io.Serializable {
 	@Autowired
 	TemplateDataRepository repository;
 
-	public TemplateData getByRowId(int rowId) {
-		return repository.findOne(rowId);
+	public Optional<TemplateData> getByRowId(int rowId) {
+		return repository.findById(rowId);
 	}
 
 	public TemplateData getByPrimaryKey(TemplateDataPK pk) {

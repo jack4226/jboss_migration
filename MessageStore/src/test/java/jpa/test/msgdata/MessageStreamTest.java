@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -100,24 +101,26 @@ public class MessageStreamTest extends BoTestBase {
 	@Test
 	public void messageAddressService() throws IOException {
 		insertMsgStreams();
-		MessageStream adr11 = service.getByRowId(adr1.getRowId());
+		Optional<MessageStream> adr11 = service.getByRowId(adr1.getRowId());
+		assertTrue(adr11.isPresent());
 		
-		logger.info(PrintUtil.prettyPrint(adr11,2));
+		logger.info(PrintUtil.prettyPrint(adr11.get(),2));
 		
 		MessageStream adr12 = service.getByMsgInboxId(inbox1.getRowId());
-		assertTrue(adr11.equals(adr12));
+		assertTrue(adr11.get().equals(adr12));
 		
 		assertTrue(service.getByFromAddress(inbox1.getFromAddress().getAddress()).size()>0);
 		
 		// test update
 		adr2.setUpdtUserId("jpa test");
 		service.update(adr2);
-		MessageStream adr22 = service.getByRowId(adr2.getRowId());
-		assertTrue("jpa test".equals(adr22.getUpdtUserId()));
+		Optional<MessageStream> adr22 = service.getByRowId(adr2.getRowId());
+		assertTrue(adr22.isPresent());
+		assertTrue("jpa test".equals(adr22.get().getUpdtUserId()));
 		
 		// test delete
-		service.delete(adr11);
-		assertNull(service.getByRowId(adr11.getRowId()));
+		service.delete(adr11.get());
+		assertNull(service.getByRowId(adr11.get().getRowId()));
 
 		
 		assertTrue(1==service.deleteByRowId(adr2.getRowId()));

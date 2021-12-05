@@ -7,13 +7,13 @@
   
   <properties>
   	<message-store-version>1.0.0-SNAPSHOT</message-store-version>
-  	<spring.version>4.3.16.RELEASE</spring.version> <!-- 4.1.7.RELEASE last release supports AopUtils.isCglibProxyClass() -->
+  	<spring.version>[4.3.18,)</spring.version> <!-- 4.1.7.RELEASE last release supports AopUtils.isCglibProxyClass() -->
   	<java.version>1.8</java.version>
-  	<mysql.connector.version>5.1.39</mysql.connector.version>
+  	<mysql.connector.version>[8.0.16,)</mysql.connector.version>
   	<aopalliance.version>1.0</aopalliance.version>
   	<aspectjrt.version>1.8.9</aspectjrt.version>
   	<commons-digester.version>2.1</commons-digester.version>
-  	<commons-fileupload.version>1.3.2</commons-fileupload.version>
+  	<commons-fileupload.version>[1.3.3,)</commons-fileupload.version>
   	<commons-logging.version>1.2</commons-logging.version>
   	<jstl.version>1.2</jstl.version>
   	<javax.mail.version>1.4.7</javax.mail.version>
@@ -22,37 +22,6 @@
   	<tomee.version>1.7.4</tomee.version>
   	<mockito-version>1.10.19</mockito-version>
   </properties>
-  
-  <build>
-    <sourceDirectory>src/main/java</sourceDirectory>
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-        <excludes>
-          <exclude>**/*.java</exclude>
-          <exclude>**/*.txt</exclude>
-        </excludes>
-      </resource>
-    </resources>
-    <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.5.1</version>
-        <configuration>
-          <source>${java.version}</source>
-          <target>${java.version}</target>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>3.0.0</version>
-        <configuration>
-          <warSourceDirectory>WebContent</warSourceDirectory>
-          <failOnMissingWebXml>false</failOnMissingWebXml>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
   
   <dependencies>
   	<dependency>
@@ -179,4 +148,35 @@
 	
   </dependencies>
   
+  <build>
+    <sourceDirectory>src/main/java</sourceDirectory>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <excludes>
+          <exclude>**/*.java</exclude>
+          <exclude>**/*.txt</exclude>
+        </excludes>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.5.1</version>
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.3.1</version>
+        <configuration>
+          <warSourceDirectory>WebContent</warSourceDirectory>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
 </project>

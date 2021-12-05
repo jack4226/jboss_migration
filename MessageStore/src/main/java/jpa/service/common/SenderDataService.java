@@ -1,6 +1,7 @@
 package jpa.service.common;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -28,8 +29,8 @@ public class SenderDataService implements java.io.Serializable {
 		return repository.findOneBySenderId(senderId);
 	}
 	
-	public SenderData getByRowId(int rowId) {
-		return repository.findOne(rowId);
+	public Optional<SenderData> getByRowId(int rowId) {
+		return repository.findById(rowId);
 	}
 	
 	public SenderData getByDomainName(String domainName) {
@@ -64,8 +65,8 @@ public class SenderDataService implements java.io.Serializable {
 	}
 
 	public int deleteByRowId(int rowId) {
-		SenderData sender = getByRowId(rowId);
-		if (sender!=null && Constants.DEFAULT_SENDER_ID.equals(sender.getSenderId())) {
+		Optional<SenderData> sender = getByRowId(rowId);
+		if (sender.isPresent() && Constants.DEFAULT_SENDER_ID.equals(sender.get().getSenderId())) {
 			throw new IllegalArgumentException("Can not delete system sender!");
 		}
 		return repository.deleteByRowId(rowId);

@@ -3,6 +3,7 @@ package jpa.test.maillist;
 import static org.junit.Assert.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -65,8 +66,9 @@ public class BroadcastTrackingTest extends BoTestBase {
 		assertTrue(1<=service.updateOpenCount(eb1.getRowId()));
 		assertTrue(1<=service.updateClickCount(eb1.getRowId()));
 		
-		BroadcastTracking eb2 = service.getByRowId(eb1.getRowId());
-		assertTrue(ts.equals(eb2.getUpdtTime()));
+		Optional<BroadcastTracking> eb2 = service.getByRowId(eb1.getRowId());
+		assertTrue(eb2.isPresent());
+		assertTrue(ts.equals(eb2.get().getUpdtTime()));
 		logger.info(PrintUtil.prettyPrint(eb2, 2));
 		
 		List<BroadcastTracking> eblist2 = service.getByEmailAddress(eb1.getEmailAddress().getAddress());

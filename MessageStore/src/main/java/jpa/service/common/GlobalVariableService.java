@@ -2,6 +2,7 @@ package jpa.service.common;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,8 @@ public class GlobalVariableService implements java.io.Serializable {
 	@Autowired
 	GlobalVariableRepository repository;
 
-	public GlobalVariable getByRowId(int rowId) {
-		return repository.findOne(rowId);
+	public Optional<GlobalVariable> getByRowId(int rowId) {
+		return repository.findById(rowId);
 	}
 
 	/**

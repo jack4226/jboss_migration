@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.junit.Before;
@@ -108,8 +109,9 @@ public class RenderVariableTest extends BoTestBase {
 		in3.setRenderVariablePK(pk3);
 		service.insert(in3);
 
-		RenderVariable msg2  =service.getByRowId(in2.getRowId());
-		logger.info(PrintUtil.prettyPrint(msg2,1));
+		Optional<RenderVariable> msg2  =service.getByRowId(in2.getRowId());
+		assertTrue(msg2.isPresent());
+		logger.info(PrintUtil.prettyPrint(msg2.get(),1));
 		
 		List<RenderVariable> lst1 = service.getByRenderId(mrn1.getRowId());
 		assertTrue(3==lst1.size());
@@ -117,8 +119,9 @@ public class RenderVariableTest extends BoTestBase {
 		
 		rv1.setUpdtUserId("jpa test");
 		service.update(rv1);
-		RenderVariable rv2 = service.getByRowId(rv1.getRowId());
-		assertTrue("jpa test".equals(rv2.getUpdtUserId()));
+		Optional<RenderVariable> rv2 = service.getByRowId(rv1.getRowId());
+		assertTrue(rv2.isPresent());
+		assertTrue("jpa test".equals(rv2.get().getUpdtUserId()));
 		
 		service.delete(in2);
 		assertNull(service.getByPrimaryKey(in2.getRenderVariablePK()));

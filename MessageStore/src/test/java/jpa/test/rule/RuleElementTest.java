@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 import javax.persistence.EntityManager;
@@ -78,26 +79,27 @@ public class RuleElementTest extends BoTestBase {
 		RuleElement obj2 = logic.getRuleElements().get(size-1);
 		obj2.setUpdtUserId("JpaTest");
 		service.update(obj2);
-		RuleElement obj3 = service.getByRowId(obj2.getRowId());
-		assertTrue("JpaTest".equals(obj3.getUpdtUserId()));
+		Optional<RuleElement> obj3 = service.getByRowId(obj2.getRowId());
+		assertTrue(obj3.isPresent());
+		assertTrue("JpaTest".equals(obj3.get().getUpdtUserId()));
 		
 		// test insert
 		RuleElement obj4 = new RuleElement();
 		try {
-			BeanUtils.copyProperties(obj4, obj3);
+			BeanUtils.copyProperties(obj4, obj3.get());
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 		RuleElementPK pk2 = new RuleElementPK();
-		pk2.setRuleLogic(obj3.getRuleElementPK().getRuleLogic());
-		pk2.setElementSequence(obj3.getRuleElementPK().getElementSequence()+2);
+		pk2.setRuleLogic(obj3.get().getRuleElementPK().getRuleLogic());
+		pk2.setElementSequence(obj3.get().getRuleElementPK().getElementSequence()+2);
 		obj4.setRuleElementPK(pk2);
 		service.insert(obj4);
 		
 		RuleElement objs4 = service.getByPrimaryKey(obj4.getRuleElementPK());
 		assertNotNull(objs4);
-		assertTrue(obj3.getRowId()!=objs4.getRowId());
+		assertTrue(obj3.get().getRowId()!=objs4.getRowId());
 		service.delete(objs4);
 		RuleElement deleted = service.getByPrimaryKey(obj4.getRuleElementPK());
 		if (deleted != null) {
@@ -109,10 +111,10 @@ public class RuleElementTest extends BoTestBase {
 			assertTrue(1==service.deleteByRowId(elem.getRowId()));
 		}
 		else if (random == 1) {
-			assertTrue(1==service.deleteByPrimaryKey(obj3.getRuleElementPK()));
+			assertTrue(1==service.deleteByPrimaryKey(obj3.get().getRuleElementPK()));
 		}
 		else {
-			assertTrue(1<service.deleteByRuleName(obj3.getRuleElementPK().getRuleLogic().getRuleName()));
+			assertTrue(1<service.deleteByRuleName(obj3.get().getRuleElementPK().getRuleLogic().getRuleName()));
 		}
 	}
 }

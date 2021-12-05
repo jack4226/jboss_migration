@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.junit.BeforeClass;
@@ -56,8 +57,9 @@ public class MessageRenderedTest extends BoTestBase {
 		in1.setPurgeAfter(null);
 		service.insert(in1);
 		
-		MessageRendered msg1 = service.getByPrimaryKey(in1.getRowId());
-		logger.info("Message #1: " + PrintUtil.prettyPrint(msg1,2));
+		Optional<MessageRendered> msg1 = service.getByPrimaryKey(in1.getRowId());
+		assertTrue(msg1.isPresent());
+		logger.info("Message #1: " + PrintUtil.prettyPrint(msg1.get(),2));
 		
 		MessageRendered  first = service.getFirstRecord();
 		assertNotNull(first);
@@ -65,7 +67,7 @@ public class MessageRenderedTest extends BoTestBase {
 		
 		MessageRendered in2 = new MessageRendered();
 		try {
-			BeanUtils.copyProperties(in2, msg1);
+			BeanUtils.copyProperties(in2, msg1.get());
 			in2.setRenderAttachmentList(null);
 			in2.setRenderVariableList(new ArrayList<RenderVariable>());
 		}
@@ -76,8 +78,9 @@ public class MessageRenderedTest extends BoTestBase {
 		
 		MessageRendered msg2 = service.getLastRecord();
 		logger.info("Message #2: " + PrintUtil.prettyPrint(msg2,2));
-		MessageRendered msg22 = service.getAllDataByPrimaryKey(msg2.getRowId());
-		logger.info("Message #2 (All Data): " + PrintUtil.prettyPrint(msg22,2));
+		Optional<MessageRendered> msg22 = service.getAllDataByPrimaryKey(msg2.getRowId());
+		assertTrue(msg22.isPresent());
+		logger.info("Message #2 (All Data): " + PrintUtil.prettyPrint(msg22.get(),2));
 		
 		assertNull(service.getNextRecord(msg2));
 		
@@ -85,7 +88,7 @@ public class MessageRenderedTest extends BoTestBase {
 		if (msg3 != null) {
 			logger.info("Message #3: " + PrintUtil.prettyPrint(msg3,2));
 			
-			assertTrue(msg1.equals(msg3));
+			assertTrue(msg1.get().equals(msg3));
 	
 			MessageRendered msg4  =service.getNextRecord(msg3);
 			assertTrue(msg2.equals(msg4));

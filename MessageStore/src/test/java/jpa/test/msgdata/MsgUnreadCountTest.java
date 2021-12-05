@@ -3,6 +3,7 @@ package jpa.test.msgdata;
 import static org.junit.Assert.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -32,9 +33,10 @@ public class MsgUnreadCountTest extends BoTestBase {
 		assertFalse(list1.isEmpty());
 		
 		MsgUnreadCount muc1 = list1.get(list1.size() - 1);
-		MsgUnreadCount muc2 = service.getByRowId(muc1.getRowId());
+		Optional<MsgUnreadCount> muc2 = service.getByRowId(muc1.getRowId());
+		assertTrue(muc2.isPresent());
 		
-		assertEquals(muc1, muc2);
+		assertEquals(muc1, muc2.get());
 		
 		assertEquals(1, service.deleteByRowId(muc1.getRowId()));
 		

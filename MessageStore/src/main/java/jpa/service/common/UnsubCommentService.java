@@ -1,6 +1,7 @@
 package jpa.service.common;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,8 @@ public class UnsubCommentService implements java.io.Serializable {
 		return repository.findAllByEmailAddress_Address(address);
 	}
 	
-	public UnsubComment getByRowId(int rowId) {
-		return repository.findOne(rowId);
+	public Optional<UnsubComment> getByRowId(int rowId) {
+		return repository.findById(rowId);
 	}
 	
 	public List<UnsubComment> getByMailingListId(String listId) {

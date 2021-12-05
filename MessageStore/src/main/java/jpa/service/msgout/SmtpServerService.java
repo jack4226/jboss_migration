@@ -1,6 +1,7 @@
 package jpa.service.msgout;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -29,8 +30,8 @@ public class SmtpServerService implements java.io.Serializable {
 	@Autowired
 	SmtpServerRepository repository;
 	
-	public SmtpServer getByRowId(int rowId) {
-		return repository.findOne(rowId);
+	public Optional<SmtpServer> getByRowId(int rowId) {
+		return repository.findById(rowId);
 	}
 
 	public SmtpServer getByServerName(String serverName) {

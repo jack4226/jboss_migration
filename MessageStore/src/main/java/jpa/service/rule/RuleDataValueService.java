@@ -1,6 +1,7 @@
 package jpa.service.rule;
 
 import java.util.List;
+import java.util.Optional;
 
 import jpa.model.rule.RuleDataValue;
 import jpa.model.rule.RuleDataValuePK;
@@ -29,8 +30,8 @@ public class RuleDataValueService implements java.io.Serializable {
 		return repository.findOneByPrimaryKey(pk.getRuleDataType().getDataType(), pk.getDataValue());
 	}
 	
-	public RuleDataValue getByRowId(int rowId) {
-		return repository.findOne(rowId);
+	public Optional<RuleDataValue> getByRowId(int rowId) {
+		return repository.findById(rowId);
 	}
 	
 	public List<RuleDataValue> getByDataType(String dataType) {

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.Timestamp;
+import java.util.Optional;
 
 import javax.mail.Part;
 
@@ -102,22 +103,24 @@ public class MessageAttachmentTest extends BoTestBase {
 	@Test
 	public void messageAttachmentService() {
 		insertMessageAttachments();
-		MessageAttachment atc11 = service.getByRowId(atc1.getRowId());
+		Optional<MessageAttachment> atc11 = service.getByRowId(atc1.getRowId());
+		assertTrue(atc11.isPresent());
 		
-		logger.info(PrintUtil.prettyPrint(atc11,3));
+		logger.info(PrintUtil.prettyPrint(atc11.get(),3));
 		
-		MessageAttachment atc12 = service.getByPrimaryKey(atc11.getMessageAttachmentPK());
-		assertTrue(atc11.equals(atc12));
+		MessageAttachment atc12 = service.getByPrimaryKey(atc11.get().getMessageAttachmentPK());
+		assertTrue(atc11.get().equals(atc12));
 		
 		// test update
 		atc2.setUpdtUserId("jpa test");
 		service.update(atc2);
-		MessageAttachment hdr22 = service.getByRowId(atc2.getRowId());
-		assertTrue("jpa test".equals(hdr22.getUpdtUserId()));
+		Optional<MessageAttachment> hdr22 = service.getByRowId(atc2.getRowId());
+		assertTrue(hdr22.isPresent());
+		assertTrue("jpa test".equals(hdr22.get().getUpdtUserId()));
 		
 		// test delete
-		service.delete(atc11);
-		assertNull(service.getByRowId(atc11.getRowId()));
+		service.delete(atc11.get());
+		assertNull(service.getByRowId(atc11.get().getRowId()));
 
 		
 		assertTrue(1==service.deleteByRowId(atc2.getRowId()));

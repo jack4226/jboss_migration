@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
@@ -108,8 +109,8 @@ public class EmailTemplateTest extends BoTestBase {
 		// end of test update
 		
 		service.delete(var6);
-		EmailTemplate deleted3 = service.getByRowId(var6.getRowId());
-		assertNull(deleted3);
+		Optional<EmailTemplate> deleted3 = service.getByRowId(var6.getRowId());
+		assertTrue(deleted3.isEmpty());
 	}
 	
 	private EmailTemplate createNewInstance(EmailTemplate orig) {

@@ -1,6 +1,7 @@
 package jpa.service.common;
 
 import java.util.List;
+import java.util.Optional;
 
 import jpa.model.IdTokens;
 import jpa.repository.IdTokensRepository;
@@ -27,8 +28,8 @@ public class IdTokensService implements java.io.Serializable {
 		return repository.findOneBySenderData_SenderId(senderId);
 	}
 	
-	public IdTokens getByRowId(int rowId) {
-		return repository.findOne(rowId);
+	public Optional<IdTokens> getByRowId(int rowId) {
+		return repository.findById(rowId);
 	}
 	
 	public List<IdTokens> getAll() {

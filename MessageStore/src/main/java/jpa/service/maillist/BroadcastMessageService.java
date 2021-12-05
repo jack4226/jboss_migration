@@ -1,6 +1,7 @@
 package jpa.service.maillist;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 
@@ -33,8 +34,8 @@ public class BroadcastMessageService implements java.io.Serializable {
 	@Autowired
 	BroadcastMessageRepository repository;
 	
-	public BroadcastMessage getByRowId(int rowId) {
-		return repository.findOne(rowId);
+	public Optional<BroadcastMessage> getByRowId(int rowId) {
+		return repository.findById(rowId);
 	}
 	
 	public List<BroadcastMessage> getByMailingListId(String listId) {
@@ -90,8 +91,8 @@ public class BroadcastMessageService implements java.io.Serializable {
 		if (isAscending != null && isAscending == true) {
 			dir = Direction.ASC;
 		}
-		Sort sort = new Sort(dir, "rowId");
-		Pageable paging = new PageRequest(vo.getPageNumber(), vo.getPageSize(), sort);
+		Sort sort = Sort.by(dir, "rowId");
+		Pageable paging = PageRequest.of(vo.getPageNumber(), vo.getPageSize(), sort);
 		return repository.findAllBySentCountGreaterThanAndStartTimeNotNull(0, paging);
 	}
 	

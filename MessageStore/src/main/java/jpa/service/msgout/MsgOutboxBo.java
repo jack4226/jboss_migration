@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.mail.Address;
 import javax.mail.Part;
@@ -353,13 +354,13 @@ public class MsgOutboxBo implements java.io.Serializable {
 	 * @throws DataValidationException 
 	 */
 	public RenderRequest getRenderRequestByPK(int renderId) throws DataValidationException {
-		MessageRendered msgRenderedVo = msgRenderedDao.getByPrimaryKey(renderId);
-		if (msgRenderedVo == null) {
+		Optional<MessageRendered> msgRenderedVo = msgRenderedDao.getByPrimaryKey(renderId);
+		if (msgRenderedVo.isEmpty()) {
 			throw new DataValidationException("MsgRendered record not found for renderId: "
 					+ renderId);
 		}
-		String msgSourceId = msgRenderedVo.getMessageSource().getMsgSourceId();
-		String senderId = msgRenderedVo.getSenderData().getSenderId();
+		String msgSourceId = msgRenderedVo.get().getMessageSource().getMsgSourceId();
+		String senderId = msgRenderedVo.get().getSenderData().getSenderId();
 		// add renderVariables to variableFinal
 		Map<String, RenderVariableVo> varblFinal = new HashMap<String, RenderVariableVo>();
 		List<RenderVariable> renderVariables = renderVariableDao.getByRenderId(renderId);
@@ -437,7 +438,7 @@ public class MsgOutboxBo implements java.io.Serializable {
 		RenderRequest renderRequest = new RenderRequest(
 			msgSourceId,
 			senderId,
-			msgRenderedVo.getStartTime(),
+			msgRenderedVo.get().getStartTime(),
 			varblFinal
 			);
 		

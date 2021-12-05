@@ -1,6 +1,7 @@
 package jpa.service.common;
 
 import java.util.List;
+import java.util.Optional;
 
 import jpa.model.EmailTemplate;
 import jpa.repository.EmailTemplateRepository;
@@ -26,8 +27,8 @@ public class EmailTemplateService implements java.io.Serializable {
 		return repository.findOneByTemplateId(templateId);
 	}
 	
-	public EmailTemplate getByRowId(int rowId) {
-		return repository.findOne(rowId);
+	public Optional<EmailTemplate> getByRowId(int rowId) {
+		return repository.findById(rowId);
 	}
 	
 	public List<EmailTemplate> getAll() {

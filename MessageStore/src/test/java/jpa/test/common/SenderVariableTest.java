@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
@@ -97,8 +98,9 @@ public class SenderVariableTest extends BoTestBase {
 		assertNotNull(service.getByPrimaryKey(pk6));
 		var6.setVariableValue("new test value");
 		service.update(var6);
-		SenderVariable var_updt = service.getByRowId(var6.getRowId());
-		assertTrue("new test value".equals(var_updt.getVariableValue()));
+		Optional<SenderVariable> var_updt = service.getByRowId(var6.getRowId());
+		assertTrue(var_updt.isPresent());
+		assertTrue("new test value".equals(var_updt.get().getVariableValue()));
 		// end of test update
 		
 		service.delete(var6);

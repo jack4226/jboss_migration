@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -63,8 +64,9 @@ public class IdTokens1Test extends BoTestBase {
 		// test update
 		tkn0.setUpdtUserId("JpaTest");
 		service.update(tkn0);
-		IdTokens tkn1 = service.getByRowId(tkn0.getRowId());
-		assertTrue("JpaTest".equals(tkn1.getUpdtUserId()));
+		Optional<IdTokens> tkn1 = service.getByRowId(tkn0.getRowId());
+		assertTrue(tkn1.isPresent());
+		assertTrue("JpaTest".equals(tkn1.get().getUpdtUserId()));
 		
 		// test insert
 		SenderData cd2 = cdService.getBySenderId("JBatchCorp");
@@ -80,7 +82,7 @@ public class IdTokens1Test extends BoTestBase {
 		
 		IdTokens tkn3 = service.getBySenderId("JBatchCorp");
 		assertNotNull(tkn3);
-		assertTrue(tkn1.getRowId()!=tkn3.getRowId());
+		assertTrue(tkn1.get().getRowId()!=tkn3.getRowId());
 		
 		assertTrue(1==service.deleteBySenderId(tkn3.getSenderData().getSenderId()));
 	}

@@ -1,6 +1,7 @@
 package jpa.service.msgdata;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,8 @@ public class MessageRfcFieldService implements java.io.Serializable {
 	@Autowired
 	MessageRfcFieldRepository repository;
 	
-	public MessageRfcField getByRowId(int rowId) {
-		return repository.findOne(rowId);
+	public Optional<MessageRfcField> getByRowId(int rowId) {
+		return repository.findById(rowId);
 	}
 
 	public MessageRfcField getByPrimaryKey(MessageRfcFieldPK pk) {

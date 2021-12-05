@@ -2,6 +2,7 @@ package jpa.service.common;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -51,8 +52,8 @@ public class SubscriberDataService implements java.io.Serializable {
 		return repository.findOneBySubscriberId(subscriberId);
 	}
 	
-	public SubscriberData getByRowId(int rowId) {
-		return repository.findOne(rowId);
+	public Optional<SubscriberData> getByRowId(int rowId) {
+		return repository.findById(rowId);
 	}
 	
 	public SubscriberData getByEmailAddress(String address) {

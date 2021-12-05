@@ -1,6 +1,7 @@
 package jpa.service.rule;
 
 import java.util.List;
+import java.util.Optional;
 
 import jpa.model.rule.RuleDataType;
 import jpa.repository.RuleDataTypeRepository;
@@ -25,8 +26,8 @@ public class RuleDataTypeService implements java.io.Serializable {
 		return repository.findOneByDataType(dataType);
 	}
 	
-	public RuleDataType getByRowId(int rowId) {
-		return repository.findOne(rowId);
+	public Optional<RuleDataType> getByRowId(int rowId) {
+		return repository.findById(rowId);
 	}
 	
 	public List<RuleDataType> getAll() {

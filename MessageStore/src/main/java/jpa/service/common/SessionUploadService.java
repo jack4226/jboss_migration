@@ -3,6 +3,7 @@ package jpa.service.common;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,8 @@ public class SessionUploadService implements java.io.Serializable {
 		return repository.findAllBySessionUploadPK_SessionId(sessionId);
 	}
 	
-	public SessionUpload getByRowId(int rowId) {
-		return repository.findOne(rowId);
+	public Optional<SessionUpload> getByRowId(int rowId) {
+		return repository.findById(rowId);
 	}
 	
 	public SessionUpload getByPrimaryKey(SessionUploadPK pk) {

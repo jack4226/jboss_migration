@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 import javax.annotation.Resource;
@@ -65,9 +66,10 @@ public class SubscribeToListTest extends BoTestBase {
 		
 		// verify results
 		assertFalse(ctx.getRowIds().isEmpty());
-		Subscription sub = subService.getByRowId(ctx.getRowIds().get(0));
-		assertTrue(fromaddr.equals(sub.getEmailAddress().getAddress()));
-		assertTrue(sub.isSubscribed());
-		assertTrue(lists.get(0).getListId().equals(sub.getMailingList().getListId()));
+		Optional<Subscription> sub = subService.getByRowId(ctx.getRowIds().get(0));
+		assertTrue(sub.isPresent());
+		assertTrue(fromaddr.equals(sub.get().getEmailAddress().getAddress()));
+		assertTrue(sub.get().isSubscribed());
+		assertTrue(lists.get(0).getListId().equals(sub.get().getMailingList().getListId()));
 	}
 }

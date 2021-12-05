@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Optional;
 import java.util.Random;
 
 import org.junit.Before;
@@ -54,28 +55,29 @@ public class MessageFolderTest extends BoTestBase {
 		adr2.setDescription("Test folder 2");
 		service.insert(adr2);
 		
-		MessageFolder adr11 = service.getByRowId(adr1.getRowId());
-		assertNotNull(adr11);
+		Optional<MessageFolder> adr11 = service.getByRowId(adr1.getRowId());
+		assertTrue(adr11.isPresent());
 		
-		logger.info(PrintUtil.prettyPrint(adr11,2));
+		logger.info(PrintUtil.prettyPrint(adr11.get(),2));
 		
 		MessageFolder adr12 = service.getOneByFolderName(name1);
 		assertNotNull(adr12);
 
-		assertEquals(adr11.getFolderName(), adr12.getFolderName());
-		assertEquals(adr11.getDescription(), adr12.getDescription());
+		assertEquals(adr11.get().getFolderName(), adr12.getFolderName());
+		assertEquals(adr11.get().getDescription(), adr12.getDescription());
 		
 		// test update
 		adr2.setUpdtUserId("jpa test");
 		service.update(adr2);
-		MessageFolder adr22 = service.getByRowId(adr2.getRowId());
-		assertTrue("jpa test".equals(adr22.getUpdtUserId()));
+		Optional<MessageFolder> adr22 = service.getByRowId(adr2.getRowId());
+		assertTrue(adr22.isPresent());
+		assertTrue("jpa test".equals(adr22.get().getUpdtUserId()));
 		
 		logger.info(PrintUtil.prettyPrint(adr22,2));
 		
 		// test delete
-		service.delete(adr11);
-		assertNull(service.getByRowId(adr11.getRowId()));
+		service.delete(adr11.get());
+		assertNull(service.getByRowId(adr11.get().getRowId()));
 		
 		assertTrue(1==service.deleteByRowId(adr2.getRowId()));
 		

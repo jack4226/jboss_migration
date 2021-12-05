@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.junit.Before;
@@ -102,25 +103,26 @@ public class MessageSourceTest extends BoTestBase {
 		tkn0.setUpdtUserId("JpaTest");
 		service.update(tkn0);
 		
-		MessageSource tkn1 = service.getByRowId(tkn0.getRowId());
-		assertTrue("JpaTest".equals(tkn1.getUpdtUserId()));
+		Optional<MessageSource> tkn1 = service.getByRowId(tkn0.getRowId());
+		assertTrue(tkn1.isPresent());
+		assertTrue("JpaTest".equals(tkn1.get().getUpdtUserId()));
 		// end of test update
 		
 		// test insert
 		MessageSource tkn2 = new MessageSource();
 		try {
-			BeanUtils.copyProperties(tkn2, tkn1);
+			BeanUtils.copyProperties(tkn2, tkn1.get());
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		tkn2.setMsgSourceId(tkn1.getMsgSourceId()+"_v2");
+		tkn2.setMsgSourceId(tkn1.get().getMsgSourceId()+"_v2");
 		// to prevent "found shared references to a collection" error from Hibernate
 		tkn2.setTemplateVariableList(null);
 		service.insert(tkn2);
 		
 		MessageSource tkn3 = service.getByMsgSourceId(tkn2.getMsgSourceId());
-		assertTrue(tkn3.getRowId()!=tkn1.getRowId());
+		assertTrue(tkn3.getRowId()!=tkn1.get().getRowId());
 		// end of test insert
 		
 		// test select with no result

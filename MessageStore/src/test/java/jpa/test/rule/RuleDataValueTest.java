@@ -2,7 +2,6 @@ package jpa.test.rule;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -98,7 +97,7 @@ public class RuleDataValueTest extends BoTestBase {
 		List<RuleDataValue> list2 = valueService.getByDataType(testDataType1);
 		assertFalse(list2.isEmpty());
 		
-		assertNotNull(valueService.getByRowId(list2.get(0).getRowId()));
+		assertTrue(valueService.getByRowId(list2.get(0).getRowId()).isPresent());
 		
 		// test insert
 		RuleDataValue var3 = createNewInstance(list2.get(0));
@@ -121,7 +120,7 @@ public class RuleDataValueTest extends BoTestBase {
 		if (deleted != null) {
 			fail();
 		}
-		assertNull(valueService.getByRowId(var3.getRowId()));
+		assertTrue(valueService.getByRowId(var3.getRowId()).isEmpty());
 		
 		// test delete
 		RuleDataValue var5 = createNewInstance(var2);

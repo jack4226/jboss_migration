@@ -39,7 +39,7 @@ public class EmailAddressService implements java.io.Serializable {
 	}
 
 	public Page<EmailAddress> getPageByPagingVo(PagingVo vo) {
-		Pageable p = new PageRequest(vo.getPageNumber(), vo.getPageSize());
+		Pageable p = PageRequest.of(vo.getPageNumber(), vo.getPageSize());
 		return repository.findAll(EmailAddressSpecs.buildSpecByPagingVo(vo), p);
 	}
 

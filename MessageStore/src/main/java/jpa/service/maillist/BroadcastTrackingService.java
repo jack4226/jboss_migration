@@ -1,6 +1,7 @@
 package jpa.service.maillist;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,8 @@ public class BroadcastTrackingService implements java.io.Serializable {
 	BroadcastTrackingRepository repository;
 	
 	
-	public BroadcastTracking getByRowId(int rowId) {
-		return repository.findOne(rowId);
+	public Optional<BroadcastTracking> getByRowId(int rowId) {
+		return repository.findById(rowId);
 	}
 	
 	public BroadcastTracking getByPrimaryKey(int emailAddrRowId, int broadcastMsgRowId) {
@@ -54,8 +55,8 @@ public class BroadcastTrackingService implements java.io.Serializable {
 		if (isAscending != null && isAscending == true) {
 			dir = Direction.ASC;
 		}
-		Sort sort = new Sort(dir, "rowId");
-		Pageable paging = new PageRequest(vo.getPageNumber(), vo.getPageSize(), sort);
+		Sort sort = Sort.by(dir, "rowId");
+		Pageable paging = PageRequest.of(vo.getPageNumber(), vo.getPageSize(), sort);
 		return repository.findAllByBroadcastMessage_RowId(bcstMsgRowId, paging);
 	}
 	

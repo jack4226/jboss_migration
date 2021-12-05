@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 import javax.sql.DataSource;
 
@@ -57,8 +58,8 @@ public class UserDataTest extends BoTestBase {
 		UserData tkn0 = service.getByUserId(list.get(0).getUserId());
 		assertNotNull(tkn0);
 		
-		tkn0 = service.getByRowId(list.get(0).getRowId());
-		assertNotNull(tkn0);
+		Optional<UserData> tkn01 = service.getByRowId(list.get(0).getRowId());
+		assertTrue(tkn01.isPresent());
 		
 		service.getForLogin(list.get(0).getUserId(), list.get(0).getPassword());
 		
@@ -67,18 +68,19 @@ public class UserDataTest extends BoTestBase {
 		service.update(tkn0);
 		service.update4Web(tkn0);
 		
-		UserData tkn1 = service.getByRowId(tkn0.getRowId());
-		assertTrue("JpaTest".equals(tkn1.getUpdtUserId()));
+		Optional<UserData> tkn1 = service.getByRowId(tkn0.getRowId());
+		assertTrue(tkn1.isPresent());
+		assertTrue("JpaTest".equals(tkn1.get().getUpdtUserId()));
 		// end of test update
 		
 		// test insert
 		UserData tkn2 = new UserData();
-		tkn1.copyPropertiesTo(tkn2);
-		tkn2.setUserId(tkn1.getUserId()+"_v2");
+		tkn1.get().copyPropertiesTo(tkn2);
+		tkn2.setUserId(tkn1.get().getUserId()+"_v2");
 		service.insert(tkn2);
 		
 		UserData tkn3 = service.getByUserId(tkn2.getUserId());
-		assertTrue(tkn3.getRowId()!=tkn1.getRowId());
+		assertTrue(tkn3.getRowId()!=tkn1.get().getRowId());
 		// end of test insert
 		
 		// test select returning null

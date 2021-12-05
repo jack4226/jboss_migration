@@ -2,6 +2,7 @@ package jpa.service.common;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,8 @@ public class UserDataService implements Serializable {
 		return repository.findOneByUserIdAndPassword(userId, password);
 	}
 	
-	public UserData getByRowId(int rowId) {
-		return repository.findOne(rowId);
+	public Optional<UserData> getByRowId(int rowId) {
+		return repository.findById(rowId);
 	}
 	
 	public List<UserData> getAll() {

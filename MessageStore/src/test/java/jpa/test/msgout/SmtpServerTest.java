@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.junit.BeforeClass;
@@ -56,11 +57,11 @@ public class SmtpServerTest extends BoTestBase {
 		List<SmtpServer> list = service.getAll(true, null);
 		assertFalse(list.isEmpty());
 		
-		SmtpServer tkn0 = service.getByServerName(list.get(0).getServerName());
-		assertNotNull(tkn0);
+		SmtpServer tkn00 = service.getByServerName(list.get(0).getServerName());
+		assertNotNull(tkn00);
 		
-		tkn0 = service.getByRowId(list.get(0).getRowId());
-		assertNotNull(tkn0);
+		Optional<SmtpServer> tkn0 = service.getByRowId(list.get(0).getRowId());
+		assertTrue(tkn0.isPresent());
 		
 		List<SmtpServer> activeServers = service.getByServerType(MailServerType.SMTP, true);
 		assertTrue(1<=activeServers.size());
@@ -69,26 +70,27 @@ public class SmtpServerTest extends BoTestBase {
 		assertTrue(activeServers.size()<allCongiguredServers.size());
 		
 		// test update
-		tkn0.setUpdtUserId("JpaTest");
-		service.update(tkn0);
+		tkn0.get().setUpdtUserId("JpaTest");
+		service.update(tkn0.get());
 		
-		SmtpServer tkn1 = service.getByRowId(tkn0.getRowId());
-		assertTrue("JpaTest".equals(tkn1.getUpdtUserId()));
+		Optional<SmtpServer> tkn1 = service.getByRowId(tkn0.get().getRowId());
+		assertTrue(tkn1.isPresent());
+		assertTrue("JpaTest".equals(tkn1.get().getUpdtUserId()));
 		// end of test update
 		
 		// test insert
 		SmtpServer tkn2 = new SmtpServer();
 		try {
-			BeanUtils.copyProperties(tkn2, tkn1);
+			BeanUtils.copyProperties(tkn2, tkn1.get());
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		tkn2.setServerName(tkn1.getServerName()+"_v2");
+		tkn2.setServerName(tkn1.get().getServerName()+"_v2");
 		service.insert(tkn2);
 		
 		SmtpServer tkn3 = service.getByServerName(tkn2.getServerName());
-		assertTrue(tkn3.getRowId()!=tkn1.getRowId());
+		assertTrue(tkn3.getRowId()!=tkn1.get().getRowId());
 		// end of test insert
 		
 		// test select with No Result
@@ -96,7 +98,7 @@ public class SmtpServerTest extends BoTestBase {
 		assertNull(service.getByServerName(tkn2.getServerName()));
 
 		
-		assertTrue(1==service.deleteByServerName(tkn1.getServerName()));
+		assertTrue(1==service.deleteByServerName(tkn1.get().getServerName()));
 		assertTrue(0==service.deleteByRowId(tkn3.getRowId()));
 	}
 }

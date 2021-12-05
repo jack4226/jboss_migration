@@ -2,7 +2,6 @@ package jpa.test.rule;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -102,7 +101,7 @@ public class RuleDataTypeTest extends BoTestBase {
 		assertTrue("jpa test".equals(var5.getUpdtUserId()));
 		
 		typeService.delete(var3);
-		assertNull(typeService.getByRowId(var5.getRowId()));
+		assertTrue(typeService.getByRowId(var5.getRowId()).isPresent());
 		// test delete
 		RuleDataType var4 = createNewInstance(var2);
 		var4.setDataType(var2.getDataType() + "_v4");

@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.junit.BeforeClass;
@@ -112,14 +113,15 @@ public class MailingListTest extends BoTestBase {
 		rcd2.setUpdtUserId("JpaTest");
 		service.update(rcd2);
 		
-		MailingList rcd3 = service.getByRowId(rcd2.getRowId());
-		assertTrue("JpaTest".equals(rcd3.getUpdtUserId()));
+		Optional<MailingList> rcd3 = service.getByRowId(rcd2.getRowId());
+		assertTrue(rcd3.isPresent());
+		assertTrue("JpaTest".equals(rcd3.get().getUpdtUserId()));
 		// end of test update
 		
 		// test insert 2
 		MailingList rcd4 = new MailingList();
 		try {
-			BeanUtils.copyProperties(rcd4, rcd3);
+			BeanUtils.copyProperties(rcd4, rcd3.get());
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
@@ -131,8 +133,8 @@ public class MailingListTest extends BoTestBase {
 		service.insert(rcd4);
 		
 		MailingList rcd5 = service.getByListId(testListId2);
-		assertTrue(rcd5.getRowId()!=rcd3.getRowId());
-		assertFalse(rcd3.getListMasterEmailAddr().equals(rcd5.getListMasterEmailAddr()));
+		assertTrue(rcd5.getRowId()!=rcd3.get().getRowId());
+		assertFalse(rcd3.get().getListMasterEmailAddr().equals(rcd5.getListMasterEmailAddr()));
 		// end of test insert
 		
 		MailingList mlst1 = service.getByListIdWithCounts(MailingListEnum.SMPLLST1.name());
@@ -146,8 +148,8 @@ public class MailingListTest extends BoTestBase {
 		logger.info("Mailing List Counts: " + mlst1.getSentCount() + "," + mlst1.getOpenCount() + "," + mlst1.getClickCount());
 		
 		// test delete
-		service.delete(rcd3);
-		assertNull(service.getByRowId(rcd3.getRowId()));
+		service.delete(rcd3.get());
+		assertNull(service.getByRowId(rcd3.get().getRowId()));
 
 		logger.info(PrintUtil.prettyPrint(rcd5,1));
 		int rowsDeleted = service.deleteByListId(testListId2);

@@ -1,6 +1,7 @@
 package jpa.service.msgdata;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
@@ -36,8 +37,8 @@ public class MessageDeliveryStatusService implements java.io.Serializable {
 	@Autowired
 	EmailAddressRepository emailRepository;
 
-	public MessageDeliveryStatus getByRowId(int rowId) {
-		return repository.findOne(rowId);
+	public Optional<MessageDeliveryStatus> getByRowId(int rowId) {
+		return repository.findById(rowId);
 
 	}
 
@@ -59,8 +60,8 @@ public class MessageDeliveryStatusService implements java.io.Serializable {
 		if (isAscending != null && isAscending == true) {
 			dir = Direction.ASC;
 		}
-		Sort sort = new Sort(dir, "updtTime");
-		Pageable pageable = new PageRequest(pagingVo.getPageNumber(), pagingVo.getPageSize(), sort);
+		Sort sort = Sort.by(dir, "updtTime");
+		Pageable pageable = PageRequest.of(pagingVo.getPageNumber(), pagingVo.getPageSize(), sort);
 		return repository.findTop20ByMessageDeliveryStatusPK_FinalRcptAddrRowId(addr.getRowId(), pageable);
 	}
 

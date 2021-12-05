@@ -2,6 +2,7 @@ package jpa.service.maillist;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -125,8 +126,8 @@ public class MailingListService implements java.io.Serializable {
 		return null;
 	}
 
-	public MailingList getByRowId(int rowId) {
-		return repository.findOne(rowId);
+	public Optional<MailingList> getByRowId(int rowId) {
+		return repository.findById(rowId);
 	}
 	
 	public List<MailingList> getAll(boolean onlyActive) {

@@ -1,6 +1,7 @@
 package jpa.service.msgdata;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,8 @@ public class MessageStreamService implements java.io.Serializable {
 	@Autowired
 	MessageStreamRepository repository;
 
-	public MessageStream getByRowId(int rowId) {
-		return repository.findOne(rowId);
+	public Optional<MessageStream> getByRowId(int rowId) {
+		return repository.findById(rowId);
 	}
 
 	public List<MessageStream> getByFromAddress(String address) {

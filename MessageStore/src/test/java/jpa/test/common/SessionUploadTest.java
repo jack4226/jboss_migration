@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -79,16 +80,17 @@ public class SessionUploadTest extends BoTestBase {
 		tkn2.setUpdtUserId("JpaTest");
 		service.update(tkn2);
 		
-		SessionUpload tkn5 = service.getByRowId(tkn2.getRowId());
-		assertTrue("JpaTest".equals(tkn1.getUpdtUserId()));
+		Optional<SessionUpload> tkn5 = service.getByRowId(tkn2.getRowId());
+		assertTrue(tkn5.isPresent());
+		assertTrue("JpaTest".equals(tkn5.get().getUpdtUserId()));
 		// end of test update
 		
 		// test select with No Result
-		service.delete(tkn5);
-		assertNull(service.getByRowId(tkn5.getRowId()));
+		service.delete(tkn5.get());
+		assertNull(service.getByRowId(tkn5.get().getRowId()));
 		
-		assertTrue(0==service.deleteByPrimaryKey(tkn5.getSessionUploadPK()));
-		assertTrue(0==service.deleteByRowId(tkn5.getRowId()));
+		assertTrue(0==service.deleteByPrimaryKey(tkn5.get().getSessionUploadPK()));
+		assertTrue(0==service.deleteByRowId(tkn5.get().getRowId()));
 		
 		assertTrue(0<service.deleteAll());
 

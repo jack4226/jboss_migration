@@ -4,6 +4,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.Timestamp;
+import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -98,24 +99,26 @@ public class MessageDeliveryStatusTest extends BoTestBase {
 	@Test
 	public void messageDeliveryStatusService() {
 		insertDeliveryStatuss();
-		MessageDeliveryStatus log11 = service.getByRowId(log1.getRowId());
+		Optional<MessageDeliveryStatus> log11 = service.getByRowId(log1.getRowId());
+		assertTrue(log11.isPresent());
 		
-		logger.info(PrintUtil.prettyPrint(log11,3));
+		logger.info(PrintUtil.prettyPrint(log11.get(),3));
 		
-		MessageDeliveryStatus log12 = service.getByPrimaryKey(log11.getMessageDeliveryStatusPK());
-		assertTrue(log11.equals(log12));
+		MessageDeliveryStatus log12 = service.getByPrimaryKey(log11.get().getMessageDeliveryStatusPK());
+		assertTrue(log11.get().equals(log12));
 		
 		// test update
 		log2.setUpdtUserId("jpa test");
 		service.update(log2);
-		MessageDeliveryStatus adr22 = service.getByRowId(log2.getRowId());
-		assertTrue("jpa test".equals(adr22.getUpdtUserId()));
+		Optional<MessageDeliveryStatus> adr22 = service.getByRowId(log2.getRowId());
+		assertTrue(adr22.isPresent());
+		assertTrue("jpa test".equals(adr22.get().getUpdtUserId()));
 		
 		assertTrue(2==service.getByMsgInboxId(inbox1.getRowId()).size());
 		
 		// test delete
-		service.delete(log11);
-		assertNull(service.getByRowId(log11.getRowId()));
+		service.delete(log11.get());
+		assertNull(service.getByRowId(log11.get().getRowId()));
 		
 		assertTrue(1==service.deleteByRowId(log2.getRowId()));
 		assertNull(service.getByRowId(log2.getRowId()));

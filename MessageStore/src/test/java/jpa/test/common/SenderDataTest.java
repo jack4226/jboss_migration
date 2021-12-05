@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.junit.BeforeClass;
@@ -48,8 +49,9 @@ public class SenderDataTest extends BoTestBase {
 		tkn0.setUpdtUserId("JpaTest");
 		service.update(tkn0);
 		
-		SenderData tkn1 = service.getByRowId(tkn0.getRowId());
-		assertTrue("JpaTest".equals(tkn1.getUpdtUserId()));
+		Optional<SenderData> tkn1 = service.getByRowId(tkn0.getRowId());
+		assertTrue(tkn1.isPresent());
+		assertTrue("JpaTest".equals(tkn1.get().getUpdtUserId()));
 		// end of test update
 		
 		// test insert
@@ -68,7 +70,7 @@ public class SenderDataTest extends BoTestBase {
 		service.insert(tkn2);
 		
 		SenderData tkn3 = service.getBySenderId(tkn2.getSenderId());
-		assertTrue(tkn3.getRowId()!=tkn1.getRowId());
+		assertTrue(tkn3.getRowId()!=tkn1.get().getRowId());
 		// end of test insert
 		
 		// test select with No Result

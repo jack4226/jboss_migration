@@ -1,6 +1,7 @@
 package jpa.service.rule;
 
 import java.util.List;
+import java.util.Optional;
 
 import jpa.model.rule.RuleElement;
 import jpa.model.rule.RuleElementPK;
@@ -41,8 +42,8 @@ public class RuleElementService implements java.io.Serializable {
 		return repository.findAllByRuleElementPK_RuleLogic_RuleNameOrderByRuleElementPK_ElementSequence(ruleName);
 	}
 	
-	public RuleElement getByRowId(int rowId) {
-		return repository.findOne(rowId);
+	public Optional<RuleElement> getByRowId(int rowId) {
+		return repository.findById(rowId);
 	}
 	
 	public List<RuleElement> getAll() {

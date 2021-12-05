@@ -7,6 +7,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.junit.Before;
@@ -127,8 +128,9 @@ public class SubscriptionTest extends BoTestBase {
 		rcd2.setUpdtUserId("JpaTest");
 		service.update(rcd2);
 
-		Subscription rcd3 = service.getByRowId(rcd2.getRowId());
-		assertTrue("JpaTest".equals(rcd3.getUpdtUserId()));
+		Optional<Subscription> rcd3 = service.getByRowId(rcd2.getRowId());
+		assertTrue(rcd3.isPresent());
+		assertTrue("JpaTest".equals(rcd3.get().getUpdtUserId()));
 		// end of test update		
 		
 		emService.detach(rcd2); /* added to work around following Derby error (not sure if it is still happening):
@@ -162,7 +164,7 @@ public class SubscriptionTest extends BoTestBase {
 		//assertTrue(1==service.deleteByPrimaryKey(emailAddr3.getRowId(), list.get(0).getRowId()));
 		assertTrue(1==service.deleteByAddress(emailAddr3.getAddress()));
 
-		assertTrue(1==service.updateSentCount(rcd3.getRowId(), 1));
+		assertTrue(1==service.updateSentCount(rcd3.get().getRowId(), 1));
 	}
 	
 	@Test

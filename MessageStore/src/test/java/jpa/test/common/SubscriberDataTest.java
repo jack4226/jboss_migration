@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 
@@ -82,8 +83,9 @@ public class SubscriberDataTest extends BoTestBase {
 		// test update
 		rcd0.setUpdtUserId("JpaTest");
 		service.update(rcd0);
-		SubscriberData rcd1 = service.getByRowId(rcd0.getRowId());
-		assertTrue("JpaTest".equals(rcd1.getUpdtUserId()));
+		Optional<SubscriberData> rcd1 = service.getByRowId(rcd0.getRowId());
+		assertTrue(rcd1.isPresent());
+		assertTrue("JpaTest".equals(rcd1.get().getUpdtUserId()));
 		
 		// test insert
 		SenderData cd2 = cdService.getBySenderId(rcd0.getSenderData().getSenderId());
@@ -97,15 +99,15 @@ public class SubscriberDataTest extends BoTestBase {
 			throw new RuntimeException(e);
 		}
 		rcd2.setSenderData(cd2);
-		rcd2.setSubscriberId(rcd1.getSubscriberId()+"_2");
+		rcd2.setSubscriberId(rcd1.get().getSubscriberId()+"_2");
 		rcd2.setEmailAddress(emailService.findSertAddress(rcd2.getSubscriberId()+"@localhost"));
 		service.insert(rcd2);
 		
-		SubscriberData rcd3 = service.getBySubscriberId(rcd1.getSubscriberId()+"_2");
+		SubscriberData rcd3 = service.getBySubscriberId(rcd1.get().getSubscriberId()+"_2");
 		assertNotNull(rcd3);
-		assertTrue(rcd1.getRowId()!=rcd3.getRowId());
+		assertTrue(rcd1.get().getRowId()!=rcd3.getRowId());
 		
 		assertTrue(1==service.deleteBySubscriberId(rcd3.getSubscriberId()));
-		assertTrue(1==service.deleteByRowId(rcd1.getRowId()));
+		assertTrue(1==service.deleteByRowId(rcd1.get().getRowId()));
 	}
 }

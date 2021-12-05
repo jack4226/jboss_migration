@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -109,12 +110,13 @@ public class MessageUnsubCommentTest extends BoTestBase {
 	@Test
 	public void messageUnsubCommentService() throws IOException {
 		insertUnsubComments();
-		MessageUnsubComment cmt11 = service.getByRowId(cmt1.getRowId());
+		Optional<MessageUnsubComment> cmt11 = service.getByRowId(cmt1.getRowId());
+		assertTrue(cmt11.isPresent());
 		
-		logger.info(PrintUtil.prettyPrint(cmt11,2));
+		logger.info(PrintUtil.prettyPrint(cmt11.get(),2));
 		
 		MessageUnsubComment cmt12 = service.getByMsgInboxId(inbox1.getRowId());
-		assertTrue(cmt11.equals(cmt12));
+		assertTrue(cmt11.get().equals(cmt12));
 		
 		List<MessageUnsubComment> unsubList = service.getByFromAddress(from.getAddress());
 		assertTrue(2<=unsubList.size());
@@ -122,14 +124,15 @@ public class MessageUnsubCommentTest extends BoTestBase {
 		// test update
 		cmt2.setUpdtUserId("jpa test");
 		service.update(cmt2);
-		MessageUnsubComment adr22 = service.getByRowId(cmt2.getRowId());
-		assertTrue("jpa test".equals(adr22.getUpdtUserId()));
+		Optional<MessageUnsubComment> adr22 = service.getByRowId(cmt2.getRowId());
+		assertTrue(adr22.isPresent());
+		assertTrue("jpa test".equals(adr22.get().getUpdtUserId()));
 		
 		// test delete
-		service.delete(cmt11);
+		service.delete(cmt11.get());
 		inbox1.setMessageUnsubComment(null);
 		inboxService.update(inbox1);
-		assertNull(service.getByRowId(cmt11.getRowId()));
+		assertNull(service.getByRowId(cmt11.get().getRowId()));
 
 		
 		assertTrue(1==service.deleteByRowId(cmt2.getRowId()));

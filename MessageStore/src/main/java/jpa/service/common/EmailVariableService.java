@@ -2,6 +2,7 @@ package jpa.service.common;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,8 +39,8 @@ public class EmailVariableService implements java.io.Serializable {
 		return repository.findOneByVariableName(variableName);
 	}
 	
-	public EmailVariable getByRowId(int rowId) {
-		return repository.findOne(rowId);
+	public Optional<EmailVariable> getByRowId(int rowId) {
+		return repository.findById(rowId);
 	}
 	
 	public List<EmailVariable> getAll() {

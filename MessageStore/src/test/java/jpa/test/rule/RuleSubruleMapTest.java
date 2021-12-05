@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 import javax.persistence.EntityManager;
@@ -66,8 +67,9 @@ public class RuleSubruleMapTest extends BoTestBase {
 		// test update
 		map2.setUpdtUserId("JpaTest");
 		service.update(map2);
-		RuleSubruleMap map3 = service.getByRowId(map2.getRowId());
-		assertTrue("JpaTest".equals(map3.getUpdtUserId()));
+		Optional<RuleSubruleMap> map3 = service.getByRowId(map2.getRowId());
+		assertTrue(map3.isPresent());
+		assertTrue("JpaTest".equals(map3.get().getUpdtUserId()));
 		
 		// test insert
 		RuleLogic rlg3 = logicService.getByRuleName(RuleNameEnum.MAILBOX_FULL.getValue());
@@ -80,16 +82,16 @@ public class RuleSubruleMapTest extends BoTestBase {
 		
 		RuleSubruleMap objs4 = service.getByPrimaryKey(pk2);
 		assertNotNull(objs4);
-		assertTrue(map3.getRowId()!=objs4.getRowId());
+		assertTrue(map3.get().getRowId()!=objs4.getRowId());
 		service.delete(objs4);
-		RuleSubruleMap deleted = service.getByRowId(objs4.getRowId());
-		if (deleted != null) {
+		Optional<RuleSubruleMap> deleted = service.getByRowId(objs4.getRowId());
+		if (deleted.isPresent()) {
 			fail();
 		}
 		// test delete
 		int random = new Random().nextInt(3);
 		if (random==0) {
-			assertTrue(1==service.deleteByRowId(map3.getRowId()));
+			assertTrue(1==service.deleteByRowId(map3.get().getRowId()));
 		}
 		else if (random==1) {
 			assertTrue(1==service.deleteByPrimaryKey(pk1));

@@ -1,6 +1,7 @@
 package jpa.service.rule;
 
 import java.util.List;
+import java.util.Optional;
 
 import jpa.model.rule.RuleSubruleMap;
 import jpa.model.rule.RuleSubruleMapPK;
@@ -43,8 +44,8 @@ public class RuleSubruleMapService implements java.io.Serializable {
 		return repository.findAllByRuleNameOrderBySubruleSequence(ruleName);
 	}
 	
-	public RuleSubruleMap getByRowId(int rowId) {
-		return repository.findOne(rowId);
+	public Optional<RuleSubruleMap> getByRowId(int rowId) {
+		return repository.findById(rowId);
 	}
 	
 	public void delete(RuleSubruleMap rsmap) {

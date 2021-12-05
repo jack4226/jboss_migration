@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.junit.BeforeClass;
@@ -44,15 +45,16 @@ public class MobileCarrierTest extends BoTestBase {
 		MobileCarrier tkn0 = service.getByCarrierId(list.get(0).getCarrierId());
 		assertNotNull(tkn0);
 		
-		tkn0 = service.getByRowId(list.get(0).getRowId());
-		assertNotNull(tkn0);
+		Optional<MobileCarrier> tkn01 = service.getByRowId(list.get(0).getRowId());
+		assertTrue(tkn01.isPresent());
 		
 		// test update
 		tkn0.setUpdtUserId("JpaTest");
 		service.update(tkn0);
 		
-		MobileCarrier tkn1 = service.getByRowId(tkn0.getRowId());
-		assertTrue("JpaTest".equals(tkn1.getUpdtUserId()));
+		Optional<MobileCarrier> tkn1 = service.getByRowId(tkn0.getRowId());
+		assertTrue(tkn1.isPresent());
+		assertTrue("JpaTest".equals(tkn1.get().getUpdtUserId()));
 		// end of test update
 		
 		// test insert
@@ -63,11 +65,11 @@ public class MobileCarrierTest extends BoTestBase {
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		tkn2.setCarrierId(tkn1.getCarrierId()+"_v2");
+		tkn2.setCarrierId(tkn1.get().getCarrierId()+"_v2");
 		service.insert(tkn2);
 		
 		MobileCarrier tkn3 = service.getByCarrierId(tkn2.getCarrierId());
-		assertTrue(tkn3.getRowId()!=tkn1.getRowId());
+		assertTrue(tkn3.getRowId()!=tkn1.get().getRowId());
 		// end of test insert
 		
 		// test select with No Result

@@ -3,6 +3,7 @@ package jpa.test.maillist;
 import static org.junit.Assert.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
@@ -73,8 +74,9 @@ public class BroadcastMessageTest extends BoTestBase {
 		assertTrue(1<=service.updateClickCount(bd1.getRowId()));
 		assertTrue(1<=service.updateUnsubscribeCount(bd1.getRowId()));
 		
-		BroadcastMessage bd2 = service.getByRowId(bd1.getRowId());
-		assertTrue(ts.equals(bd2.getUpdtTime()));
+		Optional<BroadcastMessage> bd2 = service.getByRowId(bd1.getRowId());
+		assertTrue(bd2.isPresent());
+		assertTrue(ts.equals(bd2.get().getUpdtTime()));
 		logger.info(PrintUtil.prettyPrint(bd2, 2));
 		
 		List<BroadcastMessage> bdlist2 = service.getByMailingListId(bd1.getMailingList().getListId());

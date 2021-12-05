@@ -5,14 +5,15 @@ import static org.junit.Assert.assertTrue;
 
 import java.sql.Timestamp;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
 import jpa.util.DB2DateUtil;
 import jpa.util.TimestampUtil;
 
 public class TimestampUtilTest {
-	static final Logger logger = Logger.getLogger(TimestampUtilTest.class);
+	static final Logger logger = LogManager.getLogger(TimestampUtilTest.class);
 	
 	@Test
 	public void testTimestampUtil() {

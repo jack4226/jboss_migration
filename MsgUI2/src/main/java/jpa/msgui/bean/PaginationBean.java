@@ -2,12 +2,13 @@ package jpa.msgui.bean;
 
 import javax.faces.event.AjaxBehaviorEvent;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import jpa.msgui.vo.PagingVo;
 
 public abstract class PaginationBean extends BaseBean {
-	protected static Logger logger = Logger.getLogger(PaginationBean.class);
+	protected static Logger logger = LogManager.getLogger(PaginationBean.class);
 
 	private final PagingVo pagingVo = new PagingVo();
 	

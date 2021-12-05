@@ -45,10 +45,11 @@ import jpa.service.msgdata.MsgUnreadCountService;
 import jpa.service.rule.RuleLogicService;
 import jpa.spring.util.SpringUtil;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class MessageInboxLoader extends AbstractDataLoader {
-	static final Logger logger = Logger.getLogger(MessageInboxLoader.class);
+	static final Logger logger = LogManager.getLogger(MessageInboxLoader.class);
 	private MessageInboxService service;
 	private MessageAddressService msgAddrService;
 	private SenderDataService senderService;

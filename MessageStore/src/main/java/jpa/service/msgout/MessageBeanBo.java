@@ -9,7 +9,8 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -37,7 +38,7 @@ import jpa.util.HtmlUtil;
 @Transactional(propagation=Propagation.REQUIRED)
 public class MessageBeanBo implements java.io.Serializable {
 	private static final long serialVersionUID = 6112004375703794740L;
-	static Logger logger = Logger.getLogger(MessageBeanBo.class);
+	static Logger logger = LogManager.getLogger(MessageBeanBo.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	
 	@Autowired

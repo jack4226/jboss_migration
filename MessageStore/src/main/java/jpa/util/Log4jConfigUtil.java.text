@@ -14,6 +14,9 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.apache.log4j.RollingFileAppender;
 
+/*
+ * Only for log4j version 1
+ */
 public class Log4jConfigUtil {
 
 	public static void main(String[] args) {

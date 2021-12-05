@@ -15,7 +15,8 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -31,7 +32,7 @@ import jpa.service.common.EmailVariableService;
 import jpa.util.PrintUtil;
 
 public class EmailVariableBeanTest {
-	static final Logger logger = Logger.getLogger(EmailVariableBeanTest.class);
+	static final Logger logger = LogManager.getLogger(EmailVariableBeanTest.class);
 	
 	static AbstractApplicationContext applContext = null;
 	static EmailVariableService ev_svc = null;

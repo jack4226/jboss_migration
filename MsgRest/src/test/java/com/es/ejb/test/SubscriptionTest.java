@@ -8,7 +8,8 @@ import java.util.Properties;
 import javax.ejb.embeddable.EJBContainer;
 import javax.naming.NamingException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.openejb.OpenEjbContainer;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -17,7 +18,7 @@ import org.junit.Test;
 import com.es.ejb.subscription.SubscriptionLocal;
 
 public class SubscriptionTest {
-	protected final static Logger logger = Logger.getLogger(SubscriptionTest.class);
+	protected final static Logger logger = LogManager.getLogger(SubscriptionTest.class);
 	
 	private static EJBContainer ejbContainer;
 	

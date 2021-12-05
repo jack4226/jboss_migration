@@ -13,14 +13,15 @@ import javax.xml.ws.soap.SOAPFaultException;
 import jpa.constant.Constants;
 import jpa.util.PrintUtil;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.es.ejb.senderdata.SenderDataWs;
 import com.es.ejb.ws.vo.SenderDataVo;
 import jpa.tomee.util.TomeeCtxUtil;
 
 public class SenderDataWsClient {
-	protected final static Logger logger = Logger.getLogger(SenderDataWsClient.class);
+	protected final static Logger logger = LogManager.getLogger(SenderDataWsClient.class);
 	
 	public static void main(String[] args) {
 		testSenderDataWs();

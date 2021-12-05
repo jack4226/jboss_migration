@@ -7,7 +7,8 @@ import java.io.IOException;
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -20,7 +21,7 @@ import jpa.util.FileUtil;
 import jpa.util.TestUtil;
 
 public class MessageParserTest extends BoTestBase {
-	static final Logger logger = Logger.getLogger(MessageParserTest.class);
+	static final Logger logger = LogManager.getLogger(MessageParserTest.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	final static String LF = System.getProperty("line.separator","\n");
 

@@ -9,7 +9,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ import jpa.spring.util.BoTestBase;
 import jpa.util.PrintUtil;
 
 public class RuleActionDetailTest extends BoTestBase {
-	static Logger logger = Logger.getLogger(RuleActionDetailTest.class);
+	static Logger logger = LogManager.getLogger(RuleActionDetailTest.class);
 	
 	final String testActionId = "testAction";
 	final String testServiceName = "testService";

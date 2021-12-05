@@ -21,8 +21,8 @@ import jpa.spring.util.SpringUtil;
 import jpa.util.BeanCopyUtil;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.log4j.Logger;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import com.es.ejb.ws.vo.EmailAddrVo;
 
 /**
@@ -41,7 +41,7 @@ import com.es.ejb.ws.vo.EmailAddrVo;
 		//,endpointInterface = "com.es.ejb.emailaddr.EmailAddrWs")
 @SOAPBinding(style = SOAPBinding.Style.DOCUMENT) //Style.RPC
 public class EmailAddr implements EmailAddrRemote, EmailAddrLocal, EmailAddrWs {
-	protected static final Logger logger = Logger.getLogger(EmailAddr.class);
+	protected static final Logger logger = LogManager.getLogger(EmailAddr.class);
 
 	@Resource
 	SessionContext context;

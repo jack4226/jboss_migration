@@ -35,7 +35,8 @@ import jpa.message.MessageBean;
 import org.apache.activemq.command.ActiveMQMessage;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Message-Driven Bean implementation class for: MailSenderMDB
@@ -55,7 +56,7 @@ import org.apache.log4j.Logger;
 	authenticationType = AuthenticationType.CONTAINER)
 @EJB(name="MailSender",beanInterface=MailSenderLocal.class)
 public class MailSenderMDB implements MessageListener {
-	static final Logger logger = Logger.getLogger(MailSenderMDB.class);
+	static final Logger logger = LogManager.getLogger(MailSenderMDB.class);
 	final String LF = System.getProperty("line.separator", "\n");
 	
     @Resource

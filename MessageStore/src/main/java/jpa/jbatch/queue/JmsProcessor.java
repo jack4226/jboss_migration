@@ -12,7 +12,8 @@ import javax.jms.TextMessage;
 
 import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
@@ -52,7 +53,7 @@ import org.springframework.stereotype.Component;
 @Lazy(value=false)
 public class JmsProcessor {
 	
-	static final Logger logger = Logger.getLogger(JmsProcessor.class);
+	static final Logger logger = LogManager.getLogger(JmsProcessor.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	
 	private String msgType = "JMS";

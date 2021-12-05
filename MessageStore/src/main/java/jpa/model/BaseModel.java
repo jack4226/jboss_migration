@@ -24,7 +24,8 @@ import jpa.msgui.vo.TimestampAdapter;
 import jpa.util.BeanCopyUtil;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @MappedSuperclass
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
@@ -32,7 +33,7 @@ import org.apache.log4j.Logger;
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class BaseModel implements java.io.Serializable {
 	private static final long serialVersionUID = -3737571995910644181L;
-	protected static Logger logger = Logger.getLogger(BaseModel.class);
+	protected static Logger logger = LogManager.getLogger(BaseModel.class);
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

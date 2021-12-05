@@ -3,7 +3,8 @@ package jpa.service.msgdata;
 import java.sql.Timestamp;
 import java.util.Calendar;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -16,7 +17,7 @@ import jpa.repository.msg.MessageIdDupRepository;
 @Transactional(propagation=Propagation.REQUIRED)
 public class MessageIdDupService implements java.io.Serializable {
 	private static final long serialVersionUID = -1672902981120943016L;
-	static final Logger logger = Logger.getLogger(MessageIdDupService.class);
+	static final Logger logger = LogManager.getLogger(MessageIdDupService.class);
 
 	@Autowired
 	private MessageIdDupRepository repository;

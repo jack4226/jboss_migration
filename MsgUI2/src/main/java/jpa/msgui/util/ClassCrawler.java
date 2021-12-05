@@ -10,10 +10,11 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ClassCrawler {
-	static final Logger logger = Logger.getLogger(ClassCrawler.class);
+	static final Logger logger = LogManager.getLogger(ClassCrawler.class);
 	
     public static boolean crawlRecursively(Field field, Set<Class<?>> alreadyCrawled, Map<Field, Set<String>> badFields) {
         if (alreadyCrawled.contains(field.getType())) {

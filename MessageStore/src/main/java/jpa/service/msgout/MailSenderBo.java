@@ -17,7 +17,8 @@ import jpa.spring.util.SpringUtil;
 import jpa.util.EmailSender;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 /**
@@ -29,7 +30,7 @@ import org.springframework.stereotype.Component;
 //@org.springframework.transaction.annotation.Transactional(propagation=org.springframework.transaction.annotation.Propagation.REQUIRED)
 public class MailSenderBo extends MailSenderBase {
 	private static final long serialVersionUID = -851117269960155984L;
-	static final Logger logger = Logger.getLogger(MailSenderBo.class);
+	static final Logger logger = LogManager.getLogger(MailSenderBo.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

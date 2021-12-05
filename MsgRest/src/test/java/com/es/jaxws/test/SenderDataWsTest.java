@@ -16,7 +16,8 @@ import javax.xml.ws.soap.SOAPFaultException;
 import jpa.constant.Constants;
 import jpa.util.PrintUtil;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.openejb.OpenEjbContainer;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -27,7 +28,7 @@ import com.es.ejb.ws.vo.SenderDataVo;
 
 public class SenderDataWsTest {
 
-	protected final static Logger logger = Logger.getLogger(SenderDataWsTest.class);
+	protected final static Logger logger = LogManager.getLogger(SenderDataWsTest.class);
 	
 	private static EJBContainer ejbContainer;
 	

@@ -17,10 +17,11 @@ import jpa.service.common.SenderDataService;
 import jpa.service.common.SubscriberDataService;
 import jpa.spring.util.SpringUtil;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class SubscriberDataLoader extends AbstractDataLoader {
-	static final Logger logger = Logger.getLogger(SubscriberDataLoader.class);
+	static final Logger logger = LogManager.getLogger(SubscriberDataLoader.class);
 	private SubscriberDataService service;
 	private EmailAddressService emailAddrService;
 	private SenderDataService senderService;

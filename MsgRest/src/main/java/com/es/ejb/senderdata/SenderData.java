@@ -28,7 +28,8 @@ import jpa.spring.util.SpringUtil;
 import jpa.util.BeanCopyUtil;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.es.ejb.ws.vo.SenderDataVo;
 
@@ -47,7 +48,7 @@ import com.es.ejb.ws.vo.SenderDataVo;
 @WebService (portName = "SenderData", serviceName = "SenderDataService", targetNamespace = "http://com.es.ws.senderdata/wsdl")
 @SOAPBinding(style = SOAPBinding.Style.DOCUMENT)
 public class SenderData implements SenderDataLocal, SenderDataRemote, SenderDataWs {
-	protected static final Logger logger = Logger.getLogger(SenderData.class);
+	protected static final Logger logger = LogManager.getLogger(SenderData.class);
 	
 	@Resource
 	SessionContext context;

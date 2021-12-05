@@ -25,7 +25,7 @@
 /**
  *	sbsrid, listid and msgid should be passed from http query string
  */
-	Logger logger = Logger.getLogger("jpa.service.jsp");
+	Logger logger = LogManager.getLogger("jpa.service.jsp");
 	ServletContext ctx = application;
 	String sbsrId = request.getParameter("sbsrid");
 	String listId = request.getParameter("listid");

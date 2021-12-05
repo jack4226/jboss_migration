@@ -2,7 +2,8 @@ package jpa.service.common;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -17,7 +18,7 @@ import jpa.repository.ReloadFlagsRepository;
 public class ReloadFlagsService implements java.io.Serializable {
 	private static final long serialVersionUID = -5202558657747103262L;
 
-	static Logger logger = Logger.getLogger(ReloadFlagsService.class);
+	static Logger logger = LogManager.getLogger(ReloadFlagsService.class);
 	
 	//@Autowired
 	//javax.persistence.EntityManager em;

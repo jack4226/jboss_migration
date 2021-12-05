@@ -17,7 +17,8 @@ import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import jpa.service.common.SubscriptionService;
 import jpa.spring.util.SpringUtil;
@@ -34,7 +35,7 @@ import jpa.spring.util.SpringUtil;
 @SOAPBinding(style = SOAPBinding.Style.DOCUMENT)
 public class Subscription implements SubscriptionLocal, SubscriptionRemote, SubscriptionWs {
 
-	protected static final Logger logger = Logger.getLogger(Subscription.class);
+	protected static final Logger logger = LogManager.getLogger(Subscription.class);
 	
 	@Resource
 	SessionContext context;

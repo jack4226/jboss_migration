@@ -12,7 +12,8 @@ import javax.persistence.EntityManager;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.SerializationUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ import jpa.util.EmailAddrUtil;
 import jpa.util.PrintUtil;
 
 public class EmailAddressTest extends BoTestBase {
-	static final Logger logger = Logger.getLogger(EmailAddressTest.class);
+	static final Logger logger = LogManager.getLogger(EmailAddressTest.class);
 
 	@Autowired
 	private EntityManager entityManager;

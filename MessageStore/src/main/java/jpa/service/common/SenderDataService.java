@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Isolation;
@@ -20,7 +21,7 @@ import jpa.repository.SenderDataRepository;
 public class SenderDataService implements java.io.Serializable {
 	private static final long serialVersionUID = -5718921335820858248L;
 
-	static Logger logger = Logger.getLogger(SenderDataService.class);
+	static Logger logger = LogManager.getLogger(SenderDataService.class);
 	
 	@Autowired
 	SenderDataRepository repository;

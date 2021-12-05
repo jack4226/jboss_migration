@@ -32,13 +32,14 @@ import jpa.util.EmailAddrUtil;
 import jpa.util.SenderUtil;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @ManagedBean(name="mailingList")
 @javax.faces.bean.ViewScoped
 public class MailingListBean implements java.io.Serializable {
 	private static final long serialVersionUID = 3726339874453826497L;
-	static final Logger logger = Logger.getLogger(MailingListBean.class);
+	static final Logger logger = LogManager.getLogger(MailingListBean.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 
 	private transient MailingListService mailingListDao = null;

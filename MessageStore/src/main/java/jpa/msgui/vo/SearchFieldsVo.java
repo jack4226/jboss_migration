@@ -5,7 +5,8 @@ import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import jpa.constant.RuleCriteria;
 import jpa.data.preload.FolderEnum;
@@ -14,7 +15,7 @@ import jpa.data.preload.RuleNameEnum;
 public final class SearchFieldsVo implements Serializable {
 	private static final long serialVersionUID = -4300610160368410355L;
 
-	static Logger logger = Logger.getLogger(SearchFieldsVo.class);
+	static Logger logger = LogManager.getLogger(SearchFieldsVo.class);
 	
 	public static enum RuleName {All};
 	

@@ -3,7 +3,8 @@ package jpa.service.maillist;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,7 +24,7 @@ import jpa.repository.msg.BroadcastTrackingRepository;
 public class BroadcastTrackingService implements java.io.Serializable {
 	private static final long serialVersionUID = 3364188607980880964L;
 
-	static Logger logger = Logger.getLogger(BroadcastTrackingService.class);
+	static Logger logger = LogManager.getLogger(BroadcastTrackingService.class);
 	
 	@Autowired
 	BroadcastTrackingRepository repository;

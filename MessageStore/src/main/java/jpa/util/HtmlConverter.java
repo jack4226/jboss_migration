@@ -1,7 +1,7 @@
 package jpa.util;
 
-
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.htmlparser.Parser;
 import org.htmlparser.beans.StringBean;
 import org.htmlparser.util.ParserException;
@@ -11,7 +11,7 @@ import org.htmlparser.util.ParserException;
  */
 public final class HtmlConverter implements java.io.Serializable {
 	private static final long serialVersionUID = 3467371895574167831L;
-	static final Logger logger = Logger.getLogger(HtmlConverter.class);
+	static final Logger logger = LogManager.getLogger(HtmlConverter.class);
 	
 	boolean showUrl = true;
 	private static final  HtmlConverter INSTANCE = new HtmlConverter();

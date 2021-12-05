@@ -11,7 +11,8 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ import jpa.util.PrintUtil;
 
 @FixMethodOrder
 public class MailSenderTest extends BoTestBase {
-	static final Logger logger = Logger.getLogger(MailSenderTest.class);
+	static final Logger logger = LogManager.getLogger(MailSenderTest.class);
 	@Autowired
 	private MailSenderBo mailSenderBo;
 	

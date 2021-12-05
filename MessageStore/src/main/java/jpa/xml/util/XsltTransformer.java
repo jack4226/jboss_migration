@@ -17,12 +17,13 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 public class XsltTransformer {
-	static Logger logger = org.apache.log4j.Logger.getLogger(XsltTransformer.class);
+	static Logger logger = LogManager.getLogger(XsltTransformer.class);
 	static boolean isDebugEnabled = logger.isDebugEnabled();
 
     private final String xslt_path;
@@ -177,7 +178,7 @@ public class XsltTransformer {
 
 	private static String printXml(DOMSource ds) throws TransformerException {
 		TransformerFactory tf = getTransformerFactory();
-		tf.setAttribute("indent-number", new Integer(2)); // this one works
+		tf.setAttribute("indent-number", Integer.valueOf(2)); // this one works
 		Transformer t = tf.newTransformer();
 		t.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
 		t.setOutputProperty(OutputKeys.ENCODING, "UTF-8");

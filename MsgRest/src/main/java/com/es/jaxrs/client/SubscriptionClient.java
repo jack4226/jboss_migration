@@ -16,7 +16,8 @@ import javax.xml.transform.TransformerException;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.cxf.jaxrs.client.WebClient;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
 
 import jpa.tomee.util.TomeeCtxUtil;
@@ -27,7 +28,7 @@ import jpa.util.PrintUtil;
 import jpa.xml.util.XmlHelper;
 
 public class SubscriptionClient {
-	static final Logger logger = Logger.getLogger(SubscriptionClient.class);
+	static final Logger logger = LogManager.getLogger(SubscriptionClient.class);
 	
 	private static String sbsrEmail = "jsmith@test.com";
 	private static String notExist = "addr_does_not_exist@abc.com";

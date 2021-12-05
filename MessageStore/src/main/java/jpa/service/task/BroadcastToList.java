@@ -10,7 +10,8 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.htmlparser.util.ParserException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -48,7 +49,7 @@ import jpa.variable.RenderUtil;
 @Component("broadcastToList")
 public class BroadcastToList extends TaskBaseAdapter {
 	private static final long serialVersionUID = -7248771079550892321L;
-	static final Logger logger = Logger.getLogger(BroadcastToList.class);
+	static final Logger logger = LogManager.getLogger(BroadcastToList.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	
 	@Autowired

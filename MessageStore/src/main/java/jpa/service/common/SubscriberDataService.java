@@ -18,7 +18,8 @@ import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
@@ -40,7 +41,7 @@ import jpa.util.PhoneNumberUtil;
 public class SubscriberDataService implements java.io.Serializable {
 	private static final long serialVersionUID = 744183660636136777L;
 
-	static Logger logger = Logger.getLogger(SubscriberDataService.class);
+	static Logger logger = LogManager.getLogger(SubscriberDataService.class);
 	
 	@Autowired
 	EntityManager em;

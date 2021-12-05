@@ -13,10 +13,11 @@ import jpa.service.common.SessionUploadService;
 import jpa.service.common.UserDataService;
 import jpa.spring.util.SpringUtil;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class UserDataLoader extends AbstractDataLoader {
-	static final Logger logger = Logger.getLogger(UserDataLoader.class);
+	static final Logger logger = LogManager.getLogger(UserDataLoader.class);
 	private UserDataService service;
 	private SenderDataService senderService;
 	private SessionUploadService uploadService;

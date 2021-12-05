@@ -18,7 +18,8 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import jpa.model.rule.RuleAction;
@@ -26,7 +27,7 @@ import jpa.model.rule.RuleAction;
 public class RuleActionRepositoryImpl implements RuleActionRepositoryCustom, java.io.Serializable {
 	private static final long serialVersionUID = -2496994919462279218L;
 
-	static Logger logger = Logger.getLogger(RuleActionRepositoryImpl.class);
+	static Logger logger = LogManager.getLogger(RuleActionRepositoryImpl.class);
 	
 	@Autowired
 	private EntityManager em;

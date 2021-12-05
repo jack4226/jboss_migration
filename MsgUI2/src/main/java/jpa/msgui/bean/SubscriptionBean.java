@@ -25,13 +25,14 @@ import jpa.service.common.SubscriptionService;
 import jpa.service.maillist.MailingListService;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @ManagedBean(name="subscription")
 @javax.faces.bean.ViewScoped
 public class SubscriptionBean extends PaginationBean implements java.io.Serializable {
 	private static final long serialVersionUID = 6216351042518651517L;
-	static final Logger logger = Logger.getLogger(SubscriptionBean.class);
+	static final Logger logger = LogManager.getLogger(SubscriptionBean.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 
 	private transient SubscriptionService subscriptionDao = null;

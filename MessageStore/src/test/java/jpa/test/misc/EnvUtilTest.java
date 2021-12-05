@@ -5,13 +5,14 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
 import jpa.util.EnvUtil;
 
 public class EnvUtilTest {
-	static final Logger logger = Logger.getLogger(EnvUtilTest.class);
+	static final Logger logger = LogManager.getLogger(EnvUtilTest.class);
 	
 	@Test
 	public void testEnvUtil() {

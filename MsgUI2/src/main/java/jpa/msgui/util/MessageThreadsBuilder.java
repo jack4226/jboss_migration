@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import jpa.model.msg.MessageInbox;
 import jpa.service.msgdata.MessageInboxService;
@@ -15,7 +16,7 @@ import jpa.util.StringUtil;
 
 public class MessageThreadsBuilder implements java.io.Serializable {
 	private static final long serialVersionUID = 2580221539624931900L;
-	static final Logger logger = Logger.getLogger(MessageThreadsBuilder.class);
+	static final Logger logger = LogManager.getLogger(MessageThreadsBuilder.class);
 	/**
 	 * Build a list of threaded messages from a message list.
 	 * 

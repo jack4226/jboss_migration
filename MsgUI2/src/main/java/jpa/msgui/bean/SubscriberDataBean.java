@@ -36,13 +36,14 @@ import jpa.util.PrintUtil;
 import jpa.util.SsnNumberUtil;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @ManagedBean(name="subscriberData")
 @javax.faces.bean.ViewScoped
 public class SubscriberDataBean extends PaginationBean implements java.io.Serializable {
 	private static final long serialVersionUID = 7927665483948452101L;
-	static final Logger logger = Logger.getLogger(SubscriberDataBean.class);
+	static final Logger logger = LogManager.getLogger(SubscriberDataBean.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 
 	private transient SubscriberDataService subscriberDao = null;

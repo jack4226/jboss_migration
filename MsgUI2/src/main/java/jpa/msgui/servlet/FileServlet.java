@@ -12,7 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import jpa.model.msg.MessageAttachment;
 import jpa.msgui.util.SpringUtil;
@@ -24,7 +25,7 @@ import jpa.service.msgdata.MessageAttachmentService;
 @WebServlet(name="File Servlet", urlPatterns="/file/*", loadOnStartup=9)
 public class FileServlet extends HttpServlet {
 	private static final long serialVersionUID = -8129545604805974235L;
-	static final Logger logger = Logger.getLogger(FileServlet.class);
+	static final Logger logger = LogManager.getLogger(FileServlet.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	
 	//private MessageInboxService messageDao = null;

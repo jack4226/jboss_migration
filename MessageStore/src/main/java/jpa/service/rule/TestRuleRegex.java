@@ -3,10 +3,11 @@ package jpa.service.rule;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class TestRuleRegex {
-	static final Logger logger = Logger.getLogger(TestRuleRegex.class);
+	static final Logger logger = LogManager.getLogger(TestRuleRegex.class);
 	static final String LF = System.getProperty("line.separator", "\n");
 	public static void main(String[] args) {
 		try {

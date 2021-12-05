@@ -30,10 +30,11 @@ import jpa.service.rule.RuleLogicService;
 import jpa.spring.util.SpringUtil;
 import jpa.util.PrintUtil;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class RuleActionLoader extends AbstractDataLoader {
-	static final Logger logger = Logger.getLogger(RuleActionLoader.class);
+	static final Logger logger = LogManager.getLogger(RuleActionLoader.class);
 	private RuleDataTypeService typeService;
 	private RuleDataValueService valueService;
 	private RuleActionDetailService detailService;

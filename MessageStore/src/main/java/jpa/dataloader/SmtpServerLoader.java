@@ -5,10 +5,11 @@ import jpa.model.SmtpServer;
 import jpa.service.msgout.SmtpServerService;
 import jpa.spring.util.SpringUtil;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class SmtpServerLoader extends AbstractDataLoader {
-	static final Logger logger = Logger.getLogger(SmtpServerLoader.class);
+	static final Logger logger = LogManager.getLogger(SmtpServerLoader.class);
 	private SmtpServerService service;
 
 	public static void main(String[] args) {

@@ -14,7 +14,8 @@ import java.util.concurrent.TimeUnit;
 import javax.annotation.PreDestroy;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.core.task.TaskExecutor;
@@ -30,7 +31,7 @@ import jpa.spring.util.SpringUtil;
 
 @Component
 public class MailReaderTaskExr {
-	static final Logger logger = Logger.getLogger(MailReaderTaskExr.class);
+	static final Logger logger = LogManager.getLogger(MailReaderTaskExr.class);
 	
 	@Autowired
 	private MailInboxService mailBoxService;

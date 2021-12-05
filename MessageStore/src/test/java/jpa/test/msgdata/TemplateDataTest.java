@@ -11,7 +11,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ import jpa.util.PrintUtil;
 
 //@org.springframework.test.annotation.Commit
 public class TemplateDataTest extends BoTestBase {
-	static Logger logger = Logger.getLogger(TemplateDataTest.class);
+	static Logger logger = LogManager.getLogger(TemplateDataTest.class);
 	
 	final String testTemplateId = "jpa test template id";
 	final String testSenderId = Constants.DEFAULT_SENDER_ID;

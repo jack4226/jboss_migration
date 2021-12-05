@@ -6,7 +6,8 @@ import java.util.Optional;
 import jpa.model.IdTokens;
 import jpa.repository.IdTokensRepository;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -17,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class IdTokensService implements java.io.Serializable {
 	private static final long serialVersionUID = 322132246530329818L;
 
-	static Logger logger = Logger.getLogger(IdTokensService.class);
+	static Logger logger = LogManager.getLogger(IdTokensService.class);
 	
 	//@PersistenceContext(unitName="MessageDB")
 	

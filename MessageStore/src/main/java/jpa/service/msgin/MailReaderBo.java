@@ -31,8 +31,9 @@ import jpa.spring.util.SpringUtil;
 import jpa.util.PrintUtil;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * <pre>
@@ -49,7 +50,7 @@ import org.apache.log4j.Logger;
  */
 public class MailReaderBo implements Serializable, Runnable, ConnectionListener, StoreListener {
 	private static final long serialVersionUID = -9061869821061961065L;
-	private static final Logger logger = Logger.getLogger(MailReaderBo.class);
+	private static final Logger logger = LogManager.getLogger(MailReaderBo.class);
 	protected static final boolean isDebugEnabled = logger.isDebugEnabled();
 
 	protected final MailInbox mInbox;
@@ -464,7 +465,7 @@ public class MailReaderBo implements Serializable, Runnable, ConnectionListener,
 	 */
 	private void addMsgCountListener(final Folder folder, final String _folder, final boolean isFromTimer) {
 		folder.addMessageCountListener(new MessageCountAdapter() {
-			private final Logger logger = Logger.getLogger(MessageCountAdapter.class);
+			private final Logger logger = LogManager.getLogger(MessageCountAdapter.class);
 			public void messagesAdded(MessageCountEvent ev) {
 				Message[] msgs = ev.getMessages();
 				logger.info("Got " + msgs.length + " new messages from " + _folder);

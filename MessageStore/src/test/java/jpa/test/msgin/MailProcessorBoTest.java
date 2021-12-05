@@ -11,7 +11,8 @@ import java.util.List;
 import javax.mail.MessagingException;
 import javax.persistence.EntityManager;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.transaction.AfterTransaction;
@@ -36,7 +37,7 @@ import jpa.util.TestUtil;
 
 public class MailProcessorBoTest extends BoTestBase {
 	final static String LF = System.getProperty("line.separator","\n");
-	static final Logger logger = Logger.getLogger(MailProcessorBoTest.class);
+	static final Logger logger = LogManager.getLogger(MailProcessorBoTest.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	
 	@Autowired

@@ -11,7 +11,8 @@ import javax.ejb.embeddable.EJBContainer;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.openejb.OpenEjbContainer;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -20,7 +21,7 @@ import org.junit.Test;
 import com.es.ejb.tracking.SbsrTrackingWs;
 
 public class SbsrTrackingWsTest {
-	protected final static Logger logger = Logger.getLogger(SbsrTrackingWsTest.class);
+	protected final static Logger logger = LogManager.getLogger(SbsrTrackingWsTest.class);
 	
 	private static EJBContainer ejbContainer;
 	

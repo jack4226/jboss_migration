@@ -9,7 +9,8 @@ import java.net.URL;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.es.ejb.subscriber.SubscriberWs;
 import com.es.ejb.ws.vo.SubscriptionVo;
@@ -18,7 +19,7 @@ import jpa.tomee.util.TomeeCtxUtil;
 import jpa.util.PrintUtil;
 
 public class SubscriberWsClient {
-	protected final static Logger logger = Logger.getLogger(SubscriberWsClient.class);
+	protected final static Logger logger = LogManager.getLogger(SubscriberWsClient.class);
 	
 	public static void main(String[] args) {
 		testSubscriberWs();

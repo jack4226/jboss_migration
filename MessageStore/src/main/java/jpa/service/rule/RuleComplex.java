@@ -7,11 +7,12 @@ import jpa.constant.RuleDataName;
 import jpa.constant.RuleType;
 import jpa.message.MessageBean;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class RuleComplex extends RuleBase {
 	private static final long serialVersionUID = -3559383665410520477L;
-	protected static final Logger logger = Logger.getLogger(RuleComplex.class);
+	protected static final Logger logger = LogManager.getLogger(RuleComplex.class);
 	
 	private final List<RuleBase> ruleList;
 	

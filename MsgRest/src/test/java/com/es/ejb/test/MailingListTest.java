@@ -10,7 +10,8 @@ import javax.ejb.EJBException;
 import javax.ejb.embeddable.EJBContainer;
 import javax.naming.NamingException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.openejb.OpenEjbContainer;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -24,7 +25,7 @@ import jpa.exception.TemplateNotFoundException;
 import jpa.util.ExceptionUtil;
 
 public class MailingListTest {
-	protected final static Logger logger = Logger.getLogger(MailingListTest.class);
+	protected final static Logger logger = LogManager.getLogger(MailingListTest.class);
 	
 	private static EJBContainer ejbContainer;
 	

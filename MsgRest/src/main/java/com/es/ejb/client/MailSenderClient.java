@@ -10,13 +10,14 @@ import jpa.model.EmailAddress;
 import jpa.util.FileUtil;
 import jpa.util.PrintUtil;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.es.ejb.mailsender.MailSenderRemote;
 import jpa.tomee.util.TomeeCtxUtil;
 
 public class MailSenderClient {
-	static Logger logger = Logger.getLogger(MailSenderClient.class);
+	static Logger logger = LogManager.getLogger(MailSenderClient.class);
 	
 	public static void main(String[] args) {
 		try {

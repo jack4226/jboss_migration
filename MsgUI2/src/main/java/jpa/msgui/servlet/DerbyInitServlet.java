@@ -15,7 +15,8 @@ import jpa.util.EnvUtil;
 import jpa.util.JpaUtil;
 import jpa.util.PrintUtil;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.es.ejb.subscriber.Subscriber;
 import com.es.ejb.subscriber.SubscriberLocal;
@@ -28,7 +29,7 @@ import com.es.tomee.util.TomeeCtxUtil;
 @WebServlet(name="DerbyInitServlet", urlPatterns="/DerbyInit/*", loadOnStartup=8)
 public class DerbyInitServlet extends HttpServlet {
 	private static final long serialVersionUID = 1810496150486989387L;
-	static final Logger logger = Logger.getLogger(DerbyInitServlet.class);
+	static final Logger logger = LogManager.getLogger(DerbyInitServlet.class);
 	
 	@javax.ejb.EJB
 	private Subscriber subscriber;

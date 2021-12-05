@@ -15,14 +15,15 @@ import jpa.message.MessageContext;
 import jpa.message.MsgHeader;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component("assignRuleName")
 public class AssignRuleName extends TaskBaseAdapter {
 	private static final long serialVersionUID = 2835514922267686344L;
-	static final Logger logger = Logger.getLogger(AssignRuleName.class);
+	static final Logger logger = LogManager.getLogger(AssignRuleName.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	
 	@Autowired

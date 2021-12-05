@@ -12,11 +12,12 @@ import java.util.Set;
 
 import jpa.constant.VariableType;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
 public final class RendererTest {
-	static final Logger logger = Logger.getLogger(RendererTest.class);
+	static final Logger logger = LogManager.getLogger(RendererTest.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 
 	@Test

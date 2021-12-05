@@ -12,10 +12,11 @@ import java.util.regex.Pattern;
 import jpa.message.MsgHeader;
 import jpa.model.msg.MessageHeader;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class MsgHeaderUtil {
-	static final Logger logger = Logger.getLogger(MsgHeaderUtil.class);
+	static final Logger logger = LogManager.getLogger(MsgHeaderUtil.class);
 	static boolean isDebugEnabled = false; //logger.isDebugEnabled();
 	static final String LF = System.getProperty("line.separator","\n");
 	

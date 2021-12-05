@@ -35,7 +35,8 @@ import jpa.service.msgout.SmtpException;
 import jpa.spring.util.SpringUtil;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,7 +57,7 @@ import com.es.ejb.senderdata.SenderDataLocal;
 @WebService (portName = "MailSender", serviceName = "MailSenderService", targetNamespace = "http://com.es.ws.mailsender/wsdl")
 @SOAPBinding(style = SOAPBinding.Style.DOCUMENT)
 public class MailSender implements MailSenderRemote, MailSenderLocal, MailSenderWs {
-	protected final Logger logger = Logger.getLogger(MailSender.class);
+	protected final Logger logger = LogManager.getLogger(MailSender.class);
 	@Resource
 	SessionContext ctx;
 	private MailSenderBo mailSenderBo;

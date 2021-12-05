@@ -9,7 +9,8 @@ import jpa.constant.StatusId;
 import jpa.model.rule.RuleLogic;
 import jpa.repository.RuleLogicRepository;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -20,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class RuleLogicWithCountService implements java.io.Serializable {
 	private static final long serialVersionUID = 3967668920310431589L;
 
-	static Logger logger = Logger.getLogger(RuleLogicService.class);
+	static Logger logger = LogManager.getLogger(RuleLogicService.class);
 	
 	@Autowired
 	EntityManager em;

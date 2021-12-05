@@ -8,7 +8,8 @@ import jpa.model.rule.RuleElementPK;
 import jpa.repository.RuleElementRepository;
 import jpa.service.common.ReloadFlagsService;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -19,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class RuleElementService implements java.io.Serializable {
 	private static final long serialVersionUID = 627370172349152701L;
 
-	static Logger logger = Logger.getLogger(RuleElementService.class);
+	static Logger logger = LogManager.getLogger(RuleElementService.class);
 	
 	//@Autowired
 	//javax.persistence.EntityManager em;

@@ -4,7 +4,8 @@ import java.util.Properties;
 
 import javax.mail.MessagingException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +22,7 @@ import jpa.service.msgout.SmtpConnection;
 //@org.springframework.context.annotation.Import(SpringJmsConfig.class)
 @ImportResource({"classpath:/properties-config.xml", "classpath:/spring-jpa-config.xml"})
 public class SpringAppConfig {
-	protected final static Logger logger = Logger.getLogger(SpringAppConfig.class);
+	protected final static Logger logger = LogManager.getLogger(SpringAppConfig.class);
 	
 	@Bean
 	public SimpleEmailSender simpleEmailSender() {

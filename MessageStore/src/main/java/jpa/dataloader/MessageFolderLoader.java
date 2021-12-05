@@ -2,7 +2,8 @@ package jpa.dataloader;
 
 import java.sql.Timestamp;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import jpa.constant.Constants;
 import jpa.constant.StatusId;
@@ -12,7 +13,7 @@ import jpa.service.msgdata.MessageFolderService;
 import jpa.spring.util.SpringUtil;
 
 public class MessageFolderLoader extends AbstractDataLoader {
-	static final Logger logger = Logger.getLogger(MessageFolderLoader.class);
+	static final Logger logger = LogManager.getLogger(MessageFolderLoader.class);
 	private MessageFolderService service;
 
 	public static void main(String[] args) {

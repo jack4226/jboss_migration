@@ -35,7 +35,8 @@ import jpa.spring.util.SpringUtil;
 import jpa.util.BeanCopyUtil;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.es.ejb.ws.vo.IdTokensVo;
 import com.es.tomee.util.AccessTimeout;
@@ -56,7 +57,7 @@ import com.es.tomee.util.AccessTimeout;
 @WebService (portName = "IdTokens", serviceName = "IdTokensService", targetNamespace = "http://com.es.ws.idtokens/wsdl")
 @SOAPBinding(style = SOAPBinding.Style.DOCUMENT)
 public class IdTokens implements IdTokensRemote, IdTokensLocal, IdTokensWs {
-	protected static final Logger logger = Logger.getLogger(IdTokens.class);
+	protected static final Logger logger = LogManager.getLogger(IdTokens.class);
 	@Resource
 	SessionContext context;
 	private IdTokensService idTokensDao;

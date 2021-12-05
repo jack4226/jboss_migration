@@ -21,7 +21,8 @@ import jpa.service.rule.RuleActionService;
 import jpa.spring.util.SpringUtil;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -34,7 +35,7 @@ import org.springframework.stereotype.Component;
 @Component("taskSchedulerBo")
 public class TaskSchedulerBo implements java.io.Serializable {
 	private static final long serialVersionUID = 1665720401848374683L;
-	static final Logger logger = Logger.getLogger(TaskSchedulerBo.class);
+	static final Logger logger = LogManager.getLogger(TaskSchedulerBo.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 
 	static final String LF = System.getProperty("line.separator", "\n");

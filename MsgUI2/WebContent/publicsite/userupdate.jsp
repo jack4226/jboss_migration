@@ -45,7 +45,7 @@ if ("yes".equals(request.getParameter("remember"))) {
 <%@page import="jpa.message.util.MsgIdCipher"%>
 <%@page import="org.apache.commons.lang3.StringUtils"%>
 <%
-	Logger logger = Logger.getLogger("jpa.msgui.publicsite.jsp");
+	Logger logger = LogManager.getLogger("jpa.msgui.publicsite.jsp");
 	//String serverInfo = application.getServerInfo();
 	ServletContext ctx = application;
  	

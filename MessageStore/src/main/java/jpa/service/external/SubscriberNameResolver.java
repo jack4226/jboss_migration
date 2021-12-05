@@ -5,7 +5,8 @@ import jpa.service.common.EmailVariableService;
 import jpa.spring.util.SpringUtil;
 import jpa.util.JpaUtil;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -15,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(propagation=Propagation.REQUIRED)
 public class SubscriberNameResolver implements VariableResolver,java.io.Serializable {
 	private static final long serialVersionUID = 2958446223435763676L;
-	static final Logger logger = Logger.getLogger(SubscriberNameResolver.class);
+	static final Logger logger = LogManager.getLogger(SubscriberNameResolver.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	
 	@Autowired

@@ -36,7 +36,8 @@ import jpa.service.msgin.MailInboxService;
 import jpa.service.msgin.MailReaderBo;
 import jpa.spring.util.SpringUtil;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Session Bean implementation class MailReader
@@ -54,7 +55,7 @@ import org.apache.log4j.Logger;
 	type = javax.sql.DataSource.class,
 	authenticationType = AuthenticationType.CONTAINER)
 public class MailReader {
-	protected static final Logger logger = Logger.getLogger(MailReader.class);
+	protected static final Logger logger = LogManager.getLogger(MailReader.class);
 	@Resource
 	private SessionContext context;
 	

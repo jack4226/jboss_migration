@@ -11,7 +11,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.eclipse.persistence.config.PersistenceUnitProperties;
 import org.eclipse.persistence.jpa.PersistenceProvider;
 import org.junit.AfterClass;
@@ -33,7 +34,7 @@ import jpa.service.common.SenderDataService;
 import jpa.spring.util.SpringUtil;
 
 public class IdTokens2Test {
-	static final Logger logger = Logger.getLogger(IdTokens2Test.class);
+	static final Logger logger = LogManager.getLogger(IdTokens2Test.class);
 
 	private static final String PERSISTENCE_UNIT_NAME = "MessageDB";
 

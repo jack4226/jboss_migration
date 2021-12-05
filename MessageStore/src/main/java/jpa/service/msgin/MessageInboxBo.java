@@ -9,7 +9,8 @@ import java.util.Optional;
 import javax.mail.Address;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -67,7 +68,7 @@ import jpa.util.PrintUtil;
 @Transactional(propagation=Propagation.REQUIRED)
 public class MessageInboxBo implements java.io.Serializable {
 	private static final long serialVersionUID = -4615089647296218955L;
-	static final Logger logger = Logger.getLogger(MessageInboxBo.class);
+	static final Logger logger = LogManager.getLogger(MessageInboxBo.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	
 	@Autowired

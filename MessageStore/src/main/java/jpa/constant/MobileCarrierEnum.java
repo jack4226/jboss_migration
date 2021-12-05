@@ -1,6 +1,7 @@
 package jpa.constant;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public enum MobileCarrierEnum {
 	TMobile("T-Mobile USA", "tmomail.net", null, "1"),
@@ -49,7 +50,7 @@ public enum MobileCarrierEnum {
 	}
 	
 	public static void main(String[] args) {
-		Logger logger = Logger.getLogger(MobileCarrierEnum.class);
+		Logger logger = LogManager.getLogger(MobileCarrierEnum.class);
 		logger.info(MobileCarrierEnum.valueOf("TMobile"));
 		logger.info(MobileCarrierEnum.getByValue("T-Mobile USA"));
 	}

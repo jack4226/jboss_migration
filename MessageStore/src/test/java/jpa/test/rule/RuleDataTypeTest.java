@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ import jpa.spring.util.BoTestBase;
 import jpa.util.PrintUtil;
 
 public class RuleDataTypeTest extends BoTestBase {
-	static Logger logger = Logger.getLogger(RuleDataTypeTest.class);
+	static Logger logger = LogManager.getLogger(RuleDataTypeTest.class);
 	
 	final String testDataType1 = "CarbonCopyAddress1";
 	final String testDataType2 = "CarbonCopyAddress2";

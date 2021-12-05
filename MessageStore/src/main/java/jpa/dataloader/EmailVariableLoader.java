@@ -7,10 +7,11 @@ import jpa.model.EmailVariable;
 import jpa.service.common.EmailVariableService;
 import jpa.spring.util.SpringUtil;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class EmailVariableLoader extends AbstractDataLoader {
-	static final Logger logger = Logger.getLogger(EmailVariableLoader.class);
+	static final Logger logger = LogManager.getLogger(EmailVariableLoader.class);
 	private EmailVariableService service;
 
 	public static void main(String[] args) {

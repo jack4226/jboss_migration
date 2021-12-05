@@ -23,7 +23,8 @@ import jpa.service.maillist.BroadcastMessageService;
 import jpa.service.maillist.BroadcastTrackingService;
 import jpa.spring.util.SpringUtil;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Stateless (name="SbsrTracking", mappedName = "ejb/SbsrTracking")
 @TransactionManagement(TransactionManagementType.CONTAINER)
@@ -36,7 +37,7 @@ import org.apache.log4j.Logger;
 @WebService (portName = "SbsrTracking", serviceName = "SbsrTrackingService", targetNamespace = "http://com.es.ws.sbsrtracking/wsdl")
 @SOAPBinding(style = SOAPBinding.Style.DOCUMENT)
 public class SbsrTracking implements SbsrTrackingLocal, SbsrTrackingRemote, SbsrTrackingWs {
-	protected static final Logger logger = Logger.getLogger(SbsrTracking.class);
+	protected static final Logger logger = LogManager.getLogger(SbsrTracking.class);
 	
 	@Resource
 	SessionContext context;

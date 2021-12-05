@@ -2,7 +2,8 @@ package jpa.test.msgin;
 
 import static org.junit.Assert.assertTrue;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
 import jpa.data.preload.RuleNameEnum;
@@ -11,7 +12,7 @@ import jpa.spring.util.BoTestBase;
 
 public class RfcCodeScanTest extends BoTestBase {
 	final static String LF = System.getProperty("line.separator", "\n");
-	static final Logger logger = Logger.getLogger(RfcCodeScanTest.class);
+	static final Logger logger = LogManager.getLogger(RfcCodeScanTest.class);
 	
 	public static void RfcCodeScanPrepres() {
 	}

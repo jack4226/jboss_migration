@@ -5,12 +5,13 @@ import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class PhaseTracker implements PhaseListener {
 	private static final long serialVersionUID = -3038658162634504399L;
 	private static final String PHASE_PARAMETER = "listener.phaseTracker.phase";
-	static final Logger logger = Logger.getLogger(PhaseTracker.class);
+	static final Logger logger = LogManager.getLogger(PhaseTracker.class);
 	private String phase = null;
 
 	public void setPhase(String newValue) {

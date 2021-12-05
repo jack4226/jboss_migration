@@ -1,10 +1,11 @@
 package jpa.msgui.publicsite;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class SubscriberEditBean implements java.io.Serializable {
 	private static final long serialVersionUID = 6676261160629601090L;
-	static final Logger logger = Logger.getLogger(SubscriberEditBean.class);
+	static final Logger logger = LogManager.getLogger(SubscriberEditBean.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	
 	private boolean editMode = true;

@@ -7,10 +7,11 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class TimestampConverter implements org.apache.johnzon.mapper.Converter<Timestamp> {
-	final static Logger logger = Logger.getLogger(TimestampConverter.class);
+	final static Logger logger = LogManager.getLogger(TimestampConverter.class);
 
 	static SimpleDateFormat sdf_std = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSXXX");
 	

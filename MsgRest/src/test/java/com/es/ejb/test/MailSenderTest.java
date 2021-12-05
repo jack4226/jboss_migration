@@ -25,7 +25,8 @@ import jpa.util.FileUtil;
 import jpa.variable.RenderVariableVo;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.openejb.OpenEjbContainer;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -35,7 +36,7 @@ import com.es.ejb.mailsender.MailSenderLocal;
 import com.es.ejb.mailsender.MailSenderRemote;
 
 public class MailSenderTest {
-	protected final static Logger logger = Logger.getLogger(MailSenderTest.class);
+	protected final static Logger logger = LogManager.getLogger(MailSenderTest.class);
 	
 	private static EJBContainer ejbContainer;
 	

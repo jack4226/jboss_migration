@@ -13,7 +13,8 @@ import javax.annotation.Resource;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -29,7 +30,7 @@ import jpa.spring.util.BoTestBase;
 
 public class RuleMatchTest extends BoTestBase {
 	final static String LF = System.getProperty("line.separator", "\n");
-	static final Logger logger = Logger.getLogger(RuleMatchTest.class);
+	static final Logger logger = LogManager.getLogger(RuleMatchTest.class);
 	
 	Timestamp updtTime = new Timestamp(new java.util.Date().getTime());
 	@Resource

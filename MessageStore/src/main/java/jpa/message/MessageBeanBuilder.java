@@ -33,10 +33,11 @@ import jpa.util.EmailSender;
 import jpa.util.HostUtil;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public final class MessageBeanBuilder {
-	static final Logger logger = Logger.getLogger(MessageBeanBuilder.class);
+	static final Logger logger = LogManager.getLogger(MessageBeanBuilder.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 
 	public static final String MSG_RAW_STREAM = "msg_raw_stream";

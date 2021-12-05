@@ -13,7 +13,8 @@ import javax.naming.NamingException;
 import jpa.model.BroadcastMessage;
 import jpa.model.BroadcastTracking;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.openejb.OpenEjbContainer;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -23,7 +24,7 @@ import com.es.ejb.subscription.SubscriptionLocal;
 import com.es.ejb.tracking.SbsrTrackingLocal;
 
 public class SbsrTrackingTest {
-	protected final static Logger logger = Logger.getLogger(SbsrTrackingTest.class);
+	protected final static Logger logger = LogManager.getLogger(SbsrTrackingTest.class);
 	
 	private static EJBContainer ejbContainer;
 	

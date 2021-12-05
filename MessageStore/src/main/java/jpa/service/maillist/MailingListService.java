@@ -13,7 +13,8 @@ import jpa.model.MailingList;
 import jpa.repository.MailingListRepository;
 import jpa.util.EmailAddrUtil;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -24,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class MailingListService implements java.io.Serializable {
 	private static final long serialVersionUID = 8375902506904904765L;
 
-	static Logger logger = Logger.getLogger(MailingListService.class);
+	static Logger logger = LogManager.getLogger(MailingListService.class);
 	
 	@Autowired
 	EntityManager em;

@@ -15,7 +15,8 @@ import jpa.model.SubscriberData;
 import jpa.util.ExceptionUtil;
 import jpa.util.PrintUtil;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.openejb.OpenEjbContainer;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -25,7 +26,7 @@ import org.junit.Test;
 import com.es.tomee.util.TomeeCtxUtil;
 
 public class SubscriberTest {
-	protected final static Logger logger = Logger.getLogger(SubscriberTest.class);
+	protected final static Logger logger = LogManager.getLogger(SubscriberTest.class);
 	
 	private static EJBContainer ejbContainer;
 	

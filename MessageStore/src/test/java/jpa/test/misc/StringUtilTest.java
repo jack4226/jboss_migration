@@ -5,13 +5,14 @@ import static org.junit.Assert.assertEquals;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
 import jpa.util.StringUtil;
 
 public class StringUtilTest {
-	static final Logger logger = Logger.getLogger(StringUtilTest.class);
+	static final Logger logger = LogManager.getLogger(StringUtilTest.class);
 	
 	@Test
 	public void testRemoveMethods() {

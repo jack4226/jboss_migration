@@ -6,7 +6,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -21,7 +22,7 @@ import jpa.model.MailInboxPK;
 public class MailInboxService implements java.io.Serializable {
 	private static final long serialVersionUID = -8850544651099338619L;
 
-	static Logger logger = Logger.getLogger(MailInboxService.class);
+	static Logger logger = LogManager.getLogger(MailInboxService.class);
 	
 	@Autowired
 	EntityManager em;

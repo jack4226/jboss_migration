@@ -2,10 +2,11 @@ package jpa.util;
 
 import java.util.Set;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class EnvUtil {
-	static final Logger logger = Logger.getLogger(EnvUtil.class);
+	static final Logger logger = LogManager.getLogger(EnvUtil.class);
 
 	public static String getEnv() {
 		return (System.getProperty("env","dev"));

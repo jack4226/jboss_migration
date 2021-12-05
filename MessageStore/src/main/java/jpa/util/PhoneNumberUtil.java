@@ -6,10 +6,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class PhoneNumberUtil {
-	static final Logger logger = Logger.getLogger(PhoneNumberUtil.class);
+	static final Logger logger = LogManager.getLogger(PhoneNumberUtil.class);
 
 	private static final Map<String, Integer> alphaMap = new HashMap<String, Integer>();
 	

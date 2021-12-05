@@ -40,13 +40,14 @@ import jpa.util.SenderUtil;
 import jpa.variable.RenderUtil;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @ManagedBean(name="emailTemplate")
 @javax.faces.bean.ViewScoped
 public class EmailTemplateBean implements java.io.Serializable {
 	private static final long serialVersionUID = -4812680785383460662L;
-	static final Logger logger = Logger.getLogger(EmailTemplateBean.class);
+	static final Logger logger = LogManager.getLogger(EmailTemplateBean.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 
 	private transient EmailTemplateService emailTemplateDao = null;

@@ -5,7 +5,8 @@ import static org.junit.Assert.assertEquals;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
 import com.es.ejb.ws.vo.MailingListVo;
@@ -15,7 +16,7 @@ import jpa.model.EmailAddress;
 import jpa.util.PrintUtil;
 
 public class BeanReflUtilTest {
-	protected final static Logger logger = Logger.getLogger(BeanReflUtilTest.class);
+	protected final static Logger logger = LogManager.getLogger(BeanReflUtilTest.class);
 	
 	@Test
 	public void testCopyMapToObject() {

@@ -3,7 +3,8 @@ package jpa.service.common;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,7 +27,7 @@ import jpa.util.JpaUtil;
 public class EmailAddressService implements java.io.Serializable {
 	private static final long serialVersionUID = 4726327397885138151L;
 
-	static Logger logger = Logger.getLogger(EmailAddressService.class);
+	static Logger logger = LogManager.getLogger(EmailAddressService.class);
 	
 	@Autowired
 	private EmailAddressRepository repository;

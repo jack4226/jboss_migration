@@ -21,7 +21,8 @@ import jpa.service.common.EmailAddressService;
 import jpa.service.msgdata.MessageInboxService;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * This is a request scoped bean that holds search fields from HTTP request.
@@ -36,7 +37,7 @@ import org.apache.log4j.Logger;
 @javax.faces.bean.ViewScoped
 public class SimpleMailTrackingMenu extends PaginationBean implements java.io.Serializable {
 	private static final long serialVersionUID = -4430208005555443392L;
-	static final Logger logger = Logger.getLogger(SimpleMailTrackingMenu.class);
+	static final Logger logger = LogManager.getLogger(SimpleMailTrackingMenu.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	
 	private String titleKey;

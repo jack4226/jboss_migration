@@ -10,7 +10,8 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -35,7 +36,7 @@ import jpa.spring.util.BoTestBase;
 @org.springframework.test.annotation.Commit
 public class DeliveryErrorTest extends BoTestBase {
 	final static String LF = System.getProperty("line.separator", "\n");
-	static final Logger logger = Logger.getLogger(DeliveryErrorTest.class);
+	static final Logger logger = LogManager.getLogger(DeliveryErrorTest.class);
 	
 	@Resource
 	private DeliveryError task;

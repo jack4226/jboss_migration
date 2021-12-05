@@ -2,7 +2,8 @@ package jpa.msgui.spring;
 
 import javax.servlet.ServletContextEvent;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -14,7 +15,7 @@ import org.springframework.web.context.WebApplicationContext;
 import jpa.msgui.util.SpringUtil;
 
 public class SpringWebAppCleanupListener extends ContextCleanupListener {
-	static final Logger logger = Logger.getLogger(SpringWebAppCleanupListener.class);
+	static final Logger logger = LogManager.getLogger(SpringWebAppCleanupListener.class);
 
 	@Override
     public void contextDestroyed(ServletContextEvent event) {

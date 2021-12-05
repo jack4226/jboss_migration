@@ -11,13 +11,14 @@ import jpa.msgui.filter.SessionTimeoutFilter;
 import jpa.msgui.util.SpringUtil;
 import jpa.service.common.UserDataService;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @ManagedBean(name="changePassword")
 @RequestScoped
 public class ChangePasswordBean implements java.io.Serializable {
 	private static final long serialVersionUID = -7332671123699551896L;
-	static final Logger logger = Logger.getLogger(ChangePasswordBean.class);
+	static final Logger logger = LogManager.getLogger(ChangePasswordBean.class);
 	private String currPassword = null;
 	private String password = null;
 	private String confirm = null;

@@ -15,14 +15,15 @@ import java.util.regex.PatternSyntaxException;
 import jpa.data.preload.RuleNameEnum;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Scan input string for RFC1893/RFC2821 mail status code
  */
 public final class RfcCodeScan implements java.io.Serializable {
 	private static final long serialVersionUID = 7560466702245969864L;
-	static final Logger logger = Logger.getLogger(RfcCodeScan.class);
+	static final Logger logger = LogManager.getLogger(RfcCodeScan.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	final int maxLenToScan = 8192*4; // scan up to 32k
 	

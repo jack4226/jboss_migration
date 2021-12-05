@@ -5,18 +5,17 @@ import java.util.List;
 import java.util.Random;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import jpa.constant.StatusId;
 import jpa.data.preload.MailInboxEnum;
 import jpa.dataloader.MailInboxLoader;
 import jpa.model.MailInbox;
 import jpa.spring.util.SpringUtil;
-import jpa.util.Log4jConfigUtil;
 
 public class MailReaderMain {
-	static final Logger logger = Logger.getLogger( MailReaderMain.class);
+	static final Logger logger = LogManager.getLogger( MailReaderMain.class);
 
 	/*
 	 * EMails from custcare mailbox will loop back to the same mailbox after they have been processed,
@@ -26,7 +25,7 @@ public class MailReaderMain {
 	 * -Ddisable_send_mail=true -Dmax_read_per_pass=20
 	 */
 	public static void main(String[] args) {
-		Log4jConfigUtil.modifyLogLevel(Level.ERROR, Level.DEBUG);
+		//Log4jConfigUtil.modifyLogLevel(Level.ERROR, Level.DEBUG);
 		MailInboxService mailBoxDao = SpringUtil.getAppContext().getBean(MailInboxService.class);
 		List<MailInbox> mboxes = mailBoxDao.getAll(true);
 		// load mailbox for processing for following users

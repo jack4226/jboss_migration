@@ -9,7 +9,8 @@ import java.util.List;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -20,7 +21,7 @@ import jpa.spring.util.BoTestBase;
 import jpa.util.TestUtil;
 
 public class MessageBeanUtilTest extends BoTestBase {
-	static final Logger logger = Logger.getLogger(MessageBeanUtilTest.class);
+	static final Logger logger = LogManager.getLogger(MessageBeanUtilTest.class);
 	static final String LF = System.getProperty("line.separator", "\n");
 
 	@BeforeClass

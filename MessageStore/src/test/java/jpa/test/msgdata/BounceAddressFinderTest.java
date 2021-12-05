@@ -8,14 +8,15 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
 import jpa.message.BounceAddressFinder;
 import jpa.spring.util.BoTestBase;
 
 public class BounceAddressFinderTest extends BoTestBase {
-	static final Logger logger = Logger.getLogger(BounceAddressFinderTest.class);
+	static final Logger logger = LogManager.getLogger(BounceAddressFinderTest.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	
 	static final String LF = System.getProperty("line.separator", "\n");

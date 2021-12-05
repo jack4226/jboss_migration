@@ -6,7 +6,8 @@ import java.util.Optional;
 import jpa.model.rule.RuleDataType;
 import jpa.repository.RuleDataTypeRepository;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -17,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class RuleDataTypeService implements java.io.Serializable {
 	private static final long serialVersionUID = 7713274333671397066L;
 
-	static Logger logger = Logger.getLogger(RuleDataTypeService.class);
+	static Logger logger = LogManager.getLogger(RuleDataTypeService.class);
 	
 	@Autowired
 	RuleDataTypeRepository repository;

@@ -5,10 +5,11 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class VarReplProperties extends Properties {
-	static Logger logger = Logger.getLogger(VarReplProperties.class);
+	static Logger logger = LogManager.getLogger(VarReplProperties.class);
 	private static final long serialVersionUID = 4115280968301218916L;
 
 	public VarReplProperties() {

@@ -6,7 +6,8 @@ import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -22,7 +23,7 @@ import jpa.repository.SmtpServerRepository;
 public class SmtpServerService implements java.io.Serializable {
 	private static final long serialVersionUID = 5535796998527412454L;
 
-	static Logger logger = Logger.getLogger(SmtpServerService.class);
+	static Logger logger = LogManager.getLogger(SmtpServerService.class);
 	
 	@Autowired
 	EntityManager em;

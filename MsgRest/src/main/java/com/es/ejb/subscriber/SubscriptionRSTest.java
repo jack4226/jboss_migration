@@ -10,7 +10,8 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.cxf.jaxrs.client.WebClient;
 import org.apache.johnzon.jaxrs.JohnzonProvider;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.openejb.jee.SingletonBean;
 import org.apache.openejb.junit.ApplicationComposer;
 import org.apache.openejb.testing.EnableServices;
@@ -26,7 +27,7 @@ import jpa.util.PrintUtil;
 @EnableServices(value = "jaxrs")
 @RunWith(ApplicationComposer.class)
 public class SubscriptionRSTest {
-	static final Logger logger = Logger.getLogger(SubscriptionRSTest.class);
+	static final Logger logger = LogManager.getLogger(SubscriptionRSTest.class);
 
 	@Module
 	public SingletonBean app() {

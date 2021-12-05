@@ -8,7 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ import jpa.variable.RenderUtil;
 
 @org.springframework.test.annotation.Commit
 public class EmailTemplateBoTest extends BoTestBase {
-	static final Logger logger = Logger.getLogger(EmailTemplateBoTest.class);
+	static final Logger logger = LogManager.getLogger(EmailTemplateBoTest.class);
 
 	static final String LF = System.getProperty("line.separator", "\n");
 	

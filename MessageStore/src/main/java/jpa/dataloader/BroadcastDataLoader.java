@@ -20,10 +20,11 @@ import jpa.service.maillist.MailingListService;
 import jpa.spring.util.SpringUtil;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class BroadcastDataLoader extends AbstractDataLoader {
-	static final Logger logger = Logger.getLogger(BroadcastDataLoader.class);
+	static final Logger logger = LogManager.getLogger(BroadcastDataLoader.class);
 	private MailingListService mlistService;
 	private EmailTemplateService etmpltService;
 	private EmailAddressService emailService;

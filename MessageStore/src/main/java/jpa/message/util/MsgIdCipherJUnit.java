@@ -4,11 +4,12 @@ import static org.junit.Assert.*;
 
 import java.util.Random;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
 public class MsgIdCipherJUnit {
-	static final Logger logger = Logger.getLogger(MsgIdCipherJUnit.class);
+	static final Logger logger = LogManager.getLogger(MsgIdCipherJUnit.class);
 	@Test 
 	public void testMsgIdCipher() {
 		Random random = new Random(System.currentTimeMillis());

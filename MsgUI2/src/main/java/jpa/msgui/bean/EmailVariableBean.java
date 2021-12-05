@@ -26,13 +26,14 @@ import jpa.util.TestUtil;
 import jpa.variable.RenderUtil;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @ManagedBean(name="emailVariable")
 @javax.faces.bean.ViewScoped
 public class EmailVariableBean implements java.io.Serializable {
 	private static final long serialVersionUID = 8620743959575480890L;
-	static final Logger logger = Logger.getLogger(EmailVariableBean.class);
+	static final Logger logger = LogManager.getLogger(EmailVariableBean.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 
 	private transient EmailVariableService emailVariableDao = null;

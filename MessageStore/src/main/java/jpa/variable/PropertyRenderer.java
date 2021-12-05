@@ -6,7 +6,8 @@ import java.util.Properties;
 
 import jpa.exception.TemplateException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * A template is a text string with variables identified by ${ and } tokens.<br>
@@ -15,7 +16,7 @@ import org.apache.log4j.Logger;
  */
 public final class PropertyRenderer implements java.io.Serializable {
 	private static final long serialVersionUID = -1670472296238983560L;
-	static final Logger logger = Logger.getLogger(PropertyRenderer.class);
+	static final Logger logger = LogManager.getLogger(PropertyRenderer.class);
 	
 	final static String OpenDelimiter="${";
 	final static String CloseDelimiter="}";

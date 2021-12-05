@@ -31,7 +31,8 @@ import jpa.service.common.EmailTemplateService;
 import jpa.spring.util.SpringUtil;
 import jpa.util.BlobUtil;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Session Bean implementation class MailingListTimer
@@ -44,7 +45,7 @@ import org.apache.log4j.Logger;
 	type = javax.sql.DataSource.class,
 	authenticationType = AuthenticationType.CONTAINER)
 public class MailingListTimer {
-	protected static final Logger logger = Logger.getLogger(MailingListTimer.class);
+	protected static final Logger logger = LogManager.getLogger(MailingListTimer.class);
 	@Resource
 	SessionContext context;
 	private EmailTemplateService emailTemplateDao = null;

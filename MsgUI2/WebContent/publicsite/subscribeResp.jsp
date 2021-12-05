@@ -55,7 +55,7 @@
 <%@page import="jpa.message.util.MsgIdCipher"%>
 <%@page import="jpa.model.EmailAddress"%>
 <%
-	Logger logger = Logger.getLogger("jpa.msgui.publicsite.jsp");
+	Logger logger = LogManager.getLogger("jpa.msgui.publicsite.jsp");
 	ServletContext ctx = application;
 	
 	String emailAddr = request.getParameter("sbsrAddr");

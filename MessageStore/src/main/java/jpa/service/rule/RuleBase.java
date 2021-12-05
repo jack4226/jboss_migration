@@ -11,11 +11,12 @@ import jpa.constant.RuleType;
 import jpa.util.StringUtil;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public abstract class RuleBase implements java.io.Serializable {
 	private static final long serialVersionUID = -2619176738651938695L;
-	protected static final Logger logger = Logger.getLogger(RuleBase.class);
+	protected static final Logger logger = LogManager.getLogger(RuleBase.class);
 	protected final static boolean isDebugEnabled = logger.isDebugEnabled();
 
 	final static String LF = System.getProperty("line.separator", "\n");

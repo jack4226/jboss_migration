@@ -15,14 +15,15 @@ import jpa.msgui.util.SpringUtil;
 import jpa.service.common.UserDataService;
 import jpa.util.SenderUtil;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @ManagedBean(name="login")
 //@javax.inject.Named("login")
 @RequestScoped
 public class LoginBean implements java.io.Serializable {
 	private static final long serialVersionUID = -5547672142490601294L;
-	static final Logger logger = Logger.getLogger(LoginBean.class);
+	static final Logger logger = LogManager.getLogger(LoginBean.class);
 	private String userId = null;
 	private String password = null;
 	private String message = null;

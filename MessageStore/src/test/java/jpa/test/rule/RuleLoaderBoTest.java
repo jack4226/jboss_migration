@@ -10,7 +10,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -31,7 +32,7 @@ import jpa.spring.util.BoTestBase;
 
 public class RuleLoaderBoTest extends BoTestBase {
 	final static String LF = System.getProperty("line.separator", "\n");
-	static final Logger logger = Logger.getLogger(RuleLoaderBoTest.class);
+	static final Logger logger = LogManager.getLogger(RuleLoaderBoTest.class);
 	
 	@Resource
 	private RuleLoaderBo loader;

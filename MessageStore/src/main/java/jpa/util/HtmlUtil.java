@@ -9,11 +9,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class HtmlUtil extends LinkedHashMap<String, Boolean> {
 	private static final long serialVersionUID = -5727226208745765863L;
-	static final Logger logger = Logger.getLogger(HtmlUtil.class);
+	static final Logger logger = LogManager.getLogger(HtmlUtil.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	
 	private final String fileName = "htmlTags.txt";

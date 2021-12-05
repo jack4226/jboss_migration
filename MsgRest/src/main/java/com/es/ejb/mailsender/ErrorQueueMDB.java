@@ -20,7 +20,8 @@ import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
 import javax.jms.TextMessage;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import jpa.util.PrintUtil;
 
@@ -38,7 +39,7 @@ import jpa.util.PrintUtil;
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 @TransactionManagement(TransactionManagementType.CONTAINER)
 public class ErrorQueueMDB implements MessageListener {
-	static final Logger logger = Logger.getLogger(ErrorQueueMDB.class);
+	static final Logger logger = LogManager.getLogger(ErrorQueueMDB.class);
 	final String LF = System.getProperty("line.separator", "\n");
 	
     @Resource

@@ -3,14 +3,15 @@ package jpa.service.task;
 import jpa.exception.DataValidationException;
 import jpa.message.MessageContext;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 @Component("dropMessage")
 //@Transactional(propagation=Propagation.REQUIRED)
 public class DropMessage extends TaskBaseAdapter {
 	private static final long serialVersionUID = 8866276380038865588L;
-	static final Logger logger = Logger.getLogger(DropMessage.class);
+	static final Logger logger = LogManager.getLogger(DropMessage.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	
 	/**

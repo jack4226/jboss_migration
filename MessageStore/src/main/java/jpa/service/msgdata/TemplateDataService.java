@@ -4,7 +4,8 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -20,7 +21,7 @@ import jpa.repository.msg.TemplateDataRepository;
 public class TemplateDataService implements java.io.Serializable {
 	private static final long serialVersionUID = 8608904621919420136L;
 
-	static Logger logger = Logger.getLogger(TemplateDataService.class);
+	static Logger logger = LogManager.getLogger(TemplateDataService.class);
 	
 	@Autowired
 	TemplateDataRepository repository;

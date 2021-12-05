@@ -22,7 +22,8 @@ import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Selection;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -39,7 +40,7 @@ import jpa.util.JpaUtil;
 public class EmailAddressRepositoryImpl implements EmailAddressRepositoryCustom, java.io.Serializable {
 	private static final long serialVersionUID = 7017336555271334679L;
 
-	static Logger logger = Logger.getLogger(EmailAddressRepositoryImpl.class);
+	static Logger logger = LogManager.getLogger(EmailAddressRepositoryImpl.class);
 
 	@Autowired
 	EmailAddressRepository repository;

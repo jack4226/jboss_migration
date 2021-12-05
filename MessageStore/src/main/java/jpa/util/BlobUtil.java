@@ -9,10 +9,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Calendar;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public final class BlobUtil {
-	static final Logger logger = Logger.getLogger(BlobUtil.class);
+	static final Logger logger = LogManager.getLogger(BlobUtil.class);
 	private BlobUtil() {
 		// utility class
 	}

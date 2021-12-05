@@ -9,7 +9,8 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -28,7 +29,7 @@ import jpa.service.common.EmailAddressService;
 @Transactional(propagation=Propagation.REQUIRED)
 public class ActivateAddress extends TaskBaseAdapter {
 	private static final long serialVersionUID = 7272826841955633003L;
-	static final Logger logger = Logger.getLogger(ActivateAddress.class);
+	static final Logger logger = LogManager.getLogger(ActivateAddress.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	
 	@Autowired

@@ -16,7 +16,8 @@ import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.johnzon.mapper.Mapper;
 import org.apache.johnzon.mapper.MapperBuilder;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -29,7 +30,7 @@ import jpa.util.PrintUtil;
  * Class name misspelled intentionally.
  */
 public class JasonParser<T> {
-	static final Logger logger = Logger.getLogger(JasonParser.class);
+	static final Logger logger = LogManager.getLogger(JasonParser.class);
 
 	public static <T> String objectToJson(@NotNull T jsonObj, @NotNull Class<T> clazz) {
 		if (ClassUtils.isPrimitiveOrWrapper(clazz) || jsonObj instanceof String) {

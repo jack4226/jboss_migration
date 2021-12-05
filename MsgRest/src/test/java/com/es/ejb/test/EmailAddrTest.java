@@ -9,7 +9,8 @@ import javax.naming.NamingException;
 
 import jpa.model.EmailAddress;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.openejb.OpenEjbContainer;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -18,7 +19,7 @@ import org.junit.Test;
 import com.es.ejb.emailaddr.EmailAddrRemote;
 
 public class EmailAddrTest {
-	protected final static Logger logger = Logger.getLogger(EmailAddrTest.class);
+	protected final static Logger logger = LogManager.getLogger(EmailAddrTest.class);
 
 	private static EJBContainer ejbContainer;
 	

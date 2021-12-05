@@ -16,7 +16,8 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.johnzon.mapper.JohnzonConverter;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import jpa.constant.StatusId;
 
@@ -24,7 +25,7 @@ import jpa.constant.StatusId;
 @XmlRootElement (name = "baseVo")
 public class BaseVo implements java.io.Serializable, Cloneable {
 	private static final long serialVersionUID = 2438423000525545863L;
-	static Logger logger = Logger.getLogger(BaseVo.class);
+	static Logger logger = LogManager.getLogger(BaseVo.class);
 	
 	final static String LF = System.getProperty("line.separator", "\n");
 	@XmlElement

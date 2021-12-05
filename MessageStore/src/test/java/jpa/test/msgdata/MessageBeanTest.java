@@ -8,7 +8,8 @@ import java.util.List;
 
 import javax.mail.MessagingException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,7 +27,7 @@ import jpa.util.TestUtil;
 
 public class MessageBeanTest extends BoTestBase {
 	final static String LF = System.getProperty("line.separator","\n");
-	static final Logger logger = Logger.getLogger(MessageBeanTest.class);
+	static final Logger logger = LogManager.getLogger(MessageBeanTest.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	
 	@Autowired

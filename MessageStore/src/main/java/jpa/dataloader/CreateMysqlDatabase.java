@@ -15,10 +15,11 @@ import jpa.constant.Constants;
 import jpa.spring.util.SpringUtil;
 import jpa.util.JpaUtil;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class CreateMysqlDatabase {
-	static final Logger logger = Logger.getLogger(CreateMysqlDatabase.class);
+	static final Logger logger = LogManager.getLogger(CreateMysqlDatabase.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 
 	private static String DB_NAME = "emaildb";

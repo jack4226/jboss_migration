@@ -12,13 +12,14 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 public class XmlHelper {
-	static Logger logger = Logger.getLogger(XmlHelper.class);
+	static Logger logger = LogManager.getLogger(XmlHelper.class);
 	static boolean isDebugEnabled = logger.isDebugEnabled();
 
 	/**

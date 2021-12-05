@@ -6,7 +6,8 @@ import java.util.Optional;
 import jpa.model.EmailTemplate;
 import jpa.repository.EmailTemplateRepository;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Isolation;
@@ -18,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class EmailTemplateService implements java.io.Serializable {
 	private static final long serialVersionUID = 248665617609102612L;
 
-	static Logger logger = Logger.getLogger(EmailTemplateService.class);
+	static Logger logger = LogManager.getLogger(EmailTemplateService.class);
 	
 	@Autowired
 	EmailTemplateRepository repository;

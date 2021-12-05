@@ -7,7 +7,8 @@ import javax.naming.NamingException;
 
 import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -32,7 +33,7 @@ import jpa.tomee.util.TomeeCtxUtil;
 @ComponentScan(basePackages = {"jpa.jbatch.queue"})
 @EnableJms
 public class SpringJmsConfig implements JmsListenerConfigurer {
-	protected final static Logger logger = Logger.getLogger(SpringJmsConfig.class);
+	protected final static Logger logger = LogManager.getLogger(SpringJmsConfig.class);
 
 	private @Value("${test.Queue}") String listenerQueueName;
 	

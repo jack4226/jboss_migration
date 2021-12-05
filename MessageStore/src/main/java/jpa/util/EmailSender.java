@@ -24,7 +24,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @author Jack Wang
@@ -69,7 +70,7 @@ disable=no
 #
  */
 public class EmailSender {
-	private static Logger logger = Logger.getLogger(EmailSender.class);
+	private static Logger logger = LogManager.getLogger(EmailSender.class);
 	static boolean isDebugEnabled = logger.isDebugEnabled();
 
 	private static String fileName = "META-INF/email.properties";

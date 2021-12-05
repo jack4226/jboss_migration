@@ -13,7 +13,8 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -33,7 +34,7 @@ import jpa.service.maillist.MailingListService;
 import jpa.util.PrintUtil;
 
 public class EmailAddressBeanTest {
-	static final Logger logger = Logger.getLogger(EmailAddressBeanTest.class);
+	static final Logger logger = LogManager.getLogger(EmailAddressBeanTest.class);
 	
 	static AbstractApplicationContext applContext = null;
 	static EmailAddressService ea_svc = null;

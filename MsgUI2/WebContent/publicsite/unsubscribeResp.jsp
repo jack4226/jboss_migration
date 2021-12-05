@@ -34,7 +34,7 @@ UnsubCommentService getUnsubCommentsDao(ServletContext ctx) {
 }
 %>
 <%
-	Logger logger = Logger.getLogger("jpa.msgui.publicsite.jsp");
+	Logger logger = LogManager.getLogger("jpa.msgui.publicsite.jsp");
 	ServletContext ctx = application;
 	
 	String encodedSbsrId = request.getParameter("sbsrid");

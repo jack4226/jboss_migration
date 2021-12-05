@@ -11,7 +11,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * create a named pool. A pool contains sub-pools, and the sub-pool could be
@@ -31,7 +32,7 @@ import org.apache.log4j.Logger;
  */
 public final class NamedPool implements java.io.Serializable {
 	private static final long serialVersionUID = -447731141642759939L;
-	static final Logger logger = Logger.getLogger(NamedPool.class);
+	static final Logger logger = LogManager.getLogger(NamedPool.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 
 	private final LinkedHashMap<String, ObjectPool> pools;

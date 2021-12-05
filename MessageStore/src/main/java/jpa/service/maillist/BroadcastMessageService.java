@@ -5,7 +5,8 @@ import java.util.Optional;
 
 import javax.persistence.EntityManager;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,7 +27,7 @@ import jpa.repository.msg.BroadcastMessageRepository;
 public class BroadcastMessageService implements java.io.Serializable {
 	private static final long serialVersionUID = 3364188607980880964L;
 
-	static Logger logger = Logger.getLogger(BroadcastMessageService.class);
+	static Logger logger = LogManager.getLogger(BroadcastMessageService.class);
 	
 	@Autowired
 	EntityManager em;

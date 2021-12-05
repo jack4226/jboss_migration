@@ -16,11 +16,12 @@ import jpa.message.MessageBeanUtil;
 import jpa.message.MessageNode;
 import jpa.message.MsgHeader;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class RuleMatcher implements java.io.Serializable {
 	private static final long serialVersionUID = 5389476995961087231L;
-	static final Logger logger = Logger.getLogger(RuleMatcher.class);
+	static final Logger logger = LogManager.getLogger(RuleMatcher.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 
 	public RuleMatcher() {

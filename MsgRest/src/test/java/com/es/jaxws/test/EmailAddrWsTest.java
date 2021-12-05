@@ -11,7 +11,8 @@ import javax.ejb.embeddable.EJBContainer;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.openejb.OpenEjbContainer;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -23,7 +24,7 @@ import com.es.ejb.ws.vo.EmailAddrVo;
 import jpa.util.PrintUtil;
 
 public class EmailAddrWsTest {
-	protected final static Logger logger = Logger.getLogger(EmailAddrWsTest.class);
+	protected final static Logger logger = LogManager.getLogger(EmailAddrWsTest.class);
 
 	private static EJBContainer ejbContainer;
 	

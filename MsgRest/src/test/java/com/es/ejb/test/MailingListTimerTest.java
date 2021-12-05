@@ -8,13 +8,14 @@ import javax.naming.Context;
 
 import junit.framework.TestCase;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.openejb.OpenEjbContainer;
 
 import com.es.ejb.mailinglist.MailingListTimer;
 
 public class MailingListTimerTest extends TestCase {
-	static final Logger logger = Logger.getLogger(MailingListTimerTest.class);
+	static final Logger logger = LogManager.getLogger(MailingListTimerTest.class);
 
 	 public void testMailingListTimer() throws Exception {
 		 

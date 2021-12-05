@@ -16,7 +16,8 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -54,7 +55,7 @@ import jpa.util.PrintUtil;
 
 @org.springframework.test.annotation.Commit
 public class MessageInboxTest extends BoTestBase {
-	static final Logger logger = Logger.getLogger(MessageInboxTest.class);
+	static final Logger logger = LogManager.getLogger(MessageInboxTest.class);
 
 	@BeforeClass
 	public static void MessageInboxPrepare() {

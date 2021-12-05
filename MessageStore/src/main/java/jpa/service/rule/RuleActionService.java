@@ -15,7 +15,8 @@ import jpa.service.common.ReloadFlagsService;
 import jpa.util.JpaUtil;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -26,7 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class RuleActionService implements java.io.Serializable {
 	private static final long serialVersionUID = 2659198685298698218L;
 
-	static Logger logger = Logger.getLogger(RuleActionService.class);
+	static Logger logger = LogManager.getLogger(RuleActionService.class);
 	
 	@Autowired
 	EntityManager em;

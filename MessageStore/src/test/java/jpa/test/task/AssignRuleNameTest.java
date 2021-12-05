@@ -11,7 +11,8 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -32,7 +33,7 @@ import jpa.util.JpaUtil;
 @FixMethodOrder
 public class AssignRuleNameTest extends BoTestBase {
 	final static String LF = System.getProperty("line.separator", "\n");
-	static final Logger logger = Logger.getLogger(AssignRuleNameTest.class);
+	static final Logger logger = LogManager.getLogger(AssignRuleNameTest.class);
 	
 	@Resource
 	private AssignRuleName task;

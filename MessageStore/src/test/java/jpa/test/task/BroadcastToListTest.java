@@ -10,7 +10,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -37,7 +38,7 @@ import jpa.variable.Renderer;
 @org.springframework.test.annotation.Commit
 public class BroadcastToListTest extends BoTestBase {
 	final static String LF = System.getProperty("line.separator", "\n");
-	static final Logger logger = Logger.getLogger(BroadcastToListTest.class);
+	static final Logger logger = LogManager.getLogger(BroadcastToListTest.class);
 	
 	@Resource
 	private BroadcastToList task;

@@ -7,11 +7,12 @@ import static org.junit.Assert.fail;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
 public final class PropertyRendererTest {
-	static final Logger logger = Logger.getLogger(PropertyRendererTest.class);
+	static final Logger logger = LogManager.getLogger(PropertyRendererTest.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 
 	@Test

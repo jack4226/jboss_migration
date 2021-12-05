@@ -6,10 +6,11 @@ import java.util.Date;
 import jpa.service.common.SenderDataService;
 import jpa.spring.util.SpringUtil;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public final class SenderUtil {
-	static final Logger logger = Logger.getLogger(SenderUtil.class);
+	static final Logger logger = LogManager.getLogger(SenderUtil.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	
 	private static SenderDataService senderService = null;

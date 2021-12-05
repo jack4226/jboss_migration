@@ -8,13 +8,14 @@ import static org.junit.Assert.fail;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
 import jpa.util.EmailAddrUtil;
 
 public class EmailAddrUtilTest {
-	static final Logger logger = Logger.getLogger(EmailAddrUtilTest.class);
+	static final Logger logger = LogManager.getLogger(EmailAddrUtilTest.class);
 	
 	@Test
 	public void testEmailAddrUtil() {

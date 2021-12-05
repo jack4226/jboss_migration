@@ -16,7 +16,8 @@ import jpa.constant.Constants;
 import jpa.constant.XHeaderName;
 import jpa.message.MessageBodyBuilder;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.htmlparser.util.ParserException;
 
 /**
@@ -26,7 +27,7 @@ import org.htmlparser.util.ParserException;
  */
 public class MailReaderReply implements java.io.Serializable {
 	private static final long serialVersionUID = -4717336100946179241L;
-	static final Logger logger = Logger.getLogger(MailReaderReply.class);
+	static final Logger logger = LogManager.getLogger(MailReaderReply.class);
 	/**
 	 * compose a reply message.
 	 * 

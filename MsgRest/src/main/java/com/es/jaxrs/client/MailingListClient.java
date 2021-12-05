@@ -23,7 +23,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.cxf.jaxrs.client.WebClient;
 import org.apache.cxf.jaxrs.ext.multipart.Attachment;
 import org.apache.cxf.jaxrs.provider.JAXBElementProvider;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
 
 import com.es.ejb.ws.vo.MailingListVo;
@@ -35,7 +36,7 @@ import jpa.util.PrintUtil;
 import jpa.xml.util.XmlHelper;
 
 public class MailingListClient {
-	protected final static Logger logger = Logger.getLogger(MailingListClient.class);
+	protected final static Logger logger = LogManager.getLogger(MailingListClient.class);
 	
 	public static void main(String[] args) {
 		int port = TomeeCtxUtil.findHttpPort(new int[] {8181, 8080});

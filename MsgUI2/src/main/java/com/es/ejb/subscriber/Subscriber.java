@@ -27,7 +27,8 @@ import jpa.spring.util.SpringUtil;
 import jpa.util.PrintUtil;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.es.ejb.ws.vo.SubscriptionVo;
 import com.es.tomee.util.TomeeCtxUtil;
@@ -45,7 +46,7 @@ import com.es.tomee.util.TomeeCtxUtil;
 @Local(SubscriberLocal.class)
 @LocalBean
 public class Subscriber implements SubscriberRemote, SubscriberLocal {
-	protected static final Logger logger = Logger.getLogger(Subscriber.class);
+	protected static final Logger logger = LogManager.getLogger(Subscriber.class);
 	@Resource
 	SessionContext context;
 	private SubscriberDataService subscriberDao;

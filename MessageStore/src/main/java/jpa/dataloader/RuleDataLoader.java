@@ -18,10 +18,11 @@ import jpa.service.rule.RuleLogicService;
 import jpa.service.rule.RuleSubruleMapService;
 import jpa.spring.util.SpringUtil;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class RuleDataLoader extends AbstractDataLoader {
-	static final Logger logger = Logger.getLogger(RuleDataLoader.class);
+	static final Logger logger = LogManager.getLogger(RuleDataLoader.class);
 	private RuleLogicService service;
 	private RuleElementService elementService;
 	private RuleSubruleMapService mapService;

@@ -7,7 +7,7 @@
 <%@page import="jpa.model.BroadcastMessage"%>
 <%@page import="org.apache.commons.lang3.StringUtils"%>
 <%
-	Logger logger = Logger.getLogger("jpa.msgui.publicsite.jsp");
+	Logger logger = LogManager.getLogger("jpa.msgui.publicsite.jsp");
 	ServletContext ctx = application;
 	String sbsrId = request.getParameter("sbsrid");
 	String listId = request.getParameter("listid");

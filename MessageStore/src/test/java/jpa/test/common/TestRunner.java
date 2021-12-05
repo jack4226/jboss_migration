@@ -5,13 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 
 public class TestRunner {
-	static final Logger logger = Logger.getLogger(TestRunner.class);
+	static final Logger logger = LogManager.getLogger(TestRunner.class);
 
 	static final String TestPackageName = "jpa.test.common";
 	public static void main(String[] args) {

@@ -24,13 +24,14 @@ import jpa.util.EmailAddrUtil;
 import jpa.util.SenderUtil;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @ManagedBean(name="senderData")
 @javax.faces.bean.ViewScoped
 public class SenderDataBean implements java.io.Serializable {
 	private static final long serialVersionUID = 1121882547043576165L;
-	static final Logger logger = Logger.getLogger(SenderDataBean.class);
+	static final Logger logger = LogManager.getLogger(SenderDataBean.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 
 	private transient SenderDataService senderDao = null;

@@ -14,7 +14,8 @@ import javax.persistence.EntityManager;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -39,9 +40,9 @@ import jpa.util.EmailSender;
 @org.springframework.transaction.annotation.Transactional(propagation=org.springframework.transaction.annotation.Propagation.REQUIRED)
 public class MailProcessorBo implements java.io.Serializable {
 	private static final long serialVersionUID = -2192214375199179774L;
-	static final Logger logger = Logger.getLogger(MailProcessorBo.class);
+	static final Logger logger = LogManager.getLogger(MailProcessorBo.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
-	static Logger duplicateReport = Logger.getLogger("jpa.message.report.duplicate");
+	static Logger duplicateReport = LogManager.getLogger("jpa.message.report.duplicate");
 
 	//volatile boolean keepRunning = true;
 	private final int MAX_INBOUND_BODY_SIZE = 150 * 1024; // 150K

@@ -17,14 +17,15 @@ import jpa.service.msgout.SmtpException;
 import jpa.util.EmailAddrUtil;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component("forwardToCsr")
 public class ForwardToCsr extends TaskBaseAdapter {
 	private static final long serialVersionUID = 5057958462600056783L;
-	static final Logger logger = Logger.getLogger(ForwardToCsr.class);
+	static final Logger logger = LogManager.getLogger(ForwardToCsr.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	
 	@Autowired

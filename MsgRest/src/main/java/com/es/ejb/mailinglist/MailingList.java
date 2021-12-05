@@ -20,7 +20,8 @@ import jpa.service.maillist.MailingListBo;
 import jpa.service.maillist.MailingListService;
 import jpa.spring.util.SpringUtil;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Session Bean implementation class MailingList
@@ -34,7 +35,7 @@ import org.apache.log4j.Logger;
 @Remote(MailingListRemote.class)
 @Local(MailingListLocal.class)
 public class MailingList implements MailingListRemote, MailingListLocal {
-	protected static final Logger logger = Logger.getLogger(MailingList.class);
+	protected static final Logger logger = LogManager.getLogger(MailingList.class);
 	@Resource
 	SessionContext context;
 	private MailingListBo mailingListBo;

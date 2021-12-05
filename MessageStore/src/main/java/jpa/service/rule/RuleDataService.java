@@ -8,7 +8,8 @@ import jpa.service.external.TargetTextProc;
 import jpa.spring.util.SpringUtil;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -18,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(propagation=Propagation.REQUIRED)
 public class RuleDataService implements java.io.Serializable {
 	private static final long serialVersionUID = 143089225642571641L;
-	static final Logger logger = Logger.getLogger(RuleDataService.class);
+	static final Logger logger = LogManager.getLogger(RuleDataService.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	
 	@Autowired

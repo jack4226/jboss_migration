@@ -2,7 +2,8 @@ package jpa.test.spring;
 
 import static org.junit.Assert.*;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.jms.listener.AbstractMessageListenerContainer;
@@ -10,7 +11,7 @@ import org.springframework.jms.listener.AbstractMessageListenerContainer;
 import jpa.spring.util.SpringJmsUtil;
 
 public class SpringJmsUtilTest {
-	protected final static Logger logger = Logger.getLogger(SpringJmsUtilTest.class);
+	protected final static Logger logger = LogManager.getLogger(SpringJmsUtilTest.class);
 	
 	@Test
 	public void testSpringJmsUtil() {

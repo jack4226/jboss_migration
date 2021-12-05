@@ -14,12 +14,13 @@ import javax.jms.TextMessage;
 import javax.naming.Context;
 import javax.naming.NamingException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import jpa.tomee.util.TomeeCtxUtil;
 
 public class JmsRemoteCleint {
-	static Logger logger = Logger.getLogger(JmsRemoteCleint.class);
+	static Logger logger = LogManager.getLogger(JmsRemoteCleint.class);
 	
 	public static void main(String[] args) {
 		try {

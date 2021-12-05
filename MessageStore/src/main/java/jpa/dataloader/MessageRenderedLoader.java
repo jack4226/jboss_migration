@@ -23,10 +23,11 @@ import jpa.service.msgdata.RenderVariableService;
 import jpa.spring.util.SpringUtil;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class MessageRenderedLoader extends AbstractDataLoader {
-	static final Logger logger = Logger.getLogger(MessageRenderedLoader.class);
+	static final Logger logger = LogManager.getLogger(MessageRenderedLoader.class);
 	private MessageRenderedService service;
 	private SenderDataService senderService;
 	private MessageSourceService sourceService;

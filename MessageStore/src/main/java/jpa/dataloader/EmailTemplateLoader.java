@@ -12,10 +12,11 @@ import jpa.service.common.SenderDataService;
 import jpa.service.maillist.MailingListService;
 import jpa.spring.util.SpringUtil;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class EmailTemplateLoader extends AbstractDataLoader {
-	static final Logger logger = Logger.getLogger(EmailTemplateLoader.class);
+	static final Logger logger = LogManager.getLogger(EmailTemplateLoader.class);
 	private EmailTemplateService service;
 	private SenderDataService senderService;
 	private MailingListService mlistService;

@@ -5,7 +5,8 @@ import java.util.List;
 import javax.naming.Context;
 import javax.naming.NamingException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.es.ejb.idtokens.IdTokensRemote;
 import jpa.tomee.util.TomeeCtxUtil;
@@ -13,7 +14,7 @@ import jpa.tomee.util.TomeeCtxUtil;
 import jpa.util.PrintUtil;
 
 public class IdTokensClient {
-	static Logger logger = Logger.getLogger(IdTokensClient.class);
+	static Logger logger = LogManager.getLogger(IdTokensClient.class);
 	
 	public static void main(String[] args) {
 		try {

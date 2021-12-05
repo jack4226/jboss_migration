@@ -57,13 +57,14 @@ import jpa.variable.RenderUtil;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @ManagedBean(name="mailingListCompose")
 @javax.faces.bean.ViewScoped
 public class MailingListComposeBean implements java.io.Serializable {
 	private static final long serialVersionUID = -2015576038292544848L;
-	static final Logger logger = Logger.getLogger(MailingListComposeBean.class);
+	static final Logger logger = LogManager.getLogger(MailingListComposeBean.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	static final boolean isInfoEnabled = logger.isInfoEnabled();
 	final static String LF = System.getProperty("line.separator","\n");

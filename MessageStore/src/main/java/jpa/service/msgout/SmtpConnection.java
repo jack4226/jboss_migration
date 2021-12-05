@@ -17,8 +17,9 @@ import jpa.model.SmtpServer;
 import jpa.util.EmailAddrUtil;
 import jpa.util.ExceptionUtil;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /** 
   * SmtpConnection initializes a SMTP connection and provides methods to send 
@@ -33,7 +34,7 @@ import org.apache.log4j.Logger;
  */
 public final class SmtpConnection implements java.io.Serializable {
 	private static final long serialVersionUID = -2482207330299000973L;
-	static final Logger logger = Logger.getLogger(SmtpConnection.class);
+	static final Logger logger = LogManager.getLogger(SmtpConnection.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	
 	private boolean debugSession = Level.DEBUG.equals(logger.getLevel());
@@ -525,7 +526,7 @@ public final class SmtpConnection implements java.io.Serializable {
 		catch (MessagingException e) {
 			logger.error("MessagingException caught", e);
 		}
-		super.finalize();
+		//super.finalize();
 	}
 
 	public SmtpServer getSmtpServer() {

@@ -6,7 +6,8 @@ import java.util.concurrent.TimeUnit;
 import javax.ejb.embeddable.EJBContainer;
 import javax.naming.Context;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.openejb.OpenEjbContainer;
 
 import com.es.ejb.mailreader.MailReader;
@@ -14,7 +15,7 @@ import com.es.ejb.mailreader.MailReader;
 import junit.framework.TestCase;
 
 public class MailReaderTest extends TestCase {
-	static final Logger logger = Logger.getLogger(MailReaderTest.class);
+	static final Logger logger = LogManager.getLogger(MailReaderTest.class);
 
 	 public void testMailReader() throws Exception {
 		 

@@ -13,7 +13,8 @@ import javax.ejb.embeddable.EJBContainer;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.openejb.OpenEjbContainer;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -23,7 +24,7 @@ import com.es.ejb.subscriber.SubscriberWs;
 import com.es.ejb.ws.vo.SubscriptionVo;
 
 public class SubscriberWsTest {
-	protected final static Logger logger = Logger.getLogger(SubscriberWsTest.class);
+	protected final static Logger logger = LogManager.getLogger(SubscriberWsTest.class);
 	
 	private static EJBContainer ejbContainer;
 	

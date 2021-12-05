@@ -30,13 +30,14 @@ import jpa.service.msgout.SmtpServerService;
 import jpa.util.SenderUtil;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @ManagedBean(name="smtpServer")
 @javax.faces.bean.ViewScoped
 public class SmtpServerBean implements java.io.Serializable {
 	private static final long serialVersionUID = -2610108607170535587L;
-	static final Logger logger = Logger.getLogger(SmtpServerBean.class);
+	static final Logger logger = LogManager.getLogger(SmtpServerBean.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 
 	private transient SmtpServerService smtpServerDao = null;

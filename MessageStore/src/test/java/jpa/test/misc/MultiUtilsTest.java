@@ -9,7 +9,8 @@ import java.io.File;
 import java.io.FileReader;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
 import jpa.util.FileUtil;
@@ -21,7 +22,7 @@ import jpa.util.ProductKey;
 import jpa.util.StringUtil;
 
 public class MultiUtilsTest {
-	static final Logger logger = Logger.getLogger(MultiUtilsTest.class);
+	static final Logger logger = LogManager.getLogger(MultiUtilsTest.class);
 	
 	@Test
 	public void testPhoneNumberUtil() {

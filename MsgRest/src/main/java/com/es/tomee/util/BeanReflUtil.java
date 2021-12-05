@@ -14,12 +14,13 @@ import jpa.util.PrintUtil;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.es.ejb.ws.vo.MailingListVo;
 
 public class BeanReflUtil {
-	protected final static Logger logger = Logger.getLogger(BeanReflUtil.class);
+	protected final static Logger logger = LogManager.getLogger(BeanReflUtil.class);
 
 	/*
 	 * copy properties from form parameters by invoking its setters using reflection.

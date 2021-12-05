@@ -14,11 +14,12 @@ import jpa.util.StringUtil;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class AlterConstraints {
-	static final Logger logger = Logger.getLogger(AlterConstraints.class);
+	static final Logger logger = LogManager.getLogger(AlterConstraints.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 
 	static final String MySQLFileName = "CascadeOnDeleteMySQL.sql";

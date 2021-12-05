@@ -18,6 +18,7 @@
   	<jstl.version>1.2</jstl.version>
   	<javax.mail.version>1.4.7</javax.mail.version>
   	<faces-api.version>2.2</faces-api.version>
+  	<javax.faces-version>1.2-20</javax.faces-version>
   	<jsf-version>2.2.14</jsf-version>
   	<tomee.version>1.7.4</tomee.version>
   	<mockito-version>1.10.19</mockito-version>
@@ -98,12 +99,27 @@
   		<version>${javax.mail.version}</version>
   		<scope>provided</scope>
   	</dependency>
+  	
 	<dependency>
 		<groupId>javax.faces</groupId>
 		<artifactId>javax.faces-api</artifactId>
 		<version>${faces-api.version}</version>
 		<scope>provided</scope>
 	</dependency>
+	
+	<!-- 
+	<dependency>
+	    <groupId>javax.faces</groupId>
+	    <artifactId>jsf-api</artifactId>
+	    <version>${javax.faces-version}</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>javax.faces</groupId>
+	    <artifactId>jsf-impl</artifactId>
+	    <version>${javax.faces-version}</version>
+	</dependency>
+	 -->
 	
 	<!-- Apache TomEE comes with myfaces -->
 	<dependency>

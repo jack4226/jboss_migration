@@ -38,7 +38,8 @@ import org.apache.cxf.jaxrs.ext.multipart.Attachment;
 import org.apache.cxf.jaxrs.ext.multipart.Multipart;
 import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
 import org.apache.cxf.jaxrs.impl.ResponseBuilderImpl;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.es.ejb.ws.vo.MailingListVo;
 import com.es.jaxrs.common.ErrorResponse;
@@ -52,7 +53,7 @@ import jpa.tomee.util.TomeeCtxUtil;
 @Path("/msgapi/mailinglist")
 @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 public class MailingListRS {
-	static final Logger logger = Logger.getLogger(MailingListRS.class);
+	static final Logger logger = LogManager.getLogger(MailingListRS.class);
 	
 	final String LF = System.getProperty("line.separator", "\n");
 

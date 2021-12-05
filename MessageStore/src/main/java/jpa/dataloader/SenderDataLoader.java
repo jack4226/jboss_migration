@@ -2,7 +2,8 @@ package jpa.dataloader;
 
 import java.sql.SQLException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import jpa.constant.SenderType;
 import jpa.constant.Constants;
@@ -14,7 +15,7 @@ import jpa.util.ProductUtil;
 import jpa.util.TimestampUtil;
 
 public class SenderDataLoader extends AbstractDataLoader {
-	static final Logger logger = Logger.getLogger(SenderDataLoader.class);
+	static final Logger logger = LogManager.getLogger(SenderDataLoader.class);
 	private SenderDataService service;
 
 	public static void main(String[] args) {

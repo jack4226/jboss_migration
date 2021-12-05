@@ -13,14 +13,15 @@ import jpa.constant.Constants;
 import jpa.util.ExceptionUtil;
 import jpa.util.PrintUtil;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.es.ejb.idtokens.IdTokensWs;
 import com.es.ejb.ws.vo.IdTokensVo;
 import jpa.tomee.util.TomeeCtxUtil;
 
 public class IdTokensWsClient {
-	protected final static Logger logger = Logger.getLogger(IdTokensWsClient.class);
+	protected final static Logger logger = LogManager.getLogger(IdTokensWsClient.class);
 	
 	public static void main(String[] args) {
 		testIdTokensWs();

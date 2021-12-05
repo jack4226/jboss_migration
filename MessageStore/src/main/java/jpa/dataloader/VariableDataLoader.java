@@ -4,7 +4,8 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import jpa.constant.CodeType;
 import jpa.constant.Constants;
@@ -24,7 +25,7 @@ import jpa.service.common.SenderVariableService;
 import jpa.spring.util.SpringUtil;
 
 public class VariableDataLoader extends AbstractDataLoader {
-	static final Logger logger = Logger.getLogger(VariableDataLoader.class);
+	static final Logger logger = LogManager.getLogger(VariableDataLoader.class);
 	private SenderVariableService cvService;
 	private GlobalVariableService gvService;
 	private SenderDataService senderService;

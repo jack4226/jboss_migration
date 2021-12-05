@@ -9,13 +9,14 @@ import javax.faces.model.ListDataModel;
 import jpa.model.rule.RuleLogic;
 import jpa.msgui.util.FacesUtil;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @ManagedBean(name="builtinRule")
 @javax.faces.bean.ViewScoped
 public class RuleLogicBuiltinRuleBean extends RuleLogicBean {
 	private static final long serialVersionUID = -498930141487046944L;
-	protected static final Logger logger = Logger.getLogger(RuleLogicBuiltinRuleBean.class);
+	protected static final Logger logger = LogManager.getLogger(RuleLogicBuiltinRuleBean.class);
 	protected static final boolean isDebugEnabled = logger.isDebugEnabled();
 
 	@Override

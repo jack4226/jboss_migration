@@ -10,7 +10,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * This class contains some useful time stamp routines. Like converting db2 time
@@ -19,7 +20,7 @@ import org.apache.log4j.Logger;
  */
 public class TimestampUtil implements java.io.Serializable {
 	private static final long serialVersionUID = -6023017890883430172L;
-	protected static final Logger logger = Logger.getLogger(TimestampUtil.class);
+	protected static final Logger logger = LogManager.getLogger(TimestampUtil.class);
 	protected static final boolean isDebugEnabled = logger.isDebugEnabled();
 
 	private static final int RADIX = 36;

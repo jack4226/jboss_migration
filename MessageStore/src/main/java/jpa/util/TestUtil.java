@@ -23,10 +23,11 @@ import jpa.service.common.EmailAddressService;
 import jpa.service.msgdata.MessageInboxService;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class TestUtil {
-	static final Logger logger = Logger.getLogger(TestUtil.class);
+	static final Logger logger = LogManager.getLogger(TestUtil.class);
 	
 	public static boolean isRunningInJunitTest() {
 		StackTraceElement[] traces = Thread.currentThread().getStackTrace();

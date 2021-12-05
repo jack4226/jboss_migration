@@ -6,12 +6,13 @@ import java.util.regex.Pattern;
 import javax.mail.Address;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import jpa.constant.EmailIdToken;
 
 public class EmailAddrUtil {
-	static final Logger logger = Logger.getLogger(EmailAddrUtil.class);
+	static final Logger logger = LogManager.getLogger(EmailAddrUtil.class);
 
 	final static String localPart = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*";
 	final static String remotePart = "@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])+";

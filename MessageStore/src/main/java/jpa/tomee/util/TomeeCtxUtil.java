@@ -12,10 +12,11 @@ import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class TomeeCtxUtil {
-	protected final static Logger logger = Logger.getLogger(TomeeCtxUtil.class);
+	protected final static Logger logger = LogManager.getLogger(TomeeCtxUtil.class);
 
 	public static javax.naming.Context getLocalContext() throws NamingException {
 		Properties p = new Properties();

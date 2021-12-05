@@ -16,11 +16,12 @@ import javax.naming.Context;
 
 import junit.framework.TestCase;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.openejb.OpenEjbContainer;
 
 public class ErrorQueueMDBTest extends TestCase {
-	protected final static Logger logger = Logger.getLogger(ErrorQueueMDBTest.class);
+	protected final static Logger logger = LogManager.getLogger(ErrorQueueMDBTest.class);
 	
 	@Resource //(name = "connectionFactory")
     private ConnectionFactory connectionFactory;

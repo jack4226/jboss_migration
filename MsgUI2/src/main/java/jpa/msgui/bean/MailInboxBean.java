@@ -30,13 +30,14 @@ import jpa.service.msgin.MailInboxService;
 import jpa.util.SenderUtil;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @ManagedBean(name="mailInbox")
 @javax.faces.bean.ViewScoped
 public class MailInboxBean implements java.io.Serializable {
 	private static final long serialVersionUID = 2069189605831996367L;
-	static final Logger logger = Logger.getLogger(MailInboxBean.class);
+	static final Logger logger = LogManager.getLogger(MailInboxBean.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	static final boolean isInfoEnabled = logger.isInfoEnabled();
 

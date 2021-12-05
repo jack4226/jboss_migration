@@ -25,7 +25,8 @@ import jpa.service.rule.RuleDataTypeService;
 import jpa.service.task.TaskBaseBo;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -33,7 +34,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 @javax.faces.bean.ViewScoped
 public class RuleActionDetailBean implements java.io.Serializable {
 	private static final long serialVersionUID = -1479694457663800603L;
-	static final Logger logger = Logger.getLogger(RuleActionDetailBean.class);
+	static final Logger logger = LogManager.getLogger(RuleActionDetailBean.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	static final boolean isInfoEnabled = logger.isInfoEnabled();
 

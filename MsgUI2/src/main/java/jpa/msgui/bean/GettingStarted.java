@@ -8,13 +8,14 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @ManagedBean(name="gettingStarted")
 @javax.faces.bean.SessionScoped
 public class GettingStarted implements java.io.Serializable {
 	private static final long serialVersionUID = -7733276722871469541L;
-	static final Logger logger = Logger.getLogger(GettingStarted.class);
+	static final Logger logger = LogManager.getLogger(GettingStarted.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	
 	@ManagedProperty(value="gettingStartedHeaderText")

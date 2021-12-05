@@ -23,7 +23,8 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.cxf.jaxrs.client.WebClient;
 import org.apache.cxf.jaxrs.ext.multipart.Attachment;
 import org.apache.johnzon.jaxrs.JohnzonProvider;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.openejb.jee.SingletonBean;
 import org.apache.openejb.junit.ApplicationComposer;
 import org.apache.openejb.testing.EnableServices;
@@ -42,7 +43,7 @@ import jpa.util.PrintUtil;
 @EnableServices(value = "jaxrs")
 @RunWith(ApplicationComposer.class)
 public class MailingListRestTest {
-	static final Logger logger = Logger.getLogger(MailingListRestTest.class);
+	static final Logger logger = LogManager.getLogger(MailingListRestTest.class);
 	
 	@Module
 	public SingletonBean app() {

@@ -8,7 +8,8 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,7 +23,7 @@ import jpa.service.msgout.SmtpWrapperUtil;
 import jpa.spring.util.SpringUtil;
 
 public class PoolJUnitTest {
-	static final Logger logger = Logger.getLogger(PoolJUnitTest.class);
+	static final Logger logger = LogManager.getLogger(PoolJUnitTest.class);
 	static int init_count = 0;
 
 	final static String LF = System.getProperty("line.separator", "\n");

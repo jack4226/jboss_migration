@@ -2,7 +2,8 @@ package jpa.service.msgdata;
 
 import java.util.Optional;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -16,7 +17,7 @@ import jpa.repository.msg.MessageRenderedRepository;
 public class MessageRenderedService implements java.io.Serializable {
 	private static final long serialVersionUID = -1300601306632111600L;
 
-	static Logger logger = Logger.getLogger(MessageRenderedService.class);
+	static Logger logger = LogManager.getLogger(MessageRenderedService.class);
 	
 	@Autowired
 	MessageRenderedRepository repository;

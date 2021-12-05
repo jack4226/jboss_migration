@@ -5,7 +5,8 @@ import static org.junit.Assert.assertTrue;
 
 import javax.mail.MessagingException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import jpa.spring.util.BoTestBase;
 import jpa.util.TestUtil;
 
 public class BodyPartUtilTest extends BoTestBase {
-	static final Logger logger = Logger.getLogger(BodyPartUtilTest.class);
+	static final Logger logger = LogManager.getLogger(BodyPartUtilTest.class);
 	static final String LF = System.getProperty("line.separator", "\n");
 	
 	@BeforeClass

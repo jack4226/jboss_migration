@@ -3,7 +3,8 @@ package jpa.message.util;
 import java.math.BigInteger;
 import java.util.Random;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /*
  * 	See the theoretical basis at:
@@ -11,7 +12,7 @@ import org.apache.log4j.Logger;
  */
 
 public final class MsgIdCipher {
-	static final Logger logger = Logger.getLogger(MsgIdCipher.class);
+	static final Logger logger = LogManager.getLogger(MsgIdCipher.class);
 	// Values from original author's web page.
 	// See URL in above comments.
 	static final BigInteger p = new BigInteger("47");

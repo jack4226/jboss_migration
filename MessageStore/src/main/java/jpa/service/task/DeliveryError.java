@@ -3,7 +3,8 @@ package jpa.service.task;
 import java.sql.Timestamp;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
@@ -28,7 +29,7 @@ import jpa.util.PrintUtil;
 @Transactional(propagation=Propagation.REQUIRED)
 public class DeliveryError extends TaskBaseAdapter {
 	private static final long serialVersionUID = -4372604755210330099L;
-	static final Logger logger = Logger.getLogger(DeliveryError.class);
+	static final Logger logger = LogManager.getLogger(DeliveryError.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	
 	@Autowired

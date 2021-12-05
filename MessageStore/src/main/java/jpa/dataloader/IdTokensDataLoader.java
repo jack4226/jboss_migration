@@ -11,10 +11,11 @@ import jpa.service.common.IdTokensService;
 import jpa.service.common.SenderDataService;
 import jpa.spring.util.SpringUtil;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class IdTokensDataLoader extends AbstractDataLoader {
-	static final Logger logger = Logger.getLogger(IdTokensDataLoader.class);
+	static final Logger logger = LogManager.getLogger(IdTokensDataLoader.class);
 	private IdTokensService itService;
 	private SenderDataService senderService;
 

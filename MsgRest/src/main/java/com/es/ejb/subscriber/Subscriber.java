@@ -33,7 +33,8 @@ import jpa.util.PrintUtil;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.es.ejb.emailaddr.EmailAddrLocal;
 import com.es.ejb.senderdata.SenderDataLocal;
@@ -56,7 +57,7 @@ import jpa.tomee.util.TomeeCtxUtil;
 @WebService (portName = "Subscriber", serviceName = "SubscriberService", targetNamespace = "http://com.es.ws.subscriber/wsdl")
 @SOAPBinding(style = SOAPBinding.Style.DOCUMENT)
 public class Subscriber implements SubscriberRemote, SubscriberLocal, SubscriberWs {
-	protected static final Logger logger = Logger.getLogger(Subscriber.class);
+	protected static final Logger logger = LogManager.getLogger(Subscriber.class);
 	@Resource
 	SessionContext context;
 	

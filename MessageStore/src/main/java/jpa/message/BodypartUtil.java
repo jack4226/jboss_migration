@@ -7,17 +7,18 @@ import java.util.List;
 
 import javax.mail.Part;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * provide utility methods to retrieve attachments from BodypartBean
  */
 public final class BodypartUtil implements Serializable {
 	private static final long serialVersionUID = -8920127339846912514L;
-	static final Logger logger = Logger.getLogger(BodypartUtil.class);
+	static final Logger logger = LogManager.getLogger(BodypartUtil.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 
-	static Logger rfcLogger = Logger.getLogger("jpa.message.report.rfc");
+	static Logger rfcLogger = LogManager.getLogger("jpa.message.report.rfc");
 	static boolean isRfcReportEnabled = rfcLogger.isInfoEnabled();
 
 	final static String LF = System.getProperty("line.separator", "\n");

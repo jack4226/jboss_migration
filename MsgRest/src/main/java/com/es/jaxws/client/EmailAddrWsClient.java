@@ -7,7 +7,8 @@ import java.net.URL;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.es.ejb.emailaddr.EmailAddrWs;
 import com.es.ejb.ws.vo.EmailAddrVo;
@@ -16,7 +17,7 @@ import jpa.tomee.util.TomeeCtxUtil;
 import jpa.util.PrintUtil;
 
 public class EmailAddrWsClient {
-	protected final static Logger logger = Logger.getLogger(EmailAddrWsClient.class);
+	protected final static Logger logger = LogManager.getLogger(EmailAddrWsClient.class);
 	
 	public static void main(String[] args) {
 		testEmailAddrWs();

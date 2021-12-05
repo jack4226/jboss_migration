@@ -13,7 +13,8 @@ import java.util.regex.Pattern;
 import jpa.constant.VariableType;
 import jpa.exception.TemplateException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * A template is a text string with variables identified by ${ and } tokens.<br>
@@ -22,7 +23,7 @@ import org.apache.log4j.Logger;
  */
 public final class Renderer implements java.io.Serializable {
 	private static final long serialVersionUID = -1670472296238983560L;
-	static final Logger logger = Logger.getLogger(Renderer.class);
+	static final Logger logger = LogManager.getLogger(Renderer.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	
 	final static String OpenDelimiter="${";

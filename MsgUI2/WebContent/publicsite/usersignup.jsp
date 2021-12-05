@@ -36,7 +36,7 @@
 <%@page import="jpa.model.SubscriberData"%>
 <%@page import="javax.faces.model.SelectItem"%>
 <%
-	Logger logger = Logger.getLogger("jpa.service.jsp");
+	Logger logger = LogManager.getLogger("jpa.service.jsp");
 	//String serverInfo = application.getServerInfo();
 	ServletContext ctx = application;
 	String errorMsg = "";

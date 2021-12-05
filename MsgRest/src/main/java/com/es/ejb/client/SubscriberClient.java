@@ -9,13 +9,14 @@ import javax.naming.NamingException;
 import jpa.model.SubscriberData;
 import jpa.util.PrintUtil;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.es.ejb.subscriber.SubscriberRemote;
 import jpa.tomee.util.TomeeCtxUtil;
 
 public class SubscriberClient {
-	static Logger logger = Logger.getLogger(SubscriberClient.class);
+	static Logger logger = LogManager.getLogger(SubscriberClient.class);
 	
 	public static void main(String[] args) {
 		try {

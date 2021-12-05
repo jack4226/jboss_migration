@@ -19,14 +19,15 @@ import jpa.service.maillist.BroadcastMessageService;
 import jpa.service.maillist.BroadcastTrackingService;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.data.domain.Page;
 
 @ManagedBean(name="broadcastMsg")
 @javax.faces.bean.ViewScoped
 public class BroadcastMsgBean extends PaginationBean implements java.io.Serializable {
 	private static final long serialVersionUID = -5557435572452796392L;
-	static final Logger logger = Logger.getLogger(BroadcastMsgBean.class);
+	static final Logger logger = LogManager.getLogger(BroadcastMsgBean.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	
 	private transient BroadcastMessageService broadcastMsgDao = null;

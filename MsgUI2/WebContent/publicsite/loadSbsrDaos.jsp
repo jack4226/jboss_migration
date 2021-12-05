@@ -12,7 +12,8 @@
 <%@page import="jpa.service.maillist.RenderBo"%>
 <%@page import="jpa.constant.*"%>
 <%@page import="jpa.variable.*"%>
-<%@page import="org.apache.log4j.Logger" %>
+<%@page import="org.apache.logging.log4j.LogManager" %>
+<%@page import="org.apache.logging.log4j.Logger" %>
 <%@page import="java.util.*" %>
 <%@page import="org.apache.commons.lang3.StringUtils"%>
 
@@ -114,7 +115,7 @@
 	}
 	
 	String renderURLVariable(ServletContext ctx, String emailVariableName, String sbsrId, String listId, String msgId) {
-		Logger logger = Logger.getLogger("jpa.service.jsp");
+		Logger logger = LogManager.getLogger("jpa.service.jsp");
 		String renderedValue = "";
 		EmailVariable vo = getEmailVariableService(ctx).getByVariableName(emailVariableName);
 		HashMap<String, RenderVariableVo> vars = new HashMap<String, RenderVariableVo>();

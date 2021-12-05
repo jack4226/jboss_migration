@@ -47,13 +47,14 @@ import jpa.service.rule.RuleSubruleMapService;
 import jpa.util.BlobUtil;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @ManagedBean(name="ruleLogic")
 @javax.faces.bean.ViewScoped
 public class RuleLogicBean implements java.io.Serializable {
 	private static final long serialVersionUID = 4143310214559095471L;
-	protected static final Logger logger = Logger.getLogger(RuleLogicBean.class);
+	protected static final Logger logger = LogManager.getLogger(RuleLogicBean.class);
 	protected static final boolean isDebugEnabled = logger.isDebugEnabled();
 
 	protected transient RuleLogicService ruleLogicDao = null;

@@ -13,7 +13,8 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,7 @@ import jpa.spring.util.SpringTaskConfig;
 @ContextConfiguration(classes={SpringAppConfig.class, SpringJmsConfig.class, SpringTaskConfig.class})
 @FixMethodOrder
 public class MailReaderTest extends BoTestBase {
-	static final Logger logger = Logger.getLogger(MailReaderTest.class);
+	static final Logger logger = LogManager.getLogger(MailReaderTest.class);
 	@Autowired
 	private SimpleEmailSender mSend;
 	@Autowired

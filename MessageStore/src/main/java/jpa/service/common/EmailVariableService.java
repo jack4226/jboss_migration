@@ -15,7 +15,8 @@ import jpa.repository.EmailVariableRepository;
 import jpa.util.JpaUtil;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Isolation;
@@ -27,7 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class EmailVariableService implements java.io.Serializable {
 	private static final long serialVersionUID = 2189513886746930320L;
 
-	static Logger logger = Logger.getLogger(EmailVariableService.class);
+	static Logger logger = LogManager.getLogger(EmailVariableService.class);
 	
 	@Autowired
 	EntityManager em;

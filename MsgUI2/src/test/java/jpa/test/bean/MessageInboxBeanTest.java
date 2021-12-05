@@ -13,7 +13,8 @@ import java.util.Set;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -44,7 +45,7 @@ import jpa.service.rule.RuleLogicService;
 import jpa.util.PrintUtil;
 
 public class MessageInboxBeanTest {
-	static final Logger logger = Logger.getLogger(MessageInboxBeanTest.class);
+	static final Logger logger = LogManager.getLogger(MessageInboxBeanTest.class);
 	
 	static AbstractApplicationContext applContext = null;
 	

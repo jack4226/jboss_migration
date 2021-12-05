@@ -11,10 +11,11 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.cxf.io.CachedOutputStream;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class JaxrsUtil {
-	final static Logger logger = Logger.getLogger(JaxrsUtil.class);
+	final static Logger logger = LogManager.getLogger(JaxrsUtil.class);
 	
 	// TODO - the method returns blank when called from unit test with binary pay load
 	public static byte[] getBytesFromDataHandler(DataHandler dh) throws IOException {

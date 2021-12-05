@@ -16,7 +16,8 @@ import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
@@ -39,7 +40,7 @@ import jpa.service.maillist.MailingListService;
 public class SubscriptionService implements java.io.Serializable {
 	private static final long serialVersionUID = 2020862404406193032L;
 
-	static Logger logger = Logger.getLogger(SubscriptionService.class);
+	static Logger logger = LogManager.getLogger(SubscriptionService.class);
 	
 	@Autowired
 	EntityManager em;

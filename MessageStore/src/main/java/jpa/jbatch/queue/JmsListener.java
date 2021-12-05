@@ -9,7 +9,8 @@ import javax.jms.MessageFormatException;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.JmsException;
 import org.springframework.jms.listener.DefaultMessageListenerContainer;
@@ -20,7 +21,7 @@ import jpa.spring.util.SpringUtil;
  * Implements spring MessageListener
  */
 public class JmsListener implements MessageListener {
-	static final Logger logger = Logger.getLogger(JmsListener.class);
+	static final Logger logger = LogManager.getLogger(JmsListener.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	
 	@Autowired

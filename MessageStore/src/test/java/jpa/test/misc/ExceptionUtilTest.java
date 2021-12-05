@@ -5,7 +5,8 @@ import static org.junit.Assert.*;
 import java.io.IOException;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
 import jpa.exception.DataValidationException;
@@ -13,7 +14,7 @@ import jpa.util.DB2DateUtil;
 import jpa.util.ExceptionUtil;
 
 public class ExceptionUtilTest {
-	static final Logger logger = Logger.getLogger(ExceptionUtilTest.class);
+	static final Logger logger = LogManager.getLogger(ExceptionUtilTest.class);
 
 	@Test
 	public void testExceptions() {

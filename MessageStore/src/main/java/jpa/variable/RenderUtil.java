@@ -6,10 +6,11 @@ import java.util.List;
 import jpa.constant.VariableName;
 import jpa.exception.DataValidationException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public final class RenderUtil {
-	static final Logger logger = Logger.getLogger(RenderUtil.class);
+	static final Logger logger = LogManager.getLogger(RenderUtil.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	static final String LF = System.getProperty("line.separator", "\n");
 	

@@ -2,7 +2,8 @@ package jpa.service.common;
 
 import javax.persistence.EntityManager;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -13,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class EntityManagerService implements java.io.Serializable {
 	private static final long serialVersionUID = -2718125813478203516L;
 
-	static Logger logger = Logger.getLogger(EntityManagerService.class);
+	static Logger logger = LogManager.getLogger(EntityManagerService.class);
 	
 	@Autowired
 	EntityManager em;

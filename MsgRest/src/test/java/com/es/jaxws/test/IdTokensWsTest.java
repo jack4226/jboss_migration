@@ -17,7 +17,8 @@ import jpa.util.ExceptionUtil;
 import jpa.util.PrintUtil;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.openejb.OpenEjbContainer;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -28,7 +29,7 @@ import com.es.ejb.ws.vo.IdTokensVo;
 
 public class IdTokensWsTest {
 
-	protected final static Logger logger = Logger.getLogger(IdTokensWsTest.class);
+	protected final static Logger logger = LogManager.getLogger(IdTokensWsTest.class);
 	
 	private static EJBContainer ejbContainer;
 	

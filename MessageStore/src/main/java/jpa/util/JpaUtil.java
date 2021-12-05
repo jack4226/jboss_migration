@@ -13,7 +13,8 @@ import javax.persistence.Query;
 import javax.sql.DataSource;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.eclipse.persistence.config.HintValues;
 import org.eclipse.persistence.config.QueryHints;
 import org.springframework.orm.jpa.EntityManagerFactoryUtils;
@@ -26,7 +27,7 @@ import jpa.constant.Constants;
 import jpa.spring.util.SpringUtil;
 
 public class JpaUtil {
-	static final Logger logger = Logger.getLogger(JpaUtil.class);
+	static final Logger logger = LogManager.getLogger(JpaUtil.class);
 	static boolean isDebugEnabled = logger.isDebugEnabled();
 
 	private static EntityManagerFactory emf;

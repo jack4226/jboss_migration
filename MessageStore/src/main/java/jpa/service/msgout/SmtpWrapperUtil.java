@@ -3,7 +3,8 @@ package jpa.service.msgout;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import jpa.model.SmtpServer;
 import jpa.spring.util.SpringUtil;
@@ -11,7 +12,7 @@ import jpa.spring.util.SpringUtil;
 public class SmtpWrapperUtil implements java.io.Serializable {
 	private static final long serialVersionUID = -5036775609137065316L;
 
-	static final Logger logger = Logger.getLogger(SmtpWrapperUtil.class);
+	static final Logger logger = LogManager.getLogger(SmtpWrapperUtil.class);
 	
 	private static SmtpServerService smtpServerDao = null;
 	private static java.util.Date lastGetTime = new java.util.Date();

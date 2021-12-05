@@ -14,7 +14,8 @@ import javax.naming.NamingException;
 
 import jpa.model.SenderData;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.openejb.OpenEjbContainer;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -23,7 +24,7 @@ import org.junit.Test;
 import com.es.ejb.senderdata.SenderDataLocal;
 
 public class SenderDataTest {
-	protected final static Logger logger = Logger.getLogger(SenderDataTest.class);
+	protected final static Logger logger = LogManager.getLogger(SenderDataTest.class);
 	
 	private static EJBContainer ejbContainer;
 	

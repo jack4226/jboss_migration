@@ -61,7 +61,7 @@ String getSbsrAddrIdFromCookie(HttpServletRequest request) {
 }
 %>
 <%
-	Logger logger = Logger.getLogger("jpa.msgui.publicsite.jsp");
+	Logger logger = LogManager.getLogger("jpa.msgui.publicsite.jsp");
 	//String serverInfo = application.getServerInfo();
 	ServletContext ctx = application;
 	String errorMsg = "";

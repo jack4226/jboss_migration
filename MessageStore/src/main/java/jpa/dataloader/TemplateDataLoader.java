@@ -23,10 +23,11 @@ import jpa.service.msgdata.TemplateVariableService;
 import jpa.spring.util.SpringUtil;
 import jpa.util.JpaUtil;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class TemplateDataLoader extends AbstractDataLoader {
-	static final Logger logger = Logger.getLogger(TemplateDataLoader.class);
+	static final Logger logger = LogManager.getLogger(TemplateDataLoader.class);
 	private SenderDataService senderService;
 	private TemplateDataService templateService;
 	private TemplateVariableService variableService;

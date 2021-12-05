@@ -2,10 +2,11 @@ package jpa.util;
 
 import java.net.UnknownHostException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class HostUtil {
-	static final Logger logger = Logger.getLogger(HostUtil.class);
+	static final Logger logger = LogManager.getLogger(HostUtil.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 
 	/** host IP address and host name */

@@ -2,13 +2,14 @@ package com.es.tomee.spring;
 
 import javax.servlet.ServletContextEvent;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.web.context.ContextCleanupListener;
 import org.springframework.web.context.WebApplicationContext;
 
 public class SpringWebAppCleanupListener extends ContextCleanupListener {
-	static final Logger logger = Logger.getLogger(SpringWebAppCleanupListener.class);
+	static final Logger logger = LogManager.getLogger(SpringWebAppCleanupListener.class);
 
 	@Override
     public void contextDestroyed(ServletContextEvent event) {

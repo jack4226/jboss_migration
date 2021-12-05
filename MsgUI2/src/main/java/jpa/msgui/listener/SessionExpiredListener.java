@@ -12,7 +12,8 @@ import jpa.msgui.util.SpringUtil;
 import jpa.service.common.SessionUploadService;
 import jpa.service.common.UserDataService;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * When a user session times out, the sessionDestroyed() method will be invoked.
@@ -22,7 +23,7 @@ import org.apache.log4j.Logger;
  */
 @WebListener
 public class SessionExpiredListener implements HttpSessionListener {
-	static final Logger logger = Logger.getLogger(SessionExpiredListener.class);
+	static final Logger logger = LogManager.getLogger(SessionExpiredListener.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 
 	public SessionExpiredListener() {

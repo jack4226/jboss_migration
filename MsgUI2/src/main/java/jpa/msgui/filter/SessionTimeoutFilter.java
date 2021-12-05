@@ -17,14 +17,15 @@ import jpa.constant.Constants;
 import jpa.model.UserData;
 import jpa.util.StringUtil;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * The Session Timeout filter.
  */
 @WebFilter(filterName="SessionTimeoutFilter", urlPatterns="/*")
 public class SessionTimeoutFilter implements Filter {
-	static final Logger logger = Logger.getLogger(SessionTimeoutFilter.class);
+	static final Logger logger = LogManager.getLogger(SessionTimeoutFilter.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	private String timeoutPage = "/login.xhtml";
 	private String loginPage = "/login.xhtml";

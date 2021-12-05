@@ -14,14 +14,15 @@ import jpa.service.common.SenderDataService;
 import jpa.spring.util.SpringUtil;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * search the input string for possible embedded message id.
  */
 public final class EmailIdParser implements Serializable {
 	private static final long serialVersionUID = 8659745554700580366L;
-	static final Logger logger = Logger.getLogger(EmailIdParser.class);
+	static final Logger logger = LogManager.getLogger(EmailIdParser.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	
 	private final IdTokens id_tokens;

@@ -2,7 +2,8 @@ package jpa.test.misc;
 
 import static org.junit.Assert.*;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
 import jpa.data.preload.FolderEnum;
@@ -12,7 +13,7 @@ import jpa.msgui.vo.SearchFieldsVo;
 import jpa.util.PrintUtil;
 
 public class SearchFieldsVoTest {
-	static final Logger logger = Logger.getLogger(SearchFieldsVoTest.class);
+	static final Logger logger = LogManager.getLogger(SearchFieldsVoTest.class);
 
 	@Test
 	public void testSearchVo() {

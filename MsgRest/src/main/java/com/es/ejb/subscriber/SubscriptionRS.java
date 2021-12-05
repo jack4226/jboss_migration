@@ -37,7 +37,8 @@ import jpa.util.PrintUtil;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.cxf.jaxrs.impl.ResponseBuilderImpl;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.es.ejb.ws.vo.SubscriptionVo;
 import com.es.jaxrs.common.ErrorResponse;
@@ -47,7 +48,7 @@ import jpa.tomee.util.TomeeCtxUtil;
 @Path("/msgapi/subscription")
 @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 public class SubscriptionRS {
-	static final Logger logger = Logger.getLogger(SubscriptionRS.class);
+	static final Logger logger = LogManager.getLogger(SubscriptionRS.class);
 
 	@javax.ejb.EJB
 	private SubscriberLocal subscriber;

@@ -1,6 +1,7 @@
 package jpa.service.task;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -18,7 +19,7 @@ import jpa.service.msgin.MessageInboxBo;
 @Transactional(propagation=Propagation.REQUIRED)
 public class SaveMessage extends TaskBaseAdapter {
 	private static final long serialVersionUID = -5524706653539538026L;
-	static final Logger logger = Logger.getLogger(SaveMessage.class);
+	static final Logger logger = LogManager.getLogger(SaveMessage.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	
 	@Autowired

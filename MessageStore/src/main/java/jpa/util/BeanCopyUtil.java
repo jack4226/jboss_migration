@@ -9,13 +9,14 @@ import org.apache.commons.beanutils.converters.DateConverter;
 import org.apache.commons.beanutils.converters.SqlDateConverter;
 import org.apache.commons.beanutils.converters.SqlTimeConverter;
 import org.apache.commons.beanutils.converters.SqlTimestampConverter;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import jpa.model.BaseModel;
 import jpa.model.SenderData;
 
 public class BeanCopyUtil {
-	static final Logger logger = Logger.getLogger(BeanCopyUtil.class);
+	static final Logger logger = LogManager.getLogger(BeanCopyUtil.class);
 	
 	private static DateConverter dateConverter = new DateConverter(null);
 	private static SqlTimestampConverter timestampConverter = new SqlTimestampConverter(null);

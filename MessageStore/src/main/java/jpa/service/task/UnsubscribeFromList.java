@@ -3,7 +3,8 @@ package jpa.service.task;
 import javax.mail.Address;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -23,7 +24,7 @@ import jpa.service.maillist.MailingListService;
 @Transactional(propagation=Propagation.REQUIRED)
 public class UnsubscribeFromList extends TaskBaseAdapter {
 	private static final long serialVersionUID = -1655630086836497324L;
-	static final Logger logger = Logger.getLogger(UnsubscribeFromList.class);
+	static final Logger logger = LogManager.getLogger(UnsubscribeFromList.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	
 	@Autowired

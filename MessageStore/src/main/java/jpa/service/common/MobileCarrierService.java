@@ -3,7 +3,8 @@ package jpa.service.common;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -17,7 +18,7 @@ import jpa.repository.MobileCarrierRepository;
 public class MobileCarrierService implements java.io.Serializable {
 	private static final long serialVersionUID = -2043525245286817626L;
 
-	static Logger logger = Logger.getLogger(MobileCarrierService.class);
+	static Logger logger = LogManager.getLogger(MobileCarrierService.class);
 	
 	@Autowired
 	MobileCarrierRepository repository;

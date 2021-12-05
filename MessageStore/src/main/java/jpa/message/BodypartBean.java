@@ -19,7 +19,8 @@ import javax.mail.MessagingException;
 import javax.mail.Part;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Represents a message body part structure.
@@ -31,7 +32,7 @@ import org.apache.log4j.Logger;
  */
 public class BodypartBean implements Serializable {
 	private static final long serialVersionUID = -6689047851876614015L;
-	static final Logger logger = Logger.getLogger(BodypartBean.class);
+	static final Logger logger = LogManager.getLogger(BodypartBean.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 
 	protected static final String DEFAULT_CONTENT_TYPE =  "text/plain";

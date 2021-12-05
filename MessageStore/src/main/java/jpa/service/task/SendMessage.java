@@ -15,14 +15,15 @@ import jpa.service.common.EmailAddressService;
 import jpa.service.msgout.MailSenderBo;
 import jpa.service.msgout.SmtpException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component("sendMessage")
 public class SendMessage extends TaskBaseAdapter {
 	private static final long serialVersionUID = 8844968654130851177L;
-	static final Logger logger = Logger.getLogger(SendMessage.class);
+	static final Logger logger = LogManager.getLogger(SendMessage.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	
 	@Autowired

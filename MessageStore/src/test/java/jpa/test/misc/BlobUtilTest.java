@@ -5,13 +5,14 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Calendar;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
 import jpa.util.BlobUtil;
 
 public class BlobUtilTest {
-	static final Logger logger = Logger.getLogger(BlobUtilTest.class);
+	static final Logger logger = LogManager.getLogger(BlobUtilTest.class);
 	
 	@Test
 	public void testBlobUtil() {

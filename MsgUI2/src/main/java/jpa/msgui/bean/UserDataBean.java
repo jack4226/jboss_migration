@@ -27,13 +27,14 @@ import jpa.service.common.UserDataService;
 import jpa.util.EmailAddrUtil;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @ManagedBean(name="userData")
 @javax.faces.bean.ViewScoped
 public class UserDataBean implements java.io.Serializable {
 	private static final long serialVersionUID = 2276036390316734499L;
-	static final Logger logger = Logger.getLogger(UserDataBean.class);
+	static final Logger logger = LogManager.getLogger(UserDataBean.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 
 	private transient UserDataService userDao = null;

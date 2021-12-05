@@ -4,7 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -18,7 +19,7 @@ import jpa.repository.UserDataRepository;
 public class UserDataService implements Serializable {
 	private static final long serialVersionUID = 6193420138194185032L;
 
-	static Logger logger = Logger.getLogger(UserDataService.class);
+	static Logger logger = LogManager.getLogger(UserDataService.class);
 	
 	@Autowired
 	UserDataRepository repository;

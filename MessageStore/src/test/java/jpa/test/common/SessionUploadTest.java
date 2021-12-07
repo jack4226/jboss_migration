@@ -2,7 +2,6 @@ package jpa.test.common;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -87,7 +86,7 @@ public class SessionUploadTest extends BoTestBase {
 		
 		// test select with No Result
 		service.delete(tkn5.get());
-		assertNull(service.getByRowId(tkn5.get().getRowId()));
+		assertTrue(service.getByRowId(tkn5.get().getRowId()).isEmpty());
 		
 		assertTrue(0==service.deleteByPrimaryKey(tkn5.get().getSessionUploadPK()));
 		assertTrue(0==service.deleteByRowId(tkn5.get().getRowId()));

@@ -53,11 +53,12 @@ public class TestRunner {
 		for (File file : files) {
 			String path = file.getPath();
 			String pkgPath = StringUtils.removeStart(path, homeDir);
-			String clsName = pkgPath.replace("\\", ".");
+			String clsName = pkgPath.replace("\\", ".").replace("/", ".");
 			try {
 				clsName = StringUtils.removeEnd(clsName,".class");
 				Class<?> testCls = loader.loadClass(clsName);
-				if (clsName.startsWith(pkgName) && testCls.getDeclaredAnnotations().length>=4) {
+				int annotations = testCls.getDeclaredAnnotations().length;
+				if (clsName.startsWith(pkgName) && annotations>=0) {
 					if (clsName.contains("bo.test")) {
 						continue;
 					}

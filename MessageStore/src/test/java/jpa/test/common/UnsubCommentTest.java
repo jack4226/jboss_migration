@@ -90,7 +90,7 @@ public class UnsubCommentTest extends BoTestBase {
 		UnsubComment rcd4 = new UnsubComment();
 		BeanCopyUtil.registerBeanUtilsConverters();
 		try {
-			BeanUtils.copyProperties(rcd4, rcd3);
+			BeanUtils.copyProperties(rcd4, rcd3.get());
 		}
 		catch (Exception e) {
 			e.printStackTrace();

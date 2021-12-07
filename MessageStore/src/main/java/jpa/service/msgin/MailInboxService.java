@@ -58,11 +58,11 @@ public class MailInboxService implements java.io.Serializable {
 	}
 	
 	public List<MailInbox> getAll(boolean onlyActive) {
-		String sql = "select t from MailInbox t";
+		String sql = "select t FROM MailInbox t";
 		if (onlyActive) {
 			sql += " where t.statusId=:statusId ";
 		}
-		sql += " order by rowId ";
+		sql += " order by t.rowId ";
 		try {
 			Query query = em.createQuery(sql);
 			if (onlyActive) {

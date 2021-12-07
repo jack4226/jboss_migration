@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Configuration>
+
+	<Appenders>
+		<File name="FILE" fileName="./logs/jpa_test.log" append="false">
+			<PatternLayout pattern="[%d] %t [%p,%c:%L] %m%n" />
+		</File>
+		<RollingFile name="rollingFile" fileName="./logs/jpatest.log" filePattern="./logs/jpatest.%i.log" ignoreExceptions="false">
+			<PatternLayout>
+				<Pattern>[%d] %t [%p,%c:%L] %m%n</Pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="32MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="3" />
+		</RollingFile>
+		<Console name="CONSOLE" target="SYSTEM_OUT">
+			<PatternLayout pattern="[%d] %t [%p,%c:%L] %m%n" />
+		</Console>
+	</Appenders>
+
+	<Loggers>
+		<Root level="debug">
+			<AppenderRef ref="CONSOLE" />
+			<AppenderRef ref="rollingFile" />
+		</Root>
+		<Logger name="jpa" level="debug">
+			<AppenderRef ref="FILE" />
+		</Logger>
+		<Logger name="org.hibernate.internal" level="info">
+			<AppenderRef ref="FILE" />
+		</Logger>
+		<Logger name="org.hibernate.engine.internal" level="info">
+			<AppenderRef ref="FILE" />
+		</Logger>
+		<Logger name="org.hibernate.id" level="info">
+			<AppenderRef ref="FILE" />
+		</Logger>
+		<Logger name="org.hibernate.SQL" level="debug">
+			<AppenderRef ref="FILE" />
+		</Logger>
+		<Logger name="org.hibernate.type" level="trace">
+			<AppenderRef ref="FILE" />
+		</Logger>
+		<Logger name="org.hibernate.ejb" level="info">
+			<AppenderRef ref="FILE" />
+		</Logger>
+		<Logger name="org.hibernate.cfg" level="info">
+			<AppenderRef ref="FILE" />
+		</Logger>
+		<Logger name="org.hibernate.persister" level="info">
+			<AppenderRef ref="FILE" />
+		</Logger>
+		<Logger name="org.hibernate.loader" level="info">
+			<AppenderRef ref="FILE" />
+		</Logger>
+		<Logger name="org.hibernate.stat" level="debug">
+			<AppenderRef ref="FILE" />
+		</Logger>
+		<Logger name="org.hibernate" level="info">
+			<AppenderRef ref="FILE" />
+		</Logger>
+
+		<logger name="org.springframework" level="info" />
+		<logger name="org.springframework.orm.jpa" level="debug" />
+		<logger name="org.apache" level="info" />
+		<logger name="org.hibernate.engine" level="info" />
+	</Loggers>
+
+</Configuration>

@@ -60,7 +60,7 @@ public class MobileCarrierTest extends BoTestBase {
 		// test insert
 		MobileCarrier tkn2 = new MobileCarrier();
 		try {
-			BeanUtils.copyProperties(tkn2, tkn1);
+			BeanUtils.copyProperties(tkn2, tkn1.get());
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);

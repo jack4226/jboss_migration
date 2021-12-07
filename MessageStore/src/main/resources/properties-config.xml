@@ -12,5 +12,5 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
   <context:property-placeholder ignore-resource-not-found="false" 
-  	location="classpath:/META-INF/spring-jms.properties, classpath:/META-INF/msgstore.${dbtype:psql}.properties"/>
+  	location="classpath:/META-INF/spring-jms.properties, classpath:/META-INF/msgstore.${dbtype:derby}.properties"/>
 </beans>

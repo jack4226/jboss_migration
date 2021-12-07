@@ -5,6 +5,7 @@ import java.lang.reflect.Modifier;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import org.apache.commons.lang3.RegExUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -47,7 +48,7 @@ public final class StringUtil {
 	 * @return string with quotes removed, or null if input is null
 	 */
 	public static String removeQuotes(String data) {
-		return StringUtils.removeAll(data, "[\'\"]+");
+		return RegExUtils.removeAll(data, "[\'\"]+");
 	}
 
 	/**
@@ -162,7 +163,7 @@ public final class StringUtil {
 	 * @return new body
 	 */
 	public static String removeStringFirst(String body, String removeStr) {
-		return StringUtils.removeFirst(body, removeStr); //removeString(body, removeStr, false);
+		return RegExUtils.removeFirst(body, removeStr); //removeString(body, removeStr, false);
 	}
 
 	/**

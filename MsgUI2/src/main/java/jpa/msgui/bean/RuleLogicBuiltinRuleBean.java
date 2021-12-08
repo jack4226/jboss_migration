@@ -2,7 +2,6 @@ package jpa.msgui.bean;
 
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
@@ -12,8 +11,8 @@ import jpa.msgui.util.FacesUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@ManagedBean(name="builtinRule")
-@javax.faces.bean.ViewScoped
+@javax.inject.Named("builtinRule")
+@javax.enterprise.context.SessionScoped
 public class RuleLogicBuiltinRuleBean extends RuleLogicBean {
 	private static final long serialVersionUID = -498930141487046944L;
 	protected static final Logger logger = LogManager.getLogger(RuleLogicBuiltinRuleBean.class);

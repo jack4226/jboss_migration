@@ -12,7 +12,6 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.UISelectOne;
@@ -50,8 +49,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@ManagedBean(name="ruleLogic")
-@javax.faces.bean.ViewScoped
+@javax.inject.Named("ruleLogic")
+@javax.enterprise.context.SessionScoped
 public class RuleLogicBean implements java.io.Serializable {
 	private static final long serialVersionUID = 4143310214559095471L;
 	protected static final Logger logger = LogManager.getLogger(RuleLogicBean.class);

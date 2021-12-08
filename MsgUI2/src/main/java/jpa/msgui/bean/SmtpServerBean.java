@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Properties;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
@@ -33,8 +32,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@ManagedBean(name="smtpServer")
-@javax.faces.bean.ViewScoped
+@javax.inject.Named("smtpServer")
+@javax.enterprise.context.SessionScoped
 public class SmtpServerBean implements java.io.Serializable {
 	private static final long serialVersionUID = -2610108607170535587L;
 	static final Logger logger = LogManager.getLogger(SmtpServerBean.class);

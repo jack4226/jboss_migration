@@ -13,7 +13,7 @@ import jpa.model.EmailAddress;
 import jpa.util.PrintUtil;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang3.text.WordUtils;
+import org.apache.commons.text.WordUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

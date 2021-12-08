@@ -2,8 +2,6 @@ package jpa.msgui.bean;
 
 import java.io.ObjectStreamException;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
 /*
@@ -14,8 +12,8 @@ import javax.faces.context.FacesContext;
  * An application scoped utility bean can be used to overcome this problem:
  */
 
-@ManagedBean(name="facesBroker")
-@ApplicationScoped
+@javax.inject.Named("facesBroker")
+@javax.enterprise.context.ApplicationScoped
 public class FacesBroker implements java.io.Serializable {
 	private static final long serialVersionUID = -6798783685568558029L;
 	

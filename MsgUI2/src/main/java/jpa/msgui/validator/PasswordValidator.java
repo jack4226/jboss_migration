@@ -11,7 +11,7 @@ import javax.faces.validator.ValidatorException;
 import org.apache.commons.lang3.StringUtils;
 
 @FacesValidator("passwordValidator")
-public class PasswordValidator implements Validator, java.io.Serializable {
+public class PasswordValidator implements Validator<Object>, java.io.Serializable {
 	private static final long serialVersionUID = 1491495991826601838L;
 
 	@Override

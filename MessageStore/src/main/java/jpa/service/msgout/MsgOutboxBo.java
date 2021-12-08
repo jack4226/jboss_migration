@@ -356,7 +356,7 @@ public class MsgOutboxBo implements java.io.Serializable {
 	 */
 	public RenderRequest getRenderRequestByPK(int renderId) throws DataValidationException {
 		Optional<MessageRendered> msgRenderedVo = msgRenderedDao.getByPrimaryKey(renderId);
-		if (msgRenderedVo.isEmpty()) {
+		if (!msgRenderedVo.isPresent()) {
 			throw new DataValidationException("MsgRendered record not found for renderId: "
 					+ renderId);
 		}

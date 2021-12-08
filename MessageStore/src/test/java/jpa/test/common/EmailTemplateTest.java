@@ -111,7 +111,7 @@ public class EmailTemplateTest extends BoTestBase {
 		
 		service.delete(var6);
 		Optional<EmailTemplate> deleted3 = service.getByRowId(var6.getRowId());
-		assertTrue(deleted3.isEmpty());
+		assertTrue(!deleted3.isPresent());
 	}
 	
 	private EmailTemplate createNewInstance(EmailTemplate orig) {

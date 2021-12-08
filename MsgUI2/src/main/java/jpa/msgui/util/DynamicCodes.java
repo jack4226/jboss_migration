@@ -3,8 +3,6 @@ package jpa.msgui.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
 
 import jpa.constant.Constants;
@@ -26,8 +24,8 @@ import jpa.service.rule.RuleLogicService;
 
 import org.springframework.web.context.WebApplicationContext;
 
-@ManagedBean(name="dynacodes")
-@ApplicationScoped
+@javax.inject.Named("dynacodes")
+@javax.enterprise.context.ApplicationScoped
 public class DynamicCodes implements java.io.Serializable {
 	private static final long serialVersionUID = 2326564001920612689L;
 

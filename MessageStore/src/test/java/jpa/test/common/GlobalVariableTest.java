@@ -106,7 +106,7 @@ public class GlobalVariableTest extends BoTestBase {
 		// end of test update
 		
 		service.delete(var6);
-		assertTrue(service.getByRowId(var6.getRowId()).isEmpty());
+		assertFalse(service.getByRowId(var6.getRowId()).isPresent());
 	}
 	
 	private GlobalVariable createNewInstance(GlobalVariable orig) {

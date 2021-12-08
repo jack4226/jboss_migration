@@ -34,7 +34,8 @@ class SpringAopClassHelper extends ClassHelper {
         Class.forName("org.springframework.aop.framework.Advised");
     }
     
-    protected Class<?> getRealClassFromClassInternal(Class<?> cls) {
+    @SuppressWarnings("deprecation")
+	protected Class<?> getRealClassFromClassInternal(Class<?> cls) {
         if (ClassUtils.isCglibProxyClass(cls)) {
             return getRealClassFromClassInternal(cls.getSuperclass());
         }
@@ -55,7 +56,8 @@ class SpringAopClassHelper extends ClassHelper {
         return o;
     }
 
-    protected Class<?> getRealClassInternal(Object o) {
+    @SuppressWarnings("deprecation")
+	protected Class<?> getRealClassInternal(Object o) {
         if (AopUtils.isAopProxy(o) && (o instanceof Advised)) {
             Advised advised = (Advised)o;
             try {

@@ -3,16 +3,15 @@ package jpa.msgui.bean;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
+import javax.faces.annotation.ManagedProperty;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@ManagedBean(name="gettingStarted")
-@javax.faces.bean.SessionScoped
+@javax.inject.Named("gettingStarted")
+@javax.enterprise.context.SessionScoped
 public class GettingStarted implements java.io.Serializable {
 	private static final long serialVersionUID = -7733276722871469541L;
 	static final Logger logger = LogManager.getLogger(GettingStarted.class);

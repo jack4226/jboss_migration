@@ -106,7 +106,7 @@ public class EmailVariableTest extends BoTestBase {
 		// end of test update
 		
 		service.delete(var6);
-		assertTrue(service.getByRowId(var6.getRowId()).isEmpty());
+		assertFalse(service.getByRowId(var6.getRowId()).isPresent());
 	}
 	
 	private EmailVariable createNewInstance(EmailVariable orig) {

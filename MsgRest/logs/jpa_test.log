@@ -1,0 +1,87 @@
+[2021-12-06 22:14:13,419] main [INFO,com.es.tomee.util.BeanReflUtil:67] Executing: EmailAddress.setAddress("mynewaddress@test.com")
+[2021-12-06 22:14:13,423] main [INFO,com.es.tomee.util.BeanReflUtil:67] Executing: EmailAddress.setUpdtUserId("new user")
+[2021-12-06 22:14:13,426] main [INFO,com.es.tomee.util.BeanReflUtil:77] Executing: EmailAddress.setBounceCount(123)
+[2021-12-06 22:14:13,427] main [INFO,com.es.tomee.util.BeanReflUtil:88] Executing: EmailAddress.setAcceptHtml(false)
+[2021-12-06 22:14:13,427] main [INFO,com.es.tomee.util.BeanReflUtil:99] Executing: EmailAddress.setLastSentTime(2015-04-30 13:12:34.123456)
+[2021-12-06 22:14:13,427] main [INFO,com.es.tomee.util.BeanReflUtil:99] Executing: EmailAddress.setUpdtTime(2015-04-30 13:12:34.123456789)
+[2021-12-06 22:14:13,444] main [INFO,com.es.tomee.util.BeanReflUtil:207] 
+ 
+      EmailAddress.address=mynewaddress@test.com
+      EmailAddress.bounceCount=123
+      EmailAddress.class=jpa.model.EmailAddress
+      EmailAddress.clickCount=null
+      EmailAddress.currAddress=null
+      EmailAddress.lastBounceTime=null
+      EmailAddress.lastRcptTime=null
+      EmailAddress.lastSentTime=2015-04-30 13:12:34.123, Nanos: 123456000
+      EmailAddress.openCount=null
+      EmailAddress.origAddress=
+      EmailAddress.rowId=null
+      EmailAddress.ruleName=null
+      EmailAddress.sentCount=null
+      EmailAddress.statusChangeTime=null
+      EmailAddress.statusChangeUserId=null
+      EmailAddress.statusId=A
+      EmailAddress.statusIdDesc=Active
+      EmailAddress.subscriberData=-null
+      EmailAddress.subscriptions=a List
+      EmailAddress.updtTime=2015-04-30 13:12:34.123, Nanos: 123456789
+      EmailAddress.updtUserId=new user
+      EmailAddress.userData=-null
+      EmailAddress.isAcceptHtml=false
+      EmailAddress.isEditable=true
+      EmailAddress.isMarkedForDeletion=false
+      EmailAddress.isMarkedForEdition=false
+[2021-12-06 22:14:13,446] main [WARN,com.es.tomee.util.BeanReflUtil:136] Method name obj1.isActive not found in obj2, ignored.
+[2021-12-06 22:14:13,447] main [WARN,com.es.tomee.util.BeanReflUtil:136] Method name obj1.getSenderData not found in obj2, ignored.
+[2021-12-06 22:14:13,447] main [WARN,com.es.tomee.util.BeanReflUtil:152] Method name obj1.setSenderData not found in obj2, ignored.
+[2021-12-06 22:14:13,447] main [WARN,com.es.tomee.util.BeanReflUtil:136] Method name obj1.getSubscriptions not found in obj2, ignored.
+[2021-12-06 22:14:13,447] main [WARN,com.es.tomee.util.BeanReflUtil:152] Method name obj1.setSubscriptions not found in obj2, ignored.
+[2021-12-06 22:14:13,448] main [WARN,com.es.tomee.util.BeanReflUtil:136] Method name obj1.getSentCount not found in obj2, ignored.
+[2021-12-06 22:14:13,448] main [WARN,com.es.tomee.util.BeanReflUtil:152] Method name obj1.setSentCount not found in obj2, ignored.
+[2021-12-06 22:14:13,448] main [WARN,com.es.tomee.util.BeanReflUtil:136] Method name obj1.getOpenCount not found in obj2, ignored.
+[2021-12-06 22:14:13,449] main [WARN,com.es.tomee.util.BeanReflUtil:152] Method name obj1.setOpenCount not found in obj2, ignored.
+[2021-12-06 22:14:13,449] main [WARN,com.es.tomee.util.BeanReflUtil:136] Method name obj1.getClickCount not found in obj2, ignored.
+[2021-12-06 22:14:13,449] main [WARN,com.es.tomee.util.BeanReflUtil:152] Method name obj1.setClickCount not found in obj2, ignored.
+[2021-12-06 22:14:13,449] main [WARN,com.es.tomee.util.BeanReflUtil:136] Method name obj1.getBroadcastMessages not found in obj2, ignored.
+[2021-12-06 22:14:13,450] main [WARN,com.es.tomee.util.BeanReflUtil:152] Method name obj1.setBroadcastMessages not found in obj2, ignored.
+[2021-12-06 22:14:13,450] main [WARN,com.es.tomee.util.BeanReflUtil:136] Method name obj1.getAcctUserName not found in obj2, ignored.
+[2021-12-06 22:14:13,450] main [WARN,com.es.tomee.util.BeanReflUtil:152] Method name obj1.setAcctUserName not found in obj2, ignored.
+[2021-12-06 22:14:13,450] main [WARN,com.es.tomee.util.BeanReflUtil:136] Method name obj1.getOrigListId not found in obj2, ignored.
+[2021-12-06 22:14:13,451] main [WARN,com.es.tomee.util.BeanReflUtil:152] Method name obj1.setOrigListId not found in obj2, ignored.
+[2021-12-06 22:14:13,451] main [WARN,com.es.tomee.util.BeanReflUtil:136] Method name obj1.getIsSubscribed not found in obj2, ignored.
+[2021-12-06 22:14:13,451] main [WARN,com.es.tomee.util.BeanReflUtil:152] Method name obj1.setIsSubscribed not found in obj2, ignored.
+[2021-12-06 22:14:13,452] main [INFO,com.es.tomee.util.BeanReflUtil:187] Invoking.2 Method.setBuiltin(true)
+[2021-12-06 22:14:13,452] main [INFO,com.es.tomee.util.BeanReflUtil:187] Invoking.2 Method.setDisplayName(Display Name 2)
+[2021-12-06 22:14:13,452] main [INFO,com.es.tomee.util.BeanReflUtil:187] Invoking.2 Method.setCreateTime(2021-12-06 22:14:13.446)
+[2021-12-06 22:14:13,453] main [INFO,com.es.tomee.util.BeanReflUtil:187] Invoking.2 Method.setListMasterEmailAddr(null)
+[2021-12-06 22:14:13,453] main [INFO,com.es.tomee.util.BeanReflUtil:187] Invoking.2 Method.setListId(SMPLLST1)
+[2021-12-06 22:14:13,454] main [INFO,com.es.tomee.util.BeanReflUtil:218] 
+ 
+      MailingList.acctUserName=
+      MailingList.broadcastMessages=a List
+      MailingList.class=jpa.model.MailingList
+      MailingList.clickCount=null
+      MailingList.createTime=2021-12-06 22:14:13.446, Nanos: 446000000
+      MailingList.description=null
+      MailingList.displayName=Display Name 2
+      MailingList.isSubscribed=null
+      MailingList.listEmailAddr=@localhost
+      MailingList.listId=SMPLLST1
+      MailingList.listMasterEmailAddr=null
+      MailingList.openCount=null
+      MailingList.origListId=null
+      MailingList.rowId=null
+      MailingList.senderData=-null
+      MailingList.sentCount=null
+      MailingList.statusId=A
+      MailingList.statusIdDesc=Active
+      MailingList.subscriptions=a List
+      MailingList.updtTime=2021-12-06 22:14:13.445, Nanos: 445000000
+      MailingList.updtUserId=MsgMaint
+      MailingList.isActive=true
+      MailingList.isBuiltin=true
+      MailingList.isEditable=true
+      MailingList.isMarkedForDeletion=false
+      MailingList.isMarkedForEdition=false
+      MailingList.isSendText=false

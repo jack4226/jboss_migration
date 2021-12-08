@@ -13,7 +13,7 @@ import javax.faces.convert.FacesConverter;
 import org.apache.commons.lang3.StringUtils;
 
 @FacesConverter("TimestampConverter")
-public class TimestampConverter implements Converter {
+public class TimestampConverter implements Converter<Object> {
 
 	private SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 

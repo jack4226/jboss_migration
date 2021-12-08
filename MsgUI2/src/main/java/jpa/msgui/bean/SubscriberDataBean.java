@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.html.HtmlDataTable;
@@ -39,8 +38,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@ManagedBean(name="subscriberData")
-@javax.faces.bean.ViewScoped
+@javax.inject.Named("subscriberData")
+@javax.enterprise.context.SessionScoped
 public class SubscriberDataBean extends PaginationBean implements java.io.Serializable {
 	private static final long serialVersionUID = 7927665483948452101L;
 	static final Logger logger = LogManager.getLogger(SubscriberDataBean.class);

@@ -105,7 +105,7 @@ public class SenderVariableTest extends BoTestBase {
 		// end of test update
 		
 		service.delete(var6);
-		assertTrue(service.getByRowId(var6.getRowId()).isEmpty());
+		assertFalse(service.getByRowId(var6.getRowId()).isPresent());
 		
 		SenderVariable var7 = createNewInstance(var2);
 		SenderVariablePK pk7 = new SenderVariablePK(pk2.getSenderData(), pk2.getVariableName()+"_v7", pk2.getStartTime());

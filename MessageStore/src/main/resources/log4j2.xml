@@ -28,6 +28,9 @@
 		<Logger name="jpa" level="debug">
 			<AppenderRef ref="FILE" />
 		</Logger>
+		<Logger name="com.es" level="debug">
+			<AppenderRef ref="FILE" />
+		</Logger>
 		<Logger name="org.hibernate.internal" level="info">
 			<AppenderRef ref="FILE" />
 		</Logger>

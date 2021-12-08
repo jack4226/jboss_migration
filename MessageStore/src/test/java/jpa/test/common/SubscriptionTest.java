@@ -208,7 +208,7 @@ public class SubscriptionTest extends BoTestBase {
 		
 		// test delete
 		service.delete(rcd3);
-		assertTrue(service.getByRowId(rcd3.getRowId()).isEmpty());
+		assertFalse(service.getByRowId(rcd3.getRowId()).isPresent());
 		int rowsDeleted = service.deleteByRowId(rcd3.getRowId());
 		assertTrue(0==rowsDeleted);
 

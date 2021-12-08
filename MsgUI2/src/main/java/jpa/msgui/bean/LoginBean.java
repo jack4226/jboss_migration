@@ -1,8 +1,6 @@
 package jpa.msgui.bean;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.faces.annotation.ManagedProperty;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -18,9 +16,8 @@ import jpa.util.SenderUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@ManagedBean(name="login")
-//@javax.inject.Named("login")
-@RequestScoped
+@javax.inject.Named("login")
+@javax.enterprise.context.ApplicationScoped
 public class LoginBean implements java.io.Serializable {
 	private static final long serialVersionUID = -5547672142490601294L;
 	static final Logger logger = LogManager.getLogger(LoginBean.class);

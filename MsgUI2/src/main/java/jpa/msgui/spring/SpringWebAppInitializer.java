@@ -8,8 +8,6 @@ import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
 import jpa.spring.util.SpringAppConfig;
-import jpa.spring.util.SpringJmsConfig;
-import jpa.spring.util.SpringTaskConfig;
 
 public class SpringWebAppInitializer implements WebApplicationInitializer {
 
@@ -17,8 +15,9 @@ public class SpringWebAppInitializer implements WebApplicationInitializer {
 	public void onStartup(ServletContext container) throws ServletException {
 		// Create the 'root' Spring application context
 		AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
-	    rootContext.register(SpringAppConfig.class, SpringJmsConfig.class);
-	    rootContext.register(SpringTaskConfig.class);
+	    rootContext.register(SpringAppConfig.class);
+	    rootContext.register(jpa.spring.util.SpringTaskConfig.class);
+	    //rootContext.register(jpa.spring.util.SpringJmsConfig.class);
 	    rootContext.refresh();
 	    rootContext.registerShutdownHook();
 		

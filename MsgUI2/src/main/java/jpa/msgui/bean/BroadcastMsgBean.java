@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
@@ -23,8 +22,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.data.domain.Page;
 
-@ManagedBean(name="broadcastMsg")
-@javax.faces.bean.ViewScoped
+@javax.inject.Named("broadcastMsg")
+@javax.enterprise.context.SessionScoped
 public class BroadcastMsgBean extends PaginationBean implements java.io.Serializable {
 	private static final long serialVersionUID = -5557435572452796392L;
 	static final Logger logger = LogManager.getLogger(BroadcastMsgBean.class);

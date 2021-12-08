@@ -1,8 +1,5 @@
 package jpa.msgui.bean;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-
 import jpa.constant.Constants;
 import jpa.model.SenderData;
 import jpa.msgui.util.SpringUtil;
@@ -12,8 +9,8 @@ import jpa.util.ProductKey;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@ManagedBean(name="enterProductKey")
-@RequestScoped
+@javax.inject.Named("enterProductKey")
+@javax.enterprise.context.RequestScoped
 public class EnterProductKeyBean implements java.io.Serializable {
 	private static final long serialVersionUID = 5162094104987950893L;
 	static final Logger logger = LogManager.getLogger(EnterProductKeyBean.class);

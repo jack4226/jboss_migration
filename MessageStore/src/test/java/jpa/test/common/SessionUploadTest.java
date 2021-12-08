@@ -86,7 +86,7 @@ public class SessionUploadTest extends BoTestBase {
 		
 		// test select with No Result
 		service.delete(tkn5.get());
-		assertTrue(service.getByRowId(tkn5.get().getRowId()).isEmpty());
+		assertFalse(service.getByRowId(tkn5.get().getRowId()).isPresent());
 		
 		assertTrue(0==service.deleteByPrimaryKey(tkn5.get().getSessionUploadPK()));
 		assertTrue(0==service.deleteByRowId(tkn5.get().getRowId()));

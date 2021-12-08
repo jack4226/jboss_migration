@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <Resource id="mailReaderOutput" type="javax.jms.Queue" />
+  <Resource id="ruleEngineError" type="javax.jms.Queue" />
+  <Resource id="mailSenderInput" type="javax.jms.Queue" />
+  <Resource id="mailSenderError" type="javax.jms.Queue" />
+  <Resource id="customerCareInput" type="javax.jms.Queue" />
+  <Resource id="rmaRequestInput" type="javax.jms.Queue" />
+  <Resource id="errorQueue" type="javax.jms.Queue" />
+  <Resource id="testQueue" type="javax.jms.Queue" />
+</resources>

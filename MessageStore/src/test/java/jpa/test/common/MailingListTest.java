@@ -149,7 +149,7 @@ public class MailingListTest extends BoTestBase {
 		
 		// test delete
 		service.delete(rcd3.get());
-		assertTrue(service.getByRowId(rcd3.get().getRowId()).isEmpty());
+		assertFalse(service.getByRowId(rcd3.get().getRowId()).isPresent());
 
 		logger.info(PrintUtil.prettyPrint(rcd5,1));
 		int rowsDeleted = service.deleteByListId(testListId2);

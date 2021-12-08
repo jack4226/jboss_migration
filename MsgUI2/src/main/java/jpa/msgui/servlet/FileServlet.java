@@ -79,7 +79,7 @@ public class FileServlet extends HttpServlet {
     	//pk.setAttachmentSequence(attchmntSeq);
 		Optional<MessageAttachment> fileData = attachmentsDao.getByRowId(attchRowId); //getByPrimaryKey(pk);
         // Check if file is actually retrieved from database.
-        if (fileData.isEmpty()) {
+        if (!fileData.isPresent()) {
             logger.error("Failed to retrieve file from database.");
             response.sendRedirect(fileNotFoundPage);
             return;

@@ -1,7 +1,6 @@
 package jpa.msgui.bean;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
@@ -33,8 +32,8 @@ import org.apache.logging.log4j.Logger;
  * 
  * Note: request scoped did not work as expected, changed to session scoped.
  */
-@ManagedBean(name="mailTracking")
-@javax.faces.bean.ViewScoped
+@javax.inject.Named("mailTracking")
+@javax.enterprise.context.SessionScoped
 public class SimpleMailTrackingMenu extends PaginationBean implements java.io.Serializable {
 	private static final long serialVersionUID = -4430208005555443392L;
 	static final Logger logger = LogManager.getLogger(SimpleMailTrackingMenu.class);

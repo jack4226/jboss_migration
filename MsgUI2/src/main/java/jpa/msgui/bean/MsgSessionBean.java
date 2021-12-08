@@ -1,11 +1,9 @@
 package jpa.msgui.bean;
 
-import javax.faces.bean.ManagedBean;
-
 import jpa.msgui.util.FacesUtil;
 
-@ManagedBean(name="sessionBean")
-@javax.faces.bean.SessionScoped //ViewScoped
+@javax.inject.Named("sessionBean")
+@javax.enterprise.context.SessionScoped //ViewScoped
 public class MsgSessionBean implements java.io.Serializable {
 	private static final long serialVersionUID = -5665449341441493983L;
 

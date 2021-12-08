@@ -11,14 +11,15 @@
   	<java.version>1.8</java.version>
   	<mysql.connector.version>[8.0.16,)</mysql.connector.version>
   	<aopalliance.version>1.0</aopalliance.version>
-  	<aspectjrt.version>1.8.9</aspectjrt.version>
+  	<aspectjrt.version>1.9.6</aspectjrt.version>
   	<commons-digester.version>2.1</commons-digester.version>
   	<commons-fileupload.version>[1.3.3,)</commons-fileupload.version>
   	<commons-logging.version>1.2</commons-logging.version>
+  	<commons-text.version>1.9</commons-text.version>
   	<jstl.version>1.2</jstl.version>
   	<javax.mail.version>1.4.7</javax.mail.version>
-  	<faces-api.version>2.2</faces-api.version>
-  	<tomee.version>7.0.4</tomee.version> <!-- 7.0.4 -->
+  	<faces-api.version>2.3</faces-api.version>
+  	<tomee.version>7.1.4</tomee.version> <!-- 7.0.4 -->
   </properties>
   
   <dependencies>
@@ -85,6 +86,14 @@
   		<version>${commons-logging.version}</version>
   		<scope>provided</scope>
   	</dependency>
+
+	<dependency>
+	    <groupId>org.apache.commons</groupId>
+	    <artifactId>commons-text</artifactId>
+	    <version>${commons-text.version}</version>
+	</dependency>
+  	
+  	
   	<dependency>
   		<groupId>jstl</groupId>
   		<artifactId>jstl</artifactId>
@@ -122,7 +131,7 @@
 		<version>${tomee.version}</version>
 		<scope>provided</scope>
 	</dependency>
-	
+
 	<!-- End of Embedded EJB Container -->
 
   </dependencies>
@@ -141,7 +150,7 @@
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.5.1</version>
+        <version>3.8.1</version>
         <configuration>
           <source>${java.version}</source>
           <target>${java.version}</target>
@@ -150,7 +159,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
-        <version>3.3.1</version>
+        <version>3.3.2</version>
         <configuration>
           <warSourceDirectory>WebContent</warSourceDirectory>
           <failOnMissingWebXml>false</failOnMissingWebXml>

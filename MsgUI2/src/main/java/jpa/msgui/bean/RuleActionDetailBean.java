@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
@@ -30,8 +29,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-@ManagedBean(name="ruleAction")
-@javax.faces.bean.ViewScoped
+@javax.inject.Named("ruleAction")
+@javax.enterprise.context.SessionScoped
 public class RuleActionDetailBean implements java.io.Serializable {
 	private static final long serialVersionUID = -1479694457663800603L;
 	static final Logger logger = LogManager.getLogger(RuleActionDetailBean.class);

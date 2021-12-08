@@ -62,7 +62,7 @@ public class BroadcastTrackingBo implements java.io.Serializable {
 
 	public Subscription removeFromList(int bcstTrkRowId, String comment) {
 		Optional<BroadcastTracking> bt = trackingService.getByRowId(bcstTrkRowId);
-		if (bt.isEmpty()) {
+		if (!bt.isPresent()) {
 			logger.info("BroadcastTracking record not found by RowId (" + bcstTrkRowId + "), ignored.");
 			return null;
 		}

@@ -121,7 +121,7 @@ public class RuleDataValueTest extends BoTestBase {
 		if (deleted != null) {
 			fail();
 		}
-		assertTrue(valueService.getByRowId(var3.getRowId()).isEmpty());
+		assertFalse(valueService.getByRowId(var3.getRowId()).isPresent());
 		
 		// test delete
 		RuleDataValue var5 = createNewInstance(var2);

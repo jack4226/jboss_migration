@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Properties;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
@@ -33,8 +32,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@ManagedBean(name="mailInbox")
-@javax.faces.bean.ViewScoped
+@javax.inject.Named("mailInbox")
+@javax.enterprise.context.SessionScoped
 public class MailInboxBean implements java.io.Serializable {
 	private static final long serialVersionUID = 2069189605831996367L;
 	static final Logger logger = LogManager.getLogger(MailInboxBean.class);

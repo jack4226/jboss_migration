@@ -54,7 +54,7 @@ public class SmtpServerService implements java.io.Serializable {
 				sql += " where t.isUseSsl=:isUseSsl ";
 			}
 		}
-		sql += " order by rowId ";
+		sql += " order by t.rowId ";
 		try {
 			Query query = em.createQuery(sql);
 			if (onlyActive) {

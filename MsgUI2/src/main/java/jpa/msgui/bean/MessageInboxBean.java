@@ -10,9 +10,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.faces.FacesException;
+import javax.faces.annotation.ManagedProperty;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.ExternalContext;
@@ -69,8 +68,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@ManagedBean(name = "messageInbox")
-@javax.faces.bean.ViewScoped
+@javax.inject.Named("messageInbox")
+@javax.enterprise.context.SessionScoped
 public class MessageInboxBean extends PaginationBean implements java.io.Serializable {
 	private static final long serialVersionUID = -1682128466807436660L;
 

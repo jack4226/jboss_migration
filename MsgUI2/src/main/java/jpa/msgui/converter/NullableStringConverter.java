@@ -10,7 +10,7 @@ import javax.faces.convert.FacesConverter;
 import org.apache.commons.lang3.StringUtils;
 
 @FacesConverter("NullableStringConverter")
-public class NullableStringConverter implements Converter {
+public class NullableStringConverter implements Converter<Object> {
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent comp, String value) throws ConverterException {

@@ -12,7 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import jpa.util.EmailAddrUtil;
 
 @FacesValidator("emailAddressValidator")
-public class EmailAddressValidator implements Validator, java.io.Serializable {
+public class EmailAddressValidator implements Validator<Object>, java.io.Serializable {
 	private static final long serialVersionUID = 4514200411820518442L;
 
 	@Override

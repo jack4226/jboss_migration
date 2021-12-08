@@ -15,8 +15,6 @@ import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
 
 import jpa.constant.CarrierCode;
@@ -39,8 +37,8 @@ import jpa.message.MessageBeanUtil;
 import jpa.service.external.TargetTextProc;
 import jpa.service.external.VariableResolver;
 
-@ManagedBean(name="codes")
-@ApplicationScoped
+@javax.inject.Named("codes")
+@javax.enterprise.context.ApplicationScoped
 public class StaticCodes implements java.io.Serializable {
 	private static final long serialVersionUID = 7420577459263024360L;
 

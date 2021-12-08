@@ -1,7 +1,5 @@
 package jpa.msgui.bean;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -14,8 +12,8 @@ import jpa.service.common.UserDataService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@ManagedBean(name="changePassword")
-@RequestScoped
+@javax.inject.Named("changePassword")
+@javax.enterprise.context.RequestScoped
 public class ChangePasswordBean implements java.io.Serializable {
 	private static final long serialVersionUID = -7332671123699551896L;
 	static final Logger logger = LogManager.getLogger(ChangePasswordBean.class);

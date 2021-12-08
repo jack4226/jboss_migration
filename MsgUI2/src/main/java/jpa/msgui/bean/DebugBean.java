@@ -2,12 +2,10 @@ package jpa.msgui.bean;
 
 import java.util.Map;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
+import javax.faces.annotation.ManagedProperty;
 
-@ManagedBean(name="debug")
-@ApplicationScoped
+@javax.inject.Named("debug")
+@javax.enterprise.context.ApplicationScoped
 public class DebugBean implements java.io.Serializable {
 	private static final long serialVersionUID = 6115363411392224312L;
 	

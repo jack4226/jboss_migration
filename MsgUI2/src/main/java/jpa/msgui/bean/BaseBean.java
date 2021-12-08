@@ -1,6 +1,6 @@
 package jpa.msgui.bean;
 
-import javax.faces.bean.ManagedProperty;
+import javax.faces.annotation.ManagedProperty;
 
 public abstract class BaseBean {
 

@@ -7,7 +7,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
@@ -43,8 +42,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@ManagedBean(name="emailTemplate")
-@javax.faces.bean.ViewScoped
+@javax.inject.Named("emailTemplate")
+@javax.enterprise.context.SessionScoped
 public class EmailTemplateBean implements java.io.Serializable {
 	private static final long serialVersionUID = -4812680785383460662L;
 	static final Logger logger = LogManager.getLogger(EmailTemplateBean.class);

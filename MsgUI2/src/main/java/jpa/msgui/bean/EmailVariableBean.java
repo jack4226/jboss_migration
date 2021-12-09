@@ -29,7 +29,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @javax.inject.Named("emailVariable")
-@javax.enterprise.context.SessionScoped
+@javax.enterprise.context.RequestScoped
 public class EmailVariableBean implements java.io.Serializable {
 	private static final long serialVersionUID = 8620743959575480890L;
 	static final Logger logger = LogManager.getLogger(EmailVariableBean.class);

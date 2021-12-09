@@ -35,7 +35,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @javax.inject.Named("mailingList")
-@javax.enterprise.context.SessionScoped
+@javax.enterprise.context.RequestScoped
 public class MailingListBean implements java.io.Serializable {
 	private static final long serialVersionUID = 3726339874453826497L;
 	static final Logger logger = LogManager.getLogger(MailingListBean.class);

@@ -40,7 +40,7 @@ public class MsgUnreadCountTest extends BoTestBase {
 		
 		assertEquals(1, service.deleteByRowId(muc1.getRowId()));
 		
-		assertNull(service.getByRowId(muc1.getRowId()));
+		assertFalse(service.getByRowId(muc1.getRowId()).isPresent());
 	}
 	
 	@Test

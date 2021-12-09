@@ -7,16 +7,14 @@
     	http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd"
     version="2.3">
 
-    <!-- define locales -->
+	<!-- Define message bundle -->
 	<application>
+    	<!-- define locales -->
 		<locale-config>
 			<default-locale>en</default-locale>
 			<supported-locale>de</supported-locale>
 		</locale-config>
-	</application>
-
-   <!-- define messages resource bundle -->
-	<application>
+   		<!-- define messages resource bundle -->
 		<resource-bundle>
 			<base-name>jpa.msgui.messages</base-name>
 			<var>msgs</var>

@@ -34,7 +34,7 @@
 		<Logger name="org.hibernate.internal" level="info">
 			<AppenderRef ref="FILE" />
 		</Logger>
-		<Logger name="org.hibernate.engine.internal" level="info">
+		<Logger name="org.hibernate.engine.internal" level="error">
 			<AppenderRef ref="FILE" />
 		</Logger>
 		<Logger name="org.hibernate.id" level="info">

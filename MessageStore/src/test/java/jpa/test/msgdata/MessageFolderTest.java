@@ -1,8 +1,8 @@
 package jpa.test.msgdata;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Optional;
@@ -77,7 +77,7 @@ public class MessageFolderTest extends BoTestBase {
 		
 		// test delete
 		service.delete(adr11.get());
-		assertNull(service.getByRowId(adr11.get().getRowId()));
+		assertFalse(service.getByRowId(adr11.get().getRowId()).isPresent());
 		
 		assertTrue(1==service.deleteByRowId(adr2.getRowId()));
 		

@@ -1,10 +1,11 @@
 package jpa.msgui.bean;
 
-import javax.faces.annotation.ManagedProperty;
+import javax.inject.Inject;
 
 public abstract class BaseBean {
 
-	@ManagedProperty(value="#{sessionBean}")
+	@Inject
+	//@javax.faces.annotation.ManagedProperty(value="#{sessionBean}")
     protected MsgSessionBean sessionBean;
 
 	public MsgSessionBean getSessionBean() {
@@ -17,6 +18,10 @@ public abstract class BaseBean {
 
 	public String getSessionParam(String name) {
 		return (String) sessionBean.getSessionParam(name);
+	}
+
+	public String getRequestParam(String name) {
+		return (String) sessionBean.getRequestParam(name);
 	}
 
 }

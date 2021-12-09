@@ -78,7 +78,7 @@ public class BroadcastMessageTest extends BoTestBase {
 		Optional<BroadcastMessage> bd2 = service.getByRowId(bd1.getRowId());
 		assertTrue(bd2.isPresent());
 		assertTrue(ts.equals(bd2.get().getUpdtTime()));
-		logger.info(PrintUtil.prettyPrint(bd2, 2));
+		logger.info(PrintUtil.prettyPrint(bd2.get(), 2));
 		
 		List<BroadcastMessage> bdlist2 = service.getByMailingListId(bd1.getMailingList().getListId());
 		assertFalse(bdlist2.isEmpty());
@@ -102,7 +102,7 @@ public class BroadcastMessageTest extends BoTestBase {
 		assertTrue(bd3.getRowId()>0  && bd3.getRowId()!=bd1.getRowId());
 		service.delete(bd3);
 		assert(0==service.deleteByRowId(bd3.getRowId()));
-		assertNull(service.getByRowId(bd3.getRowId()));
+		assertFalse(service.getByRowId(bd3.getRowId()).isPresent());
 	}
 
 	@Test

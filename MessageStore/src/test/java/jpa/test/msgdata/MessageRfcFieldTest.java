@@ -1,5 +1,6 @@
 package jpa.test.msgdata;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -117,7 +118,7 @@ public class MessageRfcFieldTest extends BoTestBase {
 		
 		// test delete
 		service.delete(hdr11.get());
-		assertNull(service.getByRowId(hdr11.get().getRowId()));
+		assertFalse(service.getByRowId(hdr11.get().getRowId()).isPresent());
 		assertTrue(0==service.deleteByPrimaryKey(hdr11.get().getMessageRfcFieldPK()));
 		assertNull(service.getByPrimaryKey(hdr11.get().getMessageRfcFieldPK()));
 		

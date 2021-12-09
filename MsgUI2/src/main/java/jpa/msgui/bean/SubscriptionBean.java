@@ -28,7 +28,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @javax.inject.Named("subscription")
-@javax.enterprise.context.SessionScoped
+@javax.enterprise.context.RequestScoped
 public class SubscriptionBean extends PaginationBean implements java.io.Serializable {
 	private static final long serialVersionUID = 6216351042518651517L;
 	static final Logger logger = LogManager.getLogger(SubscriptionBean.class);

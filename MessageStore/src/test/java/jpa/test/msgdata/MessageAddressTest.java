@@ -1,6 +1,6 @@
 package jpa.test.msgdata;
 
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.Timestamp;
@@ -116,10 +116,10 @@ public class MessageAddressTest extends BoTestBase {
 		
 		// test delete
 		service.delete(adr11.get());
-		assertNull(service.getByRowId(adr11.get().getRowId()));
+		assertFalse(service.getByRowId(adr11.get().getRowId()).isPresent());
 		
 		assertTrue(1==service.deleteByRowId(adr2.getRowId()));
-		assertNull(service.getByRowId(adr2.getRowId()));
+		assertFalse(service.getByRowId(adr2.getRowId()).isPresent());
 		
 		insertAddr1AndAddr2();
 		assertTrue(1==service.deleteByPrimaryKey(inbox1.getRowId(), EmailAddrType.FROM_ADDR.getValue(), from.getAddress()));

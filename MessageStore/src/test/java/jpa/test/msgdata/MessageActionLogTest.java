@@ -1,5 +1,6 @@
 package jpa.test.msgdata;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -123,7 +124,7 @@ public class MessageActionLogTest extends BoTestBase {
 		
 		// test delete
 		service.delete(log11.get());
-		assertNull(service.getByRowId(log11.get().getRowId()));
+		assertFalse(service.getByRowId(log11.get().getRowId()).isPresent());
 
 		
 		assertTrue(1==service.deleteByRowId(log2.getRowId()));

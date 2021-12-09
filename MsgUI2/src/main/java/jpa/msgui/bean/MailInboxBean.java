@@ -33,7 +33,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @javax.inject.Named("mailInbox")
-@javax.enterprise.context.SessionScoped
+@javax.enterprise.context.RequestScoped
 public class MailInboxBean implements java.io.Serializable {
 	private static final long serialVersionUID = 2069189605831996367L;
 	static final Logger logger = LogManager.getLogger(MailInboxBean.class);

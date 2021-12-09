@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.faces.FactoryFinder;
 import javax.faces.application.ViewHandler;
 import javax.faces.component.UIViewRoot;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.FacesContextFactory;
 import javax.faces.event.ActionEvent;
@@ -221,10 +222,13 @@ public class FacesUtil implements java.io.Serializable {
      * @param key - object key
      * @return object value
      */
-    public static Object getApplicationMapValue(String key) {
+    public static Object getApplicationMapValue(String key) { // broken, revisit
     	FacesContext context = FacesContext.getCurrentInstance();
 		if (context != null) {
-			return context.getExternalContext().getApplicationMap().get(key);
+			ExternalContext ext_ctx = context.getExternalContext();
+			java.util.Map<String, Object> appMap = ext_ctx.getApplicationMap();
+			Object obj = appMap.get(key);
+			return obj;
 		}
 		return null;
     }

@@ -23,7 +23,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.data.domain.Page;
 
 @javax.inject.Named("broadcastMsg")
-@javax.enterprise.context.SessionScoped
+@javax.enterprise.context.RequestScoped
 public class BroadcastMsgBean extends PaginationBean implements java.io.Serializable {
 	private static final long serialVersionUID = -5557435572452796392L;
 	static final Logger logger = LogManager.getLogger(BroadcastMsgBean.class);

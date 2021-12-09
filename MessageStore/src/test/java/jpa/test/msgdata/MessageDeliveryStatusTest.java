@@ -1,5 +1,6 @@
 package jpa.test.msgdata;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -118,10 +119,10 @@ public class MessageDeliveryStatusTest extends BoTestBase {
 		
 		// test delete
 		service.delete(log11.get());
-		assertNull(service.getByRowId(log11.get().getRowId()));
+		assertFalse(service.getByRowId(log11.get().getRowId()).isPresent());
 		
 		assertTrue(1==service.deleteByRowId(log2.getRowId()));
-		assertNull(service.getByRowId(log2.getRowId()));
+		assertFalse(service.getByRowId(log2.getRowId()).isPresent());
 		assertNull(service.getByPrimaryKey(log2.getMessageDeliveryStatusPK()));
 		
 		insertDeliveryStatuss();

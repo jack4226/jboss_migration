@@ -18,6 +18,7 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import javax.faces.validator.ValidatorException;
+import javax.inject.Inject;
 
 import jpa.constant.Constants;
 import jpa.exception.DataValidationException;
@@ -43,12 +44,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @javax.inject.Named("emailTemplate")
-@javax.enterprise.context.SessionScoped
+@javax.enterprise.context.RequestScoped
 public class EmailTemplateBean implements java.io.Serializable {
 	private static final long serialVersionUID = -4812680785383460662L;
 	static final Logger logger = LogManager.getLogger(EmailTemplateBean.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 
+	@Inject
+	DynamicCodes dynacodes;
+	
 	private transient EmailTemplateService emailTemplateDao = null;
 	private transient EmailVariableService emailVariableDao = null;
 	private transient MailingListService mailingListDao = null;
@@ -439,7 +443,7 @@ public class EmailTemplateBean implements java.io.Serializable {
 	}
 	
 	public SelectItem[] getEmailVariables() {
-		DynamicCodes codes = (DynamicCodes) FacesUtil.getApplicationMapValue("dynacodes");
+		DynamicCodes codes = dynacodes; //(DynamicCodes) FacesUtil.getApplicationMapValue("dynacodes"); // broken
 		SelectItem[] codes1 = codes.getEmailVariableNameItems();
 		SelectItem[] codes2 = codes.getGlobalVariableNameItems();
 		if (emailTemplate == null) {

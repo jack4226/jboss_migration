@@ -1,6 +1,5 @@
 package jpa.msgui.bean;
 
-import javax.faces.annotation.ManagedProperty;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -16,8 +15,8 @@ import jpa.util.SenderUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@javax.inject.Named("login")
-@javax.enterprise.context.ApplicationScoped
+@javax.inject.Named(value = "login")
+@javax.enterprise.context.SessionScoped
 public class LoginBean implements java.io.Serializable {
 	private static final long serialVersionUID = -5547672142490601294L;
 	static final Logger logger = LogManager.getLogger(LoginBean.class);
@@ -25,14 +24,32 @@ public class LoginBean implements java.io.Serializable {
 	private String password = null;
 	private String message = null;
 	
-	@ManagedProperty(value="#{param.source}")
+	@javax.faces.annotation.ManagedProperty(value="#{param.source}")
 	private String source = null; // login or timeout
 	
-	@ManagedProperty("#{facesContext}")
+	//@javax.inject.Inject // XXX tomee failed to start
+	@javax.faces.annotation.ManagedProperty(value="#{facesContext}") // Did not work
 	private FacesContext context;
 	
 	private transient UserDataService userDao = null;
 	
+	@javax.annotation.PostConstruct
+	public void init() {
+		logger.info("In PostConstruct #1, get FacesContext with annotation = " + context);
+		logger.info("In PostConstruct #2, get FacesContext with @Produces  = " + getFacesContext());
+	}
+	
+	/*
+	 * One case where this would still fail is when you explicitly perform a forward within the same request using 
+	 * RequestDispatcher#forward() or ExternalContext#dispatch(). You will then face java.lang.IllegalStateException
+	 * at com.sun.faces.context.FacesContextImpl.assertNotReleased.
+	 */
+	@javax.enterprise.inject.Produces
+	@javax.enterprise.context.RequestScoped
+	public FacesContext getFacesContext(){
+	    return FacesContext.getCurrentInstance();
+	}
+
 	public String login() {
 		logger.info("login() - UserId: " +  userId);
 		message = null;
@@ -76,7 +93,13 @@ public class LoginBean implements java.io.Serializable {
     }
     
     public HttpSession getHttpSession() {
-    	ExternalContext ctx = context.getExternalContext(); //FacesContext.getCurrentInstance().getExternalContext();
+    	ExternalContext ctx;
+    	if (context != null) {
+    		ctx = context.getExternalContext();
+    	}
+    	else { 
+    		ctx = FacesContext.getCurrentInstance().getExternalContext();
+    	}
     	return ((HttpSession) ctx.getSession(true));
     }
     

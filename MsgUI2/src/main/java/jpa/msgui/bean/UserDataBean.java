@@ -30,7 +30,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @javax.inject.Named("userData")
-@javax.enterprise.context.SessionScoped
+@javax.enterprise.context.RequestScoped
 public class UserDataBean implements java.io.Serializable {
 	private static final long serialVersionUID = 2276036390316734499L;
 	static final Logger logger = LogManager.getLogger(UserDataBean.class);

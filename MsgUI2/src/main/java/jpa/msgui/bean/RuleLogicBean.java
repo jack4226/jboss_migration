@@ -50,7 +50,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @javax.inject.Named("ruleLogic")
-@javax.enterprise.context.SessionScoped
+@javax.enterprise.context.RequestScoped
 public class RuleLogicBean implements java.io.Serializable {
 	private static final long serialVersionUID = 4143310214559095471L;
 	protected static final Logger logger = LogManager.getLogger(RuleLogicBean.class);

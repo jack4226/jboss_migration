@@ -132,14 +132,14 @@ public class MessageUnsubCommentTest extends BoTestBase {
 		service.delete(cmt11.get());
 		inbox1.setMessageUnsubComment(null);
 		inboxService.update(inbox1);
-		assertNull(service.getByRowId(cmt11.get().getRowId()));
+		assertFalse(service.getByRowId(cmt11.get().getRowId()).isPresent());
 
 		
 		assertTrue(1==service.deleteByRowId(cmt2.getRowId()));
 		
 		insertUnsubComments();
 		assertTrue(1<=service.deleteByRowId(cmt2.getRowId()));
-		assertNull(service.getByRowId(cmt2.getRowId()));
+		assertFalse(service.getByRowId(cmt2.getRowId()).isPresent());
 		List<MessageUnsubComment> reducedList = service.getByFromAddress(cmt2.getEmailAddr().getAddress());
 		assertTrue(0<=reducedList.size());
 		assertNull(service.getByMsgInboxId(cmt2.getMessageInbox().getRowId()));

@@ -59,7 +59,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @javax.inject.Named("mailingListCompose")
-@javax.enterprise.context.SessionScoped
+@javax.enterprise.context.RequestScoped
 public class MailingListComposeBean implements java.io.Serializable {
 	private static final long serialVersionUID = -2015576038292544848L;
 	static final Logger logger = LogManager.getLogger(MailingListComposeBean.class);

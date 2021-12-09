@@ -1,5 +1,6 @@
 package jpa.test.msgdata;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -120,11 +121,11 @@ public class MessageStreamTest extends BoTestBase {
 		
 		// test delete
 		service.delete(adr11.get());
-		assertNull(service.getByRowId(adr11.get().getRowId()));
+		assertFalse(service.getByRowId(adr11.get().getRowId()).isPresent());
 
 		
 		assertTrue(1==service.deleteByRowId(adr2.getRowId()));
-		assertNull(service.getByRowId(adr2.getRowId()));
+		assertFalse(service.getByRowId(adr2.getRowId()).isPresent());
 		
 		insertMsgStreams();
 		assertNotNull(service.getLastRecord());

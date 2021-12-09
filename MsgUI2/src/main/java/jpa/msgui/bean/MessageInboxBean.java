@@ -79,7 +79,8 @@ public class MessageInboxBean extends PaginationBean implements java.io.Serializ
 	final static String LF = System.getProperty("line.separator", "\n");
 	final static boolean DisplaySearchVo = true;
 
-	@ManagedProperty("#{facesBroker}")
+	@javax.inject.Inject
+	@ManagedProperty(value="#{facesBroker}")
 	private FacesBroker broker;
 
 	private transient MessageInboxService msgInboxDao = null;

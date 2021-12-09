@@ -9,7 +9,8 @@ import javax.faces.annotation.ManagedProperty;
 public class DebugBean implements java.io.Serializable {
 	private static final long serialVersionUID = 6115363411392224312L;
 	
-	@ManagedProperty("#{facesBroker}")
+	@javax.inject.Inject
+	@ManagedProperty(value="#{facesBroker}")
 	private FacesBroker broker;
 	
 	public final static String key = "debug_count";

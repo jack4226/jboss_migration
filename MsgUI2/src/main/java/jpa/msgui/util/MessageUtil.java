@@ -93,6 +93,36 @@ public class MessageUtil implements java.io.Serializable {
 		}
 	}
 
+	public static ResourceBundle getBundle(String bundleName) {
+		if (StringUtils.isBlank(bundleName)) {
+			logger.error("Resource bundle name can not be blank!");
+			throw new RuntimeException("Resource bundle name must be provided!");
+		}
+		FacesContext context = FacesContext.getCurrentInstance();
+		Locale locale = getLocale(context);
+		ClassLoader loader = getClassLoader();
+		String appBundleName = context.getApplication().getMessageBundle();
+		ResourceBundle appBundle = null;
+		if (StringUtils.isNotBlank(appBundleName)) {
+			try {
+				appBundle = ResourceBundle.getBundle(appBundleName, locale, loader);
+				return appBundle;
+			}
+			catch (MissingResourceException e) {
+				logger.info("MissingResourceException caught: " + e.getMessage());
+			}
+		}
+		ResourceBundle reqBundle = null;
+		try {
+			reqBundle = ResourceBundle.getBundle(bundleName, locale, loader);
+			return reqBundle;
+		}
+		catch (MissingResourceException e) {
+			logger.info("MissingResourceException caught: " + e.getMessage());
+		}
+		return null;
+	}
+	
 	public static Locale getLocale(FacesContext context) {
 		Locale locale = null;
 		UIViewRoot viewRoot = context.getViewRoot();

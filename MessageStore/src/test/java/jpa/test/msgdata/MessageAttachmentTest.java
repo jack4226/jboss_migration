@@ -1,5 +1,6 @@
 package jpa.test.msgdata;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -120,11 +121,11 @@ public class MessageAttachmentTest extends BoTestBase {
 		
 		// test delete
 		service.delete(atc11.get());
-		assertNull(service.getByRowId(atc11.get().getRowId()));
+		assertFalse(service.getByRowId(atc11.get().getRowId()).isPresent());
 
 		
 		assertTrue(1==service.deleteByRowId(atc2.getRowId()));
-		assertNull(service.getByRowId(atc2.getRowId()));
+		assertFalse(service.getByRowId(atc2.getRowId()).isPresent());
 		assertTrue(1==service.deleteByMsgInboxId(inbox1.getRowId()));
 		
 		insertMessageAttachments();

@@ -27,7 +27,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @javax.inject.Named("senderData")
-@javax.enterprise.context.SessionScoped
+@javax.enterprise.context.RequestScoped
 public class SenderDataBean implements java.io.Serializable {
 	private static final long serialVersionUID = 1121882547043576165L;
 	static final Logger logger = LogManager.getLogger(SenderDataBean.class);

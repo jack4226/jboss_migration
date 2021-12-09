@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 import jpa.msgui.vo.PagingVo;
 
+@javax.enterprise.context.Dependent
 public abstract class PaginationBean extends BaseBean {
 	protected static Logger logger = LogManager.getLogger(PaginationBean.class);
 

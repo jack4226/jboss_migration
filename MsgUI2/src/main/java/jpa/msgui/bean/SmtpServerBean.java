@@ -33,7 +33,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @javax.inject.Named("smtpServer")
-@javax.enterprise.context.SessionScoped
+@javax.enterprise.context.RequestScoped
 public class SmtpServerBean implements java.io.Serializable {
 	private static final long serialVersionUID = -2610108607170535587L;
 	static final Logger logger = LogManager.getLogger(SmtpServerBean.class);

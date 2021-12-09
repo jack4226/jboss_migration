@@ -168,7 +168,7 @@ public class IdTokens2Test {
 	 */
 	@Ignore
 	public void persistenceXmlfile() {
-		HashMap<Object,Object> properties = new HashMap<Object,Object>();
+		java.util.Map<Object,Object> properties = new HashMap<Object,Object>();
 		properties.put(PersistenceUnitProperties.ECLIPSELINK_PERSISTENCE_XML, "META-INF/jpa-persistence.xml");
 		//properties.put(PersistenceUnitProperties.CLASSLOADER, this.getClass().getClassLoader());
 		

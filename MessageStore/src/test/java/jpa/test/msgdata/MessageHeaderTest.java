@@ -1,6 +1,6 @@
 package jpa.test.msgdata;
 
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.Timestamp;
@@ -122,7 +122,7 @@ public class MessageHeaderTest extends BoTestBase {
 		 */
 		service.delete(hdr11.get()); // TODO resolve above EclipseLink error
 		service.deleteByRowId(hdr11.get().getRowId());
-		assertNull(service.getByRowId(hdr11.get().getRowId()));
+		assertFalse(service.getByRowId(hdr11.get().getRowId()).isPresent());
 
 		
 		assertTrue(1==service.deleteByRowId(hdr2.getRowId()));

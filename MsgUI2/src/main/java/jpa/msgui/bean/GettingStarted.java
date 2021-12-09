@@ -2,11 +2,13 @@ package jpa.msgui.bean;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ResourceBundle;
 
-import javax.faces.annotation.ManagedProperty;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
+import javax.inject.Inject;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,8 +19,16 @@ public class GettingStarted implements java.io.Serializable {
 	static final Logger logger = LogManager.getLogger(GettingStarted.class);
 	static final boolean isDebugEnabled = logger.isDebugEnabled();
 	
-	@ManagedProperty(value="gettingStartedHeaderText")
+	@Inject
+    protected MsgSessionBean sessionBean;
+
+	//@javax.inject.Inject // XXX tomee failed to start
+	@javax.faces.annotation.ManagedProperty("#{param.titleKey}") // XXX Did not work
 	private String titleKey;
+	
+	//@javax.inject.Inject  // XXX tomee failed to start
+	@javax.faces.annotation.ManagedProperty(value = "#{jpa.msgui.messages}") // XXX Did not work
+	private transient ResourceBundle bundle;
 	
 	private transient DataModel<?> functionKeys = null;
 	private String functionKey = null;
@@ -37,7 +47,7 @@ public class GettingStarted implements java.io.Serializable {
 	private String[] functionRequired = { "yes", "yes", "yes", "no", "no", "no", "no", "no", "no",
 			"no" };
 
-	/* JSTL import attribute url does not accept any expressions. So this is not used.  */
+	/* XXX JSTL import attribute url does not accept any expressions. So this is not used.  */
 	private String[] jspPageLinks = { "configureMailboxes.jsp", "configureSmtpServers.jsp",
 			"configureSiteProfiles.jsp", "customizeBuiltinRules.jsp", "configureCustomRules.jsp",
 			"msgActionDetailList.jsp", "configureMailingLists.jsp", "configureEmailVariables.jsp",
@@ -49,6 +59,29 @@ public class GettingStarted implements java.io.Serializable {
 	}
 
 	public String getTitleKey() {
+		if (bundle == null) {
+			logger.error("Resource Bundle Injection Failed!!!");
+		}
+		// XXX Another way to get message from ResourceBundle
+		/*
+		javax.faces.application.FacesMessage message = jpa.msgui.util.MessageUtil.getMessage(
+				"jpa.msgui.messages", "gettingStartedHeaderText", new String[] {});
+		return message.getDetail();
+		 */
+		titleKey = sessionBean.getRequestParam("titleKey");
+		if (titleKey == null) {
+			titleKey = (String) sessionBean.getSessionParam("titleKey");
+		}
+		String fromPage = sessionBean.getRequestParam("frompage");
+		if (fromPage == null) {
+			fromPage = (String) sessionBean.getSessionParam("frompage");
+		}
+		if (!StringUtils.equals(fromPage, "main") || titleKey == null) {
+			if (titleKey == null) {
+				logger.warn("Failed to retrieve titleKey from request or session params, use default!!!");
+			}
+			titleKey = "gettingStartedHeaderText";
+		}
 		return titleKey;
 	}
 

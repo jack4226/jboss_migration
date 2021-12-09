@@ -144,7 +144,7 @@ public class TemplateDataTest extends BoTestBase {
 		// end of test update
 		
 		service.delete(var9);
-		assertNull(service.getByRowId(var9.getRowId()));
+		assertFalse(service.getByRowId(var9.getRowId()).isPresent());
 
 	}
 

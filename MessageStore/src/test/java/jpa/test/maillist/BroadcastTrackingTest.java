@@ -90,7 +90,7 @@ public class BroadcastTrackingTest extends BoTestBase {
 		service.delete(eb3);
 		assert(0==service.deleteByRowId(eb3.getRowId()));
 
-		assertNull(service.getByRowId(eb3.getRowId()));
+		assertFalse(service.getByRowId(eb3.getRowId()).isPresent());
 	}
 
 	@Test

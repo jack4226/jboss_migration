@@ -24,7 +24,7 @@ import jpa.service.rule.RuleLogicService;
 
 import org.springframework.web.context.WebApplicationContext;
 
-@javax.inject.Named("dynacodes")
+@javax.inject.Named(value = "dynacodes")
 @javax.enterprise.context.ApplicationScoped
 public class DynamicCodes implements java.io.Serializable {
 	private static final long serialVersionUID = 2326564001920612689L;

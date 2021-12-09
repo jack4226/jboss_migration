@@ -12,7 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @javax.inject.Named("builtinRule")
-@javax.enterprise.context.SessionScoped
+@javax.enterprise.context.RequestScoped
 public class RuleLogicBuiltinRuleBean extends RuleLogicBean {
 	private static final long serialVersionUID = -498930141487046944L;
 	protected static final Logger logger = LogManager.getLogger(RuleLogicBuiltinRuleBean.class);

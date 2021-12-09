@@ -143,7 +143,7 @@
 			binding="#{senderData.useTestAddrInput}"
 			required="true" label="#{msgs.useTestAddressPrompt}">
 			<f:ajax event="change" render="@this"/>
-			<f:selectItems value="#{codes.yesNoItems}"/>
+			<f:selectItems id="yes_no" value="#{codes.yesNoItems}"/>
 		</h:selectOneMenu>
 		<h:message for="usetest" styleClass="errorMessage"/>
 

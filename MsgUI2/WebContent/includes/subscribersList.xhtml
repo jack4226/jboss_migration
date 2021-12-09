@@ -103,6 +103,7 @@
           	<h:outputText value="#{subscriberData.pagingVo.pageNumber * subscriberData.pagingVo.pageSize + 1}"
           		style="font-weight: bold;" title="First Row Number" />
           	<h:outputText value=" - "/>
+          	<h:inputHidden id="pageNbrHidden" value="#{subscriberData.pagingVo.pageNumber}" />
 			<h:outputText value="#{subscriberData.lastPageRow}" title="Last Row Number"
 				style="font-weight: bold;" />
 			<h:outputText value=" of " style="font-weight: bold;"/>

@@ -27,7 +27,7 @@
 			<tr>
 				<td width="15%">&nbsp;</td>
 				<td width="70%"><span class="gettingStartedTitle">
-					<fmt:message key="gettingStartedHeaderText" bundle="${bndl}"/></span>
+					<fmt:message key="${param.titleKey}" bundle="${bndl}"/></span>
 				</td>
 				<td width="15%" style="text-align: right; vertical-align: bottom;">&nbsp;<br/>
 					<a style="color: blue;" class="headerLinkText" href="../main.faces">Main</a>

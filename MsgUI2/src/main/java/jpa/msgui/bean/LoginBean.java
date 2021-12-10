@@ -28,7 +28,7 @@ public class LoginBean implements java.io.Serializable {
 	private String source = null; // login or timeout
 	
 	//@javax.inject.Inject // XXX tomee failed to start
-	@javax.faces.annotation.ManagedProperty(value="#{facesContext}") // Did not work
+	@javax.faces.annotation.ManagedProperty(value="#{facesContext}") // Only works under JUnit
 	private FacesContext context;
 	
 	private transient UserDataService userDao = null;

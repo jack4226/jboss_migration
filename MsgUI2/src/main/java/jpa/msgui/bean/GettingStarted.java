@@ -22,11 +22,11 @@ public class GettingStarted implements java.io.Serializable {
 	@Inject
     protected MsgSessionBean sessionBean;
 
-	//@javax.inject.Inject // XXX tomee failed to start
+	@javax.inject.Inject // XXX tomee 7.1.4 failed to start
 	@javax.faces.annotation.ManagedProperty("#{param.titleKey}") // XXX Did not work
 	private String titleKey;
 	
-	//@javax.inject.Inject  // XXX tomee failed to start
+	@javax.inject.Inject  // XXX tomee 7.1.4 failed to start
 	@javax.faces.annotation.ManagedProperty(value = "#{jpa.msgui.messages}") // XXX Did not work
 	private transient ResourceBundle bundle;
 	
@@ -61,6 +61,12 @@ public class GettingStarted implements java.io.Serializable {
 	public String getTitleKey() {
 		if (bundle == null) {
 			logger.error("Resource Bundle Injection Failed!!!");
+		}
+		else {
+			logger.warn("Resource Bundle Injection Successful!!!");
+		}
+		if (titleKey != null) {
+			logger.warn("titleKey injected successfully, value = " + titleKey);
 		}
 		// XXX Another way to get message from ResourceBundle
 		/*

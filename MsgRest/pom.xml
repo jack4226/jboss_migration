@@ -7,8 +7,8 @@
   
   <properties>
   	<message-store-version>1.0.0-SNAPSHOT</message-store-version>
-  	<spring.version>[4.3.18,)</spring.version> <!-- 4.1.7.RELEASE last release supports AopUtils.isCglibProxyClass() -->
   	<java.version>1.8</java.version>
+  	<spring.version>[4.3.18,)</spring.version> <!-- 4.1.7.RELEASE last release supports AopUtils.isCglibProxyClass() -->
   	<mysql.connector.version>[8.0.16,)</mysql.connector.version>
   	<aopalliance.version>1.0</aopalliance.version>
   	<aspectjrt.version>1.9.6</aspectjrt.version>
@@ -19,7 +19,8 @@
   	<jstl.version>1.2</jstl.version>
   	<javax.mail.version>1.4.7</javax.mail.version>
   	<faces-api.version>2.3</faces-api.version>
-  	<tomee.version>7.1.4</tomee.version> <!-- 7.0.4 -->
+  	<openejb.version>1.7.5</openejb.version>
+  	<tomee.version>8.0.8</tomee.version> <!-- 7.0.4 -->
   </properties>
   
   <dependencies>
@@ -125,13 +126,33 @@
 		<version>${tomee.version}</version>
 		<scope>provided</scope>
 	</dependency>
-	<dependency>
+	<!-- dependency>
 		<groupId>org.apache.tomee</groupId>
 		<artifactId>tomee-jaxrs</artifactId>
 		<version>${tomee.version}</version>
 		<scope>provided</scope>
-	</dependency>
+	</dependency -->
 
+ <!-- 
+	<dependency>
+		<groupId>org.apache.openejb</groupId>
+		<artifactId>tomee-embedded</artifactId>
+		<version>${openejb.version}</version>
+		<scope>provided</scope>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.openejb</groupId>
+		<artifactId>tomee-jaxrs</artifactId>
+		<version>${openejb.version}</version>
+		<scope>provided</scope>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.openejb</groupId>
+		<artifactId>tomee-webservices</artifactId>
+		<version>${openejb.version}</version>
+		<scope>provided</scope>
+	</dependency>
+ -->
 	<!-- End of Embedded EJB Container -->
 
   </dependencies>

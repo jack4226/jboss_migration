@@ -1,2 +1,7 @@
 /target/
 /emaildb/
+<<<<<<< HEAD
+=======
+/logs/
+/derby.log
+>>>>>>> refs/heads/tomee_v_8

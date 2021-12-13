@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Thu Dec 09 15:43:46 EST 2021:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-017d-a0f0-0b0c-00000d520be0 
+Fri Dec 10 16:09:20 EST 2021:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-017d-a62d-cf92-00000e108fc0 
 on database directory /home/jwang/git/jboss_migration/MessageStore/emaildb with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@4b85612c 
 Loaded from file:/home/jwang/.m2/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
 java.vendor=Oracle Corporation

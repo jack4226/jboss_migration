@@ -33,7 +33,7 @@
     <faces-api.version>2.3</faces-api.version>
     <spring-data-commons.version>[1.11.22,)</spring-data-commons.version>
     <spring-data-jpa.version>[1.11.22,)</spring-data-jpa.version>
-    <activemq-version>5.16.0</activemq-version> <!-- 5.11.4 last version supports: java.lang.NoSuchMethodError: org.apache.activemq.ActiveMQPrefetchPolicy.getInputStreamPrefetch() -->
+    <activemq-version>5.16.3</activemq-version> <!-- 5.11.4 last version supports: java.lang.NoSuchMethodError: org.apache.activemq.ActiveMQPrefetchPolicy.getInputStreamPrefetch() -->
     <!-- apache-artemis.version>2.19.0</apache-artemis.version -->
     <johnzen.version>1.2.14</johnzen.version>
   </properties>

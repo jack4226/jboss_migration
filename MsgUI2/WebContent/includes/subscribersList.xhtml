@@ -10,7 +10,7 @@
 <h:outputFormat value="#{msgs.manageSubscriberInformation}" styleClass="gridHeader">
    <f:param value=""/>
 </h:outputFormat>
-<h:dataTable binding="#{subscriberData.dataTable}" id="data_table"
+<h:dataTable id="data_table"
    value="#{subscriberData.subscribers}" var="list" 
    rows="#{subscriberData.pagingVo.pageSize}"
    styleClass="jsfDataTable" rowClasses="oddRows, evenRows"

@@ -81,7 +81,7 @@ public class SubscriberDataBean extends PaginationBean implements java.io.Serial
 	public DataModel<SubscriberData> getSubscribers() {
 		String fromPage = sessionBean.getRequestParam("frompage");
 		if (StringUtils.equals(fromPage,"main")) {
-			resetPagingVo();
+			//resetPagingVo();
 		}
 		if (!getPagingVo().getPageAction().equals(PagingVo.PageAction.CURRENT) || subscribers == null) {
 			List<SubscriberData> subscriberList = getSubscriberDataService().getSubscribersWithPaging(getSearchVo());

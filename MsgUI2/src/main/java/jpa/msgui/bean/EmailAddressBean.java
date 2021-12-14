@@ -62,7 +62,7 @@ public class EmailAddressBean extends PaginationBean implements java.io.Serializ
 		String fromPage = sessionBean.getRequestParam("frompage");
 		logger.info("getEmailAddrs() - fromPage = " + fromPage);
 		if (fromPage != null && fromPage.equals("main")) {
-			resetPagingVo();
+			//resetPagingVo();
 		}
 		if (!getPagingVo().getPageAction().equals(PagingVo.PageAction.CURRENT) || emailAddrs == null) {
 			getPagingVo().setStatusId(null);

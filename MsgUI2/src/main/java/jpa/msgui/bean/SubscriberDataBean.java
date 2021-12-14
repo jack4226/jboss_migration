@@ -39,7 +39,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @javax.inject.Named("subscriberData")
-@javax.enterprise.context.RequestScoped
+@javax.enterprise.context.SessionScoped
 public class SubscriberDataBean extends PaginationBean implements java.io.Serializable {
 	private static final long serialVersionUID = 7927665483948452101L;
 	static final Logger logger = LogManager.getLogger(SubscriberDataBean.class);
